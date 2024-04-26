@@ -1,10 +1,9 @@
 ---
 name: Issue Template
 about: 이슈 공통 템플릿
-title: "[FEATURE]"
+title: '[FEATURE]'
 labels: ''
 assignees: ''
-
 ---
 
 ## 📄기능
