@@ -1,6 +1,5 @@
 {
   "github": {
     "enableDeploymentEvents": true
-  },
-  "deployment.succeeded": "yarn discord-notify"
+  }
 }

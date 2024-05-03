@@ -1,3 +1,14 @@
+const getVercelDeploy = async () => {
+  try {
+    await fetch(`${process.env.VERCEL_WEBHOOK}`, {
+      method: 'GET',
+    })
+    return true
+  } catch (err) {
+    return false
+  }
+}
+
 const sendDiscordNotification = async () => {
   try {
     await fetch(`${process.env.DISCORD_WEBHOOK}`, {
@@ -15,4 +26,5 @@ const sendDiscordNotification = async () => {
   }
 }
 
+getVercelDeploy()
 sendDiscordNotification()
