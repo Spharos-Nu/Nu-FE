@@ -2,7 +2,7 @@
   "github": {
     "enableDeploymentEvents": true
   },
-  "git": {
+  "build": {
     "deploymentEvents": {
       "deployed": "yarn discord-notify"
     }
