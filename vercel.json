@@ -2,5 +2,5 @@
   "github": {
     "enableDeploymentEvents": true
   },
-  "buildCommand": "yarn discord-notify"
+  "deployment.succeeded": "yarn discord-notify"
 }
