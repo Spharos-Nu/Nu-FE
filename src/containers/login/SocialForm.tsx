@@ -1,3 +1,4 @@
+import LoginContour from '@/../public/svgs/loginContour.svg'
 import { poppins } from '@/styles/fonts'
 import Image from 'next/image'
 
@@ -8,64 +9,13 @@ export default function SocialForm() {
     >
       <div className="flex items-center">
         <span className="inline-block">
-          <svg
-            width="99"
-            height="2"
-            viewBox="0 0 99 2"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="scale-x-[-1]"
-          >
-            <path
-              d="M0 1L99 1.00001"
-              stroke="url(#paint0_linear_312_1459)"
-              strokeWidth="0.8"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_312_1459"
-                x1="49.5"
-                y1="1"
-                x2="79.5"
-                y2="1"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#727272" />
-                <stop offset="1" stopColor="#E0E0E0" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
+          <LoginContour className="scale-x-[-1]" />
         </span>
         <span className="text-slate-500 mx-3 text-xs inline-block">
           Or continue with
         </span>
         <span className="inline-block">
-          <svg
-            width="99"
-            height="2"
-            viewBox="0 0 99 2"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 1L99 1.00001"
-              stroke="url(#paint0_linear_312_1459)"
-              strokeWidth="0.8"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_312_1459"
-                x1="49.5"
-                y1="1"
-                x2="79.5"
-                y2="1"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#727272" />
-                <stop offset="1" stopColor="#E0E0E0" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
+          <LoginContour />
         </span>
       </div>
       <div className="mt-5 w-full flex justify-center items-center">
