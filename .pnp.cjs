@@ -54,6 +54,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.2.5"],\
           ["react", "npm:18.3.0"],\
           ["react-dom", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:18.3.0"],\
+          ["react-icons", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:5.2.1"],\
           ["tailwindcss", "npm:3.4.3"],\
           ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"],\
           ["zustand", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:4.5.2"]\
@@ -6253,6 +6254,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.2.5"],\
           ["react", "npm:18.3.0"],\
           ["react-dom", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:18.3.0"],\
+          ["react-icons", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:5.2.1"],\
           ["tailwindcss", "npm:3.4.3"],\
           ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"],\
           ["zustand", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:4.5.2"]\
@@ -8279,6 +8281,28 @@ const RAW_RUNTIME_STATE =
           ["loose-envify", "npm:1.4.0"],\
           ["react", "npm:18.3.0"],\
           ["scheduler", "npm:0.23.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["react-icons", [\
+      ["npm:5.2.1", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/react-icons-npm-5.2.1-e27cbb9ccf-10c0.zip/node_modules/react-icons/",\
+        "packageDependencies": [\
+          ["react-icons", "npm:5.2.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:5.2.1", {\
+        "packageLocation": "./.yarn/__virtual__/react-icons-virtual-90b10b8e48/3/AppData/Local/Yarn/Berry/cache/react-icons-npm-5.2.1-e27cbb9ccf-10c0.zip/node_modules/react-icons/",\
+        "packageDependencies": [\
+          ["react-icons", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:5.2.1"],\
+          ["@types/react", "npm:18.3.0"],\
+          ["react", "npm:18.3.0"]\
         ],\
         "packagePeers": [\
           "@types/react",\
