@@ -1,9 +1,9 @@
+import Link from 'next/link'
 import Chat from '@/../public/svgs/nav/chat.svg'
 import Home from '@/../public/svgs/nav/home.svg'
 import Like from '@/../public/svgs/nav/like.svg'
 import Mypage from '@/../public/svgs/nav/mypage.svg'
 import Notification from '@/../public/svgs/nav/notification.svg'
-import Link from 'next/link'
 
 export default function Nav() {
   return (

@@ -1,10 +1,10 @@
 'use client'
 
-import LoginContour from '@/../public/svgs/loginContour.svg'
-import { poppins } from '@/styles/fonts'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { poppins } from '@/styles/fonts'
+import LoginContour from '@/../public/svgs/loginContour.svg'
 
 export default function SocialForm() {
   const params = useSearchParams().get('callbackUrl') || ''

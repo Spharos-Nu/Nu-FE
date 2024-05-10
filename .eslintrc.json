@@ -52,11 +52,24 @@
           "sibling",
           "index",
           "type",
+          "object",
           "unknown"
         ],
         "pathGroups": [
           {
             "pattern": "next",
+            "group": "builtin"
+          },
+          {
+            "pattern": "next/**",
+            "group": "builtin"
+          },
+          {
+            "pattern": "next-auth",
+            "group": "builtin"
+          },
+          {
+            "pattern": "next-auth/**",
             "group": "builtin"
           },
           {
@@ -81,6 +94,11 @@
           {
             "pattern": "@containers/*",
             "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/../public/svgs/**",
+            "group": "object",
             "position": "after"
           }
         ],

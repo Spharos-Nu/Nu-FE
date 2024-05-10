@@ -1,9 +1,9 @@
-import LoginDuck from '@/../public/svgs/loginDuck.svg'
+import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
 import LoginForm from '@/containers/login/LoginForm'
 import SocialForm from '@/containers/login/SocialForm'
 import { poppins } from '@/styles/fonts'
-import { redirect } from 'next/navigation'
-import { getServerSession } from 'next-auth'
+import LoginDuck from '@/../public/svgs/loginDuck.svg'
 
 export default async function Login() {
   const session = await getServerSession()

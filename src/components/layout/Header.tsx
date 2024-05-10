@@ -1,5 +1,5 @@
-import Search from '@/../public/svgs/header/search.svg'
 import CategorySelection from './CategorySelection'
+import Search from '@/../public/svgs/header/search.svg'
 
 export default function Header() {
   return (
