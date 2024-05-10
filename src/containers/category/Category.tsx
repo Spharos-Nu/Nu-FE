@@ -1,8 +1,8 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import Idol from '@/../public/svgs/duck/idol-duck.svg'
 import BackBtn from '@/../public/svgs/icon/backBtn.svg'
-import { useRouter } from 'next/navigation'
 
 export default function Category({
   setVisible,

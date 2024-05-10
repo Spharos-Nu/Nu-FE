@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import { montserrat } from '@/styles/fonts'
-import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
+import { montserrat } from '@/styles/fonts'
+import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 
 interface LoginData {
   accountId: string

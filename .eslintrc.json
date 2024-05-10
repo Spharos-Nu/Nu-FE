@@ -77,6 +77,10 @@
             "group": "builtin"
           },
           {
+            "pattern": "react-icons/**",
+            "group": "external"
+          },
+          {
             "pattern": "@hooks/*",
             "group": "internal",
             "position": "after"
