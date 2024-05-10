@@ -52,15 +52,16 @@ export const options: NextAuthOptions = {
           },
         )
 
-        if (res.status === 404) {
+        const data = await res.json()
+
+        if (data.status === 404) {
           if ('kakao_account' in profile) {
             // 회원가입 주소로 redirect
           }
         }
-        if (res.status === 200) {
-          const data = await res.json()
-          user.accessToken = data.accessToken
-          user.refreshToken = data.refreshToken
+        if (data.status === 200) {
+          user.accessToken = data.result.accessToken
+          user.refreshToken = data.result.refreshToken
           return true
         }
         return false
