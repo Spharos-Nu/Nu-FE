@@ -1,8 +1,20 @@
+'use client'
+
 import LoginContour from '@/../public/svgs/loginContour.svg'
 import { poppins } from '@/styles/fonts'
 import Image from 'next/image'
+import { useSearchParams } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 export default function SocialForm() {
+  const params = useSearchParams().get('callbackUrl') || ''
+  const kakaoLogin = () => {
+    signIn('kakao', {
+      redirect: true,
+      callbackUrl: params,
+    })
+  }
+
   return (
     <div
       className={`${poppins.className} mt-8 mx-10 flex flex-wrap justify-center`}
@@ -25,6 +37,7 @@ export default function SocialForm() {
             alt="카카오 로그인"
             width={55}
             height={55}
+            onClick={kakaoLogin}
           />
           <span className="overflow-hidden absolute w-px h-px text-[0px]">
             카카오

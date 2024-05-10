@@ -1,45 +1,72 @@
 /* eslint-disable no-param-reassign */
 import { NextAuthOptions } from 'next-auth'
-// import CredentialsProvider from 'next-auth/providers/credentials'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import KakaoProvider from 'next-auth/providers/kakao'
 
 export const options: NextAuthOptions = {
   providers: [
-    // CredentialsProvider({
-    //   name: 'Credentials',
-    //   credentials: {
-    //     accountId: { type: 'text' },
-    //     password: { type: 'password' },
-    //   },
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        accountId: { type: 'text' },
+        password: { type: 'password' },
+      },
 
-    //   async authorize(credentials) {
-    //     const res = await fetch(
-    //       `${process.env.NEXT_PUBLIC_API}/members/auth/login`,
-    //       {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({
-    //           accountId: credentials?.accountId,
-    //           password: credentials?.password,
-    //         }),
-    //       },
-    //     )
+      async authorize(credentials) {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/users/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            accountId: credentials?.accountId,
+            password: credentials?.password,
+          }),
+        })
 
-    //     if (res.ok) {
-    //       const user = await res.json()
-    //       return user
-    //     }
+        if (res.ok) {
+          const user = await res.json()
+          return user
+        }
 
-    //     return null
-    //   },
-    // }),
+        return null
+      },
+    }),
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
       clientSecret: process.env.KAKAO_CLIENT_SECRET!,
     }),
   ],
   callbacks: {
-    // 회원인지 아닌지 확인
+    async signIn({ user, profile }) {
+      if (profile) {
+        // 회원인지 아닌지 확인
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API}/members/auth/social-login`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              socialCode: user.id,
+            }),
+          },
+        )
+
+        if (res.status === 404) {
+          if ('kakao_account' in profile) {
+            // 회원가입 주소로 redirect
+          }
+        }
+        if (res.status === 200) {
+          const data = await res.json()
+          user.accessToken = data.accessToken
+          user.refreshToken = data.refreshToken
+          return true
+        }
+        return false
+      }
+      return true
+    },
     async jwt({ token, user }) {
       return { ...token, ...user }
     },
