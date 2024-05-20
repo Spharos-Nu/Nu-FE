@@ -4,11 +4,34 @@ interface DataResponse {
   message: string
 }
 
+export const join = async (
+  favoriteCategory: string,
+  nickname: string,
+  userId: string,
+  password: string,
+  phoneNumber: string,
+): Promise<DataResponse> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      favoriteCategory,
+      nickname,
+      userId,
+      password,
+      phoneNumber,
+    }),
+  })
+
+  const data = await res.json()
+  return data
+}
+
 export const duplicationCheckNick = async (
   nickname: string,
 ): Promise<DataResponse> => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/duplication-check/nick?inputParams=${nickname}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/users/duplication-check/nick?inputParams=${nickname}`,
   )
 
   const data = await res.json()
@@ -17,7 +40,7 @@ export const duplicationCheckNick = async (
 
 export const duplicationCheckId = async (id: string): Promise<DataResponse> => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/duplication-check/id?inputParams=${id}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/users/duplication-check/id?inputParams=${id}`,
   )
 
   const data = await res.json()
@@ -26,13 +49,17 @@ export const duplicationCheckId = async (id: string): Promise<DataResponse> => {
 
 export const verification = async (
   phoneNumber: string,
+  verificationNumber: string,
 ): Promise<DataResponse> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/users/verification`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(phoneNumber),
+      body: JSON.stringify({
+        phoneNumber,
+        verificationNumber,
+      }),
     },
   )
 

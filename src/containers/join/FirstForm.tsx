@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 import { TiDelete } from 'react-icons/ti'
@@ -14,6 +15,7 @@ export default function FirstForm({
 }: {
   onSwipeLeft: () => void
 }) {
+  const router = useRouter()
   const [profileImg, setProfileImg] = useState<boolean>(false)
   const {
     favoriteCategory,
@@ -34,6 +36,12 @@ export default function FirstForm({
   }
 
   const handleNick = async () => {
+    const regex = /^[a-zA-Z가-힣0-9]{2,10}$/
+    if (!regex.test(nickname)) {
+      // eslint-disable-next-line no-alert
+      return alert('2~10자의 올바른 닉네임을 입력해주세요.')
+    }
+
     const data = await duplicationCheckNick(nickname)
 
     if (data.status === 200) {
@@ -49,6 +57,12 @@ export default function FirstForm({
   }
 
   const handleId = async () => {
+    const regex = /^[a-zA-Z0-9]{6,15}$/
+    if (!regex.test(userId)) {
+      // eslint-disable-next-line no-alert
+      return alert('6~15자의 올바른 아이디를 입력해주세요.')
+    }
+
     const data = await duplicationCheckId(userId)
     if (data.status === 200) {
       setIsValidId(true)
@@ -107,7 +121,7 @@ export default function FirstForm({
               id="favoriteCategory"
               value={favoriteCategory}
               onChange={handleFavoriteCategory}
-              className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm"
+              className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm focus:border-[3px] focus:border-sky-600"
             >
               {/* Todo: select option 커스텀 */}
               <option value="" disabled selected>
@@ -115,7 +129,7 @@ export default function FirstForm({
               </option>
               {favoriteCategoryOptions.map((option) => (
                 <option key={option} value={option}>
-                  <span>{option}</span>
+                  {option}
                 </option>
               ))}
             </select>
@@ -133,19 +147,23 @@ export default function FirstForm({
             <input
               id="닉네임"
               type="text"
-              placeholder="닉네임을 입력해주세요."
+              placeholder="한/영, 숫자를 조합한 2~10자의 닉네임"
               autoComplete="off"
-              maxLength={20}
+              minLength={2}
+              maxLength={10}
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm"
+              onChange={(e) => {
+                setNickname(e.target.value)
+                setIsValidNick(false)
+              }}
+              className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm focus:border-[3px] focus:border-sky-600"
             />
             {nickname && (
-              // Todo: TiDelete 보이게
               <TiDelete
-                className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
+                className="w-4 h-4 absolute right-[105px] top-1/2 -translate-y-1/2 cursor-pointer"
                 onClick={() => {
                   setNickname('')
+                  setIsValidNick(false)
                 }}
               />
             )}
@@ -170,18 +188,23 @@ export default function FirstForm({
             <input
               id="아이디"
               type="text"
-              placeholder="아이디를 입력해주세요."
+              placeholder="영문과 숫자를 조합한 6~15자의 아이디"
               autoComplete="off"
-              maxLength={20}
+              minLength={6}
+              maxLength={15}
               value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-              className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm"
+              onChange={(e) => {
+                setUserId(e.target.value)
+                setIsValidId(false)
+              }}
+              className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm focus:border-[3px] focus:border-sky-600"
             />
             {userId && (
               <TiDelete
-                className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
+                className="w-4 h-4 absolute right-[105px] top-1/2 -translate-y-1/2 cursor-pointer"
                 onClick={() => {
                   setUserId('')
+                  setIsValidId(false)
                 }}
               />
             )}
@@ -195,18 +218,33 @@ export default function FirstForm({
             </div>
           </span>
         </div>
-        <div
-          aria-label="다음"
-          className="w-full h-14 rounded-3xl mt-3 bg-sky-600"
-        >
-          <button
-            type="button"
-            className="w-full h-full text-white"
-            onClick={checkData}
+        <span className="w-full flex justify-between">
+          <div
+            aria-label="이전"
+            className="w-[49%] h-14 rounded-3xl mt-3 bg-white border-[3px] border-sky-600"
           >
-            Next
-          </button>
-        </div>
+            <button
+              id="이전"
+              type="button"
+              className="w-full h-full text-sky-600"
+              onClick={() => router.push('/login')}
+            >
+              Previous
+            </button>
+          </div>
+          <div
+            aria-label="다음"
+            className="w-[49%] h-14 rounded-3xl mt-3 bg-sky-600"
+          >
+            <button
+              type="button"
+              className="w-full h-full text-white"
+              onClick={checkData}
+            >
+              Next
+            </button>
+          </div>
+        </span>
       </form>
     </>
   )
