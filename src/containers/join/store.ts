@@ -20,10 +20,12 @@ interface JoinFirstState {
 
 interface JoinSecondState {
   password: string
+  password2: string
   phoneNumber: string
   isValidated: boolean
 
   setPassword: (password: string) => void
+  setPassword2: (password2: string) => void
   setPhoneNumber: (phoneNumber: string) => void
   setIsValidated: (isVerified: boolean) => void
 
@@ -57,10 +59,12 @@ export const useFirstStore = create<JoinFirstState>((set) => ({
 
 export const useSecondStore = create<JoinSecondState>((set) => ({
   password: '',
+  password2: '',
   phoneNumber: '',
   isValidated: false,
 
   setPassword: (password) => set({ password }),
+  setPassword2: (password2) => set({ password2 }),
   setPhoneNumber: (phoneNumber) => set({ phoneNumber }),
   setIsValidated: (isValidated) => set({ isValidated }),
 
