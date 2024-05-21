@@ -1,5 +1,5 @@
 import { TiDelete } from 'react-icons/ti'
-import { duplicationCheckId } from '@/app/api/auth/Functions'
+import { duplicationCheckId } from '@/app/api/auth/functions'
 import { useFirstStore } from './store'
 
 export default function IdInput() {

@@ -1,5 +1,5 @@
 import { TiDelete } from 'react-icons/ti'
-import { duplicationCheckNick } from '@/app/api/auth/Functions'
+import { duplicationCheckNick } from '@/app/api/auth/functions'
 import { useFirstStore } from './store'
 
 export default function NicknameInput() {
