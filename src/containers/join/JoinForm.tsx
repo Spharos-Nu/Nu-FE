@@ -10,8 +10,10 @@ import { useFirstStore, useSecondStore } from './store'
 export default function JoinForm() {
   const router = useRouter()
   const [currentIdx, setCurrentIdx] = useState<number>(0)
-  const { favoriteCategory, nickname, userId } = useFirstStore()
-  const { password, password2, phoneNumber, isValidated } = useSecondStore()
+  const { profileImgUrl, favoriteCategory, nickname, userId, resetFirstState } =
+    useFirstStore()
+  const { password, password2, phoneNumber, isValidated, resetSecondState } =
+    useSecondStore()
 
   const handleSwipeLeft = () => {
     setCurrentIdx(1)
@@ -51,6 +53,7 @@ export default function JoinForm() {
     }
 
     const data = await join(
+      profileImgUrl,
       favoriteCategory,
       nickname,
       userId,
@@ -63,6 +66,8 @@ export default function JoinForm() {
       router.push('/login')
     }
 
+    resetFirstState()
+    resetSecondState()
     // eslint-disable-next-line no-alert
     return alert(data.message)
   }

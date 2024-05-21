@@ -18,7 +18,7 @@ export default function SelectCategory() {
           className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm focus:border-[3px] focus:border-sky-600"
         >
           {/* Todo: select option 커스텀 */}
-          <option value="" disabled selected>
+          <option value="" disabled>
             관심 카테고리를 선택해주세요.
           </option>
           {favoriteCategoryOptions.map((option) => (
