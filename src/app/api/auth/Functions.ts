@@ -5,6 +5,7 @@ interface DataResponse {
 }
 
 export const join = async (
+  profileImage: string,
   favoriteCategory: string,
   nickname: string,
   userId: string,
@@ -15,6 +16,7 @@ export const join = async (
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
+      profileImage,
       favoriteCategory,
       nickname,
       userId,

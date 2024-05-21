@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { join } from '@/app/api/auth/functions'
+import { join } from '@/app/api/auth/Functions'
 import FirstForm from './FirstForm'
 import SecondForm from './SecondForm'
 import { useFirstStore, useSecondStore } from './store'
