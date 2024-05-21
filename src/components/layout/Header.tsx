@@ -1,5 +1,5 @@
-import CategorySelection from './CategorySelection'
-import Search from '@/../public/svgs/header/search.svg'
+import SearchVisible from '@/containers/search/SearchVisible'
+import CategorySelection from '../../containers/category/CategorySelection'
 
 export default function Header() {
   return (
@@ -8,9 +8,7 @@ export default function Header() {
         <h1 className="pl-[20px]">Home</h1>
         <CategorySelection />
       </div>
-      <div className="pr-[20px] content-center">
-        <Search />
-      </div>
+      <SearchVisible />
     </header>
   )
 }
