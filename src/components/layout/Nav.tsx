@@ -1,9 +1,9 @@
 import Link from 'next/link'
+import AllGoods from '@/../public/svgs/nav/allGoods.svg'
 import Chat from '@/../public/svgs/nav/chat.svg'
 import Home from '@/../public/svgs/nav/home.svg'
 import Like from '@/../public/svgs/nav/like.svg'
 import Mypage from '@/../public/svgs/nav/mypage.svg'
-import Notification from '@/../public/svgs/nav/notification.svg'
 
 export default function Nav() {
   return (
@@ -20,9 +20,9 @@ export default function Nav() {
         <div className="text-center">
           <Link href="/">
             <div className="inline-block">
-              <Chat />
+              <AllGoods />
             </div>
-            <div>대화</div>
+            <div>전체</div>
           </Link>
         </div>
         <div className="text-center">
@@ -36,9 +36,9 @@ export default function Nav() {
         <div className="text-center">
           <Link href="/">
             <div className="inline-block">
-              <Notification />
+              <Chat />
             </div>
-            <div>알림</div>
+            <div>채팅</div>
           </Link>
         </div>
         <div className="text-center">

@@ -1,3 +1,4 @@
+import NotificationVisible from '@/containers/notification/NotificationVisible'
 import SearchVisible from '@/containers/search/SearchVisible'
 import CategorySelection from '../../containers/category/CategorySelection'
 
@@ -8,7 +9,10 @@ export default function Header() {
         <h1 className="pl-[20px]">Home</h1>
         <CategorySelection />
       </div>
-      <SearchVisible />
+      <div className="flex justify-between">
+        <NotificationVisible />
+        <SearchVisible />
+      </div>
     </header>
   )
 }
