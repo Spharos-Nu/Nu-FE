@@ -2,15 +2,24 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { join } from '@/app/api/auth/Functions'
-import FirstForm from './FirstForm'
-import SecondForm from './SecondForm'
-import { useFirstStore, useSecondStore } from './store'
+import { join } from '@/app/api/auth/functions'
+import FirstBtnArea from '@/containers/join/FirstBtnArea'
+import IdInput from '@/containers/join/IdInput'
+import NicknameInput from '@/containers/join/NicknameInput'
+import PhoneVerification from '@/containers/join/PhoneVerification'
+import ProfileImgArea from '@/containers/join/ProfileImgArea'
+import Pw2Input from '@/containers/join/Pw2Input'
+import PwInput from '@/containers/join/PwInput'
+import SecondBtnArea from '@/containers/join/SecondBtnArea'
+import SelectCategory from '@/containers/join/SelectCategory'
+import { useFirstStore, useSecondStore } from '@/containers/join/store'
+import { uploadImage } from '@/utils/uploadImage'
+import DuckOne from '@/../public/svgs/duck/duckone.svg'
 
 export default function JoinForm() {
   const router = useRouter()
   const [currentIdx, setCurrentIdx] = useState<number>(0)
-  const { profileImgUrl, favoriteCategory, nickname, userId, resetFirstState } =
+  const { profileImage, favoriteCategory, nickname, userId, resetFirstState } =
     useFirstStore()
   const { password, password2, phoneNumber, isValidated, resetSecondState } =
     useSecondStore()
@@ -52,6 +61,8 @@ export default function JoinForm() {
       return alert('휴대폰 인증이 필요합니다.')
     }
 
+    const profileImgUrl = await uploadImage(profileImage)
+
     const data = await join(
       profileImgUrl,
       favoriteCategory,
@@ -61,13 +72,14 @@ export default function JoinForm() {
       phoneNumber,
     )
 
-    if (data.status === 200) {
+    resetFirstState()
+    resetSecondState()
+
+    if (data.status === 201) {
       // Todo: 모달 달아서, 모달 닫히면 router.push되도록
       router.push('/login')
     }
 
-    resetFirstState()
-    resetSecondState()
     // eslint-disable-next-line no-alert
     return alert(data.message)
   }
@@ -76,11 +88,28 @@ export default function JoinForm() {
     <div className="w-full h-full flex">
       {currentIdx === 0 ? (
         <div className="w-full flex-shrink-0">
-          <FirstForm onSwipeLeft={handleSwipeLeft} />
+          <ProfileImgArea />
+          <form className="mx-10 mt-8">
+            <SelectCategory />
+            <NicknameInput />
+            <IdInput />
+            <FirstBtnArea onSwipeLeft={handleSwipeLeft} />
+          </form>
         </div>
       ) : (
         <div className="w-full flex-shrink-0">
-          <SecondForm onSwipeRight={handleSwipeRight} handleJoin={handleJoin} />
+          <div className="flex justify-center items-center">
+            <DuckOne />
+          </div>
+          <form className="mx-10 mt-8">
+            <PwInput />
+            <Pw2Input />
+            <PhoneVerification />
+            <SecondBtnArea
+              onSwipeRight={handleSwipeRight}
+              onJoin={handleJoin}
+            />
+          </form>
         </div>
       )}
     </div>

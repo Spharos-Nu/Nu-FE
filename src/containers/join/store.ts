@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 interface JoinFirstState {
-  profileImgUrl: string
+  profileImage: File | null
   favoriteCategory: string
   nickname: string
   isValidNick: boolean
@@ -10,7 +10,7 @@ interface JoinFirstState {
 
   favoriteCategoryOptions: string[]
 
-  setProfileImgUrl: (profileImgUrl: string) => void
+  setProfileImage: (profileImage: File | null) => void
   setFavoriteCategory: (category: string) => void
   setNickname: (nickname: string) => void
   setIsValidNick: (isValidNick: boolean) => void
@@ -35,7 +35,7 @@ interface JoinSecondState {
 }
 
 export const useFirstStore = create<JoinFirstState>((set) => ({
-  profileImgUrl: '',
+  profileImage: null,
   favoriteCategory: '',
   nickname: '',
   isValidNick: false,
@@ -44,7 +44,7 @@ export const useFirstStore = create<JoinFirstState>((set) => ({
 
   favoriteCategoryOptions: ['아이돌', '애니메이션', '야구'],
 
-  setProfileImgUrl: (profileImgUrl) => set({ profileImgUrl }),
+  setProfileImage: (profileImage) => set({ profileImage }),
   setFavoriteCategory: (category) => set({ favoriteCategory: category }),
   setNickname: (nickname) => set({ nickname }),
   setIsValidNick: (isValidNick) => set({ isValidNick }),
@@ -53,7 +53,7 @@ export const useFirstStore = create<JoinFirstState>((set) => ({
 
   resetFirstState: () =>
     set({
-      profileImgUrl: '',
+      profileImage: null,
       favoriteCategory: '',
       nickname: '',
       isValidNick: false,
