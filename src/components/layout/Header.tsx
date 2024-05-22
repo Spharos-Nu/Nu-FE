@@ -1,5 +1,5 @@
+import CategorySelection from '@/containers/category/CategorySelection'
 import SearchVisible from '@/containers/search/SearchVisible'
-import CategorySelection from '../../containers/category/CategorySelection'
 
 export default function Header() {
   return (
