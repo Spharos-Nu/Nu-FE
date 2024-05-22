@@ -27,28 +27,24 @@ export default function RecentSearch({
         </div>
       </div>
       <div className="flex w-full overflow-x-auto whitespace-nowrap">
-        <div className="w-fit">
-          <div className="w-[150px] h-auto inline-block">
-            {keywords.map((item: KeywordType) => (
+        {keywords.map((item: KeywordType) => (
+          <div
+            key={item.id}
+            role="none"
+            className="text-[13px] border border-gray-300 rounded-[20px] px-[8px] ml-[12px] mt-[5px] inline-block cursor-pointer"
+          >
+            <div className="flex">
+              <div>{item.text}</div>
               <div
-                key={item.id}
+                className="place-self-center pl-[8px]"
                 role="none"
-                className="text-[13px] border border-gray-300 rounded-[20px] px-[8px] ml-[12px] mt-[5px] inline-block cursor-pointer"
+                onClick={() => handleRemoveKeyword(item.id)}
               >
-                <div className="flex">
-                  <div>{item.text}</div>
-                  <div
-                    className="place-self-center pl-[8px]"
-                    role="none"
-                    onClick={() => handleRemoveKeyword(item.id)}
-                  >
-                    <Remove />
-                  </div>
-                </div>
+                <Remove />
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </>
   )

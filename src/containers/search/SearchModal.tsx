@@ -14,11 +14,6 @@ export default function SearchModal({
   const [keywords, setKeywords] = useState<KeywordType[]>(
     JSON.parse(localStorage.getItem('keywords') || '[]'),
   )
-  // keyword에 변화가 일어날때만 랜더링
-  useEffect(() => {
-    // array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
-    localStorage.setItem('keywords', JSON.stringify(keywords))
-  }, [keywords])
 
   // 검색어 추가
   const handleAddKeyword = (text: string) => {
@@ -41,6 +36,10 @@ export default function SearchModal({
   const handleClearKeywords = () => {
     setKeywords([])
   }
+
+  useEffect(() => {
+    localStorage.setItem('keywords', JSON.stringify(keywords))
+  }, [keywords])
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">

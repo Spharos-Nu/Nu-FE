@@ -1,6 +1,6 @@
 'use client'
 
-import { SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import Search from '@/../public/svgs/header/search.svg'
 
 export default function SearchForm({
@@ -8,14 +8,13 @@ export default function SearchForm({
 }: {
   handleAddKeyword: (keyword: string) => void
 }) {
-  const [keyword, setKeyword] = useState('')
+  const [keyword, setKeyword] = useState<string>('')
 
-  const handleKeyword = (e: { target: { value: SetStateAction<string> } }) => {
+  const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
   }
-  const handleEnter = (e: { keyCode: number }) => {
-    if (keyword && e.keyCode === 13) {
-      // 엔터일때 부모의 addkeyword에 전달
+  const handleEnter = (e: React.KeyboardEvent) => {
+    if (keyword && e.key === 'Enter') {
       handleAddKeyword(keyword)
       setKeyword('')
     }
