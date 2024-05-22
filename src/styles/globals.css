@@ -16,8 +16,46 @@
   }
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 body {
-  font-family: 'Dovemayo'
+  font-family: 'Dovemayo', 'Pretendard';
+}
+
+select {
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 20px; /* 화살표 아이콘 크기만큼 오른쪽 여백 추가 */
+}
+
+form:focus,
+a:focus,
+input:focus,
+button:focus,
+select:focus {
+  outline: none;
+}
+
+a:-webkit-any-link {
+  cursor: pointer;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='submit'],
+input[type='search'],
+button,
+input[type='button'],
+input[type='submit'],
+input[type='reset'],
+input[type='file'] {
+  font-family: 'Dovemayo', 'Pretendard', sans-serif;
 }
 
 @layer utilities {
