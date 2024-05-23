@@ -1,7 +1,16 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import Idol from '@/../public/svgs/duck/idol-duck.svg'
+import { useState } from 'react'
+import Animation from '@/../public/svgs/category/animation.svg'
+import AnimationColor from '@/../public/svgs/category/animationColor.svg'
+import AnimationGo from '@/../public/svgs/category/animationGo.svg'
+import Baseball from '@/../public/svgs/category/baseball.svg'
+import BaseballColor from '@/../public/svgs/category/baseballColor.svg'
+import BaseballGo from '@/../public/svgs/category/baseballGo.svg'
+import Kpop from '@/../public/svgs/category/kpop.svg'
+import KpopColor from '@/../public/svgs/category/kpopColor.svg'
+import KpopGo from '@/../public/svgs/category/kpopGo.svg'
 import BackBtn from '@/../public/svgs/icon/backBtn.svg'
 
 export default function Category({
@@ -10,12 +19,23 @@ export default function Category({
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const router = useRouter()
-
-  const handleClick = () => {
-    router.push(`/`)
-  }
-
+  const [itemPosition, setItemPosition] = useState([
+    { id: 1, pos: false },
+    { id: 2, pos: false },
+    { id: 3, pos: true },
+  ])
   const text = '어떤 굿즈를\n찾아 오셨나요?'
+
+  const handlePosition = (id: number) => {
+    const newPosition = itemPosition.map((item) => {
+      if (item.id === id) {
+        return { ...item, pos: true }
+      }
+      return { ...item, pos: false }
+    })
+
+    setItemPosition(newPosition)
+  }
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
@@ -26,47 +46,50 @@ export default function Category({
       >
         <BackBtn />
       </div>
-      <h1 className="whitespace-pre-line mt-[100px] ml-[30px] text-[37px] tracking-[-0.1rem] font-semibold">
+      <h1 className="whitespace-pre-line mt-[70px] ml-[30px] text-[30px] tracking-[-0.1rem] font-semibold leading-[40px]">
         {text}
       </h1>
-      <div className="mt-[80px] mb-[50px] tracking-[-0.07rem]">
+      <div className="mt-[30px] mx-[20px] relative">
         <div
-          onClick={() => handleClick()}
+          className={`relative w-full aspect-square overflow-hidden transition-all ease-out 0.5s ${itemPosition[0].pos ? 'h-auto' : 'h-[145px]'}`}
           role="none"
-          className="flex justify-between mx-[30px] px-[30px] h-[130px] border rounded-lg"
+          onClick={() => handlePosition(1)}
         >
-          <div className="content-center">
-            <p className="text-[20px]">아이돌</p>
-            <p className="text-[15px]">K-pop</p>
-          </div>
-          <div className="content-center">
-            <Idol />
+          {itemPosition[0].pos ? <KpopColor /> : <Kpop />}
+          <div
+            className="absolute left-[20px] top-[220px]"
+            role="none"
+            onClick={() => router.push('/')}
+          >
+            <KpopGo />
           </div>
         </div>
         <div
-          onClick={() => handleClick()}
+          className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[1].pos ? 'h-auto' : 'h-[145px]'}`}
           role="none"
-          className="flex justify-between mt-[20px] mx-[30px] px-[30px] h-[130px] border rounded-lg"
+          onClick={() => handlePosition(2)}
         >
-          <div className="content-center">
-            <p className="text-[20px]">야구</p>
-            <p className="text-[15px]">Baseball</p>
-          </div>
-          <div className="content-center">
-            <Idol />
+          {itemPosition[1].pos ? <BaseballColor /> : <Baseball />}
+          <div
+            className="absolute left-[20px] top-[220px]"
+            role="none"
+            onClick={() => router.push('/')}
+          >
+            <BaseballGo />
           </div>
         </div>
         <div
-          onClick={() => handleClick()}
+          className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[2].pos ? 'h-auto' : 'h-[160px]'}`}
           role="none"
-          className="flex justify-between mt-[20px] mx-[30px] px-[30px] h-[130px] border rounded-lg"
+          onClick={() => handlePosition(3)}
         >
-          <div className="content-center">
-            <p className="text-[20px]">애니메이션</p>
-            <p className="text-[15px]">Animation</p>
-          </div>
-          <div className="content-center">
-            <Idol />
+          {itemPosition[2].pos ? <AnimationColor /> : <Animation />}
+          <div
+            className="absolute left-[20px] top-[220px]"
+            role="none"
+            onClick={() => router.push('/')}
+          >
+            <AnimationGo />
           </div>
         </div>
       </div>
