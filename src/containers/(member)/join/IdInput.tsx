@@ -1,5 +1,5 @@
 import { TiDelete } from 'react-icons/ti'
-import { useFirstStore } from '@/containers/join/store'
+import { useFirstStore } from '@/containers/(member)/join/store'
 import { duplicationCheckId } from '@/utils/api/memberFunctions'
 
 export default function IdInput() {

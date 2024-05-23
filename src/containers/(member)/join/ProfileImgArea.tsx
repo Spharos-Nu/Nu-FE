@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
-import { useFirstStore } from '@/containers/join/store'
+import { useFirstStore } from '@/containers/(member)/join/store'
 import BasicProfileDuck from '@/../public/svgs/duck/basicProfileDuck.svg'
 import ProfileImgBtn from '@/../public/svgs/icon/profileImgBtn.svg'
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useFirstStore, useSecondStore } from '@/containers/join/store'
+import { useFirstStore, useSecondStore } from '@/containers/(member)/join/store'
 import { verification, verificationConfirm } from '@/utils/api/memberFunctions'
 import VerificationTime from '@/../public/svgs/icon/verificationTime.svg'
 
