@@ -8,20 +8,17 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        accountId: { type: 'text' },
+        userId: { type: 'text' },
         password: { type: 'password' },
       },
 
       async authorize(credentials) {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_MEMBER}/users-n/login`,
+          `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/login`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              accountId: credentials?.accountId,
-              password: credentials?.password,
-            }),
+            body: JSON.stringify(credentials),
           },
         )
 
@@ -43,7 +40,7 @@ export const options: NextAuthOptions = {
       if (profile) {
         // 회원인지 아닌지 확인
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API}/members/auth/social-login`,
+          `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/user-n/social-login`,
           {
             method: 'GET',
             headers: {
@@ -59,7 +56,7 @@ export const options: NextAuthOptions = {
 
         if (data.status === 404) {
           if ('kakao_account' in profile) {
-            // 회원가입 주소로 redirect
+            return `/join?id=${user.id}&provider=kakao`
           }
         }
         if (data.status === 200) {
@@ -81,7 +78,7 @@ export const options: NextAuthOptions = {
     },
   },
   pages: {
-    // signIn: '/login',
+    signIn: '/login',
     error: '/auth_error',
   },
 }
