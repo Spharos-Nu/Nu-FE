@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { join } from '@/app/api/auth/functions'
 import FirstBtnArea from '@/containers/join/FirstBtnArea'
 import IdInput from '@/containers/join/IdInput'
 import NicknameInput from '@/containers/join/NicknameInput'
@@ -13,6 +12,7 @@ import PwInput from '@/containers/join/PwInput'
 import SecondBtnArea from '@/containers/join/SecondBtnArea'
 import SelectCategory from '@/containers/join/SelectCategory'
 import { useFirstStore, useSecondStore } from '@/containers/join/store'
+import { join } from '@/utils/api/memberFunctions'
 import { uploadImage } from '@/utils/uploadImage'
 import DuckOne from '@/../public/svgs/duck/duckone.svg'
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { verification, verificationConfirm } from '@/app/api/auth/functions'
-import { useFirstStore, useSecondStore } from './store'
+import { useFirstStore, useSecondStore } from '@/containers/join/store'
+import { verification, verificationConfirm } from '@/utils/api/memberFunctions'
 import VerificationTime from '@/../public/svgs/icon/verificationTime.svg'
 
 export default function PhoneVerification() {

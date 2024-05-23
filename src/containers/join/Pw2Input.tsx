@@ -1,4 +1,4 @@
-import { useSecondStore } from './store'
+import { useSecondStore } from '@/containers/join/store'
 
 export default function Pwd2Inptut() {
   const { password2, setPassword2 } = useSecondStore()
