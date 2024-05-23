@@ -1,6 +1,6 @@
 import { TiDelete } from 'react-icons/ti'
 import { useFirstStore } from '@/containers/(member)/join/store'
-import { duplicationCheckNick } from '@/utils/api/memberFunctions'
+import { duplicationCheckNick } from '@/utils/memberApi'
 
 export default function NicknameInput() {
   const { nickname, setNickname, setIsValidNick } = useFirstStore()

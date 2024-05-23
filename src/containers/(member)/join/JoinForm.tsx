@@ -12,7 +12,7 @@ import PwInput from '@/containers/(member)/join/PwInput'
 import SecondBtnArea from '@/containers/(member)/join/SecondBtnArea'
 import SelectCategory from '@/containers/(member)/join/SelectCategory'
 import { useFirstStore, useSecondStore } from '@/containers/(member)/join/store'
-import { join } from '@/utils/api/memberFunctions'
+import { join } from '@/utils/memberApi'
 import { uploadImage } from '@/utils/uploadImage'
 import DuckOne from '@/../public/svgs/duck/duckone.svg'
 
