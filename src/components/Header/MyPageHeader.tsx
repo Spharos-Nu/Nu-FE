@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 import { FaArrowLeft } from 'react-icons/fa'
 import { IoHome } from 'react-icons/io5'
 
@@ -26,7 +27,7 @@ export default function MyPageHeader() {
         className="flex-[2] flex items-center justify-center"
         aria-label="홈"
       >
-        <IoHome className="w-5 h-5" id="홈" onClick={() => router.push('/')} />
+        <IoHome className="w-5 h-5" id="홈" onClick={() => signOut} />
       </span>
     </div>
   )
