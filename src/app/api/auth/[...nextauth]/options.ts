@@ -24,7 +24,7 @@ export const options: NextAuthOptions = {
 
         if (res.ok) {
           const user = await res.json()
-          return user
+          return user.result
         }
 
         return null
@@ -40,7 +40,7 @@ export const options: NextAuthOptions = {
       if (profile) {
         // 회원인지 아닌지 확인
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/user-n/social-login`,
+          `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/social-login`,
           {
             method: 'GET',
             headers: {
@@ -68,12 +68,12 @@ export const options: NextAuthOptions = {
       }
       return true
     },
-    async jwt({ token, user }) {
+    async jwt({ user, token }) {
       return { ...token, ...user }
     },
     async session({ session, token }) {
-      session.user.accessToken = token.accessToken
-      session.user.refreshToken = token.accessToken
+      session.user.accessToken = token.result.accessToken
+      session.user.refreshToken = token.result.accessToken
       return { ...session, ...token }
     },
   },
