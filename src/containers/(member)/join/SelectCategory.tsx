@@ -1,5 +1,5 @@
 import { IoIosArrowDown } from 'react-icons/io'
-import { useFirstStore } from '@/containers/join/store'
+import { useFirstStore } from '@/containers/(member)/join/store'
 
 export default function SelectCategory() {
   const { favoriteCategory, setFavoriteCategory, favoriteCategoryOptions } =

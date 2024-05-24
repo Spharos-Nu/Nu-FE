@@ -10,7 +10,7 @@ import { montserrat } from '@/styles/fonts'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 
 interface LoginData {
-  accountId: string
+  userId: string
   password: string
 }
 
@@ -18,7 +18,7 @@ export default function LoginForm() {
   const params = useSearchParams().get('callbackUrl') || ''
 
   const [payload, setPayload] = useState<LoginData>({
-    accountId: '',
+    userId: '',
     password: '',
   })
 
@@ -30,7 +30,7 @@ export default function LoginForm() {
   const handleIdInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPayload((prevState) => ({
       ...prevState,
-      accountId: e.target.value,
+      userId: e.target.value,
     }))
 
     setIdInput(e.target.value !== '')
@@ -55,11 +55,11 @@ export default function LoginForm() {
     e.preventDefault()
 
     if (isChecked) {
-      saveId(payload.accountId)
+      saveId(payload.userId)
       saveCheckbox(isChecked)
     }
 
-    if (!payload.accountId) {
+    if (!payload.userId) {
       // Todo: 아이디를 입력해주세요 모달
       // eslint-disable-next-line no-alert
       return alert('아이디를 입력해주세요.')
@@ -71,7 +71,7 @@ export default function LoginForm() {
     }
 
     await signIn('credentials', {
-      accountId: payload.accountId,
+      userId: payload.userId,
       password: payload.password,
       redirect: true,
       callbackUrl: params,
@@ -85,7 +85,7 @@ export default function LoginForm() {
     if (userId) {
       setPayload(() => ({
         ...payload,
-        accountId: userId,
+        userId,
       }))
     }
 
@@ -114,7 +114,7 @@ export default function LoginForm() {
             placeholder="Your Name"
             autoComplete="off"
             maxLength={20}
-            value={payload.accountId}
+            value={payload.userId}
             onChange={handleIdInput}
             className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm"
           />
@@ -124,7 +124,7 @@ export default function LoginForm() {
               onClick={() => {
                 setPayload(() => ({
                   ...payload,
-                  accountId: '',
+                  userId: '',
                 }))
                 setIdInput(false)
               }}

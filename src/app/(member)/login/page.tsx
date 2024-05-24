@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
-import LoginForm from '@/containers/login/LoginForm'
-import SocialForm from '@/containers/login/SocialForm'
+import LoginForm from '@/containers/(member)/login/LoginForm'
+import SocialForm from '@/containers/(member)/login/SocialForm'
 import { poppins } from '@/styles/fonts'
 import LoginDuck from '@/../public/svgs/loginDuck.svg'
 

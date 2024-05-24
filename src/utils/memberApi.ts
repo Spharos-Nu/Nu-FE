@@ -1,8 +1,4 @@
-interface DataResponse {
-  status: number
-  result: unknown
-  message: string
-}
+import { ApiResponse } from '@/types/apiResponseType'
 
 export const join = async (
   profileImage: string,
@@ -11,7 +7,7 @@ export const join = async (
   userId: string,
   password: string,
   phoneNumber: string,
-): Promise<DataResponse> => {
+): Promise<ApiResponse<null>> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -31,7 +27,7 @@ export const join = async (
 
 export const duplicationCheckNick = async (
   nickname: string,
-): Promise<DataResponse> => {
+): Promise<ApiResponse<null>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/duplication-check/nick?inputParams=${nickname}`,
   )
@@ -40,7 +36,9 @@ export const duplicationCheckNick = async (
   return data
 }
 
-export const duplicationCheckId = async (id: string): Promise<DataResponse> => {
+export const duplicationCheckId = async (
+  id: string,
+): Promise<ApiResponse<null>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/duplication-check/id?inputParams=${id}`,
   )
@@ -52,7 +50,7 @@ export const duplicationCheckId = async (id: string): Promise<DataResponse> => {
 export const verification = async (
   phoneNumber: string,
   verificationNumber: string,
-): Promise<DataResponse> => {
+): Promise<ApiResponse<null>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/verification`,
     {
@@ -72,7 +70,7 @@ export const verification = async (
 export const verificationConfirm = async (
   phoneNumber: string,
   verificationNumber: string,
-): Promise<DataResponse> => {
+): Promise<ApiResponse<null>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/verification/confirm`,
     {
