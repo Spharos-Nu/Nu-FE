@@ -2,6 +2,7 @@
 
 // import AdvertisingBanner from '@/containers/main/AdvertisingBanner'
 import ComingSoon from '@/containers/main/ComingSoon'
+import Hits from '@/containers/main/Hits'
 import HotInterest from '@/containers/main/HotInterest'
 import LiveBidding from '@/containers/main/LiveBidding'
 import UserHeader from '@/containers/main/UserHeader'
@@ -15,6 +16,7 @@ export default function Home() {
       <LiveBidding />
       <HotInterest />
       <ComingSoon />
+      <Hits />
     </main>
   )
 }
