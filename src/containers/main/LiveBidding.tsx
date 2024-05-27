@@ -1,6 +1,6 @@
 import Data from '@/dummydata/liveBidding.json'
-import { LiveBiddingType } from '@/types/LiveBiddingType'
-import LiveBiddingItem from './LiveBiddingItem'
+import { LiveAndHotType } from '@/types/LiveAndHotType'
+import LiveAndHotItem from './LiveAndHotItem'
 
 export default function LiveBidding() {
   const data = Data.goodsList
@@ -19,8 +19,8 @@ export default function LiveBidding() {
         <div className="">모두보기</div>
       </div>
       <div className="mt-[15px] whitespace-nowrap overflow-x-auto flex-row">
-        {data.map((item: LiveBiddingType) => (
-          <LiveBiddingItem key={item.goodsCode} item={item} />
+        {data.map((item: LiveAndHotType) => (
+          <LiveAndHotItem key={item.goodsCode} item={item} />
         ))}
       </div>
     </div>

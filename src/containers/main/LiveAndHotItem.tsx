@@ -1,16 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import exImg from '@/dummydata/banner1.png'
-import { HighlyInterestedType } from '@/types/HighlyInterestedType'
+import { LiveAndHotType } from '@/types/LiveAndHotType'
 import LikeFalse from '@/../public/svgs/icon/likeFalse.svg'
 
-export default function HighlyInterestedItem({
-  item,
-}: {
-  item: HighlyInterestedType
-}) {
+export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
   return (
-    <div className="border rounded-xl mr-[20px] last:mr-0 inline-block bg-clip-content relative">
+    <Link
+      href={`/goods-detail?code=${item.goodsCode}`}
+      className="border rounded-xl mr-[20px] last:mr-0 inline-block bg-clip-content relative"
+    >
       <Image
         src={exImg}
         alt={item.goodsName}
@@ -25,14 +24,11 @@ export default function HighlyInterestedItem({
           <p className="bg-[#5D5FEF] bg-opacity-15 px-[22px] py-[8px] text-[#5D5FEF] rounded-full text-[17px] font-bold">
             2d 3h 12m 36s
           </p>
-          <Link
-            href={`/goods-detail?code=${item.goodsCode}`}
-            className="bg-[#2B74B9] text-white rounded-full px-[20px] py-[8px]"
-          >
-            입찰하기
-          </Link>
+          <div className="bg-[#2B74B9] text-white rounded-full px-[20px] py-[8px]">
+            {item.minPrice.toLocaleString()}원
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }

@@ -1,4 +1,4 @@
-export interface HighlyInterestedType {
+export interface LiveAndHotType {
   goodsCode: string
   thumbnail: string
   goodsName: string

@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Data from '@/dummydata/liveBidding.json'
-import { HighlyInterestedType } from '@/types/HighlyInterestedType'
-import HighlyInterestedItem from './HighlyInterestedItem'
+import { LiveAndHotType } from '@/types/LiveAndHotType'
+import LiveAndHotItem from './LiveAndHotItem'
 
-export default function HighlyInterested() {
+export default function HotInterest() {
   const data = Data.goodsList
 
   return (
@@ -20,8 +20,8 @@ export default function HighlyInterested() {
         <Link href="/">모두보기</Link>
       </div>
       <div className="mt-[15px] whitespace-nowrap overflow-x-auto flex-row">
-        {data.map((item: HighlyInterestedType) => (
-          <HighlyInterestedItem key={item.goodsCode} item={item} />
+        {data.map((item: LiveAndHotType) => (
+          <LiveAndHotItem key={item.goodsCode} item={item} />
         ))}
       </div>
     </div>
