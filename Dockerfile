@@ -2,7 +2,7 @@
 FROM node:20-alpine AS deps
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # 애플리케이션 빌드를 위한 스테이지
 FROM node:20-alpine AS builder
