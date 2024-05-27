@@ -1,6 +1,6 @@
 // import Intro from '@/containers/main/Intro'
 
-// import AdvertisingBanner from '@/containers/main/AdvertisingBanner'
+import AdvertisingBanner from '@/containers/main/AdvertisingBanner'
 import ComingSoon from '@/containers/main/ComingSoon'
 import Hits from '@/containers/main/Hits'
 import HotInterest from '@/containers/main/HotInterest'
@@ -12,7 +12,7 @@ export default function Home() {
     <main className="w-full">
       {/* <Intro /> */}
       <UserHeader />
-      {/* <AdvertisingBanner /> */}
+      <AdvertisingBanner />
       <LiveBidding />
       <HotInterest />
       <ComingSoon />

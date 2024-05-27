@@ -57,6 +57,7 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:18.3.1"],\
           ["react-icons", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:5.2.1"],\
+          ["swiper", "npm:11.1.3"],\
           ["tailwindcss", "npm:3.4.3"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"],\
           ["zustand", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:4.5.2"]\
@@ -7631,6 +7632,7 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:18.3.1"],\
           ["react-icons", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:5.2.1"],\
+          ["swiper", "npm:11.1.3"],\
           ["tailwindcss", "npm:3.4.3"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"],\
           ["zustand", "virtual:24d9751f5f4937f2475ac8c1719e6c09794229639b78c0ca10947f7c87985b37938e57a78cbf4b872dc2fbfc9eb1b8ab4c2edd22c39888a428ac85a8f212760b#npm:4.5.2"]\
@@ -10425,6 +10427,15 @@ const RAW_RUNTIME_STATE =
           ["css-what", "npm:6.1.0"],\
           ["csso", "npm:5.0.5"],\
           ["picocolors", "npm:1.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["swiper", [\
+      ["npm:11.1.3", {\
+        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/swiper-npm-11.1.3-45b6f6d175-10c0.zip/node_modules/swiper/",\
+        "packageDependencies": [\
+          ["swiper", "npm:11.1.3"]\
         ],\
         "linkType": "HARD"\
       }]\
