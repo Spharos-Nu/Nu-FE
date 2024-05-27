@@ -1,14 +1,10 @@
 import Image from 'next/image'
 import exImg from '@/dummydata/banner1.png'
-import { ComingSoonAndRankType, Tag } from '@/types/ComingSoonAndRankType'
+import { SoonAndHitsType, Tag } from '@/types/SoonAndHitsType'
 import TagItem from './TagItem'
 import LikeFalse from '@/../public/svgs/icon/likeFalse.svg'
 
-export default function ComingSoonAndRankItem({
-  item,
-}: {
-  item: ComingSoonAndRankType
-}) {
+export default function SoonAndHitsItem({ item }: { item: SoonAndHitsType }) {
   return (
     <div className="border rounded-2xl">
       <div className="relative">

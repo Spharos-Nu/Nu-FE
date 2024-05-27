@@ -1,4 +1,4 @@
-export interface ComingSoonAndRankType {
+export interface SoonAndHitsType {
   goodsCode: string
   thumbnail: string
   goodsName: string
