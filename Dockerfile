@@ -3,7 +3,7 @@ FROM node:20-alpine AS builder
 RUN addgroup -S nextjs && adduser -S -G nextjs nextjs
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
-RUN yarn install --production;
+RUN yarn install;
 COPY . .
 RUN yarn build && rm -rf ./.next/cache
 
