@@ -1,17 +1,21 @@
-# 첫 번째 스테이지 : 빌드 환경 설정
-FROM openjdk:17-jdk-slim AS builder
-WORKDIR /app
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
-COPY src src
-RUN chmod +x ./gradlew
-RUN ./gradlew clean build -x test
+# 첫번째 스테이지
+FROM node:20-alpine AS builder
+RUN addgroup -S nextjs && adduser -S -G nextjs nextjs
+WORKDIR /usr/src/app
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production;
+COPY . .
+RUN yarn build && rm -rf ./.next/cache
 
-# 두 번째 스테이지 : 실행 환경 설정
-FROM openjdk:17-jdk-slim
-WORKDIR /app
-COPY --from=builder /app/build/libs/*.jar app.jar
-EXPOSE 9001
-ENTRYPOINT ["java", "-jar", "app.jar"]
+#두번째 스테이지
+FROM node:20-alpine AS runner
+RUN addgroup -S nextjs && adduser -S -G nextjs nextjs
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/static ./.next/static
+USER nextjs
+EXPOSE 3000
+ENV PORT 3000
+
+CMD ["node", "server.js"]
