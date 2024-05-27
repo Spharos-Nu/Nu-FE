@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="font-regular bg-white">
+      <body className="font-Pretendard font-regular bg-white">
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

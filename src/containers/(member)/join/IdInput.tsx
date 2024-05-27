@@ -1,6 +1,6 @@
 import { TiDelete } from 'react-icons/ti'
-import { useFirstStore } from '@/containers/join/store'
-import { duplicationCheckId } from '@/utils/api/memberFunctions'
+import { useFirstStore } from '@/containers/(member)/join/store'
+import { duplicationCheckId } from '@/utils/memberApi'
 
 export default function IdInput() {
   const { userId, setUserId, setIsValidId } = useFirstStore()
