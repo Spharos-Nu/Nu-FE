@@ -1,5 +1,5 @@
-import MyPageGoodsTab from '@/components/Tab/MyPageGoodsTab'
+import SellTab from '@/components/Tab/SellTab'
 
 export default function Sell() {
-  return <MyPageGoodsTab />
+  return <SellTab />
 }

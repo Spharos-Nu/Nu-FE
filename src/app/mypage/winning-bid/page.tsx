@@ -1,5 +1,5 @@
-import MyPageGoodsTab from '@/components/Tab/MyPageGoodsTab'
+import WinningTab from '@/components/Tab/WinningTab'
 
 export default function WinningBid() {
-  return <MyPageGoodsTab />
+  return <WinningTab />
 }

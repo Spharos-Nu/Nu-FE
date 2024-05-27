@@ -19,4 +19,4 @@ export default async function middleware(request: NextRequest) {
   return NextResponse.next()
 }
 
-export const config = { matcher: ['/mypage'] }
+export const config = { matcher: ['/abc/abc'] }

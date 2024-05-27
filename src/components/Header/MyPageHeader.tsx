@@ -1,7 +1,6 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation'
-import { signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import { IoHome } from 'react-icons/io5'
@@ -36,7 +35,42 @@ export default function MyPageHeader() {
     {
       id: 4,
       title: '낙찰된 상품',
-      url: '/mypage/winning-bid',
+      url: '/mypage/winning',
+    },
+    {
+      id: 5,
+      title: '후기',
+      url: '/mypage/review',
+    },
+    {
+      id: 6,
+      title: '후기 작성',
+      url: '/review/[tradeId]',
+    },
+    {
+      id: 7,
+      title: '덕포인트 충전',
+      url: '/duck-point/charge',
+    },
+    {
+      id: 8,
+      title: '덕포인트 사용내역',
+      url: '/duck-point/details',
+    },
+    {
+      id: 9,
+      title: '프로필 수정',
+      url: '/mypage/update-profile',
+    },
+    {
+      id: 10,
+      title: '비밀번호 변경',
+      url: '/mypage/update-password',
+    },
+    {
+      id: 11,
+      title: '설정',
+      url: '/mypage/settings',
     },
   ]
 
@@ -68,7 +102,7 @@ export default function MyPageHeader() {
         className="flex-[2] flex items-center justify-center"
         aria-label="홈"
       >
-        <IoHome className="w-5 h-5" id="홈" onClick={() => signOut} />
+        <IoHome className="w-5 h-5" id="홈" onClick={() => router.push('/')} />
       </span>
     </div>
   )
