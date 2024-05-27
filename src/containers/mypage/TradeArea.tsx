@@ -8,15 +8,18 @@ export default function TradeArea() {
     <div className="mx-7 my-7 rounded-3xl bg-slate-100 px-2 py-2">
       <span className="text-xs pl-4">나의 거래</span>
       <div className="mt-1">
-        <Link href="/" className="mx-4 my-5 flex items-center">
+        <Link href="/mypage/bid" className="mx-4 my-5 flex items-center">
           <BiData className="w-4 h-4 mr-3" />
           입찰한 상품
         </Link>
-        <Link href="/" className="mx-4 my-5 flex items-center">
+        <Link href="/mypage/sell" className="mx-4 my-5 flex items-center">
           <FaBoxArchive className="w-4 h-4 mr-3" />
           등록한 상품
         </Link>
-        <Link href="/" className="mx-4 my-5 flex items-center">
+        <Link
+          href="/mypage/winning-bid"
+          className="mx-4 my-5 flex items-center"
+        >
           <FaBoxArchive className="w-4 h-4 mr-3" />
           낙찰된 상품
         </Link>
