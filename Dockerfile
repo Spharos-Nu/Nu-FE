@@ -22,7 +22,7 @@ RUN rm -rf package-lock.json
 
 RUN yarn install
 
-RUN yarn webview build
+RUN yarn build
 
 # 프로젝트 실행을 위한 스테이지
 FROM base AS runner
@@ -33,4 +33,4 @@ WORKDIR /app
 COPY --from=base /app/ .
 
 # 앱 시작 명령어"를 시작합니다.
-ENTRYPOINT ["yarn", "webview", "start"]
+ENTRYPOINT ["yarn", "start"]
