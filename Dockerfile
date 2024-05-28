@@ -16,12 +16,12 @@ COPY yarn.lock .
 # RUN yarn set version berry
 
 COPY . .
-RUN rm -rf node_modules
-RUN rm -rf package-lock.json
+# RUN rm -rf node_modules
+# RUN rm -rf package-lock.json
 
 RUN yarn install
 
-RUN yarn run build
+RUN yarn build
 
 # 프로젝트 실행을 위한 스테이지
 FROM base AS runner
