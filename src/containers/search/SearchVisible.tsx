@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import SearchModal from '@/containers/search/SearchModal'
 import Search from '@/public/svgs/header/search.svg'
+import SearchModal from './SearchModal'
 
 export default function SearchVisible() {
   const [visible, setVisible] = useState<boolean>(false)
