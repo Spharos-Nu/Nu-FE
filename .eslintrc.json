@@ -94,7 +94,6 @@
         "alphabetize": {
           "order": "asc"
         },
-        "distinctGroup": true,
         "newlines-between": "never"
       }
     ],
