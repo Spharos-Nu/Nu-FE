@@ -2,8 +2,8 @@
 
 // eslint-disable-next-line import/no-cycle
 
+import Remove from '@/public/svgs/icon/remove.svg'
 import { KeywordType } from '@/types/KeywordType'
-import Remove from '@/../public/svgs/icon/remove.svg'
 
 export default function RecentSearch({
   keywords,

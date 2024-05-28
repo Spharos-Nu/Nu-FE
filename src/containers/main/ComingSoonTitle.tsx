@@ -1,4 +1,4 @@
-import Duck from '@/../public/svgs/intro/introDuck.svg'
+import Duck from '@/public/svgs/intro/introDuck.svg'
 
 export default function ComingSoonTitle() {
   return (

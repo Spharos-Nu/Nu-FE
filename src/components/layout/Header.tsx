@@ -1,7 +1,7 @@
 import CategorySelection from '@/containers/category/CategorySelection'
 import NotificationVisible from '@/containers/notification/NotificationVisible'
 import SearchVisible from '@/containers/search/SearchVisible'
-import Logo from '@/../public/svgs/header/logo.svg'
+import Logo from '@/public/svgs/header/logo.svg'
 
 export default function Header() {
   return (
