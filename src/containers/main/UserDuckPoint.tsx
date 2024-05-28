@@ -1,4 +1,4 @@
-import DuckPoint from '@/../public/svgs/duck/mainDuckPoint.svg'
+import DuckPoint from '@/public/svgs/duck/mainDuckPoint.svg'
 
 export default function UserDuckPoint() {
   return (

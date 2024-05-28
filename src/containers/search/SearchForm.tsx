@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Search from '@/../public/svgs/header/search.svg'
+import Search from '@/public/svgs/header/search.svg'
 
 export default function SearchForm({
   handleAddKeyword,

@@ -2,16 +2,16 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import Animation from '@/../public/svgs/category/animation.svg'
-import AnimationColor from '@/../public/svgs/category/animationColor.svg'
-import AnimationGo from '@/../public/svgs/category/animationGo.svg'
-import Baseball from '@/../public/svgs/category/baseball.svg'
-import BaseballColor from '@/../public/svgs/category/baseballColor.svg'
-import BaseballGo from '@/../public/svgs/category/baseballGo.svg'
-import Kpop from '@/../public/svgs/category/kpop.svg'
-import KpopColor from '@/../public/svgs/category/kpopColor.svg'
-import KpopGo from '@/../public/svgs/category/kpopGo.svg'
-import BackBtn from '@/../public/svgs/icon/backBtn.svg'
+import Animation from '@/public/svgs/category/animation.svg'
+import AnimationColor from '@/public/svgs/category/animationColor.svg'
+import AnimationGo from '@/public/svgs/category/animationGo.svg'
+import Baseball from '@/public/svgs/category/baseball.svg'
+import BaseballColor from '@/public/svgs/category/baseballColor.svg'
+import BaseballGo from '@/public/svgs/category/baseballGo.svg'
+import Kpop from '@/public/svgs/category/kpop.svg'
+import KpopColor from '@/public/svgs/category/kpopColor.svg'
+import KpopGo from '@/public/svgs/category/kpopGo.svg'
+import BackBtn from '@/public/svgs/icon/backBtn.svg'
 
 export default function Category({
   setVisible,
