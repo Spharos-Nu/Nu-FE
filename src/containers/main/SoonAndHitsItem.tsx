@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import exImg from '@/dummydata/banner1.png'
 import { SoonAndHitsType, Tag } from '@/types/SoonAndHitsType'
-import TagItem from './TagItem'
 import LikeFalse from '@/../public/svgs/icon/likeFalse.svg'
+import TagItem from './TagItem'
 
 export default function SoonAndHitsItem({ item }: { item: SoonAndHitsType }) {
   return (
