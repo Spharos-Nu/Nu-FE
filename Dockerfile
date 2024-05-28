@@ -11,7 +11,7 @@ COPY package.json .
 COPY yarn.lock .
 
 # 필수 패키지 파일을 이미지 내부로 복사하고, yarn 명령어로 설치합니다
-COPY package.json ./app
+COPY package.json .
 
 RUN yarn config set "strict-ssl" false -g
 RUN yarn set version berry
