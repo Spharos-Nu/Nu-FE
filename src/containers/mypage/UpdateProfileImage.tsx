@@ -35,7 +35,7 @@ export default function ProfileImage() {
   }
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center mt-10">
       <div
         className={`flex w-32 h-32 relative rounded-full ${previewUrl && 'border-[3px] border-sky-600'}`}
       >
