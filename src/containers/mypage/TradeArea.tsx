@@ -23,7 +23,7 @@ export default function TradeArea() {
           <FaBoxArchive className="w-4 h-4 mr-3" />
           낙찰된 상품
         </Link>
-        <Link href="/" className="mx-4 my-3 flex items-center">
+        <Link href="/mypage/reviews" className="mx-4 my-3 flex items-center">
           <FaPen className="w-4 h-4 mr-3" />
           후기
         </Link>
