@@ -1,7 +1,7 @@
 import Link from 'next/link'
 // import { ApiResponse } from '@/types/apiResponseType'
 // import { ProfileData } from '@/types/mypageDataType'
-import NonProfileDuck from '@/../public/svgs/duck/nonProfileDuck.svg'
+import NonProfileDuck from '@/public/svgs/duck/nonProfileDuck.svg'
 
 export default function InfoArea() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

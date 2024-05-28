@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import RecentSearch from '@/containers/search/RecentSearch'
+import SearchForm from '@/containers/search/SearchForm'
+import BackBtn from '@/public/svgs/icon/backBtn.svg'
 import { KeywordType } from '@/types/KeywordType'
-import RecentSearch from './RecentSearch'
-import SearchForm from './SearchForm'
-import BackBtn from '@/../public/svgs/icon/backBtn.svg'
 
 export default function SearchModal({
   setVisible,

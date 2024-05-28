@@ -81,27 +81,12 @@
             "group": "external"
           },
           {
-            "pattern": "@hooks/*",
+            "pattern": "@/**",
             "group": "internal",
-            "position": "after"
+            "position": "before"
           },
           {
-            "pattern": "@pages/*",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@components/*",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@containers/*",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@/../public/svgs/**",
+            "pattern": "@/public/**",
             "group": "object",
             "position": "after"
           }
