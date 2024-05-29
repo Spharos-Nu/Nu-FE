@@ -24,16 +24,6 @@ body {
   font-family: 'Dovemayo', 'Pretendard';
 }
 
-select {
-  position: relative;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-repeat: no-repeat;
-  background-position: right center;
-  padding-right: 20px; /* 화살표 아이콘 크기만큼 오른쪽 여백 추가 */
-}
-
 form:focus,
 a:focus,
 input:focus,
