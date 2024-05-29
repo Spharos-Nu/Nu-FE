@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
-import JoinForm from '@/containers/(member)/join/JoinForm'
+import JoinForm from '@/containers/member/join/JoinForm'
 import { poppins } from '@/styles/fonts'
 
 export default async function Join() {

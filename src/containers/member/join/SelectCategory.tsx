@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
-import { useFirstStore } from '@/containers/(member)/join/store'
+import { useFirstStore } from '@/containers/member/join/store'
 
 export default function SelectCategory() {
   const { favoriteCategory, setFavoriteCategory } = useFirstStore()

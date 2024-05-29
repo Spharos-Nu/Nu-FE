@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation'
-import { useFirstStore } from '@/containers/(member)/join/store'
+import { useFirstStore } from '@/containers/member/join/store'
 
 export default function FirstBtnArea({
   onSwipeLeft,
