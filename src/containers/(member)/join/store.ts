@@ -8,8 +8,6 @@ interface JoinFirstState {
   userId: string
   isValidId: boolean
 
-  favoriteCategoryOptions: string[]
-
   setProfileImage: (profileImage: File | null) => void
   setFavoriteCategory: (category: string) => void
   setNickname: (nickname: string) => void
@@ -41,8 +39,6 @@ export const useFirstStore = create<JoinFirstState>((set) => ({
   isValidNick: false,
   userId: '',
   isValidId: false,
-
-  favoriteCategoryOptions: ['아이돌', '애니메이션', '야구'],
 
   setProfileImage: (profileImage) => set({ profileImage }),
   setFavoriteCategory: (category) => set({ favoriteCategory: category }),
