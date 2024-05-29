@@ -1,34 +1,61 @@
-import { IoIosArrowDown } from 'react-icons/io'
+import { useState } from 'react'
+import { MdArrowDropDown } from 'react-icons/md'
 import { useFirstStore } from '@/containers/(member)/join/store'
 
 export default function SelectCategory() {
-  const { favoriteCategory, setFavoriteCategory, favoriteCategoryOptions } =
-    useFirstStore()
+  const { favoriteCategory, setFavoriteCategory } = useFirstStore()
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
+
+  const handleButtonClick = () => {
+    setIsDropdownOpen(!isDropdownOpen)
+  }
 
   return (
-    <div className="w-full h-14 rounded-3xl">
-      <span
-        className="flex relative w-full h-full"
-        aria-label="favoriteCategory"
+    <div>
+      <div
+        className={`w-full h-14 rounded-3xl bg-gray-200 ${isDropdownOpen && 'border-[3px] border-sky-600'}`}
       >
-        <select
-          id="favoriteCategory"
-          value={favoriteCategory}
-          onChange={(e) => setFavoriteCategory(e.target.value)}
-          className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm focus:border-[3px] focus:border-sky-600"
+        <button
+          type="button"
+          onClick={handleButtonClick}
+          className="w-full h-full relative flex items-center pl-5"
         >
-          {/* Todo: select option 커스텀 */}
-          <option value="" disabled>
-            관심 카테고리를 선택해주세요.
-          </option>
-          {favoriteCategoryOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-        <IoIosArrowDown className="absolute right-5 top-4 text-sky-600 pointer-events-none" />
-      </span>
+          <span className="text-sm">
+            {!favoriteCategory
+              ? '관심 카테고리를 선택해주세요.'
+              : favoriteCategory}
+          </span>
+          <MdArrowDropDown className="absolute right-5 top-4 w-5 h-5 text-sky-600 pointer-events-none" />
+        </button>
+      </div>
+      {isDropdownOpen && (
+        <div className="absolute w-[calc(100%-80px)] bg-white border-[2px] border-sky-600 rounded-3xl mt-2 z-10">
+          <button
+            id="아이돌"
+            type="button"
+            onClick={() => setFavoriteCategory('아이돌')}
+            className="w-full py-2 border-b-[2px] border-sky-600 text-sm"
+          >
+            아이돌
+          </button>
+          <button
+            id="애니메이션"
+            type="button"
+            onClick={() => setFavoriteCategory('애니메이션')}
+            className="w-full py-2 border-b-[2px] border-sky-600 text-sm"
+          >
+            애니메이션
+          </button>
+          <button
+            id="야구"
+            type="button"
+            onClick={() => setFavoriteCategory('야구')}
+            className="w-full py-2 text-sm"
+          >
+            야구
+          </button>
+        </div>
+      )}
     </div>
   )
 }

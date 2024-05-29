@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 import LoginForm from '@/containers/(member)/login/LoginForm'
@@ -20,6 +21,12 @@ export default async function Login() {
         Glad to meet you again!
       </div>
       <LoginForm />
+      <div className="mx-10 mt-5 flex justify-center items-center">
+        <Link href="/join">
+          계정을 아직 가지고 있지 않으세요?{' '}
+          <span className="font-bold">회원가입</span>
+        </Link>
+      </div>
       <SocialForm />
       <div className="flex justify-center items-center my-14">
         <LoginDuck />
