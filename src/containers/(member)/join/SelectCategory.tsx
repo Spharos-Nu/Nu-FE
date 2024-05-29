@@ -33,7 +33,10 @@ export default function SelectCategory() {
           <button
             id="아이돌"
             type="button"
-            onClick={() => setFavoriteCategory('아이돌')}
+            onClick={() => {
+              setFavoriteCategory('아이돌')
+              handleButtonClick()
+            }}
             className="w-full py-2 border-b-[2px] border-sky-600 text-sm"
           >
             아이돌
@@ -41,7 +44,10 @@ export default function SelectCategory() {
           <button
             id="애니메이션"
             type="button"
-            onClick={() => setFavoriteCategory('애니메이션')}
+            onClick={() => {
+              setFavoriteCategory('애니메이션')
+              handleButtonClick()
+            }}
             className="w-full py-2 border-b-[2px] border-sky-600 text-sm"
           >
             애니메이션
@@ -49,7 +55,10 @@ export default function SelectCategory() {
           <button
             id="야구"
             type="button"
-            onClick={() => setFavoriteCategory('야구')}
+            onClick={() => {
+              setFavoriteCategory('야구')
+              handleButtonClick()
+            }}
             className="w-full py-2 text-sm"
           >
             야구

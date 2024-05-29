@@ -8,3 +8,7 @@ export interface MannerDuckData {
   level: number
   leftPoint: number
 }
+
+export interface GoodsCodeData {
+  code: number
+}
