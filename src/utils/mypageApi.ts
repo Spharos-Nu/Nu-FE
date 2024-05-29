@@ -6,7 +6,7 @@ import { ProfileData } from '@/types/mypageDataType'
 export const getProfile = async (): Promise<ApiResponse<ProfileData>> => {
   const session = await getServerSession(options)
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
     headers: { Authorization: session?.user.accessToken },
   })
 
@@ -18,7 +18,7 @@ export const getProfile = async (): Promise<ApiResponse<ProfileData>> => {
 //   const session = await getServerSession(options)
 
 //   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users/manner-duck`,
+//     `${process.env.NEXT_PUBLIC_API}/v1/users/manner-duck`,
 //     {
 //       headers: { Authorization: session?.user.accessToken },
 //     },
@@ -32,7 +32,7 @@ export const getProfile = async (): Promise<ApiResponse<ProfileData>> => {
 //   const session = await getServerSession(options)
 
 //   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users/duckpoint`,
+//     `${process.env.NEXT_PUBLIC_API}/v1/users/duckpoint`,
 //     {
 //       headers: { Authorization: session?.user.accessToken },
 //     },

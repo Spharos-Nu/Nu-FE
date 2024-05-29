@@ -14,7 +14,7 @@ export const options: NextAuthOptions = {
 
       async authorize(credentials) {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/login`,
+          `${process.env.NEXT_PUBLIC_API}/v1/users-n/login`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -40,7 +40,7 @@ export const options: NextAuthOptions = {
       if (profile) {
         // 회원인지 아닌지 확인
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/social-login`,
+          `${process.env.NEXT_PUBLIC_API}/v1/users-n/social-login`,
           {
             method: 'GET',
             headers: {
