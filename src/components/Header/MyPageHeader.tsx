@@ -69,6 +69,11 @@ export default function MyPageHeader() {
     },
     {
       id: 11,
+      title: '좋아요',
+      url: '/mypage/like',
+    },
+    {
+      id: 12,
       title: '설정',
       url: '/mypage/settings',
     },

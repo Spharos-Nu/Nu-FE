@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Category from '@/containers/category/Category'
-import BelowArrow from '@/../public/svgs/header/below_arrow.svg'
+import BelowArrow from '@/public/svgs/header/below_arrow.svg'
 
 export default function CategorySelection() {
   const [visible, setVisible] = useState<boolean>(false)

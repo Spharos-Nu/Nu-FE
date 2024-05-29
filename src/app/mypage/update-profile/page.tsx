@@ -1,3 +1,13 @@
+import UpdateFavCategory from '@/containers/mypage/UpdateFavCategory'
+import UpdateNickname from '@/containers/mypage/UpdateNickname'
+import UpdateProfileImage from '@/containers/mypage/UpdateProfileImage'
+
 export default function UpdateProfile() {
-  return <>프로필 업데이트</>
+  return (
+    <>
+      <UpdateProfileImage />
+      <UpdateNickname />
+      <UpdateFavCategory />
+    </>
+  )
 }

@@ -2,11 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Chat from '@/../public/svgs/nav/chat.svg'
-import FullInquiry from '@/../public/svgs/nav/fullinquiry.svg'
-import Home from '@/../public/svgs/nav/home.svg'
-import Like from '@/../public/svgs/nav/like.svg'
-import Mypage from '@/../public/svgs/nav/mypage.svg'
+import Chat from '@/public/svgs/nav/chat.svg'
+import FullInquiry from '@/public/svgs/nav/fullinquiry.svg'
+import Home from '@/public/svgs/nav/home.svg'
+import Like from '@/public/svgs/nav/like.svg'
+import Mypage from '@/public/svgs/nav/mypage.svg'
 
 export default function Nav() {
   const pathname = usePathname()
