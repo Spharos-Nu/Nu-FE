@@ -32,6 +32,12 @@ interface JoinSecondState {
   resetSecondState: () => void
 }
 
+interface ModalState {
+  isOpen: boolean
+
+  setIsOpen: (isOpen: boolean) => void
+}
+
 export const useFirstStore = create<JoinFirstState>((set) => ({
   profileImage: null,
   favoriteCategory: '',
@@ -76,4 +82,10 @@ export const useSecondStore = create<JoinSecondState>((set) => ({
       phoneNumber: '',
       isValidated: false,
     }),
+}))
+
+export const useModalStore = create<ModalState>((set) => ({
+  isOpen: false,
+
+  setIsOpen: (isOpen) => set({ isOpen }),
 }))

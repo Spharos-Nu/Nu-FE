@@ -1,15 +1,21 @@
 import { TiDelete } from 'react-icons/ti'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useAlertStore } from '@/components/Modal/store'
 import { useFirstStore } from '@/containers/member/join/store'
 import { duplicationCheckId } from '@/utils/memberApi'
 
 export default function IdInput() {
   const { userId, setUserId, setIsValidId } = useFirstStore()
+  const { message, setAlert } = useAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
 
   const handleId = async () => {
     const regex = /^[a-zA-Z0-9]{6,15}$/
     if (!regex.test(userId)) {
-      // eslint-disable-next-line no-alert
-      return alert('6~15자의 올바른 아이디를 입력해주세요.')
+      return showAlert('6~15자의 올바른 아이디를 입력해주세요.')
     }
 
     const data = await duplicationCheckId(userId)
@@ -17,7 +23,7 @@ export default function IdInput() {
       setIsValidId(true)
     }
     // eslint-disable-next-line no-alert
-    return alert(data.message)
+    return showAlert(data.message)
   }
 
   return (
@@ -61,6 +67,7 @@ export default function IdInput() {
           </button>
         </div>
       </span>
+      <BasicAlert message={message} />
     </div>
   )
 }

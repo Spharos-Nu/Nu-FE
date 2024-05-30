@@ -6,6 +6,8 @@ import { signIn } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useAlertStore } from '@/components/Modal/store'
 import { montserrat } from '@/styles/fonts'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 
@@ -25,6 +27,12 @@ export default function LoginForm() {
   const [idInput, setIdInput] = useState<boolean>(false)
   const [pwInput, setPwInput] = useState<boolean>(false)
   const [isChecked, setIsChecked] = useState<boolean>(false)
+
+  const { message, setAlert } = useAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
 
   /** Id 입력 있을 때마다 업데이트 */
   const handleIdInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,13 +69,11 @@ export default function LoginForm() {
 
     if (!payload.userId) {
       // Todo: 아이디를 입력해주세요 모달
-      // eslint-disable-next-line no-alert
-      return alert('아이디를 입력해주세요.')
+      return showAlert('아이디를 입력해주세요.')
     }
     if (!payload.password) {
       // Todo: 비밀번호를 입력해주세요 모달
-      // eslint-disable-next-line no-alert
-      return alert('비밀번호를 입력해주세요.')
+      return showAlert('비밀번호를 입력해주세요.')
     }
 
     await signIn('credentials', {
@@ -195,6 +201,7 @@ export default function LoginForm() {
           LOG IN
         </button>
       </div>
+      <BasicAlert message={message} />
     </form>
   )
 }

@@ -2,16 +2,18 @@ import { create } from 'zustand'
 
 interface AlertState {
   isOpen: boolean
+  message: string
   isApproved: boolean
 
-  setIsOpen: (isOpen: boolean) => void
+  setAlert: (isOpen: boolean, message: string) => void
   setIsApproved: (isApproved: boolean) => void
 }
 
-export const AlertStore = create<AlertState>((set) => ({
+export const useAlertStore = create<AlertState>((set) => ({
   isOpen: false,
+  message: '',
   isApproved: false,
 
-  setIsOpen: (isOpen: boolean) => set({ isOpen }),
+  setAlert: (isOpen: boolean, message: string) => set({ isOpen, message }),
   setIsApproved: (isApproved: boolean) => set({ isApproved }),
 }))

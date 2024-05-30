@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { AlertStore } from '@/components/Modal/store'
+import { useAlertStore } from '@/components/Modal/store'
 
 interface AlertProps {
   message: string
@@ -10,7 +10,7 @@ interface AlertProps {
 
 export default function BasicAlert({ message }: AlertProps) {
   const elRef = useRef<HTMLDivElement | null>(null)
-  const { isOpen, setIsOpen } = AlertStore()
+  const { isOpen, setAlert } = useAlertStore()
 
   useEffect(() => {
     elRef.current = document.createElement('div')
@@ -44,7 +44,7 @@ export default function BasicAlert({ message }: AlertProps) {
         <button
           type="button"
           className="justify-center px-3 py-2 bg-sky-600 text-sm text-white"
-          onClick={() => setIsOpen(false)}
+          onClick={() => setAlert(false, '')}
         >
           확인
         </button>
