@@ -22,7 +22,6 @@ export default function IdInput() {
     if (data.status === 200) {
       setIsValidId(true)
     }
-
     return showAlert(data.message)
   }
 
