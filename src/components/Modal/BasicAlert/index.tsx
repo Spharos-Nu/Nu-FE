@@ -39,11 +39,13 @@ export default function BasicAlert({ message }: AlertProps) {
 
   return createPortal(
     <div className="fixed w-full h-full bg-[rgba(0,0,0,0.4)] flex justify-center items-center left-0 top-0 z-[2000]">
-      <p className="text-xs text-gray-500 mx-3 px-4 py-5 h-full">{message}</p>
-      <div className="inline-flex w-full rounded-b-lg shadow-sm">
+      <div className="mx-10 w-[calc(100%-80px)] h-[120px] bg-white rounded-2xl">
+        <div className="text-xs text-gray-500 mx-3 px-4 py-5 h-full">
+          {message}
+        </div>
         <button
           type="button"
-          className="justify-center px-3 py-2 bg-sky-600 text-sm text-white"
+          className="inline-flex justify-center w-full px-3 py-2 bg-sky-600 text-sm text-white rounded-b-2xl"
           onClick={() => setAlert(false, '')}
         >
           확인

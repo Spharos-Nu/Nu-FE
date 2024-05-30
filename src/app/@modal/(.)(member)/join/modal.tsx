@@ -15,7 +15,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
   if (!isOpen) return null
 
   return createPortal(
-    <div className="absolute w-screen h-screen flex justify-center items-center z-[1000] bottom-0 rounded-2xl">
+    <div className="absolute w-screen h-screen flex justify-center items-center z-[1000]">
       {children}
     </div>,
     document.getElementById('modal-root')!,
