@@ -1,4 +1,6 @@
 import { useRouter } from 'next/navigation'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useAlertStore } from '@/components/Modal/store'
 import { useFirstStore } from '@/containers/member/join/store'
 
 export default function FirstBtnArea({
@@ -9,27 +11,27 @@ export default function FirstBtnArea({
   const router = useRouter()
   const { favoriteCategory, nickname, isValidNick, userId, isValidId } =
     useFirstStore()
+  const { message, setAlert } = useAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
 
   const checkData = async () => {
     if (favoriteCategory === '') {
-      // eslint-disable-next-line no-alert
-      return alert('관심 카테고리를 선택해주세요.')
+      return showAlert('관심 카테고리를 선택해주세요.')
     }
     if (!nickname) {
-      // eslint-disable-next-line no-alert
-      return alert('닉네임을 입력해주세요.')
+      return showAlert('닉네임을 입력해주세요.')
     }
     if (!isValidNick) {
-      // eslint-disable-next-line no-alert
-      return alert('닉네임 중복확인을 진행해주세요.')
+      return showAlert('닉네임 중복확인을 진행해주세요.')
     }
     if (!userId) {
-      // eslint-disable-next-line no-alert
-      return alert('아이디를 입력해주세요.')
+      return showAlert('아이디를 입력해주세요.')
     }
     if (!isValidId) {
-      // eslint-disable-next-line no-alert
-      return alert('닉네임 중복확인을 진행해주세요.')
+      return showAlert('닉네임 중복확인을 진행해주세요.')
     }
 
     return onSwipeLeft()
@@ -62,6 +64,7 @@ export default function FirstBtnArea({
           Next
         </button>
       </div>
+      <BasicAlert message={message} />
     </span>
   )
 }

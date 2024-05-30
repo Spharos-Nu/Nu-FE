@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { AlertStore } from '@/components/Modal/store'
+import { useAlertStore } from '@/components/Modal/store'
 
 interface AlertProps {
   message: string
@@ -10,7 +10,7 @@ interface AlertProps {
 
 export default function SelectAlert({ message }: AlertProps) {
   const elRef = useRef<HTMLDivElement | null>(null)
-  const { isOpen, setIsOpen, setIsApproved } = AlertStore()
+  const { isOpen, setIsOpen, setIsApproved } = useAlertStore()
 
   useEffect(() => {
     elRef.current = document.createElement('div')
