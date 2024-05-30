@@ -77,6 +77,10 @@
             "group": "builtin"
           },
           {
+            "pattern": "react-dom",
+            "group": "builtin"
+          },
+          {
             "pattern": "react-icons/**",
             "group": "external"
           },
