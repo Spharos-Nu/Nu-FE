@@ -1,6 +1,6 @@
 FROM node:18-alpine AS base
 
-RUN npm install -g yarn --force
+# RUN npm install -g yarn --force
 # RUN yarn set version berry
 
 # 프로젝트 빌드를 위한 스테이지
