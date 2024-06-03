@@ -6,13 +6,13 @@ import TimeModal from './TimeModal'
 import WeekModal from './WeekModal'
 
 export default function PeriodArea() {
-  const [weekVisible, setWeekVisible] = useState(false)
-  const [timeVisible, setTimeVisible] = useState(false)
-  const [durationVisible, setDurationVisible] = useState(false)
+  const [weekVisible, setWeekVisible] = useState<boolean>(false)
+  const [timeVisible, setTimeVisible] = useState<boolean>(false)
+  const [durationVisible, setDurationVisible] = useState<boolean>(false)
 
-  const [pickDate, setPickDate] = useState('')
-  const [pickTime, setPickTime] = useState('')
-  const [pickDuration, setPickDuration] = useState('')
+  const [pickDate, setPickDate] = useState<string>('')
+  const [pickTime, setPickTime] = useState<string>('')
+  const [pickDuration, setPickDuration] = useState<string>('')
 
   const getPickDate = useCallback((item: string) => {
     setPickDate(item)

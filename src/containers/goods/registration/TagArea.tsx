@@ -5,7 +5,7 @@ import { IoIosClose } from 'react-icons/io'
 import { TagItem, useTagStore } from './store'
 
 export default function TagArea() {
-  const [item, setItem] = useState('')
+  const [item, setItem] = useState<string>('')
   const { tagItems, addTags, removeTags } = useTagStore()
 
   const getTags = (event: React.ChangeEvent<HTMLInputElement>) => {
