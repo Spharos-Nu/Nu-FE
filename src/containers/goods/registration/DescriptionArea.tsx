@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 export default function DescriptionArea() {
-  const [inputCount, setInputCount] = useState(0)
+  const [inputCount, setInputCount] = useState<number>(0)
 
   return (
     <>
