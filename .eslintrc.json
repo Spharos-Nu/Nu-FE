@@ -19,6 +19,10 @@
     "plugin:prettier/recommended",
     "prettier"
   ],
+  "ignorePatterns": [
+    "sw.js",
+    "workbox-*.js"
+  ],
   "rules": {
     "prettier/prettier": [
       "error",
