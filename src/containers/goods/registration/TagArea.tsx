@@ -8,31 +8,8 @@ export default function TagArea() {
   const [item, setItem] = useState('')
   const { tagItems, addTags, removeTags } = useTagStore()
 
-  // const removeTag = (indexToRemove: number) => {
-  //   // 태그를 삭제하는 메소드
-  //   const filter = tags.filter((el) => el.id !== indexToRemove)
-  //   setTags(filter)
-  // }
-
   const getTags = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // tags 배열에 새로운 태그를 추가하는 메소드
-    // const inputVal = {
-    //   id: Date.now(),
-    //   name: `#${event.currentTarget.value}`,
-    // }
     setItem(event.target.value)
-    // // 이미 입력되어 있는 태그인지 검사하여 이미 있는 태그라면 추가하지 말기
-    // // 아무것도 입력하지 않은 채 Enter 키 입력시 메소드 실행하지 말기
-    // // 태그가 추가되면 input 창 비우기
-    // if (
-    //   event.key === 'Enter' &&
-    //   inputVal.name !== '' &&
-    //   !tags.includes(inputVal)
-    // ) {
-    //   setTags([...tags, inputVal])
-    //   // eslint-disable-next-line no-param-reassign
-    //   event.currentTarget.value = ''
-    // }
   }
 
   const pushTag = () => {

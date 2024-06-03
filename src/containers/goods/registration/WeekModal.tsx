@@ -8,10 +8,8 @@ export default function WeekModal({
   getPickDate: (item: string) => void
 }) {
   const today = new Date()
-  // const formattedDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
   const weekLater = new Date(today)
   weekLater.setDate(weekLater.getDate() + 7)
-  // const weekLaterFormatted = `${weekLater.getFullYear()}-${weekLater.getMonth() + 1}-${weekLater.getDate()}`
 
   const week = []
   for (let i = 0; i < 7; i += 1) {
