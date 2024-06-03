@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useAlertStore } from '@/components/Modal/store'
+import { useSelectAlertStore } from '@/components/Modal/store'
 
 interface AlertProps {
   message: string
@@ -10,7 +10,7 @@ interface AlertProps {
 
 export default function SelectAlert({ message }: AlertProps) {
   const elRef = useRef<HTMLDivElement | null>(null)
-  const { isOpen, setIsOpen, setIsApproved } = useAlertStore()
+  const { isOpen, setIsApproved } = useSelectAlertStore()
 
   useEffect(() => {
     elRef.current = document.createElement('div')
@@ -44,20 +44,14 @@ export default function SelectAlert({ message }: AlertProps) {
         <button
           type="button"
           className="justify-center px-3 py-2 text-sm text-sky-600"
-          onClick={() => {
-            setIsApproved(false)
-            setIsOpen(false)
-          }}
+          onClick={() => setIsApproved(false)}
         >
           취소
         </button>
         <button
           type="button"
           className="justify-center px-3 py-2 bg-sky-600 text-sm text-white"
-          onClick={() => {
-            setIsApproved(true)
-            setIsOpen(false)
-          }}
+          onClick={() => setIsApproved(true)}
         >
           확인
         </button>

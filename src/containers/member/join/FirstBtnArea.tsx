@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation'
 import BasicAlert from '@/components/Modal/BasicAlert'
-import { useAlertStore } from '@/components/Modal/store'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { useFirstStore } from '@/containers/member/join/store'
 
 export default function FirstBtnArea({
@@ -11,7 +11,7 @@ export default function FirstBtnArea({
   const router = useRouter()
   const { favoriteCategory, nickname, isValidNick, userId, isValidId } =
     useFirstStore()
-  const { message, setAlert } = useAlertStore()
+  const { message, setAlert } = useBasicAlertStore()
 
   const showAlert = (alertMessage: string) => {
     setAlert(true, alertMessage)

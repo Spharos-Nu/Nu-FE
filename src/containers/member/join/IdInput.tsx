@@ -1,12 +1,12 @@
 import { TiDelete } from 'react-icons/ti'
 import BasicAlert from '@/components/Modal/BasicAlert'
-import { useAlertStore } from '@/components/Modal/store'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { useFirstStore } from '@/containers/member/join/store'
 import { duplicationCheckId } from '@/utils/memberApi'
 
 export default function IdInput() {
   const { userId, setUserId, setIsValidId } = useFirstStore()
-  const { message, setAlert } = useAlertStore()
+  const { message, setAlert } = useBasicAlertStore()
 
   const showAlert = (alertMessage: string) => {
     setAlert(true, alertMessage)

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
-import { useAlertStore } from '@/components/Modal/store'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import FirstBtnArea from '@/containers/member/join/FirstBtnArea'
 import IdInput from '@/containers/member/join/IdInput'
 import NicknameInput from '@/containers/member/join/NicknameInput'
@@ -27,7 +27,7 @@ export default function JoinForm() {
     useFirstStore()
   const { password, password2, phoneNumber, isValidated, resetSecondState } =
     useSecondStore()
-  const { message, setAlert } = useAlertStore()
+  const { message, setAlert } = useBasicAlertStore()
   const { setIsOpen } = useModalStore()
 
   const handleSwipeLeft = () => {
