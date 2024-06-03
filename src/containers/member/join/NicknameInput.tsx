@@ -1,15 +1,21 @@
 import { TiDelete } from 'react-icons/ti'
-import { useFirstStore } from '@/containers/(member)/join/store'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
+import { useFirstStore } from '@/containers/member/join/store'
 import { duplicationCheckNick } from '@/utils/memberApi'
 
 export default function NicknameInput() {
   const { nickname, setNickname, setIsValidNick } = useFirstStore()
+  const { message, setAlert } = useBasicAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
 
   const handleNick = async () => {
     const regex = /^[a-zA-Z가-힣0-9]{2,10}$/
     if (!regex.test(nickname)) {
-      // eslint-disable-next-line no-alert
-      return alert('2~10자의 올바른 닉네임을 입력해주세요.')
+      return showAlert('2~10자의 올바른 닉네임을 입력해주세요.')
     }
 
     const data = await duplicationCheckNick(nickname)
@@ -17,13 +23,11 @@ export default function NicknameInput() {
     if (data.status === 200) {
       setIsValidNick(true)
       // Todo: 욕설 닉네임 유효성 검증?
-      // eslint-disable-next-line no-alert
-      return alert(
+      return showAlert(
         `${data.message}\n욕설 혹은 비속어를 포함하는 닉네임은 제재 대상이 될 수 있습니다.`,
       )
     }
-    // eslint-disable-next-line no-alert
-    return alert(data.message)
+    return showAlert(data.message)
   }
 
   return (
@@ -38,10 +42,10 @@ export default function NicknameInput() {
         <input
           id="닉네임"
           type="text"
-          placeholder="한/영, 숫자를 조합한 2~10자의 닉네임"
+          placeholder="한/영, 숫자를 조합한 2~15자의 닉네임"
           autoComplete="off"
           minLength={2}
-          maxLength={10}
+          maxLength={15}
           value={nickname}
           onChange={(e) => {
             setNickname(e.target.value)
@@ -67,6 +71,7 @@ export default function NicknameInput() {
           </button>
         </div>
       </span>
+      <BasicAlert message={message} />
     </div>
   )
 }

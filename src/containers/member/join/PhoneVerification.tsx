@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useFirstStore, useSecondStore } from '@/containers/(member)/join/store'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
+import { useFirstStore, useSecondStore } from '@/containers/member/join/store'
 import { verification, verificationConfirm } from '@/utils/memberApi'
 import VerificationTime from '@/../public/svgs/icon/verificationTime.svg'
 
@@ -26,13 +28,18 @@ export default function PhoneVerification() {
   const [messageMinutes, setMessageMinutes] = useState<number>(3)
   const [messageSeconds, setMessageSeconds] = useState<number>(0)
 
+  const { message, setAlert } = useBasicAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
+
   /** 유효성 검사 후 인증번호 발송 */
   const sendMessage = async () => {
     // 유효성 검증
     const phoneRegex = /^(010|011|017|018|019)\d{7,8}$/
     if (!phoneRegex.test(phoneNumber)) {
-      // eslint-disable-next-line no-alert
-      return alert('휴대폰번호를 정확히 입력해주세요.')
+      return showAlert('휴대폰번호를 정확히 입력해주세요.')
     }
 
     setMessageMinutes(3)
@@ -42,20 +49,17 @@ export default function PhoneVerification() {
     if (cntMessage === 5) {
       setCntMessage(cntMessage + 1)
       setDisableTime(300)
-      // eslint-disable-next-line no-alert
-      return alert(
+      return showAlert(
         '인증번호 발송횟수를 초과하였습니다. 잠시 후 다시 인증을 시도해주세요.',
       )
     }
     if (cntMessage > 5) {
-      // eslint-disable-next-line no-alert
-      return alert(
+      return showAlert(
         '인증번호 발송횟수를 초과하였습니다. 잠시 후 다시 인증을 시도해주세요.',
       )
     }
     if (disableTime) {
-      // eslint-disable-next-line no-alert
-      return alert(
+      return showAlert(
         '인증번호 발송횟수를 초과하였습니다. 잠시 후 다시 인증을 시도해주세요.',
       )
     }
@@ -68,14 +72,12 @@ export default function PhoneVerification() {
       resetFirstState()
       resetSecondState()
     }
-    // eslint-disable-next-line no-alert
-    return alert(data.message)
+    return showAlert(data.message)
   }
 
   const confirmMessage = async () => {
     if (!messageMinutes && !messageSeconds) {
-      // eslint-disable-next-line no-alert
-      return alert(
+      return showAlert(
         '인증번호 입력시간을 초과하였습니다. 인증번호 재전송 후 다시 입력해주세요.',
       )
     }
@@ -88,7 +90,7 @@ export default function PhoneVerification() {
       setMessageSeconds(0)
     }
     // eslint-disable-next-line no-alert
-    return alert(data.message)
+    return showAlert(data.message)
   }
 
   useEffect(() => {
@@ -189,6 +191,7 @@ export default function PhoneVerification() {
               </button>
             </div>
           </span>
+          <BasicAlert message={message} />
         </div>
       )}
     </>
