@@ -6,13 +6,7 @@ import '@/styles/fonts.css'
 export const metadata: Metadata = {
   title: '굿즈는 덕들과 함께, 굿즈굿즈덕',
   description: '굿즈는 덕들과 함께, 굿즈굿즈덕',
-  manifest: '/manifest.webmanifest',
-  icons: [
-    { rel: 'icon', url: '/assets/icon-192x192.png', sizes: '192x192' },
-    { rel: 'icon-256', url: '/assets/icon-256x256.png', sizes: '256x256' },
-    { rel: 'icon-384', url: '/assets/icon-384x384.png', sizes: '384x384' },
-    { rel: 'icon-512', url: '/assets/icon-512x512.png', sizes: '512x512' },
-  ],
+  manifest: './manifest.ts',
 }
 
 export const viewport: Viewport = {
