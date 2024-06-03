@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
 import BasicAlert from '@/components/Modal/BasicAlert'
-import { useAlertStore } from '@/components/Modal/store'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { montserrat } from '@/styles/fonts'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 
@@ -28,7 +28,7 @@ export default function LoginForm() {
   const [pwInput, setPwInput] = useState<boolean>(false)
   const [isChecked, setIsChecked] = useState<boolean>(false)
 
-  const { message, setAlert } = useAlertStore()
+  const { message, setAlert } = useBasicAlertStore()
 
   const showAlert = (alertMessage: string) => {
     setAlert(true, alertMessage)

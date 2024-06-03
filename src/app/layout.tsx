@@ -6,6 +6,7 @@ import '@/styles/fonts.css'
 export const metadata: Metadata = {
   title: '굿즈는 덕들과 함께, 굿즈굿즈덕',
   description: '굿즈는 덕들과 함께, 굿즈굿즈덕',
+  manifest: './manifest.ts',
 }
 
 export const viewport: Viewport = {
@@ -13,6 +14,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  themeColor: '#0284c7',
 }
 
 export default function RootLayout({

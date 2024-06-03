@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
-import { useAlertStore } from '@/components/Modal/store'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { useFirstStore, useSecondStore } from '@/containers/member/join/store'
 import { verification, verificationConfirm } from '@/utils/memberApi'
 import VerificationTime from '@/../public/svgs/icon/verificationTime.svg'
@@ -28,7 +28,7 @@ export default function PhoneVerification() {
   const [messageMinutes, setMessageMinutes] = useState<number>(3)
   const [messageSeconds, setMessageSeconds] = useState<number>(0)
 
-  const { message, setAlert } = useAlertStore()
+  const { message, setAlert } = useBasicAlertStore()
 
   const showAlert = (alertMessage: string) => {
     setAlert(true, alertMessage)
