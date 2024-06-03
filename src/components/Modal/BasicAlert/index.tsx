@@ -38,14 +38,14 @@ export default function BasicAlert({ message }: AlertProps) {
   if (!isOpen || !elRef.current) return null
 
   return createPortal(
-    <div className="fixed w-full h-full bg-[rgba(0,0,0,0.4)] flex justify-center items-center left-0 top-0 z-[2000]">
-      <div className="mx-10 w-[calc(100%-80px)] h-[120px] bg-white rounded-2xl">
-        <div className="text-xs text-gray-500 mx-3 px-4 py-5 h-full">
+    <div className="fixed w-full h-full bg-black/20 flex justify-center items-center left-0 top-0 z-[2000]">
+      <div className="mx-10 w-[calc(100%-80px)] relative">
+        <div className="w-full bg-white rounded-t-2xl text-xs text-gray-500 px-7 py-5 h-[80px] flex items-center">
           {message}
         </div>
         <button
           type="button"
-          className="inline-flex justify-center w-full px-3 py-2 bg-sky-600 text-sm text-white rounded-b-2xl"
+          className="inline-flex justify-center w-full px-3 py-2 bg-sky-600 text-sm text-white rounded-b-2xl z-20"
           onClick={() => setAlert(false, '')}
         >
           확인

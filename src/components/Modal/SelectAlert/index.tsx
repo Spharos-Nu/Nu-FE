@@ -38,8 +38,8 @@ export default function SelectAlert({ message }: AlertProps) {
   if (!isOpen || !elRef.current) return null
 
   return createPortal(
-    <div className="fixed w-full h-full bg-[rgba(0,0,0,0.4)] flex justify-center items-center left-0 top-0 z-[2000]">
-      <p className="text-xs text-gray-500 mx-3 px-4 py-5 h-full">{message}</p>
+    <div className="fixed w-full h-full bg-black/20 flex justify-center items-center left-0 top-0 z-[2000]">
+      <p className="text-xs text-gray-500 mx-3 px-7 py-5 h-full">{message}</p>
       <div className="inline-flex w-full rounded-b-lg shadow-sm">
         <button
           type="button"
