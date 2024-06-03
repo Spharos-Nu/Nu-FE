@@ -1,56 +1,77 @@
 'use client'
 
-// import { useState } from 'react'
-// import { SlArrowLeft, SlArrowRight } from 'react-icons/sl'
-// import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+import { useCallback, useState } from 'react'
+import DurationModal from './DurationModal'
+import TimeModal from './TimeModal'
+import WeekModal from './WeekModal'
 
 export default function PeriodArea() {
-  // const [startDate, setStartDate] = useState<Date>(new Date())
-  const today = new Date()
-  const weekLater = new Date(today)
-  weekLater.setDate(weekLater.getDate() + 7)
+  const [weekVisible, setWeekVisible] = useState(false)
+  const [timeVisible, setTimeVisible] = useState(false)
+  const [durationVisible, setDurationVisible] = useState(false)
+
+  const [pickDate, setPickDate] = useState('')
+  const [pickTime, setPickTime] = useState('')
+  const [pickDuration, setPickDuration] = useState('')
+
+  const getPickDate = useCallback((item: string) => {
+    setPickDate(item)
+  }, [])
+
+  const getPickTime = useCallback((item: string) => {
+    setPickTime(item)
+  }, [])
+
+  const getPickDuration = useCallback((item: string) => {
+    setPickDuration(item)
+  }, [])
 
   return (
     <>
       <label htmlFor="입찰기간" className="text-[#2B74B9] text-[17px]">
         얼마동안 입찰 받을까요?
       </label>
-      <input
-        type="text"
-        placeholder="상품명"
-        name="goodsName"
-        className="w-full mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc]"
-      />
-      {/* <DatePicker
-        selected={startDate}
-        startDate={today}
-        endDate={weekLater}
-        showWeekNumbers
-        minDate={today}
-        maxDate={weekLater}
-        onChange={(date: Date) => setStartDate(date)}
-        className="content-center text-center"
-        dayClassName={(date) => {
-          if (date.getDate() === today.getDate()) {
-            return 'bg-red-500 rounded-full'
-          }
-          return 'text-[#2B74B9]'
-        }}
-        renderCustomHeader={({ date, changeYear, changeMonth, decreaseMonth, increaseMonth }) => (
-          <div className="m-[10px]">
-            <div onClick={decreaseMonth} role="none">
-              <SlArrowLeft className="w-[10px] h-[10px]" />
-            </div>
-            <div>
-              {date.getFullYear()}년 {date.getMonth() + 1}월
-            </div>
-            <div onClick={increaseMonth} role="none">
-              <SlArrowRight className="w-[10px] h-[10px]" />
-            </div>
-          </div>
-        )}
-      /> */}
+      <div className="grid grid-cols-3 gap-[10px]">
+        <input
+          type="text"
+          value={pickDate}
+          placeholder="날짜 선택"
+          name="biddingPeriod"
+          className="mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc] text-center"
+          onClick={() => setWeekVisible(true)}
+          readOnly
+        />
+        <input
+          type="text"
+          value={pickTime}
+          placeholder="시작 시간"
+          name="biddingTime"
+          className="mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc] text-center"
+          onClick={() => setTimeVisible(true)}
+          readOnly
+        />
+        <input
+          type="text"
+          value={pickDuration}
+          placeholder="지속 시간"
+          name="biddingDuration"
+          className="mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc] text-center"
+          onClick={() => setDurationVisible(true)}
+          readOnly
+        />
+      </div>
+      {weekVisible && (
+        <WeekModal setWeekVisible={setWeekVisible} getPickDate={getPickDate} />
+      )}
+      {timeVisible && (
+        <TimeModal setTimeVisible={setTimeVisible} getPickTime={getPickTime} />
+      )}
+      {durationVisible && (
+        <DurationModal
+          setDurationVisible={setDurationVisible}
+          getPickDuration={getPickDuration}
+        />
+      )}
     </>
   )
 }

@@ -12,7 +12,7 @@ export default function DescriptionArea() {
       </label>
       <textarea
         placeholder="굿즈명, 구매 시기, 하자 유무 등 굿즈 설명을 최대한 자세히 적어주세요!"
-        name="Description"
+        name="description"
         className="w-full h-[150px] mt-[5px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-3xl focus:outline-none
           placeholder:text-[#bcbcbc] placeholder:text-[15px] placeholder:whitespace-pre-line"
         maxLength={500}
