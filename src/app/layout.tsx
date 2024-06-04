@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: '굿즈는 덕들과 함께, 굿즈굿즈덕',
   description: '굿즈는 덕들과 함께, 굿즈굿즈덕',
   manifest: './manifest.ts',
+  icons: {
+    icon: '/icons/icon-512x512.png',
+  },
 }
 
 export const viewport: Viewport = {
