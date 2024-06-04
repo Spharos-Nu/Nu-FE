@@ -19,19 +19,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode
-  modal: React.ReactNode
 }>) {
   return (
     <html lang="ko">
       <body className="font-regular bg-white">
-        <AuthProvider>
-          {children}
-          {modal}
-          <div id="modal-root" />
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   )
