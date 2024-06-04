@@ -1,5 +1,5 @@
 import Data from '@/dummydata/comingSoon.json'
-import { SoonAndHitsType } from '@/types/SoonAndHitsType'
+import { SoonAndHitsType } from '@/types/mainType'
 import ComingSoonTitle from './ComingSoonTitle'
 import SoonAndHitsItem from './SoonAndHitsItem'
 

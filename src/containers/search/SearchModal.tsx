@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import BackBtn from '@/public/svgs/icon/backBtn.svg'
-import { KeywordType } from '@/types/KeywordType'
+import { KeywordType } from '@/types/headerType'
 import RecentSearch from './RecentSearch'
 import SearchForm from './SearchForm'
 
