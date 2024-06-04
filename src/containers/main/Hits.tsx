@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Data from '@/dummydata/comingSoon.json'
-import { SoonAndHitsType } from '@/types/SoonAndHitsType'
+import { SoonAndHitsType } from '@/types/mainType'
 import SoonAndHitsItem from './SoonAndHitsItem'
 
 export default function Hits() {

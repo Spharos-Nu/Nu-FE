@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import exImg from '@/dummydata/banner1.png'
 // import LikeFalse from '@/public/svgs/icon/likeFalse.svg'
-import { SoonAndHitsType, Tag } from '@/types/SoonAndHitsType'
+import { SoonAndHitsType, Tag } from '@/types/mainType'
 import LikeFalse from '@/../public/svgs/icon/likeFalse.svg'
 import TagItem from './TagItem'
 

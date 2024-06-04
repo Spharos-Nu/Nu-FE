@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import exImg from '@/dummydata/banner1.png'
 import LikeFalse from '@/public/svgs/icon/likeFalse.svg'
-import { LiveAndHotType } from '@/types/LiveAndHotType'
+import { LiveAndHotType } from '@/types/mainType'
 
 export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
   return (

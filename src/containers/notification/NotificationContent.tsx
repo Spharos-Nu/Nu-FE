@@ -1,5 +1,5 @@
 import { PiTrashLight } from 'react-icons/pi'
-import { NotificationType } from '@/types/NotificationType'
+import { NotificationType } from '@/types/headerType'
 
 export default function NotificationContent({
   data,
