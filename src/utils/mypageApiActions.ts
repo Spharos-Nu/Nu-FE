@@ -54,14 +54,14 @@ export const getMannerDuck = async (): Promise<ApiResponse<MannerDuckData>> => {
  * 덕페이 충전 금액 조회
  * @returns 보류
  */
-export const getDuckPoint = async (): Promise<ApiResponse<null>> => {
+export const getDuckPoint = async (): Promise<ApiResponse<number>> => {
   const session = await getServerSession(options)
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users/duck-pay`, {
     headers: { Authorization: session?.user.accessToken },
   })
 
-  const data: ApiResponse<null> = await res.json()
+  const data: ApiResponse<number> = await res.json()
   return data
 }
 
