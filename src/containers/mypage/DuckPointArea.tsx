@@ -13,7 +13,9 @@ export default function DuckPointArea({
       <span className="text-xs pl-4">duck point</span>
       <div className="flex mt-2 mx-4 justify-between items-center">
         <span className="text-xl">
-          {duckPoint.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+          {(duckPoint ?? 100000)
+            .toString()
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
           원
         </span>
         <Link

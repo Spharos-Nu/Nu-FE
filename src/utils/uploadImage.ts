@@ -1,4 +1,8 @@
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from '@aws-sdk/client-s3'
 
 const s3 = new S3Client({
   region: process.env.NEXT_PUBLIC_AWS_REGION!,
@@ -26,6 +30,21 @@ export async function uploadImage(file: File | null): Promise<string> {
   try {
     await s3.send(command)
     return `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/profileImage/${filename}`
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function deleteImage(imageUrl: string): Promise<void> {
+  const filename = imageUrl.split('/').pop()!
+
+  const command = new DeleteObjectCommand({
+    Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME!,
+    Key: `profileImage/${filename}`,
+  })
+
+  try {
+    await s3.send(command)
   } catch (error) {
     throw error
   }
