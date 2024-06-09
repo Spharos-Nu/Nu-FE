@@ -14,7 +14,7 @@ import SecondBtnArea from '@/containers/member/join/SecondBtnArea'
 import SelectCategory from '@/containers/member/join/SelectCategory'
 import { useFirstStore, useSecondStore } from '@/containers/member/join/store'
 import DuckOne from '@/public/svgs/duck/duckOne.svg'
-import { join } from '@/utils/memberApiActions'
+import { join } from '@/utils/authApiActions'
 import { uploadImage } from '@/utils/uploadImage'
 
 export default function JoinForm() {

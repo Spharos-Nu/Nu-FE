@@ -7,7 +7,7 @@ import UpdateFavCategory from '@/containers/mypage/UpdateFavCategory'
 import UpdateNickname from '@/containers/mypage/UpdateNickname'
 import UpdateProfileImage from '@/containers/mypage/UpdateProfileImage'
 import { useUpdateProfileStore } from '@/containers/mypage/store'
-import { updateProfile } from '@/utils/mypageApiActions'
+import { updateProfile } from '@/utils/memberApiActions'
 import { deleteImage, uploadImage } from '@/utils/uploadImage'
 
 export default function UpdateProfileForm() {

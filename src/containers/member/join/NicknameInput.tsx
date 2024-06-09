@@ -2,7 +2,7 @@ import { TiDelete } from 'react-icons/ti'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { useFirstStore } from '@/containers/member/join/store'
-import { duplicationCheckNick } from '@/utils/memberApiActions'
+import { duplicationCheckNick } from '@/utils/authApiActions'
 
 export default function NicknameInput() {
   const { nickname, setNickname, setIsValidNick } = useFirstStore()
