@@ -2,7 +2,7 @@
 
 import notiData from '@/dummydata/notification.json'
 import BackBtn from '@/public/svgs/icon/backBtn.svg'
-import { NotificationType } from '@/types/NotificationType'
+import { NotificationType } from '@/types/headerType'
 import NotificationContent from './NotificationContent'
 
 export default function NotificationModal({

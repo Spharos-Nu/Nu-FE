@@ -1,5 +1,5 @@
 import Data from '@/dummydata/liveBidding.json'
-import { LiveAndHotType } from '@/types/LiveAndHotType'
+import { LiveAndHotType } from '@/types/mainType'
 import LiveAndHotItem from './LiveAndHotItem'
 
 export default function LiveBidding() {

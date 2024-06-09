@@ -8,7 +8,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import Banner2 from '@/dummydata/banner2.png'
-import { BannerType } from '@/types/BannerType'
+import { BannerType } from '@/types/mainType'
 
 export default function AdvertisingBanner() {
   SwiperCore.use([Navigation])

@@ -29,13 +29,13 @@ export default function SelectCategory() {
         </button>
       </div>
       {isDropdownOpen && (
-        <div className="absolute w-[calc(100%-80px)] bg-white border-[2px] border-sky-600 rounded-3xl mt-2 z-10">
+        <div className="absolute w-[calc(100%-80px)] bg-white border-[2px] border-sky-600 rounded-3xl mt-1 z-10">
           <button
             id="아이돌"
             type="button"
             onClick={() => {
               setFavoriteCategory('아이돌')
-              handleButtonClick()
+              setIsDropdownOpen(false)
             }}
             className="w-full py-2 border-b-[2px] border-sky-600 text-sm"
           >
@@ -46,7 +46,7 @@ export default function SelectCategory() {
             type="button"
             onClick={() => {
               setFavoriteCategory('애니메이션')
-              handleButtonClick()
+              setIsDropdownOpen(false)
             }}
             className="w-full py-2 border-b-[2px] border-sky-600 text-sm"
           >
@@ -57,7 +57,7 @@ export default function SelectCategory() {
             type="button"
             onClick={() => {
               setFavoriteCategory('야구')
-              handleButtonClick()
+              setIsDropdownOpen(false)
             }}
             className="w-full py-2 text-sm"
           >
