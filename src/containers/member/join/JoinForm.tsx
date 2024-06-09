@@ -18,7 +18,7 @@ import {
   useModalStore,
 } from '@/containers/member/join/store'
 import DuckOne from '@/public/svgs/duck/duckOne.svg'
-import { join } from '@/utils/memberApi'
+import { join } from '@/utils/memberApiActions'
 import { uploadImage } from '@/utils/uploadImage'
 
 export default function JoinForm() {
