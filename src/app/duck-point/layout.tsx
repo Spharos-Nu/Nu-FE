@@ -6,7 +6,7 @@ export default function MyPageLayout({
   children: React.ReactNode
 }>) {
   return (
-    <main className="absolute w-full h-full">
+    <main className="relative w-full h-full">
       <MyPageHeader />
       {children}
     </main>

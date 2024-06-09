@@ -1,6 +1,6 @@
 import SampleDuck from '@/public/svgs/duck/sampleDuck.svg'
 import { ApiResponse } from '@/types/apiResponseType'
-import { MannerDuckData } from '@/types/mypageDataType'
+import { MannerDuckData } from '@/types/memberApiDataType'
 
 export default function MannerDuckArea({
   mannerDuckData,

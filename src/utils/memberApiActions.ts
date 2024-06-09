@@ -6,7 +6,7 @@ import {
   MannerDuckData,
   GoodsData,
   DuckPointDetailData,
-} from '@/types/mypageDataType'
+} from '@/types/memberApiDataType'
 
 export const duplicationCheckNick = async (
   nickname: string,
