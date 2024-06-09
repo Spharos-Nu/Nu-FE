@@ -1,10 +1,10 @@
 'use client'
 
 import { TabType } from '@/components/Tab/MypageTabType'
-import { ReviewTabStore } from '@/containers/mypage/store'
+import { useReviewTabStore } from '@/containers/mypage/store'
 
 export default function ReviewTab() {
-  const { currentState, setState } = ReviewTabStore()
+  const { currentState, setState } = useReviewTabStore()
   const tab: TabType[] = [
     {
       idx: 0,

@@ -1,10 +1,10 @@
 'use client'
 
 import { TabType } from '@/components/Tab/MypageTabType'
-import { WinningTabStore } from '@/containers/mypage/store'
+import { useWinningTabStore } from '@/containers/mypage/store'
 
 export default function WinningTab() {
-  const { currentState, setState } = WinningTabStore()
+  const { currentState, setState } = useWinningTabStore()
   const tab: TabType[] = [
     {
       idx: 0,

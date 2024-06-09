@@ -6,26 +6,46 @@ interface TabState {
   setState: (bid: number) => void
 }
 
-export const BidTabStore = create<TabState>((set) => ({
+interface ProfileState {
+  profileImage: File | null
+  nickname: string
+  favoriteCategory: string
+
+  setProfileImage: (profileIamge: File | null) => void
+  setNickname: (nickname: string) => void
+  setFavoriteCategory: (favoriteCategory: string) => void
+}
+
+export const useBidTabStore = create<TabState>((set) => ({
   currentState: 0,
 
   setState: (currentState) => set({ currentState }),
 }))
 
-export const SellTabStore = create<TabState>((set) => ({
+export const useSellTabStore = create<TabState>((set) => ({
   currentState: 0,
 
   setState: (currentState) => set({ currentState }),
 }))
 
-export const WinningTabStore = create<TabState>((set) => ({
+export const useWinningTabStore = create<TabState>((set) => ({
   currentState: 0,
 
   setState: (currentState) => set({ currentState }),
 }))
 
-export const ReviewTabStore = create<TabState>((set) => ({
+export const useReviewTabStore = create<TabState>((set) => ({
   currentState: 0,
 
   setState: (currentState) => set({ currentState }),
+}))
+
+export const useUpdateProfileStore = create<ProfileState>((set) => ({
+  profileImage: null,
+  nickname: '',
+  favoriteCategory: '',
+
+  setProfileImage: (profileImage) => set({ profileImage }),
+  setNickname: (nickname) => set({ nickname }),
+  setFavoriteCategory: (favoriteCategory) => set({ favoriteCategory }),
 }))

@@ -1,5 +1,5 @@
 export interface ProfileData {
-  profileImg: string
+  profileImage: string
   nickname: string
   favCategory: string
 }

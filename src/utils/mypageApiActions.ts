@@ -52,14 +52,17 @@ export const getMannerDuck = async (): Promise<ApiResponse<MannerDuckData>> => {
 
 /**
  * 덕페이 충전 금액 조회
- * @returns 보류
+ * @returns 현재 보유 포인트
  */
 export const getDuckPoint = async (): Promise<ApiResponse<number>> => {
   const session = await getServerSession(options)
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users/duck-pay`, {
-    headers: { Authorization: session?.user.accessToken },
-  })
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/users/duck-point`,
+    {
+      headers: { Authorization: session?.user.accessToken },
+    },
+  )
 
   const data: ApiResponse<number> = await res.json()
   return data
@@ -67,23 +70,23 @@ export const getDuckPoint = async (): Promise<ApiResponse<number>> => {
 
 /** 프로필 수정 */
 export const updateProfile = async (
-  profileImage: string,
+  profileImageUrl: string,
   nickname: string,
   favoriteCategory: string,
-): Promise<ApiResponse<null>> => {
+): Promise<ApiResponse<ProfileData>> => {
   const session = await getServerSession(options)
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
     method: 'PATCH',
     headers: { Authorization: session?.user.accessToken },
     body: JSON.stringify({
-      profileImage,
+      profileImageUrl,
       nickname,
       favoriteCategory,
     }),
   })
 
-  const data: ApiResponse<null> = await res.json()
+  const data: ApiResponse<ProfileData> = await res.json()
   return data
 }
 

@@ -1,10 +1,10 @@
 'use client'
 
 import { TabType } from '@/components/Tab/MypageTabType'
-import { SellTabStore } from '@/containers/mypage/store'
+import { useSellTabStore } from '@/containers/mypage/store'
 
 export default function SellTab() {
-  const { currentState, setState } = SellTabStore()
+  const { currentState, setState } = useSellTabStore()
   const tab: TabType[] = [
     {
       idx: 0,

@@ -1,10 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useState, useEffect } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
+import { useUpdateProfileStore } from './store'
 
 export default function UpdateFavCategory() {
-  const [selectedOption, setSelectedOption] = useState<string>('')
+  const { data: session, status } = useSession()
+  const { favoriteCategory, setFavoriteCategory } = useUpdateProfileStore()
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
 
   const handleButtonClick = () => {
@@ -12,12 +15,19 @@ export default function UpdateFavCategory() {
   }
 
   const handleOptionClick = (option: string) => {
-    setSelectedOption(option)
+    setFavoriteCategory(option)
     setIsDropdownOpen(false)
   }
 
+  useEffect(() => {
+    if (status === 'authenticated') {
+      setFavoriteCategory(session?.user.favoriteCategory)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <div className="w-full mt-5">
+    <div className="w-full my-5">
       <div className="mx-10 h-14 border-[3px] border-slate-400 rounded-3xl">
         <button
           type="button"
@@ -25,7 +35,9 @@ export default function UpdateFavCategory() {
           className="w-full h-full relative flex items-center justify-between"
         >
           <span className="ml-3 flex content-center cursor-pointer text-slate-400">
-            {!selectedOption ? '관심 카테고리를 선택해주세요.' : selectedOption}
+            {!favoriteCategory
+              ? '관심 카테고리를 선택해주세요.'
+              : favoriteCategory}
           </span>
           <MdArrowDropDown className="h-5 w-5 mr-3 text-slate-400" />
         </button>

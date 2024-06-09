@@ -1,10 +1,10 @@
 'use client'
 
 import { TabType } from '@/components/Tab/MypageTabType'
-import { BidTabStore } from '@/containers/mypage/store'
+import { useBidTabStore } from '@/containers/mypage/store'
 
 export default function BidTab() {
-  const { currentState, setState } = BidTabStore()
+  const { currentState, setState } = useBidTabStore()
   const tab: TabType[] = [
     {
       idx: 0,
