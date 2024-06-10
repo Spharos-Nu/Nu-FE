@@ -55,7 +55,7 @@ export default function DetailList() {
       <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        isLast={data.isLast}
+        maxPage={data.maxPage}
       />
     </>
   )
