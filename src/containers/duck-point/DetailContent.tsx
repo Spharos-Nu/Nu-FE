@@ -6,7 +6,7 @@ interface DetailProps {
   createdAt: string
 }
 
-export default function Details({
+export default function DetailContent({
   changeAmount,
   leftPoint,
   changeStatus,
