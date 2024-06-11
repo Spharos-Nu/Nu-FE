@@ -69,7 +69,7 @@ export default function GoodsForm() {
 
   return (
     <div className="px-[20px] pt-[10px]">
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         <ImageArea />
         <label htmlFor="굿즈명" className="text-[#2B74B9] text-[17px]">
           굿즈명

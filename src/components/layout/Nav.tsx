@@ -12,7 +12,7 @@ export default function Nav() {
   const pathname = usePathname()
 
   return (
-    <div className="w-11/12 m-auto left-0 right-0 px-[15px] fixed grid grid-cols-5 bottom-5 bg-[#0083FF] h-[66px] tracking-[-0.05rem] text-[13px] rounded-full content-center opacity-80 shadow-[0px_5px_5px_2px_rgba(0,0,0,0.3)]">
+    <div className="w-11/12 m-auto left-0 right-0 z-10 px-[15px] fixed grid grid-cols-5 bottom-5 bg-[#0083FF] h-[66px] tracking-[-0.05rem] text-[13px] rounded-full content-center opacity-80 shadow-[0px_5px_5px_2px_rgba(0,0,0,0.3)]">
       <div className="text-center">
         <Link href="/">
           <div
@@ -28,14 +28,14 @@ export default function Nav() {
         </Link>
       </div>
       <div className="text-center">
-        <Link href="/">
+        <Link href="/goods">
           <div
-            className={`inline-block ${pathname === '/fullInquiry' ? ' opacity-100' : 'opacity-50'}`}
+            className={`inline-block ${pathname === '/goods' ? ' opacity-100' : 'opacity-50'}`}
           >
             <FullInquiry />
           </div>
           <div
-            className={`text-white ${pathname === '/fullInquiry' ? ' opacity-100' : 'opacity-50'}`}
+            className={`text-white ${pathname === '/goods' ? ' opacity-100' : 'opacity-50'}`}
           >
             전체
           </div>

@@ -12,7 +12,8 @@ export default function TagArea() {
     setItem(event.target.value)
   }
 
-  const pushTag = () => {
+  const pushTag = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault()
     addTags({ id: Date.now(), name: `#${item}` })
     setItem('')
   }
@@ -31,13 +32,13 @@ export default function TagArea() {
           className="col-span-4 px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc]"
           onChange={getTags}
         />
-        <div
+        <button
+          type="button"
           className="rounded-full border border-[#FFD26F] text-center content-center text-[#FFD26F]"
           onClick={pushTag}
-          role="none"
         >
           입력
-        </div>
+        </button>
       </div>
       <ul className="flex mb-[10px] whitespace-nowrap overflow-x-auto">
         {tagItems.map((tag: TagItem) => (
