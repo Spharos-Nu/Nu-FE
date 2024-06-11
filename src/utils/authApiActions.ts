@@ -1,4 +1,5 @@
 import { getServerSession } from 'next-auth'
+import { options } from '@/app/api/auth/[...nextauth]/options'
 import { ApiResponse } from '@/types/apiResponseType'
 
 export const join = async (
@@ -81,7 +82,7 @@ export const updatePassword = async (
   currentPassword: string,
   newPassword: string,
 ): Promise<ApiResponse<null>> => {
-  const session = await getServerSession()
+  const session = await getServerSession(options)
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/auth/pwd`, {
     method: 'PUT',

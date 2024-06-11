@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
 import { GoodsData } from '@/types/goodsApiDataType'
-import { getBidGoods } from '@/utils/goodsApiActions'
-import { useBidStore } from './store'
+import { getLikeGoods } from '@/utils/goodsApiActions'
+import { useLikeStore } from './store'
 
-export default function BidList() {
-  const { currentStatus, page, setPage } = useBidStore()
+export default function LikeList() {
+  const { page, setPage } = useLikeStore()
   const [data, setData] = useState<GoodsData>({
     totalCount: 0,
     nowPage: 0,
@@ -17,14 +17,14 @@ export default function BidList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getBidGoods(page, currentStatus)
+      const res = await getLikeGoods(page)
       if (res.status === 200) {
         setData(res.result)
       }
     }
 
     fetchData()
-  }, [page, currentStatus])
+  }, [page])
 
   return (
     <>

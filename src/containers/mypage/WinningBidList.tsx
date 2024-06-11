@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import WinningSummary from '@/components/GoodsSummary/WinningSummary'
+import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
 import { GoodsData } from '@/types/goodsApiDataType'
 import { getWinningGoods } from '@/utils/goodsApiActions'
 import { useWinningStore } from './store'
 
 export default function WinningBidList() {
-  const { page, setPage } = useWinningStore()
+  const { currentStatus, page, setPage } = useWinningStore()
   const [data, setData] = useState<GoodsData>({
     totalCount: 0,
     nowPage: 0,
@@ -17,21 +17,20 @@ export default function WinningBidList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getWinningGoods(page, null)
+      const res = await getWinningGoods(page, currentStatus)
       if (res.status === 200) {
         setData(res.result)
       }
     }
 
     fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page])
+  }, [page, currentStatus])
 
   return (
     <>
       <div className="grid grid-cols-4 gap-4 md:grid-cols-2">
         {data.goodsList.map((goods) => (
-          <WinningSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
+          <GoodsSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
         ))}
       </div>
       <Pagination

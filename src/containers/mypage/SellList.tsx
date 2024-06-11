@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import SellSummary from '@/components/GoodsSummary/SellSummary'
+import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
 import { GoodsData } from '@/types/goodsApiDataType'
 import { getSellGoods } from '@/utils/goodsApiActions'
 import { useSellStore } from './store'
 
 export default function SellList() {
-  const { page, setPage } = useSellStore()
+  const { currentStatus, page, setPage } = useSellStore()
   const [data, setData] = useState<GoodsData>({
     totalCount: 0,
     nowPage: 0,
@@ -17,21 +17,20 @@ export default function SellList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getSellGoods(page, null)
+      const res = await getSellGoods(page, currentStatus)
       if (res.status === 200) {
         setData(res.result)
       }
     }
 
     fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page])
+  }, [page, currentStatus])
 
   return (
     <>
       <div className="grid grid-cols-4 gap-4 md:grid-cols-2">
         {data.goodsList.map((goods) => (
-          <SellSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
+          <GoodsSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
         ))}
       </div>
       <Pagination

@@ -1,4 +1,4 @@
 export interface TabType {
-  idx: number
+  status: number | null
   title: string
 }

@@ -1,3 +1,5 @@
+import LikeList from '@/containers/mypage/LikeList'
+
 export default function Like() {
-  return <>좋아요</>
+  return <LikeList />
 }

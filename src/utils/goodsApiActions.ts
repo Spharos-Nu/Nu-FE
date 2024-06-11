@@ -9,17 +9,17 @@ import { GoodsData, SummaryData } from '@/types/goodsApiDataType'
  * @param status 0: 경매전 / 1: 경매중 / 2: 경매종료 / 3: 거래완료 / 4: 거래취소
  * @returns
  * "result": {
-    "totalCount": "총 개수",
-    "nowPage": "현재 페이지",
-    "maxPage": "최대 페이지",
-    "isLast": "마지막 페이지 여부"
-    "goodsList":[
-      {
-       "goodsCode": "상품코드"
-       },
-    ],
-  }
- */
+  "totalCount": "총 개수",
+  "nowPage": "현재 페이지",
+  "maxPage": "최대 페이지",
+  "isLast": "마지막 페이지 여부"
+  "goodsList":[
+    {
+      "goodsCode": "상품코드"
+      },
+  ],
+}
+*/
 export const getBidGoods = async (
   page: number,
   status: number | null,
@@ -49,11 +49,11 @@ export const getBidGoods = async (
     "isLast": "마지막 페이지 여부"
     "goodsList":[
       {
-       "goodsCode": "상품코드"
-       },
+        "goodsCode": "상품코드"
+        },
     ],
   }
- */
+  */
 export const getSellGoods = async (
   page: number,
   status: number | null,
@@ -83,11 +83,11 @@ export const getSellGoods = async (
     "isLast": "마지막 페이지 여부"
     "goodsList":[
       {
-       "goodsCode": "상품코드"
-       },
+        "goodsCode": "상품코드"
+        },
     ],
   }
- */
+  */
 export const getWinningGoods = async (
   page: number,
   status: number | null,
@@ -105,13 +105,45 @@ export const getWinningGoods = async (
   return data
 }
 
+export const getLikeGoods = async (
+  page: number,
+): Promise<ApiResponse<GoodsData>> => {
+  const session = await getServerSession(options)
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/aggregation/users/wish?page=${page}`,
+    {
+      headers: { Authorization: session?.user.accessToken },
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
+
 export const getGoodsSummary = async (
   goodsCode: number,
 ): Promise<ApiResponse<SummaryData>> => {
-  const session = await getServerSession()
+  const session = await getServerSession(options)
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}/summary`,
+    {
+      headers: session?.user.accessToken,
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
+
+export const getLike = async (
+  goodsCode: number,
+): Promise<ApiResponse<boolean>> => {
+  const session = await getServerSession(options)
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/aggregation/${goodsCode}/is-wish`,
     {
       headers: session?.user.accessToken,
     },
