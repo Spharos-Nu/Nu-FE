@@ -54,12 +54,12 @@ export default function GoodsList() {
   return (
     <div className="mt-[30px] px-[20px]">
       <div className="flex justify-between">
-        <div className="flex" onClick={() => handleCheck()} role="none">
+        <button type="button" className="flex" onClick={() => handleCheck()}>
           <span className="w-[20px] h-[20px] mr-[10px]">
             {check ? <CheckTrue /> : <CheckFalse />}
           </span>
           거래중인 것만 보기
-        </div>
+        </button>
         <div className="relative">
           <p className="flex" onClick={() => setToggle(!toggle)} role="none">
             {filter.name}

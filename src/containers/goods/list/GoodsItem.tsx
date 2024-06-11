@@ -14,7 +14,7 @@ export default function GoodsItem({
   return (
     <Link
       href={`/goods-detail?goodsCode=${goodsItemData.goodsCode}`}
-      className={`border rounded-2xl w-[calc(48%)] sm:w-[calc(30%)] lg:w-[calc(23%)] xl:w-[calc(18%)] ${goodsItemData.tradingStatus === 0 || goodsItemData.tradingStatus === 1 ? '' : 'grayscale'}`}
+      className={`border rounded-2xl w-[48%] sm:w-[30%] lg:w-[23%] xl:w-[18%] ${goodsItemData.tradingStatus === 0 || goodsItemData.tradingStatus === 1 ? '' : 'grayscale'}`}
     >
       <p
         className={`absolute z-10 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-[17px] whitespace-pre-line ${goodsItemData.tradingStatus === 0 || goodsItemData.tradingStatus === 1 ? 'hidden' : ''}`}
