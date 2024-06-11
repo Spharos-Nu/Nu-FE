@@ -1,10 +1,10 @@
 'use client'
 
 import { TabType } from '@/components/Tab/MypageTabType'
-import { useSellTabStore } from '@/containers/mypage/store'
+import { useSellStore } from '@/containers/mypage/store'
 
 export default function SellTab() {
-  const { currentState, setState } = useSellTabStore()
+  const { currentStatus, setStatus } = useSellStore()
   const tab: TabType[] = [
     {
       idx: 0,
@@ -35,12 +35,12 @@ export default function SellTab() {
           <div
             key={element.idx}
             aria-label={element.title}
-            className={`w-1/${tab.length} flex justify-center ${currentState === element.idx ? 'text-black' : 'text-slate-400'}`}
+            className={`w-1/${tab.length} flex justify-center ${currentStatus === element.idx ? 'text-black' : 'text-slate-400'}`}
           >
             <button
               type="button"
               id={element.title}
-              onClick={() => setState(element.idx)}
+              onClick={() => setStatus(element.idx)}
             >
               {element.title}
             </button>

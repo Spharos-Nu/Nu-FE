@@ -1,10 +1,10 @@
 'use client'
 
 import { TabType } from '@/components/Tab/MypageTabType'
-import { useWinningTabStore } from '@/containers/mypage/store'
+import { useWinningStore } from '@/containers/mypage/store'
 
 export default function WinningTab() {
-  const { currentState, setState } = useWinningTabStore()
+  const { currentStatus, setStatus } = useWinningStore()
   const tab: TabType[] = [
     {
       idx: 0,
@@ -31,12 +31,12 @@ export default function WinningTab() {
           <div
             key={element.idx}
             aria-label={element.title}
-            className={`w-1/${tab.length} flex justify-center ${currentState === element.idx ? 'text-black' : 'text-slate-400'}`}
+            className={`w-1/${tab.length} flex justify-center ${currentStatus === element.idx ? 'text-black' : 'text-slate-400'}`}
           >
             <button
               type="button"
               id={element.title}
-              onClick={() => setState(element.idx)}
+              onClick={() => setStatus(element.idx)}
             >
               {element.title}
             </button>

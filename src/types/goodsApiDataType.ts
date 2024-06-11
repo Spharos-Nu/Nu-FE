@@ -3,7 +3,7 @@ export interface GoodsData {
   nowPage: number
   maxPage: number
   isLast: boolean
-  goodsList: [goodsCode: number]
+  goodsList: { goodsCode: number }[]
 }
 
 export interface SummaryData {

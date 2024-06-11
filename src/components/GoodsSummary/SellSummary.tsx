@@ -26,5 +26,5 @@ export default function SellSummary({ goodsCode }: { goodsCode: number }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return { data }
+  return <>1{data}</>
 }

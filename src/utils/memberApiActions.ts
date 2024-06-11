@@ -1,7 +1,6 @@
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import { ApiResponse } from '@/types/apiResponseType'
-import { GoodsData } from '@/types/goodsApiDataType'
 import {
   ProfileData,
   MannerDuckData,
@@ -103,40 +102,6 @@ export const updateProfile = async (
 
 // Todo: 토큰이 있는 경우에도 비밀번호 재설정 가능
 // export const updatePassword = async (): Promise<ApiResponse<null>> => {}
-
-/**
- * 입찰한 상품 코드 조회
- * @param page 현재 페이지
- * @param status 0: 경매전 / 1: 경매중 / 2: 경매종료 / 3: 거래완료 / 4: 거래취소
- * @returns
- * "result": {
-    "totalCount": "총 개수",
-    "nowPage": "현재 페이지",
-    "maxPage": "최대 페이지",
-    "isLast": "마지막 페이지 여부"
-    "goodsList":[
-      {
-       "goodsCode": "상품코드"
-       },
-    ],
-  }
- */
-export const getBidGoods = async (
-  page: number,
-  status: number,
-): Promise<ApiResponse<GoodsData>> => {
-  const session = await getServerSession(options)
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/bids/users?page=${page}?status=${status}`,
-    {
-      headers: { Authorization: session?.user.accessToken },
-    },
-  )
-
-  const data: ApiResponse<GoodsData> = await res.json()
-  return data
-}
 
 // Todo: Api 개발되면 낙찰받은 데이터도
 // export const getWinningGoods = async () => {}

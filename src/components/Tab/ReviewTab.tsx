@@ -1,10 +1,10 @@
 'use client'
 
 import { TabType } from '@/components/Tab/MypageTabType'
-import { useReviewTabStore } from '@/containers/mypage/store'
+import { useReviewStore } from '@/containers/mypage/store'
 
 export default function ReviewTab() {
-  const { currentState, setState } = useReviewTabStore()
+  const { currentStatus, setStatus } = useReviewStore()
   const tab: TabType[] = [
     {
       idx: 0,
@@ -23,12 +23,12 @@ export default function ReviewTab() {
           <div
             key={element.idx}
             aria-label={element.title}
-            className={`w-1/${tab.length} flex justify-center ${currentState === element.idx ? 'text-black' : 'text-slate-400'}`}
+            className={`w-1/${tab.length} flex justify-center ${currentStatus === element.idx ? 'text-black' : 'text-slate-400'}`}
           >
             <button
               type="button"
               id={element.title}
-              onClick={() => setState(element.idx)}
+              onClick={() => setStatus(element.idx)}
             >
               {element.title}
             </button>

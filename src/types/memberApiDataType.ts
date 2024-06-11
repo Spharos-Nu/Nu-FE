@@ -13,13 +13,11 @@ export interface DuckPointDetailData {
   nowPage: number
   maxPage: number
   isLast: boolean
-  historyList: [
-    {
-      changeAmount: number
-      leftPoint: number
-      changeStatus: boolean
-      historyDetail: string
-      createdAt: string
-    },
-  ]
+  historyList: {
+    changeAmount: number
+    leftPoint: number
+    changeStatus: boolean
+    historyDetail: string
+    createdAt: string
+  }[]
 }

@@ -1,9 +1,11 @@
 import { create } from 'zustand'
 
-interface TabState {
-  currentState: number
+interface TradingState {
+  currentStatus: number
+  page: number
 
-  setState: (bid: number) => void
+  setStatus: (currentStatus: number) => void
+  setPage: (page: number) => void
 }
 
 interface ProfileState {
@@ -16,28 +18,36 @@ interface ProfileState {
   setFavoriteCategory: (favoriteCategory: string) => void
 }
 
-export const useBidTabStore = create<TabState>((set) => ({
-  currentState: 0,
+export const useBidStore = create<TradingState>((set) => ({
+  currentStatus: 0,
+  page: 0,
 
-  setState: (currentState) => set({ currentState }),
+  setStatus: (currentStatus) => set({ currentStatus }),
+  setPage: (page) => ({ page }),
 }))
 
-export const useSellTabStore = create<TabState>((set) => ({
-  currentState: 0,
+export const useSellStore = create<TradingState>((set) => ({
+  currentStatus: 0,
+  page: 0,
 
-  setState: (currentState) => set({ currentState }),
+  setStatus: (currentStatus) => set({ currentStatus }),
+  setPage: (page) => ({ page }),
 }))
 
-export const useWinningTabStore = create<TabState>((set) => ({
-  currentState: 0,
+export const useWinningStore = create<TradingState>((set) => ({
+  currentStatus: 0,
+  page: 0,
 
-  setState: (currentState) => set({ currentState }),
+  setStatus: (currentStatus) => set({ currentStatus }),
+  setPage: (page) => ({ page }),
 }))
 
-export const useReviewTabStore = create<TabState>((set) => ({
-  currentState: 0,
+export const useReviewStore = create<TradingState>((set) => ({
+  currentStatus: 0,
+  page: 0,
 
-  setState: (currentState) => set({ currentState }),
+  setStatus: (currentStatus) => set({ currentStatus }),
+  setPage: (page) => ({ page }),
 }))
 
 export const useUpdateProfileStore = create<ProfileState>((set) => ({
