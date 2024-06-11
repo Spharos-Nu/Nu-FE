@@ -3,7 +3,7 @@ import Nav from '@/components/layout/Nav'
 import RegistrationBtn from '@/components/layout/RegistrationBtn'
 import UpNav from '@/components/layout/UpNav'
 
-export default function MyPageLayout({
+export default function GoodsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
