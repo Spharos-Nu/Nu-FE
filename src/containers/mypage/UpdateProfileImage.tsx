@@ -1,13 +1,17 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
+import { useUpdateProfileStore } from '@/containers/mypage/store'
 import BasicProfileDuck from '@/public/svgs/duck/basicProfileDuck.svg'
 import ProfileImgBtn from '@/public/svgs/icon/profileImgBtn.svg'
 
-export default function ProfileImage() {
+export default function UpdateProfileImage() {
   const [previewUrl, setPreviewUrl] = useState<string>('')
+  const { data: session } = useSession()
+  const { setProfileImage } = useUpdateProfileStore()
 
   const handleButtonClick = () => {
     document.getElementById('프로필 이미지')?.click()
@@ -28,11 +32,18 @@ export default function ProfileImage() {
           setPreviewUrl(reader.result as string)
         }
         reader.readAsDataURL(selectedFile)
+        setProfileImage(selectedFile)
       } else {
-        setPreviewUrl('')
+        setPreviewUrl(session?.user.profileImage)
+        setProfileImage(null)
       }
     }
   }
+
+  useEffect(() => {
+    setPreviewUrl(session?.user.profileImage)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="flex justify-center items-center mt-10">
@@ -68,7 +79,8 @@ export default function ProfileImage() {
         <MdCancel
           className="w-[34px] h-[34px] pr-0 absolute top-0 right-[-5px] z-10 text-sky-600 rounded-full bg-white"
           onClick={() => {
-            setPreviewUrl('')
+            setPreviewUrl(session?.user.profileImage)
+            setProfileImage(null)
           }}
         />
       </div>

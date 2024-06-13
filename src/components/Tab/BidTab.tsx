@@ -1,29 +1,29 @@
 'use client'
 
 import { TabType } from '@/components/Tab/MypageTabType'
-import { BidTabStore } from '@/containers/mypage/store'
+import { useBidStore } from '@/containers/mypage/store'
 
 export default function BidTab() {
-  const { currentState, setState } = BidTabStore()
+  const { currentStatus, setStatus, setPage } = useBidStore()
   const tab: TabType[] = [
     {
-      idx: 0,
+      status: null,
       title: '전체',
     },
     {
-      idx: 1,
-      title: '입찰 중',
+      status: 1,
+      title: '경매 중',
     },
     {
-      idx: 2,
-      title: '입찰종료',
+      status: 2,
+      title: '경매종료',
     },
     {
-      idx: 3,
+      status: 3,
       title: '거래완료',
     },
     {
-      idx: 4,
+      status: 4,
       title: '거래취소',
     },
   ]
@@ -33,14 +33,17 @@ export default function BidTab() {
       {tab.map((element) => {
         return (
           <div
-            key={element.idx}
+            key={element.status}
             aria-label={element.title}
-            className={`w-1/${tab.length} flex justify-center ${currentState === element.idx ? 'text-black' : 'text-slate-400'}`}
+            className={`w-1/${tab.length} flex justify-center ${currentStatus === element.status ? 'text-black' : 'text-slate-400'}`}
           >
             <button
               type="button"
               id={element.title}
-              onClick={() => setState(element.idx)}
+              onClick={() => {
+                setStatus(element.status)
+                setPage(0)
+              }}
             >
               {element.title}
             </button>

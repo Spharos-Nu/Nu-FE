@@ -2,7 +2,7 @@ import { TiDelete } from 'react-icons/ti'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { useFirstStore } from '@/containers/member/join/store'
-import { duplicationCheckNick } from '@/utils/memberApi'
+import { duplicationCheckNick } from '@/utils/authApiActions'
 
 export default function NicknameInput() {
   const { nickname, setNickname, setIsValidNick } = useFirstStore()
@@ -13,9 +13,9 @@ export default function NicknameInput() {
   }
 
   const handleNick = async () => {
-    const regex = /^[a-zA-Z가-힣0-9]{2,10}$/
+    const regex = /^[a-zA-Z가-힣0-9]{2,15}$/
     if (!regex.test(nickname)) {
-      return showAlert('2~10자의 올바른 닉네임을 입력해주세요.')
+      return showAlert('2~15자의 올바른 닉네임을 입력해주세요.')
     }
 
     const data = await duplicationCheckNick(nickname)

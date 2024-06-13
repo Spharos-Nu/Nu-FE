@@ -1,10 +1,11 @@
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
+import { options } from '@/app/api/auth/[...nextauth]/options'
 import JoinForm from '@/containers/member/join/JoinForm'
 import { poppins } from '@/styles/fonts'
 
 export default async function Join() {
-  const session = await getServerSession()
+  const session = await getServerSession(options)
 
   if (session) {
     return redirect('/')

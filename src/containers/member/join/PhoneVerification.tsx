@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { useFirstStore, useSecondStore } from '@/containers/member/join/store'
-import { verification, verificationConfirm } from '@/utils/memberApi'
+import { verification, verificationConfirm } from '@/utils/authApiActions'
 import VerificationTime from '@/../public/svgs/icon/verificationTime.svg'
 
 export default function PhoneVerification() {

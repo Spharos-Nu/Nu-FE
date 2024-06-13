@@ -12,13 +12,9 @@ import Pw2Input from '@/containers/member/join/Pw2Input'
 import PwInput from '@/containers/member/join/PwInput'
 import SecondBtnArea from '@/containers/member/join/SecondBtnArea'
 import SelectCategory from '@/containers/member/join/SelectCategory'
-import {
-  useFirstStore,
-  useSecondStore,
-  useModalStore,
-} from '@/containers/member/join/store'
+import { useFirstStore, useSecondStore } from '@/containers/member/join/store'
 import DuckOne from '@/public/svgs/duck/duckOne.svg'
-import { join } from '@/utils/memberApi'
+import { join } from '@/utils/authApiActions'
 import { uploadImage } from '@/utils/uploadImage'
 
 export default function JoinForm() {
@@ -28,7 +24,6 @@ export default function JoinForm() {
   const { password, password2, phoneNumber, isValidated, resetSecondState } =
     useSecondStore()
   const { message, setAlert } = useBasicAlertStore()
-  const { setIsOpen } = useModalStore()
 
   const handleSwipeLeft = () => {
     setCurrentIdx(1)
@@ -78,10 +73,6 @@ export default function JoinForm() {
 
     resetFirstState()
     resetSecondState()
-
-    if (data.status === 201) {
-      setIsOpen(true)
-    }
 
     return showAlert(data.message)
   }

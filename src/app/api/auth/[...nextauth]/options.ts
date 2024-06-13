@@ -13,8 +13,8 @@ export const options: NextAuthOptions = {
       },
 
       async authorize(credentials) {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/login`,
+        const loginResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API}/v1/auth-n/login`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -22,12 +22,33 @@ export const options: NextAuthOptions = {
           },
         )
 
-        if (res.ok) {
-          const user = await res.json()
-          return user.result
+        if (!loginResponse.ok) {
+          return null
         }
 
-        return null
+        const { accessToken, refreshToken } = await loginResponse.json()
+
+        const userResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API}/v1/users`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: accessToken,
+            },
+          },
+        )
+
+        if (!userResponse.ok) {
+          return null
+        }
+
+        const user = await userResponse.json()
+
+        return {
+          accessToken,
+          refreshToken,
+          ...user.result,
+        }
       },
     }),
     KakaoProvider({
@@ -40,7 +61,7 @@ export const options: NextAuthOptions = {
       if (profile) {
         // 회원인지 아닌지 확인
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_MEMBER}/v1/users-n/social-login`,
+          `${process.env.NEXT_PUBLIC_API}/v1/auth-n/social-login`,
           {
             method: 'GET',
             headers: {

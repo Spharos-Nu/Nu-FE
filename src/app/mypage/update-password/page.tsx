@@ -1,3 +1,10 @@
+'use client'
+
+import { useState } from 'react'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
+import { updatePassword } from '@/utils/authApiActions'
+
 interface PasswordType {
   id: number
   label: string
@@ -5,8 +12,26 @@ interface PasswordType {
   placeholder: string
 }
 
-export default async function UpdatePassword() {
-  // Todo: Api 함수 연결해야지.
+export default function UpdatePassword() {
+  const [formData, setFormData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  })
+
+  const { message, setAlert } = useBasicAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const { currentPassword, newPassword } = formData
+    const data = await updatePassword(currentPassword, newPassword)
+
+    return showAlert(data.message)
+  }
 
   const password: PasswordType[] = [
     {
@@ -30,7 +55,7 @@ export default async function UpdatePassword() {
   ]
 
   return (
-    <form className="h-full mx-5 my-5 relative">
+    <form className="h-full mx-5 my-5 relative" onSubmit={handleSubmit}>
       {password.map((element) => {
         return (
           <div key={element.id} className="w-full h-14 rounded-3xl my-14">
@@ -41,10 +66,17 @@ export default async function UpdatePassword() {
                 type="password"
                 placeholder={element.placeholder}
                 name={element.name}
+                value={formData[element.name as keyof typeof formData]}
                 autoComplete="off"
                 minLength={8}
                 maxLength={20}
                 className="w-full h-full rounded-3xl bg-gray-200 pl-5 mt-3 text-sm focus:border-[3px] focus:border-sky-600"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value,
+                  })
+                }
               />
             </label>
           </div>
@@ -52,10 +84,11 @@ export default async function UpdatePassword() {
       })}
       <button
         type="submit"
-        className="w-full h-14 rounded-3xl bg-sky-600 text-white absolute bottom-20"
+        className="w-full h-14 rounded-3xl bg-sky-600 text-white bottom-0"
       >
         변경 완료
       </button>
+      <BasicAlert message={message} />
     </form>
   )
 }

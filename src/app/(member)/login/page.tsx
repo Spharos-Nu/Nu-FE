@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
+import { options } from '@/app/api/auth/[...nextauth]/options'
 import LoginForm from '@/containers/member/login/LoginForm'
 import SocialForm from '@/containers/member/login/SocialForm'
 import LoginDuck from '@/public/svgs/loginDuck.svg'
 import { poppins } from '@/styles/fonts'
 
 export default async function Login() {
-  const session = await getServerSession()
+  const session = await getServerSession(options)
 
   if (session) {
     return redirect('/')

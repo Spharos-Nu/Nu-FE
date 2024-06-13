@@ -1,25 +1,25 @@
 'use client'
 
 import { TabType } from '@/components/Tab/MypageTabType'
-import { WinningTabStore } from '@/containers/mypage/store'
+import { useWinningStore } from '@/containers/mypage/store'
 
 export default function WinningTab() {
-  const { currentState, setState } = WinningTabStore()
+  const { currentStatus, setStatus, setPage } = useWinningStore()
   const tab: TabType[] = [
     {
-      idx: 0,
+      status: null,
       title: '전체',
     },
     {
-      idx: 1,
+      status: 1,
       title: '낙찰',
     },
     {
-      idx: 2,
+      status: 2,
       title: '거래완료',
     },
     {
-      idx: 3,
+      status: 3,
       title: '거래취소',
     },
   ]
@@ -29,14 +29,17 @@ export default function WinningTab() {
       {tab.map((element) => {
         return (
           <div
-            key={element.idx}
+            key={element.status}
             aria-label={element.title}
-            className={`w-1/${tab.length} flex justify-center ${currentState === element.idx ? 'text-black' : 'text-slate-400'}`}
+            className={`w-1/${tab.length} flex justify-center ${currentStatus === element.status ? 'text-black' : 'text-slate-400'}`}
           >
             <button
               type="button"
               id={element.title}
-              onClick={() => setState(element.idx)}
+              onClick={() => {
+                setStatus(element.status)
+                setPage(0)
+              }}
             >
               {element.title}
             </button>
