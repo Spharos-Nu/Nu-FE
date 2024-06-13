@@ -11,3 +11,8 @@ export interface FilterType {
   id: number
   name: string
 }
+
+export interface WishTradeType {
+  id: number
+  name: string
+}
