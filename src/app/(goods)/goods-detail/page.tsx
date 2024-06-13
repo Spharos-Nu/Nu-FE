@@ -11,13 +11,20 @@ export default function GoodsDetailPage({
 }) {
   const goodsCode = searchParams.goodsCode ? Number(searchParams.goodsCode) : 0
 
+  const bidding = async (biddingData: FormData) => {
+    'use server'
+
+    console.log(biddingData)
+    biddingData.get('biddingPrice')
+  }
+
   return (
-    <div className="pt-[5px]">
+    <main className="pt-[5px]">
       <DetailImageArea />
       <DetailInfo />
       <DetailDescription />
       <EtcArea goodsCode={goodsCode} />
-      <BiddingBtn />
-    </div>
+      <BiddingBtn bidding={bidding} />
+    </main>
   )
 }

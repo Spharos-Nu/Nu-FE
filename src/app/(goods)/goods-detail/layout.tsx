@@ -7,10 +7,10 @@ export default function GoodsDetailLayout({
   children: React.ReactNode
 }>) {
   return (
-    <main>
+    <>
       <DetailHeader />
       {children}
       <UpNav />
-    </main>
+    </>
   )
 }

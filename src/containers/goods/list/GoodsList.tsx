@@ -52,7 +52,7 @@ export default function GoodsList() {
   }
 
   return (
-    <div className="mt-[30px] px-[20px]">
+    <main className="mt-[30px] px-[20px]">
       <div className="flex justify-between">
         <button type="button" className="flex" onClick={() => handleCheck()}>
           <span className="w-[20px] h-[20px] mr-[10px]">
@@ -61,12 +61,12 @@ export default function GoodsList() {
           거래중인 것만 보기
         </button>
         <div className="relative">
-          <p className="flex" onClick={() => setToggle(!toggle)} role="none">
+          <div className="flex" onClick={() => setToggle(!toggle)} role="none">
             {filter.name}
-            <span className="ml-[8px] content-center">
+            <div className="ml-[8px] content-center">
               <Arrow />
-            </span>
-          </p>
+            </div>
+          </div>
           {toggle && (
             <ul className="absolute z-10 w-[120px] top-[32px] -left-5 rounded-lg bg-white py-[5px] px-[8px] shadow-[0px_3px_10px_5px_rgba(0,0,0,0.05)]">
               {filtering.map((item) => (
@@ -92,6 +92,6 @@ export default function GoodsList() {
           />
         ))}
       </div>
-    </div>
+    </main>
   )
 }

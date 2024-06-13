@@ -21,13 +21,14 @@ export default function BiddingModal({
           >
             <BiddingModalBtn />
           </div>
-          <form>
+          <div>
             <label htmlFor="biddingPrice">
               <span className="hidden">입찰 금액</span>
               <input
                 type="number"
                 className="w-[calc(100%-50px)] h-[60px] mt-[50px] mx-[20px] px-[20px] bg-[#F7F7F7] rounded-full placeholder:text-[#70a3d2]"
                 placeholder="입찰가를 입력해주세요"
+                name="biddingPrice"
                 id="biddingPrice"
               />
             </label>
@@ -37,7 +38,7 @@ export default function BiddingModal({
             >
               입찰하기
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
