@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
