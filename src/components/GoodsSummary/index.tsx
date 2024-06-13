@@ -44,7 +44,13 @@ export default function GoodsSummary({ goodsCode }: { goodsCode: number }) {
       href={`/goods-detail/?code=${goodsCode}`}
       className="w-[90%] h-[90%] m-auto relative"
     >
-      <Image src={data.thumbnailUrl} alt="썸네일" className="rounded-t-xl" />
+      <Image
+        src={data.thumbnailUrl}
+        alt="썸네일"
+        className="rounded-t-xl w-full h-full"
+        width={0}
+        height={0}
+      />
       <div className="rounded-b-xl">
         <p>{data.goodsName}</p>
         <div className="grid grid-cols-3 gap-1">
