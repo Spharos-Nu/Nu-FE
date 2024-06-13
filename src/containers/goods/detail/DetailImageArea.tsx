@@ -82,7 +82,7 @@ export default function DetailImageArea() {
           alt="굿즈 이미지"
           width={0}
           height={0}
-          className="h-[calc(100%-30px)] w-[calc(100%-30px)] max-w-[600px] m-auto rounded-3xl"
+          className="h-auto w-[calc(100%-30px)] max-w-[600px] aspect-square object-cover object-center overflow-hidden m-auto rounded-3xl"
         />
         <button
           type="button"
