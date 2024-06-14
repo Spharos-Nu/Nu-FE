@@ -49,8 +49,8 @@ export default function AdvertisingBanner() {
             <Image
               src={Banner2}
               alt="배너 이미지"
-              width={500}
-              height={500}
+              width={600}
+              height={600}
               className="rounded-3xl m-auto"
             />
           </SwiperSlide>

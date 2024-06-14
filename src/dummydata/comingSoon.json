@@ -99,6 +99,156 @@
           "tagName": "포토카드"
         }
       ]
+    },
+    {
+      "goodsCode": "5",
+      "thumbnail": "/src/dummydata/banner2.png",
+      "goodsName": "아이브 이서 포토카드",
+      "minPrice": 30000,
+      "closedAt": "2024-05-25",
+      "viewsCount": 40,
+      "wishCount": 60,
+      "biddingCount": 20,
+      "tradingStatus": 1,
+      "tag": [
+        {
+          "tagId": 1,
+          "tagName": "아이브"
+        },
+        {
+          "tagId": 2,
+          "tagName": "이서"
+        },
+        {
+          "tagId": 3,
+          "tagName": "포토카드"
+        }
+      ]
+    },
+    {
+      "goodsCode": "6",
+      "thumbnail": "/src/dummydata/banner2.png",
+      "goodsName": "아이브 이서 포토카드",
+      "minPrice": 30000,
+      "closedAt": "2024-05-25",
+      "viewsCount": 40,
+      "wishCount": 60,
+      "biddingCount": 20,
+      "tradingStatus": 1,
+      "tag": [
+        {
+          "tagId": 1,
+          "tagName": "아이브"
+        },
+        {
+          "tagId": 2,
+          "tagName": "이서"
+        },
+        {
+          "tagId": 3,
+          "tagName": "포토카드"
+        }
+      ]
+    },
+    {
+      "goodsCode": "7",
+      "thumbnail": "/src/dummydata/banner2.png",
+      "goodsName": "아이브 이서 포토카드",
+      "minPrice": 30000,
+      "closedAt": "2024-05-25",
+      "viewsCount": 40,
+      "wishCount": 60,
+      "biddingCount": 20,
+      "tradingStatus": 1,
+      "tag": [
+        {
+          "tagId": 1,
+          "tagName": "아이브"
+        },
+        {
+          "tagId": 2,
+          "tagName": "이서"
+        },
+        {
+          "tagId": 3,
+          "tagName": "포토카드"
+        }
+      ]
+    },
+    {
+      "goodsCode": "8",
+      "thumbnail": "/src/dummydata/banner2.png",
+      "goodsName": "아이브 이서 포토카드",
+      "minPrice": 30000,
+      "closedAt": "2024-05-25",
+      "viewsCount": 40,
+      "wishCount": 60,
+      "biddingCount": 20,
+      "tradingStatus": 1,
+      "tag": [
+        {
+          "tagId": 1,
+          "tagName": "아이브"
+        },
+        {
+          "tagId": 2,
+          "tagName": "이서"
+        },
+        {
+          "tagId": 3,
+          "tagName": "포토카드"
+        }
+      ]
+    },
+    {
+      "goodsCode": "9",
+      "thumbnail": "/src/dummydata/banner2.png",
+      "goodsName": "아이브 이서 포토카드",
+      "minPrice": 30000,
+      "closedAt": "2024-05-25",
+      "viewsCount": 40,
+      "wishCount": 60,
+      "biddingCount": 20,
+      "tradingStatus": 1,
+      "tag": [
+        {
+          "tagId": 1,
+          "tagName": "아이브"
+        },
+        {
+          "tagId": 2,
+          "tagName": "이서"
+        },
+        {
+          "tagId": 3,
+          "tagName": "포토카드"
+        }
+      ]
+    },
+    {
+      "goodsCode": "10",
+      "thumbnail": "/src/dummydata/banner2.png",
+      "goodsName": "아이브 이서 포토카드",
+      "minPrice": 30000,
+      "closedAt": "2024-05-25",
+      "viewsCount": 40,
+      "wishCount": 60,
+      "biddingCount": 20,
+      "tradingStatus": 1,
+      "tag": [
+        {
+          "tagId": 1,
+          "tagName": "아이브"
+        },
+        {
+          "tagId": 2,
+          "tagName": "이서"
+        },
+        {
+          "tagId": 3,
+          "tagName": "포토카드"
+        }
+      ]
     }
   ]
 }
