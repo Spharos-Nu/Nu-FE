@@ -61,12 +61,16 @@ export default function GoodsList() {
           거래중인 것만 보기
         </button>
         <div className="relative">
-          <div className="flex" onClick={() => setToggle(!toggle)} role="none">
+          <button
+            className="flex"
+            onClick={() => setToggle(!toggle)}
+            type="button"
+          >
             {filter.name}
-            <div className="ml-[8px] content-center">
+            <div className="ml-[8px] place-self-center">
               <Arrow />
             </div>
-          </div>
+          </button>
           {toggle && (
             <ul className="absolute z-10 w-[120px] top-[32px] -left-5 rounded-lg bg-white py-[5px] px-[8px] shadow-[0px_3px_10px_5px_rgba(0,0,0,0.05)]">
               {filtering.map((item) => (
