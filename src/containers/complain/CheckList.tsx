@@ -34,7 +34,7 @@ export default function CheckList({
                 className="hidden"
               />
               <IoCheckmark
-                className={`absolute inline-block w-[30px] h-[31px] ${selected === item.description ? ' text-[#FFD26F]' : ' text-black'}`}
+                className={`absolute inline-block w-[30px] h-[31px] ${selected === item.description ? ' text-yellow-400' : ' text-black'}`}
               />
               <p className="pl-[40px] text-[19px] leading-[31px]">
                 {item.description}
