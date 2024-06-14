@@ -2,16 +2,17 @@
 
 import Image from 'next/image'
 import SwiperCore from 'swiper'
-import { Navigation } from 'swiper/modules'
+import { Navigation, Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import Banner2 from '@/dummydata/banner2.png'
 import { BannerType } from '@/types/mainType'
+import '@/styles/swiper.css'
 
 export default function AdvertisingBanner() {
-  SwiperCore.use([Navigation])
+  SwiperCore.use([Navigation, Autoplay])
   // const swiperRef = useRef<SwiperCore>()
 
   const banner = [
@@ -34,23 +35,23 @@ export default function AdvertisingBanner() {
       <Swiper
         modules={[Navigation]}
         spaceBetween={0}
-        slidesPerView={1} // 보여질 슬라이드 수 - 소수도 가능
+        slidesPerView={1} // 보여질 슬라이드 수
         loop // 슬라이드 루프
         autoplay={{
-          delay: 2500,
+          delay: 3000,
           disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
-        }} // 참고자료에 autoplay 사용할 때 예시 있음
-        navigation={false}
+        }}
+        navigation
         className=""
       >
         {banner.map((item: BannerType) => (
-          <SwiperSlide key={item.id} className="">
+          <SwiperSlide key={item.id}>
             <Image
               src={Banner2}
-              alt=""
+              alt="배너 이미지"
               width={500}
               height={500}
-              className="rounded-3xl"
+              className="rounded-3xl m-auto"
             />
           </SwiperSlide>
         ))}

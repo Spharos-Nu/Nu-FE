@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import CategorySelection from '@/containers/category/CategorySelection'
 import NotificationVisible from '@/containers/notification/NotificationVisible'
 import SearchVisible from '@/containers/search/SearchVisible'
@@ -8,7 +9,9 @@ export default function Header() {
     <header className="static my-[15px] flex justify-between leading-[50px]">
       <div className="flex h-[50px]">
         <h1 className="pl-[20px]">
-          <Logo />
+          <Link href="/">
+            <Logo />
+          </Link>
         </h1>
         <CategorySelection />
       </div>
