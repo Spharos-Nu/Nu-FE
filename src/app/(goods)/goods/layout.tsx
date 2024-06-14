@@ -9,12 +9,14 @@ export default function GoodsLayout({
   children: React.ReactNode
 }>) {
   return (
-    <main>
+    <>
       <Header />
       {children}
       <Nav />
-      <RegistrationBtn />
-      <UpNav />
-    </main>
+      <aside>
+        <RegistrationBtn />
+        <UpNav />
+      </aside>
+    </>
   )
 }
