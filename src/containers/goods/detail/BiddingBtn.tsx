@@ -15,15 +15,17 @@ export default function BiddingBtn({
   // }
 
   return (
-    <form action={bidding}>
-      <div
-        role="none"
+    <>
+      <button
+        type="button"
         className="fixed left-1/2 -translate-x-1/2 z-20 w-[calc(100%-40px)] py-[15px] text-center text-[25px] bg-[#319AFD] text-white rounded-full bottom-[15px] opacity-90 shadow-[0px_5px_5px_2px_rgba(0,0,0,0.3)]"
         onClick={() => setVisible(true)}
       >
         입찰하기
-      </div>
-      {visible && <BiddingModal setVisible={setVisible} />}
-    </form>
+      </button>
+      <form action={bidding}>
+        {visible && <BiddingModal setVisible={setVisible} />}
+      </form>
+    </>
   )
 }
