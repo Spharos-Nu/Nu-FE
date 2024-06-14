@@ -9,10 +9,6 @@ export default function BiddingBtn({
   bidding: (biddingData: FormData) => void
 }) {
   const [visible, setVisible] = useState<boolean>(false)
-  // const hadnleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault()
-
-  // }
 
   return (
     <>
@@ -23,9 +19,7 @@ export default function BiddingBtn({
       >
         입찰하기
       </button>
-      <form action={bidding}>
-        {visible && <BiddingModal setVisible={setVisible} />}
-      </form>
+      {visible && <BiddingModal setVisible={setVisible} bidding={bidding} />}
     </>
   )
 }
