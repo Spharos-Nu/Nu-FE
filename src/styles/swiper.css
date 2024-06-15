@@ -1,0 +1,18 @@
+.swiper {
+  z-index: 0;
+}
+.swiper-button-prev, .swiper-button-next {
+  width: 50px;
+  height: 50px;
+}
+
+.swiper-button-prev::after, .swiper-button-next::after {
+  color: #FFD26F;
+  font-size: 25px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

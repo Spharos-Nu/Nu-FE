@@ -1,33 +1,33 @@
 if (!self.define) {
   let e,
     s = {}
-  const c = (c, a) => (
-    (c = new URL(c + '.js', a).href),
-    s[c] ||
+  const a = (a, c) => (
+    (a = new URL(a + '.js', c).href),
+    s[a] ||
       new Promise((s) => {
         if ('document' in self) {
           const e = document.createElement('script')
-          ;(e.src = c), (e.onload = s), document.head.appendChild(e)
-        } else (e = c), importScripts(c), s()
+          ;(e.src = a), (e.onload = s), document.head.appendChild(e)
+        } else (e = a), importScripts(a), s()
       }).then(() => {
-        let e = s[c]
-        if (!e) throw new Error(`Module ${c} didn’t register its module`)
+        let e = s[a]
+        if (!e) throw new Error(`Module ${a} didn’t register its module`)
         return e
       })
   )
-  self.define = (a, i) => {
+  self.define = (c, i) => {
     const n =
       e ||
       ('document' in self ? document.currentScript.src : '') ||
       location.href
     if (s[n]) return
     let t = {}
-    const r = (e) => c(e, n),
+    const r = (e) => a(e, n),
       d = { module: { uri: n }, exports: t, require: r }
-    s[n] = Promise.all(a.map((e) => d[e] || r(e))).then((e) => (i(...e), t))
+    s[n] = Promise.all(c.map((e) => d[e] || r(e))).then((e) => (i(...e), t))
   }
 }
-define(['./workbox-dae32412'], function (e) {
+define(['./workbox-b1b34251'], function (e) {
   'use strict'
   importScripts(),
     self.skipWaiting(),
@@ -36,259 +36,287 @@ define(['./workbox-dae32412'], function (e) {
       [
         {
           url: '/_next/app-build-manifest.json',
-          revision: '3203b5ae799ebdc4f1ecc0f1934b5c59',
+          revision: 'e389a04802efaee513b3181c0aa2038b',
         },
         {
-          url: '/_next/static/Gc4gPDZgp8XWryItdXA22/_buildManifest.js',
-          revision: '64c0e1293a66bfa7bee73628f8da8390',
+          url: '/_next/static/chunks/0069da5d-52f5295dabd2934e.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/Gc4gPDZgp8XWryItdXA22/_ssgManifest.js',
-          revision: 'b6652df95db52feb4daf4eca35380933',
+          url: '/_next/static/chunks/03102c3f-a8997eec6442a165.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/14b82aa5-049661512ccacc4e.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/06ff0236-ed52a58dd4745465.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/15be5694-73b05333bb0bf0c3.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/0ab17c2b-237abbdd19c47364.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/2719-328f72940d0ebc86.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/1279-20c0e93b6cc50c7e.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/281f4f84-4308ee0bd31437e0.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/263bbe58-11ca8f201565f70c.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/39515de1-7f7859eca4704029.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/2c5441ed-49bbc05794884747.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/3975-dcd24ce453694965.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/3322-9f9ff6199f7ba712.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/412c10f0-e1fd39eb1bb7910d.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/3355-73dd00ae4af47e27.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/4492-98331af8e344497a.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/3d2d01fb-a5948f741be58edd.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/5408-61d8e2de3a403143.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/3f4e57d2-243d7bb24cf64db8.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/5422-0e169dfaf3f28472.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/416218ec-9b82ec063826676e.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/552c1bf5-d89b221b621bd5ce.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/444-719e1ed68002b1bd.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/5778-613fd4e8ef562831.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/460-74fcbfc9d1d07f0a.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/5823-45aab69ba3280438.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/5331-53fbef48b4778519.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/6362-ad48caba2e3e401a.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/5464-9338a0a066875663.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/672-b5df3641def51ec2.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/5941-e7039e2e01d508cd.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/7325-6cc13f0ec973fefc.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/63dc9855-95dd8640ab7094cd.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/760ccd9a-d1b3551f96e64969.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/6a7b169c-8732057961bf03ab.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/8292-ffee96060d33bf60.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/7071-928d67da46500a25.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/8341-d95309a5386f2d85.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/7109-c7016e2d78a3adb8.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/8960-8de684f4b8423923.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/8042fdf4-40be255204f2015c.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/92a6efbd-c39bb2bc2b667a04.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/814-06a81e34aa65216a.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/9391-59f75c6082372574.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/8804-0bc6eb88dfd6d323.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/a20c2d1d-303912be6c98b839.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/8871-d238db759cc0b052.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/a4938abf-96f5b7d50a64711c.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/9154-960467daf7aa1e57.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/(goods)/registration/page-9941ebddb00589c5.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/9692-08f40b5dcc451f55.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/(goods)/seller/page-babf1c47e1a502c5.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/ab3ca5da-ed2b8b63a8fe628f.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/(main)/page-69de5ae6a958ea12.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(goods)/goods-detail/layout-fb065e51af181c72.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/(member)/join/page-892365b0f900c06f.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(goods)/goods-detail/page-9fe0c544ca983fb1.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/(member)/layout-7f48ce2459f165d1.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(goods)/goods/layout-f2f464d321974b0e.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/(member)/login/page-20646be0e0f0b41c.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(goods)/goods/page-0213fb76d5726726.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/_not-found/page-1fb45349f0fa08fe.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(goods)/registration/page-a28b36b72f537194.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/complain/page-6bff880a493b7725.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(goods)/seller/page-8213ed0694231a91.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/duck-point/charge/page-0d6d8d468440dde7.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(main)/layout-c380e71e7145d549.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/duck-point/details/page-2c3cca7358885bad.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(main)/page-f8b9e992566cee6d.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/duck-point/layout-94e970e6568ca942.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(member)/join/page-021479944378588d.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/layout-3c5c8e8c49a2f7cf.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(member)/layout-2fd6c0834dcf2303.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/bid/page-72e70adc403ca1b5.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/(member)/login/page-86edcae13ad55aa7.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/layout-516966481e0515b5.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/_not-found/page-534023f115e2d0df.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/like/page-fd9d329deb089b43.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/complain/page-4fe54909d350cf16.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/page-a2ed8daa6d099348.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/duck-point/charge/page-24b7a66e319f82f1.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/reviews/page-5c94665fe4660cc0.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/duck-point/details/page-bc2fd3f46d56a6e3.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/sell/page-76356fc20b9a5f5b.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/duck-point/layout-832ea142713f6d65.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/settings/page-474dce684d1c81f4.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/layout-7295c3b77db427b3.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/update-password/page-2713d7bf881d6d48.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/bid/page-1920e707a761a76d.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/update-profile/page-f79ae6a273f51bab.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/layout-41b01d3bfabeaf2a.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/mypage/winning-bid/page-191a94b9b39f14d0.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/like/page-dc8963abfe0627fd.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/app/review/%5BtradeId%5D/page-45a8dbdce76c363b.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/page-c5419d95eb3546d5.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/b81fb708-ff660351f6394f60.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/reviews/page-13fc7ff8469adee6.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/d30eb90b-5249302fa9d60c61.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/sell/page-aa6a674112b8c1d4.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/d8314949-cc43085acf52f80a.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/settings/page-7d2e761d0610a4db.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/dfefeca3-520394af60ccf8cd.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/update-password/page-43aada8a1ff316f1.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/framework-da6a81dd5b579b67.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/update-profile/page-ae39b7663fb7a24f.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/main-57e6fbc26779ed10.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/mypage/winning-bid/page-bafbb7ada18ceeff.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/main-app-392da0852cd1955e.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/app/review/%5BtradeId%5D/page-403d60011428d0c8.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/pages/_app-b26e549256c7f3c1.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/c516f14e-5b9f4e16b5d11302.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
-          url: '/_next/static/chunks/pages/_error-3c136c7e51d8bb7e.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
+          url: '/_next/static/chunks/de2bcb84-3352e3874a98c0f0.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
+        },
+        {
+          url: '/_next/static/chunks/framework-9c75c43ff7b67089.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
+        },
+        {
+          url: '/_next/static/chunks/main-0d98541014d29e19.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
+        },
+        {
+          url: '/_next/static/chunks/main-app-09fd68f819717e65.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
+        },
+        {
+          url: '/_next/static/chunks/pages/_app-b31c2f3949fee873.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
+        },
+        {
+          url: '/_next/static/chunks/pages/_error-a4a054c7bd637474.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
           url: '/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js',
           revision: '79330112775102f91e1010318bae2bd3',
         },
         {
-          url: '/_next/static/chunks/webpack-436fc1ae6394191a.js',
-          revision: 'Gc4gPDZgp8XWryItdXA22',
-        },
-        {
-          url: '/_next/static/css/126acce611cc7b99.css',
-          revision: '126acce611cc7b99',
+          url: '/_next/static/chunks/webpack-6689d21602227faf.js',
+          revision: 'dJeSbEDZ6UJtlqwWarxcy',
         },
         {
           url: '/_next/static/css/2ebb2afbe58660e0.css',
           revision: '2ebb2afbe58660e0',
         },
         {
-          url: '/_next/static/css/decc0242dc16d7ba.css',
-          revision: 'decc0242dc16d7ba',
+          url: '/_next/static/css/9e148a9a7bb62c7a.css',
+          revision: '9e148a9a7bb62c7a',
+        },
+        {
+          url: '/_next/static/css/cf493a8e9dde5eae.css',
+          revision: 'cf493a8e9dde5eae',
+        },
+        {
+          url: '/_next/static/dJeSbEDZ6UJtlqwWarxcy/_buildManifest.js',
+          revision: '6fbad686f1d634bff4a437ec93afbf9f',
+        },
+        {
+          url: '/_next/static/dJeSbEDZ6UJtlqwWarxcy/_ssgManifest.js',
+          revision: 'b6652df95db52feb4daf4eca35380933',
         },
         {
           url: '/_next/static/media/30cd8f99d32fa6e8-s.woff2',
@@ -321,6 +349,10 @@ define(['./workbox-dae32412'], function (e) {
         {
           url: '/_next/static/media/banner2.3d0a24ea.png',
           revision: '8973b1f7757dc6bb527818175f9c2da4',
+        },
+        {
+          url: '/_next/static/media/banner3.76154106.png',
+          revision: '07451f0a75022dba62fe09157a468c9a',
         },
         {
           url: '/_next/static/media/c4f6d62acfbd94a2-s.woff2',
@@ -416,12 +448,20 @@ define(['./workbox-dae32412'], function (e) {
           revision: 'ae329e36e47315ed2b95c4cb3e71b9da',
         },
         {
+          url: '/svgs/duck/biddingDuck.svg',
+          revision: 'ebe6675333e64223acbecc0100e6eda9',
+        },
+        {
+          url: '/svgs/duck/descriptionDuck.svg',
+          revision: '3966eec70598559a4263fbf30d9d3400',
+        },
+        {
           url: '/svgs/duck/duckOne.svg',
           revision: 'f7b18503e6e9be79ae9205bc68cec62e',
         },
         {
-          url: '/svgs/duck/idol-duck.svg',
-          revision: '8b8a6ee21143dcb4ea9a35ff2e5ffcff',
+          url: '/svgs/duck/etcDuck.svg',
+          revision: '6a67409cfc2621221a9b8a28a4adace5',
         },
         {
           url: '/svgs/duck/mainDuckPoint.svg',
@@ -460,12 +500,32 @@ define(['./workbox-dae32412'], function (e) {
           revision: 'd1996754fa7b7d2e9f73ff900c3a9c20',
         },
         {
+          url: '/svgs/icon/checkFalse.svg',
+          revision: '4426c2d47ecd31d067e75808bebeb86f',
+        },
+        {
+          url: '/svgs/icon/checkTrue.svg',
+          revision: '4bc0d59e2e99348f81fca1b026266065',
+        },
+        {
+          url: '/svgs/icon/homeColor.svg',
+          revision: '05417db0a4655a628fb4ad536db4248a',
+        },
+        {
           url: '/svgs/icon/likeFalse.svg',
           revision: 'd9c5283ee2039de2b6bb072831634432',
         },
         {
           url: '/svgs/icon/likeTrue.svg',
           revision: '15160f62f33edf67d50b454a97e24292',
+        },
+        {
+          url: '/svgs/icon/nextBtn.svg',
+          revision: '619ff433cd68515ead49c921ff3546d3',
+        },
+        {
+          url: '/svgs/icon/prevBtn.svg',
+          revision: '4111bd796f770a0464b43d4ffb678f07',
         },
         {
           url: '/svgs/icon/profileImgBtn.svg',
@@ -529,8 +589,8 @@ define(['./workbox-dae32412'], function (e) {
             cacheWillUpdate: async ({
               request: e,
               response: s,
-              event: c,
-              state: a,
+              event: a,
+              state: c,
             }) =>
               s && 'opaqueredirect' === s.type
                 ? new Response(s.body, {
