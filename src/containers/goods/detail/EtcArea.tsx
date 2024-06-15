@@ -35,7 +35,10 @@ export default function EtcArea({ goodsCode }: { goodsCode: number }) {
         </div>
         <SlArrowRight className="absolute top-1/2 right-0 -translate-y-1/2" />
       </Link>
-      <div className="mt-[20px] flex justify-between relative">
+      <Link
+        href={`/goods-complain?goodsCode=${goodsCode}`}
+        className="mt-[20px] flex justify-between relative"
+      >
         <div className="flex">
           <PiSirenLight className="w-[25px] h-[25px]" />
           <p className="content-center pl-[10px] text-[15px] tracking-[-0.05rem]">
@@ -43,7 +46,7 @@ export default function EtcArea({ goodsCode }: { goodsCode: number }) {
           </p>
         </div>
         <SlArrowRight className="absolute top-1/2 right-0 -translate-y-1/2 w-[15px] h-[15px]" />
-      </div>
+      </Link>
     </div>
   )
 }

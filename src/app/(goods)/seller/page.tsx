@@ -3,13 +3,19 @@ import SellerMannerDuck from '@/containers/goods/seller/SellerMannerDuck'
 import SellerProfile from '@/containers/goods/seller/SellerProfile'
 import SellerReview from '@/containers/goods/seller/SellerReview'
 
-export default function SellerPage() {
+export default function SellerPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
+  const goodsCode = searchParams.goodsCode ? Number(searchParams.goodsCode) : 0
+
   return (
-    <div>
-      <SellerHeader />
+    <>
+      <SellerHeader goodsCode={goodsCode} />
       <SellerProfile />
       <SellerMannerDuck />
       <SellerReview />
-    </div>
+    </>
   )
 }
