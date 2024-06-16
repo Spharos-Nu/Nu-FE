@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
-import { useFirstStore } from '@/containers/member/join/store'
+import { useJoinStore } from '@/containers/member/join/store'
 import BasicProfileDuck from '@/../public/svgs/duck/basicProfileDuck.svg'
 import ProfileImgBtn from '@/../public/svgs/icon/profileImgBtn.svg'
 
 export default function ProfileImgArea() {
   const [previewUrl, setPreviewUrl] = useState<string>('')
-  const { profileImage, setProfileImage } = useFirstStore()
+  const { profileImage, setProfileImage } = useJoinStore()
 
   const handleButtonClick = () => {
     document.getElementById('프로필 이미지')?.click()

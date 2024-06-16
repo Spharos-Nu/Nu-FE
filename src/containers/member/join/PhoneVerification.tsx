@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
-import { useFirstStore, useSecondStore } from '@/containers/member/join/store'
+import { useJoinStore } from '@/containers/member/join/store'
 import { verification, verificationConfirm } from '@/utils/authApiActions'
 import VerificationTime from '@/../public/svgs/icon/verificationTime.svg'
 
 export default function PhoneVerification() {
-  const { resetFirstState } = useFirstStore()
   const {
     phoneNumber,
     isValidated,
     setPhoneNumber,
     setIsValidated,
-    resetSecondState,
-  } = useSecondStore()
+    resetJoinState,
+  } = useJoinStore()
 
   /** 메시지 전송여부 + 메시지 전송횟수 */
   const [isMessage, setIsMessage] = useState<boolean>(false)
@@ -69,8 +68,7 @@ export default function PhoneVerification() {
       setIsMessage(true)
     }
     if (data.status === 409) {
-      resetFirstState()
-      resetSecondState()
+      resetJoinState()
     }
     return showAlert(data.message)
   }

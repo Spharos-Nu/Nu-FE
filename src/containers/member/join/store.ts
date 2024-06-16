@@ -1,12 +1,16 @@
 import { create } from 'zustand'
 
-interface JoinFirstState {
+interface JoinState {
   profileImage: File | null
   favoriteCategory: string
   nickname: string
   isValidNick: boolean
   userId: string
   isValidId: boolean
+  password: string
+  password2: string
+  phoneNumber: string
+  isValidated: boolean
 
   setProfileImage: (profileImage: File | null) => void
   setFavoriteCategory: (category: string) => void
@@ -14,22 +18,12 @@ interface JoinFirstState {
   setIsValidNick: (isValidNick: boolean) => void
   setUserId: (userId: string) => void
   setIsValidId: (isValidId: boolean) => void
-
-  resetFirstState: () => void
-}
-
-interface JoinSecondState {
-  password: string
-  password2: string
-  phoneNumber: string
-  isValidated: boolean
-
   setPassword: (password: string) => void
   setPassword2: (password2: string) => void
   setPhoneNumber: (phoneNumber: string) => void
   setIsValidated: (isVerified: boolean) => void
 
-  resetSecondState: () => void
+  resetJoinState: () => void
 }
 
 interface ModalState {
@@ -38,13 +32,17 @@ interface ModalState {
   setIsOpen: (isOpen: boolean) => void
 }
 
-export const useFirstStore = create<JoinFirstState>((set) => ({
+export const useJoinStore = create<JoinState>((set) => ({
   profileImage: null,
   favoriteCategory: '',
   nickname: '',
   isValidNick: false,
   userId: '',
   isValidId: false,
+  password: '',
+  password2: '',
+  phoneNumber: '',
+  isValidated: false,
 
   setProfileImage: (profileImage) => set({ profileImage }),
   setFavoriteCategory: (category) => set({ favoriteCategory: category }),
@@ -52,8 +50,12 @@ export const useFirstStore = create<JoinFirstState>((set) => ({
   setIsValidNick: (isValidNick) => set({ isValidNick }),
   setUserId: (userId) => set({ userId }),
   setIsValidId: (isValidId) => set({ isValidId }),
+  setPassword: (password) => set({ password }),
+  setPassword2: (password2) => set({ password2 }),
+  setPhoneNumber: (phoneNumber) => set({ phoneNumber }),
+  setIsValidated: (isValidated) => set({ isValidated }),
 
-  resetFirstState: () =>
+  resetJoinState: () =>
     set({
       profileImage: null,
       favoriteCategory: '',
@@ -61,22 +63,6 @@ export const useFirstStore = create<JoinFirstState>((set) => ({
       isValidNick: false,
       userId: '',
       isValidId: false,
-    }),
-}))
-
-export const useSecondStore = create<JoinSecondState>((set) => ({
-  password: '',
-  password2: '',
-  phoneNumber: '',
-  isValidated: false,
-
-  setPassword: (password) => set({ password }),
-  setPassword2: (password2) => set({ password2 }),
-  setPhoneNumber: (phoneNumber) => set({ phoneNumber }),
-  setIsValidated: (isValidated) => set({ isValidated }),
-
-  resetSecondState: () =>
-    set({
       password: '',
       password2: '',
       phoneNumber: '',

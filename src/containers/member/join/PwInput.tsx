@@ -1,7 +1,7 @@
-import { useSecondStore } from '@/containers/member/join/store'
+import { useJoinStore } from '@/containers/member/join/store'
 
 export default function PwdInput() {
-  const { password, setPassword } = useSecondStore()
+  const { password, setPassword } = useJoinStore()
 
   return (
     <div className="w-full h-14 rounded-3xl">

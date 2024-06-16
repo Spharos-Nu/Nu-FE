@@ -12,17 +12,24 @@ import Pw2Input from '@/containers/member/join/Pw2Input'
 import PwInput from '@/containers/member/join/PwInput'
 import SecondBtnArea from '@/containers/member/join/SecondBtnArea'
 import SelectCategory from '@/containers/member/join/SelectCategory'
-import { useFirstStore, useSecondStore } from '@/containers/member/join/store'
+import { useJoinStore } from '@/containers/member/join/store'
 import DuckOne from '@/public/svgs/duck/duckOne.svg'
 import { join } from '@/utils/authApiActions'
 import { uploadImage } from '@/utils/uploadImage'
 
 export default function JoinForm() {
   const [currentIdx, setCurrentIdx] = useState<number>(0)
-  const { profileImage, favoriteCategory, nickname, userId, resetFirstState } =
-    useFirstStore()
-  const { password, password2, phoneNumber, isValidated, resetSecondState } =
-    useSecondStore()
+  const {
+    profileImage,
+    favoriteCategory,
+    nickname,
+    userId,
+    password,
+    password2,
+    phoneNumber,
+    isValidated,
+    resetJoinState,
+  } = useJoinStore()
   const { message, setAlert } = useBasicAlertStore()
 
   const handleSwipeLeft = () => {
@@ -71,30 +78,27 @@ export default function JoinForm() {
       phoneNumber,
     )
 
-    resetFirstState()
-    resetSecondState()
+    resetJoinState()
 
     return showAlert(data.message)
   }
 
   return (
     <div className="w-full h-full flex">
-      {currentIdx === 0 ? (
-        <div className="w-full flex-shrink-0">
-          <ProfileImgArea />
-          <form className="mx-10 mt-8">
+      <form action="">
+        {currentIdx === 0 ? (
+          <div className="w-full flex-shrink-0">
+            <ProfileImgArea />
             <SelectCategory />
             <NicknameInput />
             <IdInput />
             <FirstBtnArea onSwipeLeft={handleSwipeLeft} />
-          </form>
-        </div>
-      ) : (
-        <div className="w-full flex-shrink-0">
-          <div className="flex justify-center items-center">
-            <DuckOne />
           </div>
-          <form className="mx-10 mt-8">
+        ) : (
+          <div className="w-full flex-shrink-0">
+            <div className="flex justify-center items-center">
+              <DuckOne />
+            </div>
             <PwInput />
             <Pw2Input />
             <PhoneVerification />
@@ -102,9 +106,9 @@ export default function JoinForm() {
               onSwipeRight={handleSwipeRight}
               onJoin={handleJoin}
             />
-          </form>
-        </div>
-      )}
+          </div>
+        )}
+      </form>
       <BasicAlert message={message} />
     </div>
   )
