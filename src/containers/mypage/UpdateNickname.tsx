@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
-import { duplicationCheckNick } from '@/utils/memberApiActions'
+import { duplicationCheckNick } from '@/utils/joinValidateCheck'
 import { useUpdateProfileStore } from './store'
 
 export default function UpdateNickname() {

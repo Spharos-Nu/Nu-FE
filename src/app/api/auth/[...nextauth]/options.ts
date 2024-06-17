@@ -22,32 +22,31 @@ export const options: NextAuthOptions = {
           },
         )
 
-        if (!loginResponse.ok) {
+        const loginRes = await loginResponse.json()
+
+        if (loginRes.status !== 200) {
           return null
         }
-
-        const { accessToken, refreshToken } = await loginResponse.json()
 
         const userResponse = await fetch(
           `${process.env.NEXT_PUBLIC_API}/v1/users`,
           {
             headers: {
               'Content-Type': 'application/json',
-              Authorization: accessToken,
+              Authorization: loginRes.result.accessToken,
             },
           },
         )
 
-        if (!userResponse.ok) {
+        const userRes = await userResponse.json()
+
+        if (userRes.status !== 200) {
           return null
         }
 
-        const user = await userResponse.json()
-
         return {
-          accessToken,
-          refreshToken,
-          ...user.result,
+          ...loginRes.result,
+          ...userRes.result,
         }
       },
     }),
@@ -81,6 +80,7 @@ export const options: NextAuthOptions = {
           }
         }
         if (data.status === 200) {
+          user.uuid = data.result.uuid
           user.accessToken = data.result.accessToken
           user.refreshToken = data.result.refreshToken
           return true

@@ -1,18 +1,44 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
-import { useFirstStore } from '@/containers/member/join/store'
+import {
+  useErrorStore,
+  useFocusStore,
+  useJoinStore,
+  usePageStore,
+} from '@/containers/member/join/store'
 
 export default function SelectCategory() {
-  const { favoriteCategory, setFavoriteCategory } = useFirstStore()
+  const { favoriteCategory, setFavoriteCategory } = useJoinStore()
+  const { categoryNotSelected, setCategoryNotSelected } = useErrorStore()
+  const { setCurrentIdx } = usePageStore()
+  const { currentFocus, setCurrentFocus } = useFocusStore()
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
+  const categoryRef = useRef<HTMLDivElement>(null)
 
   const handleButtonClick = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
 
+  useEffect(() => {
+    if (currentFocus === 'favoriteCategory') {
+      setCurrentIdx(0)
+      categoryRef.current?.focus()
+      setCurrentFocus('')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentFocus])
+
+  useEffect(() => {
+    if (favoriteCategory) {
+      setCategoryNotSelected(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favoriteCategory])
+
   return (
-    <div>
+    <div className="my-7">
       <div
+        ref={categoryRef}
         className={`w-full h-14 rounded-3xl bg-gray-200 ${isDropdownOpen && 'border-[3px] border-sky-600'}`}
       >
         <button
@@ -27,6 +53,11 @@ export default function SelectCategory() {
           </span>
           <MdArrowDropDown className="absolute right-5 top-4 w-5 h-5 text-sky-600 pointer-events-none" />
         </button>
+        {categoryNotSelected && (
+          <p className="text-red-500 text-xs mt-1 ml-3">
+            * 카테고리를 선택해주세요.
+          </p>
+        )}
       </div>
       {isDropdownOpen && (
         <div className="absolute w-[calc(100%-80px)] bg-white border-[2px] border-sky-600 rounded-3xl mt-1 z-10">

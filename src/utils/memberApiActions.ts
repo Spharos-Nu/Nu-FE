@@ -1,3 +1,5 @@
+'use server'
+
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import { ApiResponse } from '@/types/apiResponseType'
@@ -6,17 +8,6 @@ import {
   MannerDuckData,
   DuckPointDetailData,
 } from '@/types/memberApiDataType'
-
-export const duplicationCheckNick = async (
-  nickname: string,
-): Promise<ApiResponse<null>> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/users-n/duplication-check?inputParams=${nickname}`,
-  )
-
-  const data = await res.json()
-  return data
-}
 
 /**
  * 프로필 조회
