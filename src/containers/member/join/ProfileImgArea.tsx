@@ -2,8 +2,8 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
 import { useJoinStore } from '@/containers/member/join/store'
-import BasicProfileDuck from '@/../public/svgs/duck/basicProfileDuck.svg'
-import ProfileImgBtn from '@/../public/svgs/icon/profileImgBtn.svg'
+import BasicProfileDuck from '@/public/svgs/duck/basicProfileDuck.svg'
+import ProfileImgBtn from '@/public/svgs/icon/profileImgBtn.svg'
 
 export default function ProfileImgArea() {
   const [previewUrl, setPreviewUrl] = useState<string>('')
@@ -49,7 +49,7 @@ export default function ProfileImgArea() {
   }, [])
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center my-5">
       <div
         className={`flex w-32 h-32 relative rounded-full ${previewUrl && 'border-[3px] border-sky-600'}`}
       >

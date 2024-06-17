@@ -13,7 +13,7 @@ export default function BasicAlert({ message }: AlertProps) {
   const { isOpen, setAlert } = useBasicAlertStore()
 
   useEffect(() => {
-    elRef.current = document.createElement('div' || 'form')
+    elRef.current = document.createElement('div')
     if (elRef.current) {
       document.body.appendChild(elRef.current)
     }

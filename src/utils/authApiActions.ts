@@ -29,20 +29,8 @@ export const join = async (
   return data
 }
 
-export const duplicationCheckId = async (
-  id: string,
-): Promise<ApiResponse<null>> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/auth-n/duplication-check?inputParams=${id}`,
-  )
-
-  const data = await res.json()
-  return data
-}
-
 export const verification = async (
   phoneNumber: string,
-  verificationNumber: string,
 ): Promise<ApiResponse<null>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/auth-n/verification`,
@@ -51,7 +39,7 @@ export const verification = async (
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         phoneNumber,
-        verificationNumber,
+        verificationNumber: '',
       }),
     },
   )
