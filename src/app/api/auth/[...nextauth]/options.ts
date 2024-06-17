@@ -29,13 +29,7 @@ export const options: NextAuthOptions = {
         }
 
         const userResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API}/v1/users`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: loginRes.result.accessToken,
-            },
-          },
+          `${process.env.NEXT_PUBLIC_API}/v1/users-n/${loginRes.result.uuid}`,
         )
 
         const userRes = await userResponse.json()
@@ -89,12 +83,12 @@ export const options: NextAuthOptions = {
       }
       return true
     },
-    async jwt({ user, token }) {
+    async jwt({ token, user }) {
       return { ...token, ...user }
     },
     async session({ session, token }) {
-      session.user.accessToken = token.result.accessToken
-      session.user.refreshToken = token.result.accessToken
+      session.user.accessToken = token.accessToken
+      session.user.refreshToken = token.accessToken
       return { ...session, ...token }
     },
   },
