@@ -21,9 +21,9 @@ import {
 export const getProfile = async (): Promise<ApiResponse<ProfileData>> => {
   const session = await getServerSession(options)
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
-    headers: { Authorization: session?.user.accessToken },
-  })
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/users-n/${session?.user.uuid}`,
+  )
 
   const data: ApiResponse<ProfileData> = await res.json()
   return data
@@ -41,10 +41,7 @@ export const getMannerDuck = async (): Promise<ApiResponse<MannerDuckData>> => {
   const session = await getServerSession(options)
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/users/manner-duck`,
-    {
-      headers: { Authorization: session?.user.accessToken },
-    },
+    `${process.env.NEXT_PUBLIC_API}/v1/users-n/${session?.user.uuid}/manner-duck`,
   )
 
   const data: ApiResponse<MannerDuckData> = await res.json()

@@ -74,22 +74,23 @@ export const options: NextAuthOptions = {
           }
         }
         if (data.status === 200) {
-          user.uuid = data.result.uuid
-          user.accessToken = data.result.accessToken
-          user.refreshToken = data.result.refreshToken
           return true
         }
         return false
       }
       return true
     },
-    async jwt({ token, user }) {
-      return { ...token, ...user }
+    async jwt({ token }) {
+      return { ...token }
     },
     async session({ session, token }) {
+      session.user.image = token.profileImg
+      session.user.uuid = token.uuid
       session.user.accessToken = token.accessToken
       session.user.refreshToken = token.accessToken
-      return { ...session, ...token }
+      session.user.nickname = token.nickname
+      session.user.favoriteCategory = token.favCategory
+      return { ...session }
     },
   },
   pages: {

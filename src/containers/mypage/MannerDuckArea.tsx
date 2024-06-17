@@ -8,7 +8,7 @@ export default function MannerDuckArea({
   mannerDuckData: ApiResponse<MannerDuckData>
 }) {
   const mannerDuck = mannerDuckData.result
-  const currentDuck = mannerDuck?.level || 3
+  const currentDuck = mannerDuck?.level
 
   let mannerDuckLabel = ''
   switch (currentDuck) {
@@ -37,7 +37,7 @@ export default function MannerDuckArea({
       <div className="flex flex-col justify-center items-center">
         <SampleDuck />
         <p className="mt-3 text-xs text-red-500">
-          춤추는 오리까지 {mannerDuck?.leftPoint || '15'}점 남았어요.
+          춤추는 오리까지 {mannerDuck?.leftPoint}점 남았어요.
         </p>
         <p>현재 닉네임님의 매너덕은 {mannerDuckLabel}입니다</p>
       </div>

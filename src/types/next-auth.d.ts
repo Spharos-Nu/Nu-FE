@@ -6,16 +6,9 @@ declare module 'next-auth' {
       uuid: string
       accessToken: string
       refreshToken: string
-      profileImage: string
       nickname: string
       favoriteCategory: string
     } & DefaultSession['user']
-  }
-
-  interface User extends DefaultUser {
-    uuid: string
-    accessToken: string
-    refreshToken: string
   }
 }
 
