@@ -99,12 +99,15 @@ export default function JoinForm() {
       phoneNumber,
     )
 
-    if (data.status === 200) {
+    if (data.status === 201) {
+      resetErrorState()
+      resetJoinState()
       return setIsOpen(true)
     }
 
+    resetJoinState()
     resetErrorState()
-    return resetJoinState()
+    return setCurrentIdx(0)
   }
 
   useEffect(() => {
