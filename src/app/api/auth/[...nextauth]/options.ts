@@ -1,7 +1,9 @@
 /* eslint-disable no-param-reassign */
+import { getToken } from 'firebase/messaging'
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import KakaoProvider from 'next-auth/providers/kakao'
+import { messaging } from '@/app/firebase.config'
 
 export const options: NextAuthOptions = {
   providers: [
@@ -78,6 +80,16 @@ export const options: NextAuthOptions = {
         }
         return false
       }
+
+      getToken(messaging, {
+        vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+      }).then((currentToken) => {
+        if (currentToken) {
+          // Send the token to your server and update the UI if necessary
+          // ...
+        }
+      })
+
       return true
     },
     async jwt({ token, user }) {
