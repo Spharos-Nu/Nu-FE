@@ -3,30 +3,30 @@
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
+import { useLoginStore } from '@/containers/member/login/store'
 import { montserrat } from '@/styles/fonts'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 
-interface LoginData {
-  userId: string
-  password: string
-}
-
 export default function LoginForm() {
-  const params = useSearchParams().get('callbackUrl') || ''
+  const params = useSearchParams().get('callbackUrl') || '/'
 
-  const [payload, setPayload] = useState<LoginData>({
-    userId: '',
-    password: '',
-  })
-
-  const [idInput, setIdInput] = useState<boolean>(false)
-  const [pwInput, setPwInput] = useState<boolean>(false)
-  const [isChecked, setIsChecked] = useState<boolean>(false)
+  const {
+    userId,
+    password,
+    isId,
+    isPwd,
+    isChecked,
+    setUserId,
+    setPassword,
+    setIsId,
+    setIsPwd,
+    setIsChecked,
+  } = useLoginStore()
 
   const { message, setAlert } = useBasicAlertStore()
 
@@ -36,22 +36,14 @@ export default function LoginForm() {
 
   /** Id 입력 있을 때마다 업데이트 */
   const handleIdInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPayload((prevState) => ({
-      ...prevState,
-      userId: e.target.value,
-    }))
-
-    setIdInput(e.target.value !== '')
+    setUserId(e.target.value)
+    setIsId(e.target.value !== '')
   }
 
   /** Pw 입력 있을 때마다 업데이트 */
   const handlePwInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPayload((prevState) => ({
-      ...prevState,
-      password: e.target.value,
-    }))
-
-    setPwInput(e.target.value !== '')
+    setPassword(e.target.value)
+    setIsPwd(e.target.value !== '')
   }
 
   const handleIsChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,36 +55,31 @@ export default function LoginForm() {
     e.preventDefault()
 
     if (isChecked) {
-      saveId(payload.userId)
+      saveId(userId)
       saveCheckbox(isChecked)
     }
 
-    if (!payload.userId) {
-      // Todo: 아이디를 입력해주세요 모달
+    if (!userId) {
       return showAlert('아이디를 입력해주세요.')
     }
-    if (!payload.password) {
-      // Todo: 비밀번호를 입력해주세요 모달
+    if (!password) {
       return showAlert('비밀번호를 입력해주세요.')
     }
 
     await signIn('credentials', {
-      userId: payload.userId,
-      password: payload.password,
+      userId,
+      password,
       redirect: true,
       callbackUrl: params,
     })
   }
 
   useEffect(() => {
-    const userId = getId()
+    const id = getId()
     const checkbox = getCheckbox()
 
-    if (userId) {
-      setPayload(() => ({
-        ...payload,
-        userId,
-      }))
+    if (id) {
+      setUserId(id)
     }
 
     if (checkbox !== null) {
@@ -120,19 +107,16 @@ export default function LoginForm() {
             placeholder="Your Name"
             autoComplete="off"
             maxLength={20}
-            value={payload.userId}
+            value={userId}
             onChange={handleIdInput}
             className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm"
           />
-          {idInput && (
+          {isId && (
             <TiDelete
               className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
               onClick={() => {
-                setPayload(() => ({
-                  ...payload,
-                  userId: '',
-                }))
-                setIdInput(false)
+                setUserId('')
+                setIsId(false)
               }}
             />
           )}
@@ -152,19 +136,16 @@ export default function LoginForm() {
             placeholder="Password"
             autoComplete="off"
             maxLength={20}
-            value={payload.password}
+            value={password}
             onChange={handlePwInput}
             className="w-full h-14 rounded-3xl bg-gray-200 pl-5 text-sm"
           />
-          {pwInput && (
+          {isPwd && (
             <TiDelete
               className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
               onClick={() => {
-                setPayload(() => ({
-                  ...payload,
-                  password: '',
-                }))
-                setPwInput(false)
+                setPassword('')
+                setIsPwd(false)
               }}
             />
           )}

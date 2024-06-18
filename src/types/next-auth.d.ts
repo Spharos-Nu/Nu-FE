@@ -3,17 +3,12 @@ import { DefaultSession } from 'next-auth/next'
 declare module 'next-auth' {
   interface Session {
     user: {
+      uuid: string
       accessToken: string
       refreshToken: string
-      profileImage: string
       nickname: string
       favoriteCategory: string
     } & DefaultSession['user']
-  }
-
-  interface User extends DefaultUser {
-    accessToken: string
-    refreshToken: string
   }
 }
 

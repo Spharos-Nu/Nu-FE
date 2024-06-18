@@ -4,11 +4,13 @@ import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import ProstrateDuck from '@/public/svgs/duck/prostrateDuck.svg'
-import { useModalStore } from './store'
+import { useErrorStore, useJoinStore, useModalStore } from './store'
 
 export default function JoinSuccessModal() {
   const elRef = useRef<HTMLDivElement | null>(null)
   const { isOpen, setIsOpen } = useModalStore()
+  const { resetJoinState } = useJoinStore()
+  const { resetErrorState } = useErrorStore()
 
   useEffect(() => {
     elRef.current = document.createElement('div')
@@ -46,7 +48,11 @@ export default function JoinSuccessModal() {
         <Link
           href="/login"
           className="rounded-3xl bg-sky-600 text-white w-[calc(100%-80px)] h-14 flex justify-center items-center"
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            resetJoinState()
+            resetErrorState()
+            setIsOpen(false)
+          }}
         >
           로그인 페이지로
         </Link>

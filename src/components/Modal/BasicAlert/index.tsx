@@ -9,11 +9,11 @@ interface AlertProps {
 }
 
 export default function BasicAlert({ message }: AlertProps) {
-  const elRef = useRef<HTMLDivElement | HTMLFormElement | null>(null)
+  const elRef = useRef<HTMLDivElement | null>(null)
   const { isOpen, setAlert } = useBasicAlertStore()
 
   useEffect(() => {
-    elRef.current = document.createElement('div' || 'form')
+    elRef.current = document.createElement('div')
     if (elRef.current) {
       document.body.appendChild(elRef.current)
     }

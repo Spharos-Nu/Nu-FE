@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
-import { useFirstStore } from '@/containers/member/join/store'
-import BasicProfileDuck from '@/../public/svgs/duck/basicProfileDuck.svg'
-import ProfileImgBtn from '@/../public/svgs/icon/profileImgBtn.svg'
+import { useJoinStore } from '@/containers/member/join/store'
+import BasicProfileDuck from '@/public/svgs/duck/basicProfileDuck.svg'
+import ProfileImgBtn from '@/public/svgs/icon/profileImgBtn.svg'
 
 export default function ProfileImgArea() {
   const [previewUrl, setPreviewUrl] = useState<string>('')
-  const { profileImage, setProfileImage } = useFirstStore()
+  const { profileImage, setProfileImage } = useJoinStore()
 
   const handleButtonClick = () => {
     document.getElementById('프로필 이미지')?.click()
@@ -49,7 +49,7 @@ export default function ProfileImgArea() {
   }, [])
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center my-5">
       <div
         className={`flex w-32 h-32 relative rounded-full ${previewUrl && 'border-[3px] border-sky-600'}`}
       >
