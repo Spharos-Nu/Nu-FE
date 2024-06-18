@@ -68,7 +68,7 @@ export default function GoodsForm() {
   // }
 
   return (
-    <div className="px-[20px] pt-[10px]">
+    <main className="px-[20px] pt-[10px]">
       <form onSubmit={(e) => e.preventDefault()}>
         <ImageArea />
         <label htmlFor="굿즈명" className="text-[#2B74B9] text-[17px]">
@@ -103,6 +103,6 @@ export default function GoodsForm() {
           등록하기
         </button>
       </form>
-    </div>
+    </main>
   )
 }

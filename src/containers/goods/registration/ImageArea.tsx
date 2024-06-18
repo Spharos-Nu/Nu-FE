@@ -46,7 +46,9 @@ export default function ImageArea() {
 
   return (
     <>
-      <div className="text-[#2B74B9] text-[17px]">굿즈 이미지</div>
+      <label htmlFor="goodsImage" className="text-[#2B74B9] text-[17px]">
+        굿즈 이미지
+      </label>
       <div className="flex flex-row">
         <div className="mt-[5px] mb-[20px] w-[100px] h-[100px] rounded-lg bg-[#F7F7F7] content-center">
           <CiCamera
@@ -86,14 +88,14 @@ export default function ImageArea() {
           </ul>
         </div>
       </div>
-      <div className="mb-[20px] text-[14px] text-[#6c6c6c]">
-        <p>&#183; 이미지를 자세하게 찍어주세요.</p>
-        <p>
+      <ul className="mb-[20px] text-[14px] text-[#6c6c6c]">
+        <li>&#183; 이미지를 자세하게 찍어주세요.</li>
+        <li>
           &#183; 상품과 관련 없는 이미지를 등록할 경우, 판매에 제재를 받을 수
           있어요.
-        </p>
-        <p>&#183; 이미지는 최대 10개까지 등록할 수 있어요!</p>
-      </div>
+        </li>
+        <li>&#183; 이미지는 최대 10개까지 등록할 수 있어요!</li>
+      </ul>
       <BasicAlert message={message} />
     </>
   )
