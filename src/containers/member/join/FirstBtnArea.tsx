@@ -1,47 +1,75 @@
 import { useRouter } from 'next/navigation'
-import BasicAlert from '@/components/Modal/BasicAlert'
-import { useBasicAlertStore } from '@/components/Modal/store'
-import { useFirstStore } from '@/containers/member/join/store'
+import {
+  useErrorStore,
+  useJoinStore,
+  usePageStore,
+  useFocusStore,
+} from '@/containers/member/join/store'
+import { idValidCheck, nickValidCheck } from '@/utils/joinValidateCheck'
 
-export default function FirstBtnArea({
-  onSwipeLeft,
-}: {
-  onSwipeLeft: () => void
-}) {
+export default function FirstBtnArea() {
   const router = useRouter()
-  const { favoriteCategory, nickname, isValidNick, userId, isValidId } =
-    useFirstStore()
-  const { message, setAlert } = useBasicAlertStore()
+  const { favoriteCategory, nickname, userId, isValidNick, isValidId } =
+    useJoinStore()
+  const { setCategoryNotSelected, setNotValidNick, setNotValidId } =
+    useErrorStore()
+  const { setCurrentIdx } = usePageStore()
+  const { setCurrentFocus } = useFocusStore()
 
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
-
-  const checkData = async () => {
-    if (favoriteCategory === '') {
-      return showAlert('관심 카테고리를 선택해주세요.')
+  const firstValidCheck = () => {
+    if (!favoriteCategory) {
+      setCategoryNotSelected(true)
+      setCurrentFocus('favoriteCategory')
+      return false
     }
     if (!nickname) {
-      return showAlert('닉네임을 입력해주세요.')
-    }
-    if (!isValidNick) {
-      return showAlert('닉네임 중복확인을 진행해주세요.')
+      setNotValidNick(1)
+      setCurrentFocus('nickname')
+      return false
     }
     if (!userId) {
-      return showAlert('아이디를 입력해주세요.')
+      setNotValidId(1)
+      setCurrentFocus('userId')
+      return false
+    }
+    if (!isValidNick) {
+      if (!nickValidCheck) {
+        setNotValidNick(1)
+      } else {
+        setNotValidNick(3)
+      }
+
+      setCurrentFocus('nickname')
+      return false
     }
     if (!isValidId) {
-      return showAlert('닉네임 중복확인을 진행해주세요.')
+      if (!idValidCheck) {
+        setNotValidId(1)
+      } else {
+        setNotValidId(3)
+      }
+
+      setCurrentFocus('userId')
+      return false
     }
 
-    return onSwipeLeft()
+    return true
+  }
+
+  const toNextPage = () => {
+    const isValidated = firstValidCheck()
+    if (isValidated) {
+      return setCurrentIdx(1)
+    }
+
+    return null
   }
 
   return (
     <span className="w-full flex justify-between">
       <div
         aria-label="이전"
-        className="w-[49%] h-14 rounded-3xl mt-3 bg-white border-[3px] border-sky-600"
+        className="w-[47%] h-14 rounded-3xl bg-white border-[3px] border-sky-600"
       >
         <button
           id="이전"
@@ -52,19 +80,15 @@ export default function FirstBtnArea({
           Previous
         </button>
       </div>
-      <div
-        aria-label="다음"
-        className="w-[49%] h-14 rounded-3xl mt-3 bg-sky-600"
-      >
+      <div aria-label="다음" className="w-[47%] h-14 rounded-3xl bg-sky-600">
         <button
           type="button"
           className="w-full h-full text-white"
-          onClick={checkData}
+          onClick={toNextPage}
         >
           Next
         </button>
       </div>
-      <BasicAlert message={message} />
     </span>
   )
 }

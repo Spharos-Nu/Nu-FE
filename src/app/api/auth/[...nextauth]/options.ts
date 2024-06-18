@@ -22,32 +22,25 @@ export const options: NextAuthOptions = {
           },
         )
 
-        if (!loginResponse.ok) {
+        const loginRes = await loginResponse.json()
+
+        if (loginRes.status !== 200) {
           return null
         }
-
-        const { accessToken, refreshToken } = await loginResponse.json()
 
         const userResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API}/v1/users`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: accessToken,
-            },
-          },
+          `${process.env.NEXT_PUBLIC_API}/v1/users-n/${loginRes.result.uuid}`,
         )
 
-        if (!userResponse.ok) {
+        const userRes = await userResponse.json()
+
+        if (userRes.status !== 200) {
           return null
         }
 
-        const user = await userResponse.json()
-
         return {
-          accessToken,
-          refreshToken,
-          ...user.result,
+          ...loginRes.result,
+          ...userRes.result,
         }
       },
     }),
@@ -81,21 +74,23 @@ export const options: NextAuthOptions = {
           }
         }
         if (data.status === 200) {
-          user.accessToken = data.result.accessToken
-          user.refreshToken = data.result.refreshToken
           return true
         }
         return false
       }
       return true
     },
-    async jwt({ user, token }) {
-      return { ...token, ...user }
+    async jwt({ token }) {
+      return { ...token }
     },
     async session({ session, token }) {
-      session.user.accessToken = token.result.accessToken
-      session.user.refreshToken = token.result.accessToken
-      return { ...session, ...token }
+      session.user.image = token.profileImg
+      session.user.uuid = token.uuid
+      session.user.accessToken = token.accessToken
+      session.user.refreshToken = token.accessToken
+      session.user.nickname = token.nickname
+      session.user.favoriteCategory = token.favCategory
+      return { ...session }
     },
   },
   pages: {
