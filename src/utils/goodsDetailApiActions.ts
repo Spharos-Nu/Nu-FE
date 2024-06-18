@@ -9,7 +9,7 @@ export const getGoodsDetail = async (
 ): Promise<ApiResponse<GoodsDetailType>> => {
   //   const session = await getServerSession(options)
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/v1/goods-n/${goodsCode}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/goods-n/${goodsCode}`,
     {
       cache: 'no-cache',
     },
@@ -19,12 +19,12 @@ export const getGoodsDetail = async (
   return data
 }
 
-// 입찰 목록 미리보기 API
+// 입찰 목록 API
 export const getBiddingPreview = async (
   goodsCode: string,
 ): Promise<ApiResponse<BiddingPreviewType[]>> => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/v1/bids-n/${goodsCode}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/bids-n/${goodsCode}`,
     {
       cache: 'no-cache',
     },
@@ -37,7 +37,7 @@ export const getBiddingPreview = async (
 // 입찰 유저 조회 API
 export const getBiddingUser = async (bidderUuid: string) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/api/v1/user-n/${bidderUuid}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/users-n/${bidderUuid}`,
     {
       cache: 'no-cache',
     },

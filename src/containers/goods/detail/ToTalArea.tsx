@@ -8,16 +8,16 @@ export default function ToTalArea() {
         <EtcDuck />
       </div>
       <div className="flex justify-between gap-[7px] mt-[10px] text-center">
-        <div className="py-[20px] w-full border rounded-2xl border-[#319AFD]">
-          <p className="text-[14px] text-[#979797]">조회수</p>
+        <div className="py-[20px] w-full border rounded-2xl border-blue-400">
+          <p className="text-[14px] text-gray-400">조회수</p>
           <p className="text-[17px] ">1000</p>
         </div>
-        <div className="py-[20px] w-full border rounded-2xl border-[#319AFD]">
-          <p className="text-[14px] text-[#979797]">좋아요</p>
+        <div className="py-[20px] w-full border rounded-2xl border-blue-400">
+          <p className="text-[14px] text-gray-400">좋아요</p>
           <p className="text-[17px]">1000</p>
         </div>
-        <div className="py-[20px] w-full border rounded-2xl border-[#319AFD]">
-          <p className="text-[14px] text-[#979797]">입찰</p>
+        <div className="py-[20px] w-full border rounded-2xl border-blue-400">
+          <p className="text-[14px] text-gray-400">입찰</p>
           <p className="text-[17px]">1000</p>
         </div>
       </div>

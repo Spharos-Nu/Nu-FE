@@ -12,15 +12,15 @@ import ToTalArea from '@/containers/goods/detail/ToTalArea'
 // import { getGoodsDetail } from '@/utils/goodsDetailApiActions'
 
 export default async function GoodsDetailPage({
-  searchParams,
+  params,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: { goodsCode: string }
 }) {
-  const goodsCode = searchParams.goodsCode
-    ? (searchParams.goodsCode as string)
-    : ''
-
-  // const goodsDetailData = await Promise.all([getGoodsDetail(goodsCode)])
+  const { goodsCode } = params
+  // const [goodsDetailData, getBiddingPreview] = await Promise.all([
+  //   getGoodsDetail(goodsCode),
+  //   getBiddingPreview(goodsCode),
+  // ])
   // const goodsDetail = goodsDetailData[0].result
   // console.log(goodsDetail)
 
@@ -28,16 +28,16 @@ export default async function GoodsDetailPage({
   // const uuid = session?.user.uuid
 
   // to do: 조회수 올리는 api 호출
-  const uuid = 'string'
+  const uuid = 'sdf'
 
   const goodsDetail = {
     uuid: 'string',
-    tradingStatus: 3,
+    tradingStatus: 2,
     goodsName: '포카',
     description: '포키포키',
     minPrice: 10000,
-    openedAt: '2024-06-18T09:27:30.000',
-    closedAt: '2024-06-18T09:28:00.000',
+    openedAt: '2024-06-18T17:08:30.000',
+    closedAt: '2024-06-18T17:09:00.000',
     wishTradeType: 1,
     tags: [
       { id: 4, name: '#string' },
@@ -49,14 +49,13 @@ export default async function GoodsDetailPage({
   const bidding = async (biddingData: FormData) => {
     'use server'
 
-    console.log(biddingData)
     biddingData.get('biddingPrice')
   }
 
-  const biddingConfirm = async (biddingData: FormData) => {
+  const biddingConfirm = async (confirmData: FormData) => {
     'use server'
 
-    console.log(biddingData)
+    confirmData.get('confirmData')
   }
 
   return (
@@ -67,9 +66,7 @@ export default async function GoodsDetailPage({
       <ToTalArea />
       {uuid === goodsDetail.uuid ? (
         <>
-          {goodsDetail.tradingStatus >= 1 && (
-            <BiddingPreview goodsCode={goodsCode} />
-          )}
+          {goodsDetail.tradingStatus >= 1 && <BiddingPreview />}
           {goodsDetail.tradingStatus === 2 && (
             <ConfirmationBtn biddingConfirm={biddingConfirm} />
           )}
@@ -80,7 +77,7 @@ export default async function GoodsDetailPage({
       ) : (
         <>
           <EtcArea goodsCode={goodsCode} />
-          <BiddingBtn bidding={bidding} />
+          {goodsDetail.tradingStatus === 1 && <BiddingBtn bidding={bidding} />}
         </>
       )}
     </main>

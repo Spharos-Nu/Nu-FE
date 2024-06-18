@@ -15,7 +15,7 @@ export default function DetailDescription({
         {goodsDetail.description}
         <div className="mt-[10px]">
           {goodsDetail.tags.map((item) => (
-            <span key={item.id} className="mr-[10px] text-[#989898]">
+            <span key={item.id} className="mr-[10px] text-zinc-400">
               {item.name}
             </span>
           ))}

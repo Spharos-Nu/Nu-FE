@@ -12,8 +12,15 @@ export default function Timer({
   const [minutes, setMinutes] = useState<string>('0')
   const [seconds, setSeconds] = useState<string>('0')
   const [isRunning, setIsRunning] = useState<boolean>(true)
+  const [title, setTitle] = useState<string>('')
 
   useEffect(() => {
+    if (status === 0) {
+      setTitle('입찰 시작')
+    } else {
+      setTitle('입찰 마감')
+    }
+
     const timer = setInterval(() => {
       const now = new Date()
       const end = new Date(time)
@@ -45,35 +52,24 @@ export default function Timer({
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [time])
+  }, [status, time])
 
   return (
-    <div className="text-[21px]">
-      {status === 0 ? (
-        <div>
-          {isRunning ? (
-            <>
-              <span className="text-[17px] pr-[5px]">입찰 시작까지 </span>
-              <span className={days === '00' ? `hidden` : ``}>{days}일 </span>
-              {hours}:{minutes}:{seconds}
-            </>
-          ) : (
-            '입찰 시작'
-          )}
-        </div>
-      ) : (
-        <div>
-          {isRunning ? (
-            <>
-              <span className="text-[17px] pr-[5px]">남은 시간 </span>
-              <span className={days === '00' ? `hidden` : ``}>{days}일 </span>
-              {hours}:{minutes}:{seconds}
-            </>
-          ) : (
-            '입찰 마감'
-          )}
-        </div>
+    <p className="text-[21px]">
+      <span
+        className={`pr-[5px] ${isRunning ? ' text-[17px]' : ' text-[21px]'}`}
+      >
+        {' '}
+        {isRunning ? `${title} 까지` : title}
+      </span>
+      {isRunning && (
+        <>
+          <span className={days === '00' ? `hidden` : ``}>{days}일 </span>
+          <span>
+            {hours}:{minutes}:{seconds}
+          </span>
+        </>
       )}
-    </div>
+    </p>
   )
 }

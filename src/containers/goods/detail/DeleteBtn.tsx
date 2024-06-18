@@ -3,6 +3,7 @@ import { SlArrowRight } from 'react-icons/sl'
 
 export default function DeleteBtn() {
   // to do : 삭제 api 호출
+
   return (
     <div className="mt-[50px] mb-[30px] px-[20px] flex justify-center">
       <button
