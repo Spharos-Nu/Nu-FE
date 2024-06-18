@@ -80,8 +80,8 @@ export const options: NextAuthOptions = {
       }
       return true
     },
-    async jwt({ token }) {
-      return { ...token }
+    async jwt({ token, user }) {
+      return { ...token, ...user }
     },
     async session({ session, token }) {
       session.user.image = token.profileImg
