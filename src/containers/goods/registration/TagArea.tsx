@@ -2,11 +2,18 @@
 
 import { useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { TagItem, useTagStore } from './store'
 
 export default function TagArea() {
   const [item, setItem] = useState<string>('')
   const { tagItems, addTags, removeTags } = useTagStore()
+  const { message, setAlert } = useBasicAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
 
   const getTags = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItem(event.target.value)
@@ -14,7 +21,14 @@ export default function TagArea() {
 
   const pushTag = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    addTags({ id: Date.now(), name: `#${item}` })
+    if (item.trim() === '') {
+      showAlert('태그를 입력해주세요!')
+    } else if (tagItems.length < 5) {
+      const formattedItem = item.replace('#', '')
+      addTags({ id: Date.now(), name: `#${formattedItem}` })
+    } else {
+      showAlert('태그는 최대 5개까지 입력할 수 있어요!')
+    }
     setItem('')
   }
 
@@ -31,6 +45,7 @@ export default function TagArea() {
           name="tag"
           className="col-span-4 px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc]"
           onChange={getTags}
+          autoComplete="off"
         />
         <button
           type="button"
@@ -64,7 +79,9 @@ export default function TagArea() {
           &#183; 상품과 관련 없는 태그를 입력할 경우, 판매에 제재를 받을 수
           있어요.
         </p>
+        <p>&#183; 태그는 최대 5개까지 입력할 수 있어요!</p>
       </div>
+      <BasicAlert message={message} />
     </>
   )
 }

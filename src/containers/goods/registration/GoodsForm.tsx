@@ -79,6 +79,7 @@ export default function GoodsForm() {
           placeholder="굿즈명"
           name="goodsName"
           className="w-full mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc]"
+          autoComplete="off"
         />
         <CategoryArea />
         <DescriptionArea />
@@ -90,6 +91,7 @@ export default function GoodsForm() {
           placeholder="최소가격"
           name="minPrice"
           className="w-full mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc]"
+          autoComplete="off"
         />
         <PeriodArea />
         <TradeTypeArea />

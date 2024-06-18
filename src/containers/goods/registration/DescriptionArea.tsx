@@ -17,6 +17,7 @@ export default function DescriptionArea() {
           placeholder:text-[#bcbcbc] placeholder:text-[15px] placeholder:whitespace-pre-line"
         maxLength={500}
         onChange={(e) => setInputCount(e.target.value.length)}
+        autoComplete="off"
       />
       <div className="flex justify-end mb-[20px] text-[13px] text-[#8f8f8f]">
         <p className="">{inputCount}</p>

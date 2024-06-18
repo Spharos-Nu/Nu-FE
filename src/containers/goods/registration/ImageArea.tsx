@@ -1,10 +1,17 @@
 import Image from 'next/image'
 import { CiCamera } from 'react-icons/ci'
 import { IoIosClose } from 'react-icons/io'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { useImageStore } from './store'
 
 export default function ImageArea() {
   const { imageItems, addImages, removeImages } = useImageStore()
+  const { message, setAlert } = useBasicAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
 
   const handleButtonClick = () => {
     document.getElementById('goodsImage')?.click()
@@ -12,24 +19,28 @@ export default function ImageArea() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const selectedFiles = e.target.files[0]
-      const fileExtension = selectedFiles.name.split('.').pop()?.toLowerCase()
+      if (imageItems.length < 10) {
+        const selectedFiles = e.target.files[0]
+        const fileExtension = selectedFiles.name.split('.').pop()?.toLowerCase()
 
-      if (
-        fileExtension === 'jpg' ||
-        fileExtension === 'jpeg' ||
-        fileExtension === 'png'
-      ) {
-        const reader = new FileReader()
-        reader.readAsDataURL(selectedFiles)
-        addImages({
-          id: Date.now(),
-          url: selectedFiles,
-          previewUrl: URL.createObjectURL(selectedFiles),
-        })
+        if (
+          fileExtension === 'jpg' ||
+          fileExtension === 'jpeg' ||
+          fileExtension === 'png'
+        ) {
+          const reader = new FileReader()
+          reader.readAsDataURL(selectedFiles)
+          addImages({
+            id: Date.now(),
+            url: selectedFiles,
+            previewUrl: URL.createObjectURL(selectedFiles),
+          })
+        }
+
+        console.log(imageItems)
+      } else {
+        showAlert('이미지는 최대 10개까지 등록할 수 있어요!')
       }
-
-      console.log(imageItems)
     }
   }
 
@@ -50,6 +61,7 @@ export default function ImageArea() {
           id="goodsImage"
           onChange={handleFileChange}
           className="overflow-hidden absolute w-[1px] h-[1px] text-[0px]"
+          autoComplete="off"
         />
         <div className="w-full whitespace-nowrap overflow-x-auto">
           <ul className="flex flex-row flex-nowrap mb-[10px] mr-[5px] w-fit">
@@ -63,7 +75,7 @@ export default function ImageArea() {
                   alt="굿즈 이미지"
                   width={100}
                   height={100}
-                  className="rounded-lg"
+                  className="rounded-lg aspect-square object-cover object-center"
                 />
                 <IoIosClose
                   className="w-[25px] h-[25px] absolute top-0 right-0"
@@ -74,6 +86,15 @@ export default function ImageArea() {
           </ul>
         </div>
       </div>
+      <div className="mb-[20px] text-[14px] text-[#6c6c6c]">
+        <p>&#183; 이미지를 자세하게 찍어주세요.</p>
+        <p>
+          &#183; 상품과 관련 없는 이미지를 등록할 경우, 판매에 제재를 받을 수
+          있어요.
+        </p>
+        <p>&#183; 이미지는 최대 10개까지 등록할 수 있어요!</p>
+      </div>
+      <BasicAlert message={message} />
     </>
   )
 }
