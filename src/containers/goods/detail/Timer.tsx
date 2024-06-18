@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react'
 
-export default function TimerStart({ openTime }: { openTime: string }) {
+export default function Timer({
+  time,
+  status,
+}: {
+  time: string
+  status: number
+}) {
   const [days, setDays] = useState<string>('0')
   const [hours, setHours] = useState<string>('0')
   const [minutes, setMinutes] = useState<string>('0')
@@ -10,7 +16,7 @@ export default function TimerStart({ openTime }: { openTime: string }) {
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date()
-      const end = new Date(openTime)
+      const end = new Date(time)
 
       const nt = now.getTime()
       const et = end.getTime()
@@ -39,18 +45,34 @@ export default function TimerStart({ openTime }: { openTime: string }) {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [openTime])
+  }, [time])
 
   return (
     <div className="text-[21px]">
-      {isRunning ? (
-        <>
-          <span className="text-[17px] pr-[5px]">입찰 시작까지 </span>
-          <span className={days === '00' ? `hidden` : ``}>{days}일 </span>
-          {hours}:{minutes}:{seconds}
-        </>
+      {status === 0 ? (
+        <div>
+          {isRunning ? (
+            <>
+              <span className="text-[17px] pr-[5px]">입찰 시작까지 </span>
+              <span className={days === '00' ? `hidden` : ``}>{days}일 </span>
+              {hours}:{minutes}:{seconds}
+            </>
+          ) : (
+            '입찰 시작'
+          )}
+        </div>
       ) : (
-        '입찰 시작'
+        <div>
+          {isRunning ? (
+            <>
+              <span className="text-[17px] pr-[5px]">남은 시간 </span>
+              <span className={days === '00' ? `hidden` : ``}>{days}일 </span>
+              {hours}:{minutes}:{seconds}
+            </>
+          ) : (
+            '입찰 마감'
+          )}
+        </div>
       )}
     </div>
   )

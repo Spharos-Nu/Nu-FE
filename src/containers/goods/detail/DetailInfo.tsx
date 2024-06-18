@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
 import { GoodsDetailType } from '@/types/goodsType'
-import TimerEnd from './TimerEnd'
-import TimerStart from './TimerStart'
+import Timer from './Timer'
 
 export default function DetailInfo({
   goodsDetail,
@@ -53,10 +52,16 @@ export default function DetailInfo({
       </div>
       <div className="mt-[15px] px-[10px] py-[10px] rounded-2xl bg-[#f8f7f7] ">
         {goodsDetail.tradingStatus === 0 && (
-          <TimerStart openTime={goodsDetail.openedAt} />
+          <Timer
+            time={goodsDetail.openedAt}
+            status={goodsDetail.tradingStatus}
+          />
         )}
         {goodsDetail.tradingStatus === 1 && (
-          <TimerEnd endTime={goodsDetail.closedAt} />
+          <Timer
+            time={goodsDetail.closedAt}
+            status={goodsDetail.tradingStatus}
+          />
         )}
         {goodsDetail.tradingStatus >= 2 && (
           <p className="text-[21px]">입찰 종료</p>

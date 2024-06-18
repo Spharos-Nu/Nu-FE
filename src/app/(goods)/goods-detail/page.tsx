@@ -32,12 +32,12 @@ export default async function GoodsDetailPage({
 
   const goodsDetail = {
     uuid: 'string',
-    tradingStatus: 5,
+    tradingStatus: 3,
     goodsName: '포카',
     description: '포키포키',
     minPrice: 10000,
-    openedAt: '2024-06-17T10:57:00.000',
-    closedAt: '2024-06-18T11:19:00.000',
+    openedAt: '2024-06-18T09:27:30.000',
+    closedAt: '2024-06-18T09:28:00.000',
     wishTradeType: 1,
     tags: [
       { id: 4, name: '#string' },
