@@ -46,11 +46,13 @@ export const options: NextAuthOptions = {
     }),
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
-      clientSecret: process.env.KAKAO_CLIENT_SECRET!,
+      clientSecret: process.env.KAKAO_CLINET_SECRET!,
     }),
   ],
   callbacks: {
     async signIn({ user, profile }) {
+      console.log(user, '유저')
+      console.log(profile, '프로필')
       if (profile) {
         // 회원인지 아닌지 확인
         const res = await fetch(
