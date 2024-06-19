@@ -33,7 +33,9 @@ export default function CategoryArea() {
         onClick={() => setIsDropdown(!isDropdown)}
         className={`w-full mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full appearance-none text-left ${categoryId === -1 ? 'text-[#bcbcbc]' : 'text-black'}`}
       >
-        {categoryList[categoryId]?.name || '카테고리 선택'}
+        {categoryId === -1
+          ? '카테고리를 선택해주세요'
+          : categoryList.find((item) => item.id === categoryId)?.name}
       </button>
       <div className="relative">
         {isDropdown && (

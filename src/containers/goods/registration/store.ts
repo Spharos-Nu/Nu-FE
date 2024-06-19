@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 
-export type TagItem = {
+export interface TagItem {
   id: number
   name: string
 }
 
-export type ImageItem = {
+export interface ImageItem {
   id: number
   url: File
   previewUrl: string

@@ -78,6 +78,7 @@ export default function GoodsForm() {
         url: await uploadGoodsImage(item.url),
       }),
     )
+
     const openedAt = `${biddingPeriod}T${biddingTime}:00.000Z`
     const date = new Date(`${biddingPeriod} ${biddingTime}`)
 
@@ -93,7 +94,7 @@ export default function GoodsForm() {
       minPrice: Number(minPrice),
       openedAt,
       closedAt,
-      wishTradeType: Number(wishTradeType),
+      wishTradeType,
       tags,
       images,
     }

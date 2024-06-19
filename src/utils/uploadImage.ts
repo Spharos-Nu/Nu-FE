@@ -1,5 +1,3 @@
-'use server'
-
 import {
   S3Client,
   PutObjectCommand,
@@ -46,7 +44,7 @@ export async function uploadGoodsImage(file: File | null): Promise<string> {
   const filename = `${splitFilename[0]}${Date.now()}.${splitFilename.pop()}`
 
   const command = new PutObjectCommand({
-    Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME!,
+    Bucket: process.env.AWS_S3_BUCKET_NAME!,
     Key: `productImage/${filename}`,
     Body: file,
     ContentType: file.type,
@@ -54,7 +52,7 @@ export async function uploadGoodsImage(file: File | null): Promise<string> {
 
   try {
     await s3.send(command)
-    return `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/goodsImage/${filename}`
+    return `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/productImage/${filename}`
   } catch (error) {
     throw error
   }
