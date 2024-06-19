@@ -7,15 +7,15 @@ export default function CategoryArea() {
 
   const categoryList = [
     {
-      id: 0,
+      id: 1,
       name: '애니메이션',
     },
     {
-      id: 1,
+      id: 2,
       name: '아이돌',
     },
     {
-      id: 2,
+      id: 3,
       name: '야구',
     },
   ]
