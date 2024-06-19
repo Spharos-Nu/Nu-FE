@@ -51,18 +51,6 @@ export default function CategoryArea() {
           </ul>
         )}
       </div>
-      {/* <select
-        id="category"
-        name="category"
-        className="w-full mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc] appearance-none"
-      >
-        <option value="none" className="text-[#bcbcbc]">
-          카테고리 선택
-        </option>
-        <option value="0">애니메이션</option>
-        <option value="1">아이돌</option>
-        <option value="2">야구</option>
-      </select> */}
     </>
   )
 }
