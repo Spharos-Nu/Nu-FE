@@ -8,7 +8,7 @@ import UpdateNickname from '@/containers/mypage/UpdateNickname'
 import UpdateProfileImage from '@/containers/mypage/UpdateProfileImage'
 import { useUpdateProfileStore } from '@/containers/mypage/store'
 import { updateProfile } from '@/utils/memberApiActions'
-import { deleteImage, uploadImage } from '@/utils/uploadImage'
+import { deleteProfileImage, uploadProfileImage } from '@/utils/uploadImage'
 
 export default function UpdateProfileForm() {
   const { data: session, update } = useSession()
@@ -24,11 +24,11 @@ export default function UpdateProfileForm() {
 
     let profileImageUrl = ''
     if (session?.user.profileImage && profileImage) {
-      await deleteImage(session?.user.profileImage)
+      await deleteProfileImage(session?.user.profileImage)
     } else if (session?.user.profileImage) {
       profileImageUrl = session?.user.profileImage
     } else if (profileImage) {
-      profileImageUrl = await uploadImage(profileImage)
+      profileImageUrl = await uploadProfileImage(profileImage)
     }
 
     const data = await updateProfile(
