@@ -7,7 +7,7 @@ import LoginContour from '@/public/svgs/loginContour.svg'
 import { poppins } from '@/styles/fonts'
 
 export default function SocialForm() {
-  const params = useSearchParams().get('callbackUrl') || ''
+  const params = useSearchParams().get('callbackUrl') || '/'
   const kakaoLogin = () => {
     signIn('kakao', {
       redirect: true,

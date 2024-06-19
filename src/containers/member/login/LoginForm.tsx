@@ -3,47 +3,36 @@
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
-import BasicAlert from '@/components/Modal/BasicAlert'
-import { useBasicAlertStore } from '@/components/Modal/store'
-import { useLoginStore } from '@/containers/member/login/store'
 import { montserrat } from '@/styles/fonts'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 
 export default function LoginForm() {
   const params = useSearchParams().get('callbackUrl') || '/'
-
-  const {
-    userId,
-    password,
-    isId,
-    isPwd,
-    isChecked,
-    setUserId,
-    setPassword,
-    setIsId,
-    setIsPwd,
-    setIsChecked,
-  } = useLoginStore()
-
-  const { message, setAlert } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
+  const [userId, setUserId] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [noUserId, setNoUserId] = useState<number>(0)
+  const [noPwd, setNoPwd] = useState<number>(0)
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
   /** Id 입력 있을 때마다 업데이트 */
   const handleIdInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(e.target.value)
-    setIsId(e.target.value !== '')
+
+    if (e.target.value) {
+      setNoUserId(1)
+    }
   }
 
   /** Pw 입력 있을 때마다 업데이트 */
   const handlePwInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value)
-    setIsPwd(e.target.value !== '')
+
+    if (e.target.value) {
+      setNoPwd(1)
+    }
   }
 
   const handleIsChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,10 +49,10 @@ export default function LoginForm() {
     }
 
     if (!userId) {
-      return showAlert('아이디를 입력해주세요.')
+      return setNoUserId(2)
     }
     if (!password) {
-      return showAlert('비밀번호를 입력해주세요.')
+      return setNoPwd(2)
     }
 
     await signIn('credentials', {
@@ -111,18 +100,22 @@ export default function LoginForm() {
             onChange={handleIdInput}
             className="w-full h-full rounded-3xl bg-gray-200 pl-5 text-sm"
           />
-          {isId && (
+          {userId && (
             <TiDelete
               className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
               onClick={() => {
                 setUserId('')
-                setIsId(false)
               }}
             />
           )}
         </span>
+        {noUserId === 2 && (
+          <p className="text-red-500 text-xs mt-1 ml-3 font-dovemayo">
+            * 아이디를 입력해주세요.
+          </p>
+        )}
       </div>
-      <div className="w-full h-14 rounded-3xl mt-3">
+      <div className="w-full h-14 rounded-3xl my-7">
         <span className="flex relative w-full h-full">
           <label
             htmlFor="비밀번호"
@@ -140,16 +133,20 @@ export default function LoginForm() {
             onChange={handlePwInput}
             className="w-full h-14 rounded-3xl bg-gray-200 pl-5 text-sm"
           />
-          {isPwd && (
+          {password && (
             <TiDelete
               className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
               onClick={() => {
                 setPassword('')
-                setIsPwd(false)
               }}
             />
           )}
         </span>
+        {noPwd === 2 && (
+          <p className="text-red-500 text-xs mt-1 ml-3 font-dovemayo">
+            * 비밀번호를 입력해주세요.
+          </p>
+        )}
       </div>
       <div className="mt-3 mb-10 flex items-center justify-between">
         <span className="inline-flex">
@@ -182,7 +179,6 @@ export default function LoginForm() {
           LOG IN
         </button>
       </div>
-      <BasicAlert message={message} />
     </form>
   )
 }

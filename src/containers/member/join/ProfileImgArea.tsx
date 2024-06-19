@@ -1,19 +1,27 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { MdCancel } from 'react-icons/md'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { useJoinStore } from '@/containers/member/join/store'
 import BasicProfileDuck from '@/public/svgs/duck/basicProfileDuck.svg'
 import ProfileImgBtn from '@/public/svgs/icon/profileImgBtn.svg'
+import { uploadProfileImage, deleteProfileImage } from '@/utils/uploadImage'
 
 export default function ProfileImgArea() {
-  const [previewUrl, setPreviewUrl] = useState<string>('')
+  const imageInputRef = useRef<HTMLInputElement>(null)
   const { profileImage, setProfileImage } = useJoinStore()
+  const { message, setAlert } = useBasicAlertStore()
 
   const handleButtonClick = () => {
-    document.getElementById('프로필 이미지')?.click()
+    imageInputRef.current?.click()
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFile = e.target.files[0]
       const fileExtension = selectedFile.name.split('.').pop()?.toLowerCase()
@@ -23,40 +31,29 @@ export default function ProfileImgArea() {
         fileExtension === 'jpeg' ||
         fileExtension === 'png'
       ) {
-        const reader = new FileReader()
-        reader.onload = () => {
-          setPreviewUrl(reader.result as string)
-        }
-        reader.readAsDataURL(selectedFile)
-        setProfileImage(selectedFile)
+        const res = await uploadProfileImage(selectedFile)
+        setProfileImage(res)
       } else {
-        setPreviewUrl('')
-        setProfileImage(null)
-        // Todo: Alert 모달(유효하지 않은 형식입니다.)
+        showAlert('유효하지 않은 파일 형식입니다.')
       }
     }
   }
 
   useEffect(() => {
-    if (profileImage) {
-      const reader = new FileReader()
-      reader.onload = () => {
-        setPreviewUrl(reader.result as string)
-      }
-      reader.readAsDataURL(profileImage)
+    return () => {
+      setProfileImage('')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [setProfileImage])
 
   return (
     <div className="flex justify-center items-center my-5">
       <div
-        className={`flex w-32 h-32 relative rounded-full ${previewUrl && 'border-[3px] border-sky-600'}`}
+        className={`flex w-32 h-32 relative rounded-full ${profileImage && 'border-[3px] border-sky-600'}`}
       >
-        {previewUrl ? (
+        {profileImage ? (
           <Image
             className="rounded-full"
-            src={previewUrl}
+            src={profileImage}
             alt="사진 프리뷰"
             onClick={handleButtonClick}
             width={128}
@@ -71,7 +68,7 @@ export default function ProfileImgArea() {
         <input
           type="file"
           accept=".jpg, .jpeg, .png"
-          id="프로필 이미지"
+          ref={imageInputRef}
           onChange={handleFileChange}
           className="overflow-hidden absolute w-px h-px text-[0px]"
         />
@@ -82,11 +79,12 @@ export default function ProfileImgArea() {
         <MdCancel
           className="w-[34px] h-[34px] pr-0 absolute top-0 right-[-5px] z-10 text-sky-600 rounded-full bg-white"
           onClick={() => {
-            setPreviewUrl('')
-            setProfileImage(null)
+            deleteProfileImage(profileImage)
+            setProfileImage('')
           }}
         />
       </div>
+      <BasicAlert message={message} />
     </div>
   )
 }
