@@ -8,7 +8,7 @@ import { TagItem, useTagStore } from './store'
 
 export default function TagArea() {
   const [item, setItem] = useState<string>('')
-  const { tagItems, addTags, removeTags } = useTagStore()
+  const { tags, addTags, removeTags } = useTagStore()
   const { message, setAlert } = useBasicAlertStore()
 
   const showAlert = (alertMessage: string) => {
@@ -23,7 +23,7 @@ export default function TagArea() {
     event.preventDefault()
     if (item.trim() === '') {
       showAlert('태그를 입력해주세요!')
-    } else if (tagItems.length < 5) {
+    } else if (tags.length < 5) {
       const formattedItem = item.replace('#', '')
       addTags({ id: Date.now(), name: `#${formattedItem}` })
     } else {
@@ -56,7 +56,7 @@ export default function TagArea() {
         </button>
       </div>
       <ul className="flex mb-[10px] whitespace-nowrap overflow-x-auto">
-        {tagItems.map((tag: TagItem) => (
+        {tags.map((tag: TagItem) => (
           <li
             key={tag.id}
             className="flex mr-[7px] border border-[#FFD26F] rounded-full px-[10px] py-[10px] text-center"

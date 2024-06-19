@@ -46,7 +46,7 @@ export default function ImageArea() {
 
   return (
     <>
-      <label htmlFor="goodsImage" className="text-[#2B74B9] text-[17px]">
+      <label htmlFor="goodsImage" className="text-sky-600 text-[17px]">
         굿즈 이미지
       </label>
       <div className="flex flex-row">

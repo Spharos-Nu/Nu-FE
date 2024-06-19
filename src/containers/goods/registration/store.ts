@@ -13,64 +13,80 @@ export type ImageItem = {
 
 interface GoodsState {
   goodsName: string
-  category: string
+  categoryId: number
   description: string
-  minPrice: number
+  minPrice: string
   biddingPeriod: string
   biddingTime: string
   biddingDuration: string
-  tradeType: string
+  wishTradeType: string
 
   setGoodsName: (goodsName: string) => void
-  setCategory: (category: string) => void
+  setCategory: (categoryId: number) => void
   setDescription: (description: string) => void
-  setMinPrice: (minPrice: number) => void
+  setMinPrice: (minPrice: string) => void
   setBiddingPeriod: (biddingPeriod: string) => void
   setBiddingTime: (biddingTime: string) => void
   setBiddingDuration: (biddingDuration: string) => void
-  setTradeType: (tradeType: string) => void
+  setTradeType: (wishTradeType: string) => void
+
+  resetGoodsState: () => void
 }
 
 interface TagState {
-  tagItems: TagItem[]
+  tags: TagItem[]
   addTags(item: TagItem): void
   removeTags(item: TagItem): void
+  resetTagsState: () => void
 }
 
 interface ImageState {
   imageItems: ImageItem[]
   addImages(item: ImageItem): void
   removeImages(item: ImageItem): void
+  resetImagesState: () => void
 }
 
 export const useGoodsStore = create<GoodsState>((set) => ({
   goodsName: '',
-  category: '',
+  categoryId: -1,
   description: '',
-  minPrice: 0,
+  minPrice: '',
   biddingPeriod: '',
   biddingTime: '',
   biddingDuration: '',
-  tradeType: '',
+  wishTradeType: '',
 
   setGoodsName: (goodsName: string) => set({ goodsName }),
-  setCategory: (category: string) => set({ category }),
+  setCategory: (categoryId: number) => set({ categoryId }),
   setDescription: (description: string) => set({ description }),
-  setMinPrice: (minPrice: number) => set({ minPrice }),
+  setMinPrice: (minPrice: string) => set({ minPrice }),
   setBiddingPeriod: (biddingPeriod: string) => set({ biddingPeriod }),
   setBiddingTime: (biddingTime: string) => set({ biddingTime }),
   setBiddingDuration: (biddingDuration: string) => set({ biddingDuration }),
-  setTradeType: (tradeType: string) => set({ tradeType }),
+  setTradeType: (wishTradeType: string) => set({ wishTradeType }),
+
+  resetGoodsState: () =>
+    set({
+      goodsName: '',
+      categoryId: -1,
+      description: '',
+      minPrice: '',
+      biddingPeriod: '',
+      biddingTime: '',
+      biddingDuration: '',
+      wishTradeType: '',
+    }),
 }))
 
 export const useTagStore = create<TagState>((set) => ({
-  tagItems: [],
-  addTags: (item: TagItem) =>
-    set((state) => ({ tagItems: [...state.tagItems, item] })),
+  tags: [],
+  addTags: (item: TagItem) => set((state) => ({ tags: [...state.tags, item] })),
   removeTags: (item: TagItem) =>
     set((state) => ({
-      tagItems: state.tagItems.filter((tag) => tag.id !== item.id),
+      tags: state.tags.filter((tag) => tag.id !== item.id),
     })),
+  resetTagsState: () => set(() => ({ tags: [] })),
 }))
 
 export const useImageStore = create<ImageState>((set) => ({
@@ -81,4 +97,5 @@ export const useImageStore = create<ImageState>((set) => ({
     set((state) => ({
       imageItems: state.imageItems.filter((image) => image.id !== item.id),
     })),
+  resetImagesState: () => set(() => ({ imageItems: [] })),
 }))

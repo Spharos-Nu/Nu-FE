@@ -35,6 +35,29 @@ export async function uploadImage(file: File | null): Promise<string> {
   }
 }
 
+export async function uploadGoodsImage(file: File | null): Promise<string> {
+  if (file === null) {
+    return ''
+  }
+
+  const splitFilename = file!.name.split('.')
+  const filename = `${splitFilename[0]}${Date.now()}.${splitFilename.pop()}`
+
+  const command = new PutObjectCommand({
+    Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME!,
+    Key: `productImage/${filename}`,
+    Body: file,
+    ContentType: file.type,
+  })
+
+  try {
+    await s3.send(command)
+    return `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/goodsImage/${filename}`
+  } catch (error) {
+    throw error
+  }
+}
+
 export async function deleteImage(imageUrl: string): Promise<void> {
   const filename = imageUrl.split('/').pop()!
 
