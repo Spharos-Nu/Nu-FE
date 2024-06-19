@@ -21,7 +21,6 @@ import {
 import DuckOne from '@/public/svgs/duck/duckOne.svg'
 import { join } from '@/utils/authApiActions'
 import { pwdValidCheck } from '@/utils/joinValidateCheck'
-import { uploadImage } from '@/utils/uploadImage'
 
 export default function JoinForm() {
   const {
@@ -88,10 +87,8 @@ export default function JoinForm() {
       return null
     }
 
-    const profileImgUrl = await uploadImage(profileImage)
-
     const data = await join(
-      profileImgUrl,
+      profileImage,
       favoriteCategory,
       nickname,
       userId,

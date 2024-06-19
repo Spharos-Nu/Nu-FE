@@ -56,12 +56,12 @@ export const options: NextAuthOptions = {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API}/v1/auth-n/social-login`,
           {
-            method: 'GET',
+            method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              socialCode: user.id,
+              memberCode: user.id,
             }),
           },
         )
@@ -78,16 +78,17 @@ export const options: NextAuthOptions = {
         }
         return false
       }
+
       return true
     },
-    async jwt({ token }) {
-      return { ...token }
+    async jwt({ token, user }) {
+      return { ...token, ...user }
     },
     async session({ session, token }) {
       session.user.image = token.profileImg
       session.user.uuid = token.uuid
       session.user.accessToken = token.accessToken
-      session.user.refreshToken = token.accessToken
+      session.user.refreshToken = token.refreshToken
       session.user.nickname = token.nickname
       session.user.favoriteCategory = token.favCategory
       return { ...session }
