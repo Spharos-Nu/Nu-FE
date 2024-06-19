@@ -1,4 +1,3 @@
-import UpNav from '@/components/layout/UpNav'
 import DetailHeader from '@/containers/goods/detail/DetailHeader'
 
 export default function GoodsDetailLayout({
@@ -10,7 +9,6 @@ export default function GoodsDetailLayout({
     <>
       <DetailHeader />
       {children}
-      <UpNav />
     </>
   )
 }

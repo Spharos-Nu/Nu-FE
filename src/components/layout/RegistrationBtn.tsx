@@ -1,7 +1,14 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { GoPlus } from 'react-icons/go'
 
 export default function RegistrationBtn() {
+  const pathname = usePathname()
+
+  if (pathname.startsWith(`/goods/`)) return null
+
   return (
     <Link
       href="/registration"

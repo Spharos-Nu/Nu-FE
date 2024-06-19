@@ -13,7 +13,7 @@ export default function GoodsItem({
   const comment = '입찰이 종료된\n상품입니다.'
   return (
     <Link
-      href={`/goods-detail?goodsCode=${goodsItemData.goodsCode}`}
+      href={`/goods/${goodsItemData.goodsCode}`}
       className={`border rounded-2xl w-[48%] sm:w-[30%] lg:w-[23%] xl:w-[18%] ${goodsItemData.tradingStatus === 0 || goodsItemData.tradingStatus === 1 ? '' : 'grayscale'}`}
     >
       <p

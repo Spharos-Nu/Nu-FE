@@ -29,11 +29,12 @@ export default function BiddingModal({
                 placeholder="입찰가를 입력해주세요"
                 name="biddingPrice"
                 id="biddingPrice"
+                autoComplete="off"
               />
             </label>
             <button
               type="submit"
-              className="w-[calc(100%-50px)] h-[60px] bg-sky-600 text-white rounded-full mt-[30px] mx-[20px]"
+              className="w-[calc(100%-50px)] h-[60px] bg-sky-600 text-white text-[17px] rounded-full mt-[30px] mx-[20px]"
             >
               입찰하기
             </button>
