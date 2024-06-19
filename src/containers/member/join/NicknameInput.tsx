@@ -1,3 +1,4 @@
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 import { TiDelete } from 'react-icons/ti'
 import {
@@ -9,6 +10,7 @@ import {
 import { nickValidCheck, duplicationCheckNick } from '@/utils/joinValidateCheck'
 
 export default function NicknameInput() {
+  const params = useSearchParams()
   const { nickname, setNickname, isValidNick, setIsValidNick } = useJoinStore()
   const { notValidNick, setNotValidNick } = useErrorStore()
   const { setCurrentIdx } = usePageStore()
@@ -47,7 +49,9 @@ export default function NicknameInput() {
 
   useEffect(() => {
     if (currentFocus === 'nickname') {
-      setCurrentIdx(0)
+      if (!params) {
+        setCurrentIdx(0)
+      }
       setNotValidNick(1)
       nicknameInputRef.current?.focus()
     }

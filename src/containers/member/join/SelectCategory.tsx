@@ -1,3 +1,4 @@
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
 import {
@@ -8,10 +9,11 @@ import {
 } from '@/containers/member/join/store'
 
 export default function SelectCategory() {
+  const params = useSearchParams()
   const { favoriteCategory, setFavoriteCategory } = useJoinStore()
   const { categoryNotSelected, setCategoryNotSelected } = useErrorStore()
   const { setCurrentIdx } = usePageStore()
-  const { currentFocus, setCurrentFocus } = useFocusStore()
+  const { currentFocus } = useFocusStore()
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
   const categoryRef = useRef<HTMLDivElement>(null)
 
@@ -21,9 +23,10 @@ export default function SelectCategory() {
 
   useEffect(() => {
     if (currentFocus === 'favoriteCategory') {
-      setCurrentIdx(0)
+      if (!params) {
+        setCurrentIdx(0)
+      }
       categoryRef.current?.focus()
-      setCurrentFocus('')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFocus])
