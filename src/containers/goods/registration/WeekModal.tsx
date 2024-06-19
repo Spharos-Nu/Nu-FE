@@ -2,10 +2,10 @@ import { CgClose } from 'react-icons/cg'
 
 export default function WeekModal({
   setWeekVisible,
-  getPickDate,
+  getPickPeriod,
 }: {
   setWeekVisible: React.Dispatch<React.SetStateAction<boolean>>
-  getPickDate: (item: string) => void
+  getPickPeriod: (item: string) => void
 }) {
   const today = new Date()
   const weekLater = new Date(today)
@@ -22,9 +22,9 @@ export default function WeekModal({
       <div className="bg-white z-30 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 h-[350px] w-1/2 rounded-3xl px-[20px] py-[20px]">
         <CgClose
           onClick={() => setWeekVisible(false)}
-          className="w-[20px] h-[20px] text-[#2B74B9] absolute right-0 mr-[20px] mt-[2px]"
+          className="w-[20px] h-[20px] text-sky-600 absolute right-0 mr-[20px] mt-[2px]"
         />
-        <p className="text-center text-[18px] text-[#2B74B9]">날짜 선택</p>
+        <p className="text-center text-[18px] text-sky-600">날짜 선택</p>
         <ul className="mt-[20px]">
           {week.map((date) => (
             <li
@@ -32,7 +32,7 @@ export default function WeekModal({
               className="text-center pb-[15px]"
               role="none"
               onClick={() => {
-                getPickDate(date)
+                getPickPeriod(date)
                 setWeekVisible(false)
               }}
             >
