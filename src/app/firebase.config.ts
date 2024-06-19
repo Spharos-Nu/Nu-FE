@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getMessaging } from 'firebase/messaging'
+import { getMessaging, getToken } from 'firebase/messaging'
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,18 +12,20 @@ const config = {
 }
 
 export const app = initializeApp(config)
-export const messaging = getMessaging(app)
+if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
+  const messaging = getMessaging(app)
+  getToken(messaging, {
+    vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+  }).then((currentToken) => {
+    if (currentToken) {
+      // Send the token to your server and update the UI if necessary
+      // ...
+      console.log(currentToken)
+    }
+  })
+}
 
-// // 토큰값 얻기
-// getToken(messaging, {
-//   vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
-// }).then((currentToken) => {
-//   if (currentToken) {
-//     // Send the token to your server and update the UI if necessary
-//     // ...
-//     console.log(currentToken)
-//   }
-// })
+// 토큰값 얻기
 
 // // 포그라운드 메시지 수신
 // onMessage(messaging, (payload) => {

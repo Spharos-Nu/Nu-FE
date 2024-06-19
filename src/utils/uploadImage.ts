@@ -12,7 +12,7 @@ const s3 = new S3Client({
   },
 })
 
-export async function uploadImage(file: File | null): Promise<string> {
+export async function uploadProfileImage(file: File | null): Promise<string> {
   if (file === null) {
     return ''
   }
@@ -35,7 +35,7 @@ export async function uploadImage(file: File | null): Promise<string> {
   }
 }
 
-export async function deleteImage(imageUrl: string): Promise<void> {
+export async function deleteProfileImage(imageUrl: string): Promise<void> {
   const filename = imageUrl.split('/').pop()!
 
   const command = new DeleteObjectCommand({
