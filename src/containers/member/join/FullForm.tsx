@@ -29,12 +29,14 @@ export default function FullForm() {
     password2,
     phoneNumber,
     isVerified,
+    resetJoinState,
   } = useJoinStore()
   const {
     setNotValidPassword,
     setNotEqualPassword,
     setNotValidPhone,
     setNotVerified,
+    resetErrorState,
   } = useErrorStore()
   const { currentIdx } = usePageStore()
   const { setCurrentFocus } = useFocusStore()
@@ -93,6 +95,8 @@ export default function FullForm() {
     )
 
     if (data.status === 201) {
+      resetJoinState()
+      resetErrorState()
       return setIsOpen(true)
     }
     return null

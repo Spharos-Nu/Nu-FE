@@ -22,15 +22,16 @@ export default function EasyFormArea() {
     userId,
     password,
     phoneNumber,
-
     isValidNick,
     isVerified,
+    resetJoinState,
   } = useJoinStore()
   const {
     setCategoryNotSelected,
     setNotValidNick,
     setNotValidPhone,
     setNotVerified,
+    resetErrorState,
   } = useErrorStore()
   const { setCurrentFocus } = useFocusStore()
   const { setIsOpen } = useModalStore()
@@ -88,6 +89,8 @@ export default function EasyFormArea() {
     )
 
     if (data.status === 201) {
+      resetJoinState()
+      resetErrorState()
       return setIsOpen(true)
     }
     return null
