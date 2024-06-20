@@ -1,106 +1,167 @@
 'use client'
 
-// import { uploadImage } from '@/utils/uploadImage'
+import { redirect } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
+import { uploadGoodsImage } from '@/utils/uploadImage'
 import CategoryArea from './CategoryArea'
 import DescriptionArea from './DescriptionArea'
 import ImageArea from './ImageArea'
 import PeriodArea from './PeriodArea'
 import TagArea from './TagArea'
 import TradeTypeArea from './TradeTypeArea'
-// import { useImageStore, useTagStore } from './store'
+import { useGoodsStore, useImageStore, useTagStore } from './store'
 
-// interface ImageType {
-//   url: string
-// }
+export interface ImageType {
+  id: number
+  url: string
+}
 
 export default function GoodsForm() {
-  // const { imageItems } = useImageStore()
-  // const { tagItems } = useTagStore()
+  const { data: session } = useSession()
 
-  // async function postGoods(formData: FormData) {
-  //   if (!formData.get('goodsName')) {
-  //     // eslint-disable-next-line no-alert
-  //     return alert('상품명을 입력해주세요.')
-  //   }
-  //   if (formData.get('category') === 'none') {
-  //     // eslint-disable-next-line no-alert
-  //     return alert('카테고리를 선택해주세요.')
-  //   }
-  //   if (!formData.get('description')) {
-  //     // eslint-disable-next-line no-alert
-  //     return alert('상품 설명을 입력해주세요.')
-  //   }
-  //   if (!formData.get('minPrice')) {
-  //     // eslint-disable-next-line no-alert
-  //     return alert('최소 가격을 입력해주세요.')
-  //   }
-  //   if (!formData.get('biddingPeriod')) {
-  //     // eslint-disable-next-line no-alert
-  //     return alert('입찰 기간을 선택해주세요.')
-  //   }
-  //   if (!formData.get('biddingTime')) {
-  //     // eslint-disable-next-line no-alert
-  //     return alert('입찰 시간을 선택해주세요.')
-  //   }
-  //   if (!formData.get('biddingDuration')) {
-  //     // eslint-disable-next-line no-alert
-  //     return alert('입찰 기간을 선택해주세요.')
-  //   }
+  const {
+    goodsName,
+    categoryId,
+    description,
+    minPrice,
+    biddingPeriod,
+    biddingTime,
+    biddingDuration,
+    wishTradeType,
+    setGoodsName,
+    setMinPrice,
+    resetGoodsState,
+  } = useGoodsStore()
+  const { imageItems, resetImagesState } = useImageStore()
+  const { tags, resetTagsState } = useTagStore()
+  const { message, setAlert } = useBasicAlertStore()
 
-  //   const imageList: ImageType[] = []
-  //   imageItems.map(async (item) =>
-  //     imageList.push({ url: await uploadImage(item.url) }),
-  //   )
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
 
-  //   const data = {
-  //     goodsName: formData.get('goodsName'),
-  //     category: formData.get('category'),
-  //     description: formData.get('description'),
-  //     minPrice: formData.get('minPrice'),
-  //     biddingPeriod: formData.get('biddingPeriod'),
-  //     biddingTime: formData.get('biddingTime'),
-  //     biddingDuration: formData.get('biddingDuration'),
-  //     tradeType: formData.get('tradeType'),
-  //     tag: tagItems,
-  //     images: imageList,
-  //   }
-  //   console.log(data)
-  // }
+  async function registrationGoods() {
+    if (imageItems.length === 0) {
+      return showAlert('이미지를 등록해주세요.')
+    }
+    if (!goodsName) {
+      return showAlert('상품명을 입력해주세요.')
+    }
+    if (categoryId === -1) {
+      return showAlert('카테고리를 선택해주세요.')
+    }
+    if (!description) {
+      return showAlert('상품 설명을 입력해주세요.')
+    }
+    if (minPrice === '') {
+      return showAlert('최소 가격을 입력해주세요.')
+    }
+    if (!biddingPeriod) {
+      return showAlert('입찰 시작 날짜를 선택해주세요.')
+    }
+    if (!biddingTime) {
+      return showAlert('입찰 시작 시간을 선택해주세요.')
+    }
+    if (!biddingDuration) {
+      return showAlert('입찰 기간을 선택해주세요.')
+    }
+    if (wishTradeType === '') {
+      return showAlert('선호 거래 방법을 선택해주세요.')
+    }
+
+    const images: ImageType[] = []
+    imageItems.map(async (item, index) =>
+      images.push({
+        id: index + 1,
+        url: await uploadGoodsImage(item.url),
+      }),
+    )
+
+    const openedAt = `${biddingPeriod}T${biddingTime}:00.000Z`
+    const date = new Date(`${biddingPeriod} ${biddingTime}`)
+
+    const offset = date.getTimezoneOffset() * 60000
+    const closedAt = new Date(
+      date.setHours(date.getHours() + Number(biddingDuration)) - offset,
+    ).toISOString()
+
+    const inputData = {
+      goodsName,
+      categoryId,
+      description,
+      minPrice: Number(minPrice),
+      openedAt,
+      closedAt,
+      wishTradeType,
+      tags,
+      images,
+    }
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/goods`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      body: JSON.stringify(inputData),
+    })
+
+    const data = await res.json()
+    if (data.status === 200) {
+      resetGoodsState()
+      resetImagesState()
+      resetTagsState()
+      // eslint-disable-next-line no-alert
+      alert('상품이 등록되었습니다.')
+      return redirect(`/`)
+    }
+
+    showAlert('상품 등록에 실패했습니다.')
+    return null
+  }
 
   return (
-    <div className="px-[20px] pt-[10px]">
-      <form onSubmit={(e) => e.preventDefault()}>
+    <main className="px-[20px] pt-[10px]">
+      <form action={registrationGoods}>
         <ImageArea />
-        <label htmlFor="굿즈명" className="text-[#2B74B9] text-[17px]">
+        <label htmlFor="굿즈명" className="text-sky-600 text-[17px]">
           굿즈명
         </label>
         <input
           type="text"
           placeholder="굿즈명"
-          name="goodsName"
+          value={goodsName}
+          onChange={(e) => setGoodsName(e.target.value)}
           className="w-full mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc]"
+          autoComplete="off"
         />
         <CategoryArea />
         <DescriptionArea />
-        <label htmlFor="최소 가격" className="text-[#2B74B9] text-[17px]">
+        <label htmlFor="최소 가격" className="text-sky-600 text-[17px]">
           최소가격
         </label>
         <input
           type="number"
           placeholder="최소가격"
-          name="minPrice"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
           className="w-full mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc]"
+          autoComplete="off"
+          min="0"
         />
         <PeriodArea />
         <TradeTypeArea />
         <TagArea />
         <button
           type="submit"
-          className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-[#2B74B9] rounded-full text-white text-[18px]"
+          className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-sky-600 rounded-full text-white text-[18px]"
         >
           등록하기
         </button>
       </form>
-    </div>
+      <BasicAlert message={message} />
+    </main>
   )
 }

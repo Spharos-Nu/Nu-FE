@@ -3,9 +3,9 @@ import RegistrationHeader from '@/containers/goods/registration/RegistrationHead
 
 export default function Registration() {
   return (
-    <div>
+    <>
       <RegistrationHeader />
       <GoodsForm />
-    </div>
+    </>
   )
 }
