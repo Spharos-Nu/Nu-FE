@@ -10,6 +10,15 @@ declare module 'next-auth' {
       favoriteCategory: string
     } & DefaultSession['user']
   }
+
+  interface User {
+    uuid: string
+    accessToken: string
+    refreshToken: string
+    profileImg: string
+    nickname: string
+    favCategory: string
+  }
 }
 
 declare module 'next-auth/jwt' {

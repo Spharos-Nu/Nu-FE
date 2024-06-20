@@ -13,7 +13,12 @@ export default function InfoArea() {
       <span className="text-xs pl-4">나의 정보</span>
       <div className="flex mt-2 ml-3">
         {session?.user.image ? (
-          <Image src={session.user.image} alt="프로필 이미지" />
+          <Image
+            src={session.user.image}
+            alt="프로필 이미지"
+            width={75}
+            height={75}
+          />
         ) : (
           <NonProfileDuck />
         )}

@@ -1,14 +1,10 @@
-'use client'
-
-import { useEffect } from 'react'
 import FirstBtnArea from '@/containers/member/join/FirstBtnArea'
 import IdInput from '@/containers/member/join/IdInput'
-import JoinSuccessModal from '@/containers/member/join/JoinSuccessModal'
 import NicknameInput from '@/containers/member/join/NicknameInput'
 import PhoneVerification from '@/containers/member/join/PhoneVerification'
 import ProfileImgArea from '@/containers/member/join/ProfileImgArea'
-import Pw2Input from '@/containers/member/join/Pwd2Input'
-import PwInput from '@/containers/member/join/PwdInput'
+import Pwd2Input from '@/containers/member/join/Pwd2Input'
+import PwdInput from '@/containers/member/join/PwdInput'
 import SecondBtnArea from '@/containers/member/join/SecondBtnArea'
 import SelectCategory from '@/containers/member/join/SelectCategory'
 import {
@@ -21,8 +17,9 @@ import {
 import DuckOne from '@/public/svgs/duck/duckOne.svg'
 import { join } from '@/utils/authApiActions'
 import { pwdValidCheck } from '@/utils/joinValidateCheck'
+import { uploadProfileImage } from '@/utils/uploadImage'
 
-export default function JoinForm() {
+export default function FullForm() {
   const {
     profileImage,
     favoriteCategory,
@@ -32,18 +29,16 @@ export default function JoinForm() {
     password2,
     phoneNumber,
     isVerified,
-    resetJoinState,
   } = useJoinStore()
   const {
     setNotValidPassword,
     setNotEqualPassword,
     setNotValidPhone,
     setNotVerified,
-    resetErrorState,
   } = useErrorStore()
-  const { currentIdx, setCurrentIdx } = usePageStore()
+  const { currentIdx } = usePageStore()
   const { setCurrentFocus } = useFocusStore()
-  const { isOpen, setIsOpen } = useModalStore()
+  const { setIsOpen } = useModalStore()
 
   const secondValidCheck = () => {
     if (!password) {
@@ -87,8 +82,9 @@ export default function JoinForm() {
       return null
     }
 
+    const profileImageUrl = await uploadProfileImage(profileImage)
     const data = await join(
-      profileImage,
+      profileImageUrl,
       favoriteCategory,
       nickname,
       userId,
@@ -97,52 +93,32 @@ export default function JoinForm() {
     )
 
     if (data.status === 201) {
-      resetErrorState()
-      resetJoinState()
       return setIsOpen(true)
     }
-
-    resetJoinState()
-    resetErrorState()
-    return setCurrentIdx(0)
+    return null
   }
 
-  useEffect(() => {
-    setCurrentIdx(currentIdx)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIdx])
-
-  useEffect(() => {
-    resetJoinState()
-    resetErrorState()
-    setCurrentIdx(0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
-    <div className="w-full h-full flex justify-center">
-      <form className="w-[calc(100%-80px)]">
-        {currentIdx === 0 ? (
-          <div className="w-full flex-shrink-0">
-            <ProfileImgArea />
-            <SelectCategory />
-            <NicknameInput />
-            <IdInput />
-            <FirstBtnArea />
+    <div className="w-full flex-shrink-0">
+      {currentIdx === 0 ? (
+        <>
+          <ProfileImgArea />
+          <SelectCategory />
+          <NicknameInput />
+          <IdInput />
+          <FirstBtnArea />
+        </>
+      ) : (
+        <>
+          <div className="flex justify-center items-center">
+            <DuckOne />
           </div>
-        ) : (
-          <div className="w-full flex-shrink-0">
-            <div className="flex justify-center items-center">
-              <DuckOne />
-            </div>
-            <PwInput />
-            <Pw2Input />
-            <PhoneVerification />
-            <SecondBtnArea onFormValidate={handleJoin} />
-          </div>
-        )}
-      </form>
-      {isOpen && <JoinSuccessModal />}
+          <PwdInput />
+          <Pwd2Input />
+          <PhoneVerification />
+          <SecondBtnArea onFormValidate={handleJoin} />
+        </>
+      )}
     </div>
   )
 }

@@ -1,16 +1,16 @@
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { useRef, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { useJoinStore } from '@/containers/member/join/store'
 import BasicProfileDuck from '@/public/svgs/duck/basicProfileDuck.svg'
 import ProfileImgBtn from '@/public/svgs/icon/profileImgBtn.svg'
-import { uploadProfileImage, deleteProfileImage } from '@/utils/uploadImage'
 
 export default function ProfileImgArea() {
   const imageInputRef = useRef<HTMLInputElement>(null)
-  const { profileImage, setProfileImage } = useJoinStore()
+  const [previewUrl, setPreviewUrl] = useState<string>('')
+  const { setProfileImage } = useJoinStore()
   const { message, setAlert } = useBasicAlertStore()
 
   const handleButtonClick = () => {
@@ -31,29 +31,27 @@ export default function ProfileImgArea() {
         fileExtension === 'jpeg' ||
         fileExtension === 'png'
       ) {
-        const res = await uploadProfileImage(selectedFile)
-        setProfileImage(res)
+        const reader = new FileReader()
+        reader.onload = () => {
+          setPreviewUrl(reader.result as string)
+        }
+        reader.readAsDataURL(selectedFile)
+        setProfileImage(selectedFile)
       } else {
         showAlert('유효하지 않은 파일 형식입니다.')
       }
     }
   }
 
-  useEffect(() => {
-    return () => {
-      setProfileImage('')
-    }
-  }, [setProfileImage])
-
   return (
     <div className="flex justify-center items-center my-5">
       <div
-        className={`flex w-32 h-32 relative rounded-full ${profileImage && 'border-[3px] border-sky-600'}`}
+        className={`flex w-32 h-32 relative rounded-full ${previewUrl && 'border-[3px] border-sky-600'}`}
       >
-        {profileImage ? (
+        {previewUrl ? (
           <Image
             className="rounded-full"
-            src={profileImage}
+            src={previewUrl}
             alt="사진 프리뷰"
             onClick={handleButtonClick}
             width={128}
@@ -79,8 +77,8 @@ export default function ProfileImgArea() {
         <MdCancel
           className="w-[34px] h-[34px] pr-0 absolute top-0 right-[-5px] z-10 text-sky-600 rounded-full bg-white"
           onClick={() => {
-            deleteProfileImage(profileImage)
-            setProfileImage('')
+            setPreviewUrl('')
+            setProfileImage(null)
           }}
         />
       </div>

@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 interface JoinState {
-  profileImage: string
+  profileImage: File | null
   favoriteCategory: string
   nickname: string
   userId: string
@@ -16,7 +16,7 @@ interface JoinState {
 
   isVerified: boolean
 
-  setProfileImage: (profileImage: string) => void
+  setProfileImage: (profileImage: File | null) => void
   setFavoriteCategory: (category: string) => void
   setNickname: (nickname: string) => void
   setUserId: (userId: string) => void
@@ -107,7 +107,7 @@ interface VerificationState {
 }
 
 export const useJoinStore = create<JoinState>((set) => ({
-  profileImage: '',
+  profileImage: null,
   favoriteCategory: '',
   nickname: '',
   userId: '',
@@ -139,7 +139,7 @@ export const useJoinStore = create<JoinState>((set) => ({
 
   resetJoinState: () =>
     set({
-      profileImage: '',
+      profileImage: null,
       favoriteCategory: '',
       nickname: '',
       userId: '',
