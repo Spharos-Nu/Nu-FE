@@ -8,6 +8,14 @@ const nextConfig = {
     AWS_REGION: process.env.AWS_REGION,
     AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: `${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_S3_BUCKET_NAME}.amazon.com`,
+      },
+    ],
+  },
   reactStrictMode: true,
   webpack: config => {
     config.module.rules.push({
