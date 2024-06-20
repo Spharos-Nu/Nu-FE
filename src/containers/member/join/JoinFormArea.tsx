@@ -13,7 +13,7 @@ import {
 } from '@/containers/member/join/store'
 
 export default function JoinForm() {
-  const params = useSearchParams()
+  const params = useSearchParams().get('id')
   const { resetJoinState } = useJoinStore()
   const { resetErrorState } = useErrorStore()
   const { setCurrentIdx } = usePageStore()
