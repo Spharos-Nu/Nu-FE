@@ -53,7 +53,7 @@ export const options: NextAuthOptions = {
     async signIn({ user, profile }) {
       if (profile) {
         // 회원인지 아닌지 확인
-        const res = await fetch(
+        const loginResponse = await fetch(
           `${process.env.NEXT_PUBLIC_API}/v1/auth-n/social-login`,
           {
             method: 'POST',
@@ -66,17 +66,33 @@ export const options: NextAuthOptions = {
           },
         )
 
-        const data = await res.json()
+        const loginRes = await loginResponse.json()
 
-        if (data.status === 404) {
+        if (loginRes.status === 404) {
           if ('kakao_account' in profile) {
             return `/join?id=${user.id}&provider=kakao`
           }
+        } else if (loginRes.status !== 200) {
+          return false
         }
-        if (data.status === 200) {
-          return true
+
+        const userResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API}/v1/users-n/${loginRes.result.uuid}`,
+        )
+
+        const userRes = await userResponse.json()
+
+        if (userRes.status !== 200) {
+          return false
         }
-        return false
+
+        user.uuid = loginRes.uuid
+        user.accessToken = loginRes.accessToken
+        user.refreshToken = loginRes.refreshToken
+        user.profileImg = userRes.profileImg
+        user.nickname = userRes.nickname
+        user.favCategory = userRes.favCategory
+        return true
       }
 
       return true
