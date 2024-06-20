@@ -3,8 +3,6 @@ import { ApiResponse } from '@/types/apiResponseType'
 export const duplicationCheckNick = async (
   nickname: string,
 ): Promise<ApiResponse<null>> => {
-  console.log('next_public_api 확인', process.env.NEXT_PUBLIC_API)
-  console.log('next_access_key_id확인', process.env.AWS_ACCESS_KEY_ID)
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/users-n/duplication-check?inputParams=${nickname}`,
   )
