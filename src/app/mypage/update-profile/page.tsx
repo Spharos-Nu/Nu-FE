@@ -11,7 +11,7 @@ import { updateProfile } from '@/utils/memberApiActions'
 import { deleteProfileImage, uploadProfileImage } from '@/utils/uploadImage'
 
 export default function UpdateProfileForm() {
-  const { data: session, update } = useSession()
+  const { data: session } = useSession()
   const { profileImage, nickname, favoriteCategory } = useUpdateProfileStore()
   const { message, setAlert } = useBasicAlertStore()
 
@@ -36,8 +36,6 @@ export default function UpdateProfileForm() {
       nickname,
       favoriteCategory,
     )
-
-    await update({ user: { ...session?.user, ...data.result } })
 
     return showAlert(data.message)
   }
