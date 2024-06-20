@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
-import JoinForm from '@/containers/member/join/JoinForm'
+import JoinFormArea from '@/containers/member/join/JoinFormArea'
 import { poppins } from '@/styles/fonts'
 
 export default async function Join() {
@@ -18,7 +18,7 @@ export default async function Join() {
       >
         JOIN US
       </div>
-      <JoinForm />
+      <JoinFormArea />
     </>
   )
 }
