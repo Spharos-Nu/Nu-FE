@@ -32,6 +32,8 @@ export default function PhoneVerification() {
   const { setCurrentIdx } = usePageStore()
   const { currentFocus } = useFocusStore()
 
+  const [isChecked, setIsChecked] = useState<boolean>(false)
+
   const [isMessage, setIsMessage] = useState<boolean>(false)
   const [verificationNumber, setVerificationNumber] = useState<string>('')
 
@@ -77,6 +79,7 @@ export default function PhoneVerification() {
     }
     if (data.status === 409) {
       if (provider) {
+        setIsChecked(true)
         return showAlert('기존 계정에 연결하시겠습니까?')
       }
       setNotValidPhone(4)
@@ -148,14 +151,14 @@ export default function PhoneVerification() {
     if (!isOpen) {
       if (notValidPhone === 4) {
         resetJoinState()
-      } else {
+        router.push('/login')
+      } else if (isChecked) {
         socialMapping()
+        router.push('/login')
       }
-
-      router.push('/login')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, notValidPhone])
+  }, [isOpen, notValidPhone, isChecked])
 
   return (
     <>
