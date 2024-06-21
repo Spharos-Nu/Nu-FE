@@ -10,7 +10,7 @@ import {
 import { nickValidCheck, duplicationCheckNick } from '@/utils/joinValidateCheck'
 
 export default function NicknameInput() {
-  const params = useSearchParams()
+  const params = useSearchParams().get('id')
   const { nickname, setNickname, isValidNick, setIsValidNick } = useJoinStore()
   const { notValidNick, setNotValidNick } = useErrorStore()
   const { setCurrentIdx } = usePageStore()

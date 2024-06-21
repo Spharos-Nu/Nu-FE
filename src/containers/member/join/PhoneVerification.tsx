@@ -1,5 +1,5 @@
-import { useRouter } from 'next/navigation'
-import { useEffect, useRef } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import {
@@ -7,14 +7,19 @@ import {
   useFocusStore,
   useJoinStore,
   usePageStore,
-  useVerificationStore,
 } from '@/containers/member/join/store'
 import VerificationTime from '@/public/svgs/icon/verificationTime.svg'
-import { verification, verificationConfirm } from '@/utils/authApiActions'
+import {
+  linkAccount,
+  verification,
+  verificationConfirm,
+} from '@/utils/authApiActions'
 import { phoneValidCheck } from '@/utils/joinValidateCheck'
 
 export default function PhoneVerification() {
   const router = useRouter()
+  const id = useSearchParams().get('id') || ''
+  const provider = useSearchParams().get('provider') || ''
 
   const {
     phoneNumber,
@@ -27,20 +32,14 @@ export default function PhoneVerification() {
   const { setCurrentIdx } = usePageStore()
   const { currentFocus } = useFocusStore()
 
-  const {
-    isMessage,
-    setIsMessage,
-    verificationNumber,
-    setVerificationNumber,
-    cntMessage,
-    setCntMessage,
-    disableTime,
-    setDisableTime,
-    messageMinutes,
-    setMessageMinutes,
-    messageSeconds,
-    setMessageSeconds,
-  } = useVerificationStore()
+  const [isMessage, setIsMessage] = useState<boolean>(false)
+  const [verificationNumber, setVerificationNumber] = useState<string>('')
+
+  /** message 보낸 후, 시간 흐르는 로직 */
+  const [cntMessage, setCntMessage] = useState<number>(0)
+  const [disableTime, setDisableTime] = useState<number>(0)
+  const [messageMinutes, setMessageMinutes] = useState<number>(0)
+  const [messageSeconds, setMessageSeconds] = useState<number>(0)
 
   const { isOpen, message, setAlert } = useBasicAlertStore()
 
@@ -77,11 +76,21 @@ export default function PhoneVerification() {
       setIsMessage(true)
     }
     if (data.status === 409) {
+      if (provider) {
+        return showAlert('기존 계정에 연결하시겠습니까?')
+      }
       setNotValidPhone(4)
-      showAlert(`${data.message}\n로그인 페이지로 이동하시겠습니까?`)
+      return showAlert(`${data.message}\n로그인 페이지로 이동하시겠습니까?`)
     }
 
     return null
+  }
+
+  const socialMapping = async () => {
+    const data = await linkAccount(phoneNumber, id, provider)
+    if (data.status === 200) {
+      showAlert(data.message)
+    }
   }
 
   const confirmMessage = async () => {
@@ -127,15 +136,22 @@ export default function PhoneVerification() {
 
   useEffect(() => {
     if (currentFocus === 'phoneNumber') {
-      setCurrentIdx(1)
+      if (!provider) {
+        setCurrentIdx(1)
+      }
       phoneInputRef.current?.focus()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFocus])
 
   useEffect(() => {
-    if (!isOpen && notValidPhone === 4) {
-      resetJoinState()
+    if (!isOpen) {
+      if (notValidPhone === 4) {
+        resetJoinState()
+      } else {
+        socialMapping()
+      }
+
       router.push('/login')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

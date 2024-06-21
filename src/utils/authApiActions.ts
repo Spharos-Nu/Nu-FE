@@ -29,6 +29,27 @@ export const join = async (
   return data
 }
 
+export const linkAccount = async (
+  phoneNumber: string,
+  memberCode: string,
+  provider: string,
+): Promise<ApiResponse<null>> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/auth-n/social-mapping`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        phoneNumber,
+        memberCode,
+        provider,
+      }),
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
+
 export const verification = async (
   phoneNumber: string,
 ): Promise<ApiResponse<null>> => {

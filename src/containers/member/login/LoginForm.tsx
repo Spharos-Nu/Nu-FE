@@ -1,21 +1,29 @@
 'use client'
 
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { montserrat } from '@/styles/fonts'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 
 export default function LoginForm() {
+  const router = useRouter()
   const params = useSearchParams().get('callbackUrl') || '/'
   const [userId, setUserId] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [noUserId, setNoUserId] = useState<number>(0)
   const [noPwd, setNoPwd] = useState<number>(0)
   const [isChecked, setIsChecked] = useState<boolean>(false)
+  const { message, setAlert } = useBasicAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
 
   /** Id 입력 있을 때마다 업데이트 */
   const handleIdInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,12 +63,17 @@ export default function LoginForm() {
       return setNoPwd(2)
     }
 
-    await signIn('credentials', {
+    const res = await signIn('credentials', {
       userId,
       password,
-      redirect: true,
-      callbackUrl: params,
+      redirect: false,
     })
+
+    if (res?.status === 401) {
+      showAlert('회원정보가 일치하지 않습니다.')
+    } else {
+      router.push(params)
+    }
   }
 
   useEffect(() => {
@@ -170,6 +183,7 @@ export default function LoginForm() {
             Forgot Password
           </Link>
         </span>
+        <BasicAlert message={message} />
       </div>
       <div
         aria-label="로그인 버튼"
