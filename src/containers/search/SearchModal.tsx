@@ -1,16 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import BackBtn from '@/public/svgs/icon/backBtn.svg'
+import { FaArrowLeft } from 'react-icons/fa'
+import { useHeaderModalState } from '@/components/layout/store'
 import { KeywordType } from '@/types/headerType'
 import RecentSearch from './RecentSearch'
 import SearchForm from './SearchForm'
 
-export default function SearchModal({
-  setVisible,
-}: {
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+export default function SearchModal() {
+  const { setSearch } = useHeaderModalState()
+
   const [keywords, setKeywords] = useState<KeywordType[]>(
     JSON.parse(localStorage.getItem('keywords') || '[]'),
   )
@@ -43,13 +42,7 @@ export default function SearchModal({
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
-      <div
-        onClick={() => setVisible(false)}
-        role="none"
-        className="absolute mt-[20px] pl-[20px]"
-      >
-        <BackBtn />
-      </div>
+      <FaArrowLeft onClick={() => setSearch(false)} />
       <h1 className="h-[60px] leading-[60px] text-center text-[25px] tracking-[-0.1rem] font-semibold">
         검색
       </h1>

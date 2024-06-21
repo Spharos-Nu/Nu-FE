@@ -1,26 +1,18 @@
 'use client'
 
+import { FaArrowLeft } from 'react-icons/fa'
+import { useHeaderModalState } from '@/components/layout/store'
 import notiData from '@/dummydata/notification.json'
-import BackBtn from '@/public/svgs/icon/backBtn.svg'
 import { NotificationType } from '@/types/headerType'
 import NotificationContent from './NotificationContent'
 
-export default function NotificationModal({
-  setVisible,
-}: {
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+export default function NotificationModal() {
   const data = notiData.noti_list
+  const { setNoti } = useHeaderModalState()
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
-      <div
-        onClick={() => setVisible(false)}
-        role="none"
-        className="absolute mt-[20px] pl-[20px]"
-      >
-        <BackBtn />
-      </div>
+      <FaArrowLeft onClick={() => setNoti(false)} />
       <h1 className="h-[60px] leading-[60px] text-center text-[23px] tracking-[-0.1rem] font-semibold">
         알림
       </h1>

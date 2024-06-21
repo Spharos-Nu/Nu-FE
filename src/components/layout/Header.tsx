@@ -2,13 +2,16 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { IoMdNotificationsOutline, IoMdSearch } from 'react-icons/io'
+import { useHeaderModalState } from '@/components/layout/store'
 import CategorySelection from '@/containers/category/CategorySelection'
-import NotificationVisible from '@/containers/notification/NotificationVisible'
-import SearchVisible from '@/containers/search/SearchVisible'
+import NotificationModal from '@/containers/notification/NotificationModal'
+import SearchModal from '@/containers/search/SearchModal'
 import Logo from '@/public/svgs/header/logo.svg'
 
 export default function Header() {
   const pathname = usePathname()
+  const { noti, setNoti, search, setSearch } = useHeaderModalState()
 
   if (pathname.startsWith(`/goods/`)) return null
 
@@ -23,9 +26,14 @@ export default function Header() {
         <CategorySelection />
       </div>
       <div className="flex justify-between">
-        <NotificationVisible />
-        <SearchVisible />
+        <IoMdNotificationsOutline
+          onClick={() => setNoti(true)}
+          className="text-sky-600"
+        />
+        <IoMdSearch onClick={() => setSearch(true)} className="text-sky-600" />
       </div>
+      {noti && <NotificationModal />}
+      {search && <SearchModal />}
     </header>
   )
 }
