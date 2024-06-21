@@ -42,9 +42,10 @@ export default function GoodsForm() {
     setAlert(true, alertMessage)
   }
 
-  async function registrationGoods() {
+  const validCheck = () => {
     if (imageItems.length === 0) {
-      return showAlert('이미지를 등록해주세요.')
+      showAlert('이미지를 등록해주세요.')
+      return false
     }
     if (!goodsName) {
       return showAlert('상품명을 입력해주세요.')
@@ -71,13 +72,21 @@ export default function GoodsForm() {
       return showAlert('선호 거래 방법을 선택해주세요.')
     }
 
-    const images: ImageType[] = []
-    imageItems.map(async (item, index) =>
-      images.push({
-        id: index + 1,
-        url: await uploadGoodsImage(item.url),
-      }),
-    )
+    return true
+  }
+
+  async function registrationGoods() {
+    if (!validCheck()) return
+
+    const images = await uploadGoodsImage(imageItems)
+    // const images: ImageType[] = imageItems.map(async (item, index) =>
+    //   images.push({
+    //     id: index + 1,
+    //     url: await uploadGoodsImage(item.url),
+    //   }),
+    // )
+    // console.log(images)
+    console.log(images)
 
     const openedAt = `${biddingPeriod}T${biddingTime}:00.000Z`
     const date = new Date(`${biddingPeriod} ${biddingTime}`)
@@ -98,6 +107,7 @@ export default function GoodsForm() {
       tags,
       images,
     }
+    console.log(inputData)
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/goods`, {
       method: 'POST',
@@ -110,16 +120,16 @@ export default function GoodsForm() {
 
     const data = await res.json()
     if (data.status === 200) {
+      console.log(inputData)
+      // eslint-disable-next-line no-alert
+      alert('상품이 등록되었습니다.')
       resetGoodsState()
       resetImagesState()
       resetTagsState()
-      // eslint-disable-next-line no-alert
-      alert('상품이 등록되었습니다.')
-      return redirect(`/`)
+      redirect(`/`)
     }
 
     showAlert('상품 등록에 실패했습니다.')
-    return null
   }
 
   return (

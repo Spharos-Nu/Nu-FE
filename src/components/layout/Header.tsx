@@ -1,10 +1,17 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import CategorySelection from '@/containers/category/CategorySelection'
 import NotificationVisible from '@/containers/notification/NotificationVisible'
 import SearchVisible from '@/containers/search/SearchVisible'
 import Logo from '@/public/svgs/header/logo.svg'
 
 export default function Header() {
+  const pathname = usePathname()
+
+  if (pathname.startsWith(`/goods/`)) return null
+
   return (
     <header className="static my-[15px] flex justify-between leading-[50px]">
       <div className="flex h-[50px]">

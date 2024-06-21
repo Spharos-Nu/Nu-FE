@@ -1,12 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import { BiddingPreviewType } from '@/types/goodsType'
 import ConfirmModal from './ConfirmModal'
 
 export default function ConfirmationBtn({
   biddingConfirm,
+  biddingList,
 }: {
   biddingConfirm: (biddingData: FormData) => void
+  biddingList: BiddingPreviewType[]
 }) {
   const [visible, setVisible] = useState<boolean>(false)
 
@@ -17,10 +20,14 @@ export default function ConfirmationBtn({
         className="fixed left-1/2 -translate-x-1/2 z-20 w-[calc(100%-40px)] py-[15px] text-center text-[25px] bg-[#319AFD] text-white rounded-full bottom-[15px] opacity-90 shadow-[0px_5px_5px_2px_rgba(0,0,0,0.3)]"
         onClick={() => setVisible(true)}
       >
-        낙찰하기
+        {biddingList.length === 0 ? '결과보기' : '낙찰하기'}
       </button>
       {visible && (
-        <ConfirmModal setVisible={setVisible} biddingConfirm={biddingConfirm} />
+        <ConfirmModal
+          setVisible={setVisible}
+          biddingConfirm={biddingConfirm}
+          biddingList={biddingList}
+        />
       )}
     </>
   )

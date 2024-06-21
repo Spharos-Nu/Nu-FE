@@ -2,11 +2,10 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import banner from '@/dummydata/banner1.png'
-import banner2 from '@/dummydata/banner2.png'
-import banner3 from '@/dummydata/banner3.png'
+import NoImageDuck from '@/public/svgs/duck/noImageDuck.svg'
 import Next from '@/public/svgs/icon/nextBtn.svg'
 import Prev from '@/public/svgs/icon/prevBtn.svg'
+import { ImageUrlType } from '@/types/goodsType'
 
 export interface GoodsImage {
   id: number
@@ -14,106 +13,95 @@ export interface GoodsImage {
   index: number
 }
 
-export default function DetailImageArea() {
-  const imageList: GoodsImage[] = [
-    {
-      id: 1,
-      url: '/images/goods/detail/1.jpg',
-      index: 0,
-    },
-    {
-      id: 2,
-      url: '/images/goods/detail/2.jpg',
-      index: 1,
-    },
-    {
-      id: 3,
-      url: '/images/goods/detail/3.jpg',
-      index: 2,
-    },
-    {
-      id: 4,
-      url: '/images/goods/detail/1.jpg',
-      index: 3,
-    },
-    {
-      id: 5,
-      url: '/images/goods/detail/2.jpg',
-      index: 4,
-    },
-    {
-      id: 6,
-      url: '/images/goods/detail/3.jpg',
-      index: 5,
-    },
-  ]
+export default function DetailImageArea({
+  images,
+}: {
+  images: ImageUrlType[]
+}) {
+  const [selectedImage, setSelectedImage] = useState<ImageUrlType>(images[0])
 
-  const dummy = [banner, banner2, banner3, banner, banner2, banner3]
-
-  const [selectedImage, setSelectedImage] = useState<GoodsImage>(imageList[0])
-
-  const onClickImage = (item: GoodsImage) => {
+  const onClickImage = (item: ImageUrlType) => {
     setSelectedImage(item)
   }
 
   const onNext = () => {
-    const index = selectedImage.index + 1
-    if (index >= imageList.length) {
-      setSelectedImage(imageList[0])
+    const index = selectedImage.id + 1
+    if (index >= images.length) {
+      setSelectedImage(images[0])
     } else {
-      setSelectedImage(imageList[index])
+      setSelectedImage(images[index])
     }
   }
 
   const onPrev = () => {
-    const index = selectedImage.index - 1
+    const index = selectedImage.id - 1
     if (index < 0) {
-      setSelectedImage(imageList[imageList.length - 1])
+      setSelectedImage(images[images.length - 1])
     } else {
-      setSelectedImage(imageList[index])
+      setSelectedImage(images[index])
     }
   }
 
   return (
     <>
       <div className="relative">
-        <Image
-          src={dummy[selectedImage.index]}
-          alt="굿즈 이미지"
-          width={0}
-          height={0}
-          className="h-auto w-[calc(100%-30px)] max-w-[600px] aspect-square object-cover object-center overflow-hidden m-auto rounded-3xl"
-        />
-        <button
-          type="button"
-          className="absolute top-1/2 left-[30px] transform -translate-y-1/2"
-          onClick={() => onPrev()}
-        >
-          <span className="hidden">이전</span>
-          <Prev />
-        </button>
-        <button
-          type="button"
-          className="absolute top-1/2 right-[30px] transform -translate-y-1/2"
-          onClick={() => onNext()}
-        >
-          <span className="hidden">다음</span>
-          <Next />
-        </button>
+        {images.length === 0 && (
+          <div className="h-[250px] text-center content-center">
+            <div className="inline-block">
+              <NoImageDuck />
+            </div>
+            <p className="text-zinc-400">이미지를 불러오지 못했어요</p>
+          </div>
+        )}
+        {images.length > 0 && (
+          <>
+            <Image
+              src={selectedImage.url}
+              alt="굿즈 이미지"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="h-auto w-[calc(100%-30px)] max-w-[600px] aspect-square object-cover object-center overflow-hidden m-auto rounded-3xl"
+            />
+            {images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  className="absolute top-1/2 left-[30px] transform -translate-y-1/2"
+                  onClick={() => onPrev()}
+                >
+                  <span className="hidden">이전</span>
+                  <Prev />
+                </button>
+                <button
+                  type="button"
+                  className="absolute top-1/2 right-[30px] transform -translate-y-1/2"
+                  onClick={() => onNext()}
+                >
+                  <span className="hidden">다음</span>
+                  <Next />
+                </button>
+              </>
+            )}
+          </>
+        )}
       </div>
-      <div className="flex whitespace-nowrap overflow-x-auto gap-[10px] pt-[10px] px-[15px]">
-        {imageList.map((item) => (
-          <Image
-            key={item.id}
-            src={banner}
-            alt="굿즈 이미지"
-            onClick={() => onClickImage(item)}
-            width={0}
-            height={0}
-            className={`h-[30%] w-[30%] rounded-2xl ${item.id === selectedImage.id ? '' : 'brightness-75'}`}
-          />
-        ))}
-      </div>
+      {images.length > 1 && (
+        <div className="flex whitespace-nowrap overflow-x-auto gap-[10px] pt-[10px] px-[15px]">
+          {images.map((item) => (
+            <Image
+              key={item.id}
+              src={item.url}
+              alt="굿즈 이미지"
+              onClick={() => onClickImage(item)}
+              width={0}
+              height={0}
+              sizes="100vw"
+              className={`h-[30%] w-[30%] aspect-square object-cover object-center rounded-2xl ${item.id === selectedImage.id ? '' : 'brightness-75'}`}
+            />
+          ))}
+        </div>
+      )}
     </>
   )
 }

@@ -1,10 +1,12 @@
 import Duck from '@/public/svgs/duck/descriptionDuck.svg'
-import { GoodsDetailType } from '@/types/goodsType'
+import { GoodsDetailType, TagType } from '@/types/goodsType'
 
 export default function DetailDescription({
   goodsDetail,
+  tags,
 }: {
   goodsDetail: GoodsDetailType
+  tags: TagType[]
 }) {
   return (
     <div className="relative pt-[50px] px-[15px]">
@@ -14,8 +16,8 @@ export default function DetailDescription({
       <div className="mt-[60px] py-[60px] px-[20px] text-[18px] bg-[#f8f7f7] rounded-2xl">
         {goodsDetail.description}
         <div className="mt-[10px]">
-          {goodsDetail.tags.map((item) => (
-            <span key={item.id} className="mr-[10px] text-zinc-400">
+          {tags.map((item) => (
+            <span key={item.id} className="mr-[10px] text-[17px] text-zinc-400">
               {item.name}
             </span>
           ))}

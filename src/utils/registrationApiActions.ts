@@ -1,3 +1,5 @@
+'use server'
+
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import { TagItem } from '@/containers/goods/registration/store'

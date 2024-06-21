@@ -1,12 +1,19 @@
 import Link from 'next/link'
 import { PiSirenLight, PiStorefrontLight } from 'react-icons/pi'
 import { SlArrowRight } from 'react-icons/sl'
+import { GoodsDetailType } from '@/types/goodsType'
 
-export default function EtcArea({ goodsCode }: { goodsCode: string }) {
+export default function EtcArea({
+  goodsCode,
+  goodsDetail,
+}: {
+  goodsCode: string
+  goodsDetail: GoodsDetailType
+}) {
   return (
     <div className="mx-[20px] pb-[100px]">
       <Link
-        href={`/seller?goodsCode=${goodsCode}`}
+        href={`/seller?goodsCode=${goodsCode}&sellerId=${goodsDetail.sellerUuid}`}
         className="flex justify-between relative mt-[50px]"
       >
         <div className="flex">
