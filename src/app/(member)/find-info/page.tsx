@@ -11,10 +11,10 @@ export default async function FindInfo() {
   }
 
   return (
-    <div
+    <h1
       className={`${poppins.className} h-16 font-bold text-3xl leading-[30px] text-center text-[#032426] mx-14 mt-28`}
     >
       FIND_INFO
-    </div>
+    </h1>
   )
 }

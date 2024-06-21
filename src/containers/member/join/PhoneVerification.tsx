@@ -148,11 +148,11 @@ export default function PhoneVerification() {
     if (!isOpen) {
       if (notValidPhone === 4) {
         resetJoinState()
-      } else {
+        router.push('/login')
+      } else if (provider) {
         socialMapping()
+        router.push('/login')
       }
-
-      router.push('/login')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, notValidPhone])

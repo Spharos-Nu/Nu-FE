@@ -14,7 +14,7 @@ import { join } from '@/utils/authApiActions'
 import { nickValidCheck } from '@/utils/joinValidateCheck'
 import { uploadProfileImage } from '@/utils/uploadImage'
 
-export default function EasyFormArea() {
+export default function EasyForm() {
   const router = useRouter()
   const id = useSearchParams().get('id')
   const provider = useSearchParams().get('provider')
