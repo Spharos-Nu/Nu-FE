@@ -32,12 +32,14 @@ export default function EasyForm() {
 
     setUserId,
     setPassword,
+    resetJoinState,
   } = useJoinStore()
   const {
     setCategoryNotSelected,
     setNotValidNick,
     setNotValidPhone,
     setNotVerified,
+    resetErrorState,
   } = useErrorStore()
   const { setCurrentFocus } = useFocusStore()
   const { setIsOpen } = useModalStore()
@@ -77,6 +79,7 @@ export default function EasyForm() {
     return true
   }
 
+  // eslint-disable-next-line consistent-return
   const handleJoin = async () => {
     const isValidated = validCheck()
 
@@ -95,9 +98,11 @@ export default function EasyForm() {
     )
 
     if (data.status === 201) {
-      return setIsOpen(true)
+      setIsOpen(true)
     }
-    return null
+
+    resetJoinState()
+    resetErrorState()
   }
 
   useEffect(() => {

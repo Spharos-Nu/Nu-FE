@@ -77,6 +77,7 @@ export default function FullForm() {
     return true
   }
 
+  // eslint-disable-next-line consistent-return
   const handleJoin = async () => {
     const isValidated = secondValidCheck()
 
@@ -95,11 +96,11 @@ export default function FullForm() {
     )
 
     if (data.status === 201) {
-      resetJoinState()
-      resetErrorState()
-      return setIsOpen(true)
+      setIsOpen(true)
     }
-    return null
+
+    resetJoinState()
+    resetErrorState()
   }
 
   return (
