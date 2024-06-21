@@ -5,7 +5,7 @@ export interface TagItem {
   name: string
 }
 
-export interface ImageItem {
+export type ImageItem = {
   id: number
   url: File
   previewUrl: string

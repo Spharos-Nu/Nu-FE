@@ -20,16 +20,19 @@ export interface WishTradeType {
 
 // 상세 조회
 export interface GoodsDetailType {
-  uuid: string
-  goodsName: string
+  goodsCode: string
+  categoryId: number
+  sellerUuid: string
+  name: string
   description: string
   minPrice: number
   tradingStatus: number
   openedAt: string
   closedAt: string
-  imageUrls: ImageUrlType[]
   wishTradeType: number
-  tags: TagType[]
+  isDisable: boolean
+  createdAt: string
+  updatedAt: string
 }
 
 export interface ImageUrlType {

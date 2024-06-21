@@ -34,7 +34,7 @@ export default function DetailInfo({
   return (
     <div className="mt-[35px] px-[20px]">
       <div className="flex justify-between mt-[15px] items-center">
-        <p className="text-[20px]">{goodsDetail.goodsName}</p>
+        <p className="text-[20px]">{goodsDetail.name}</p>
         <button type="button" onClick={() => handleLike()}>
           {isLiked ? (
             <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-[#989898]" />

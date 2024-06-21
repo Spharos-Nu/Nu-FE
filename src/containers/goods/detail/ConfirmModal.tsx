@@ -1,13 +1,16 @@
 import React from 'react'
 import { CgClose } from 'react-icons/cg'
 import ConfirmDuck from '@/public/svgs/duck/biddingConfirmDuck.svg'
+import { BiddingPreviewType } from '@/types/goodsType'
 
 export default function ConfirmModal({
   setVisible,
   biddingConfirm,
+  biddingList,
 }: {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
   biddingConfirm: (biddingData: FormData) => void
+  biddingList: BiddingPreviewType[]
 }) {
   return (
     // to do: 입찰자 없을때 form 부분이랑 분기해서 입찰자 없습니다 표시
@@ -21,6 +24,21 @@ export default function ConfirmModal({
             className="absolute top-5 right-5 text-3xl text-sky-600"
             onClick={() => setVisible(false)}
           />
+          {biddingList.length === 0 && (
+            <>
+              <p className="pt-[70px] text-[32px] text-center">
+                <span className="text-[22px]">최고 입찰가</span> 000
+                <span className="text-[22px]">원</span>
+              </p>
+              <button
+                type="button"
+                onClick={() => setVisible(false)}
+                className="w-[calc(100%-50px)] h-[60px] bg-sky-600 text-white text-[17px] rounded-full mt-[15px] mx-[20px]"
+              >
+                확인
+              </button>
+            </>
+          )}
           <form action={biddingConfirm}>
             <p className="pt-[70px] text-[32px] text-center">
               <span className="text-[22px]">최고 입찰가</span> 000
