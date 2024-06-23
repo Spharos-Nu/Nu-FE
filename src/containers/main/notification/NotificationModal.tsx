@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
+import Pagination from '@/components/Pagination'
 import { useHeaderModalState } from '@/components/layout/store'
-import NotificationContent from '@/containers/notification/NotificationContent'
+import NotificationContent from '@/containers/main/notification/NotificationContent'
 import { NotiData } from '@/types/notiApiDataType'
 import { getNotification } from '@/utils/notificationApiActions'
 
 export default function NotificationModal() {
+  const [currentPage, setCurrentPage] = useState<number>(0)
   const [data, setData] = useState<NotiData>({
     totalCount: 0,
     nowPage: 0,
@@ -47,6 +49,11 @@ export default function NotificationModal() {
           <div className="text-center">알림이 없습니다.</div>
         )}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        maxPage={data.maxPage}
+      />
     </div>
   )
 }

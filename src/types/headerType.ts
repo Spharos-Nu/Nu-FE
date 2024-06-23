@@ -1,4 +1,4 @@
-export interface KeywordType {
+export interface LocalStorageKeywordType {
   id: number
   text: string
 }
