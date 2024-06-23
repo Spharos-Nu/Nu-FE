@@ -3,11 +3,11 @@
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
-import { useUpdateProfileStore } from './store'
+import { useProfileStore } from '@/containers/mypage/update-profile/store'
 
 export default function UpdateFavCategory() {
   const { data: session, status } = useSession()
-  const { favoriteCategory, setFavoriteCategory } = useUpdateProfileStore()
+  const { favoriteCategory, setFavoriteCategory } = useProfileStore()
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
 
   const handleButtonClick = () => {
@@ -27,7 +27,7 @@ export default function UpdateFavCategory() {
   }, [])
 
   return (
-    <div className="w-full my-5">
+    <div className="w-full my-7">
       <div className="mx-10 h-14 border-[3px] border-slate-400 rounded-3xl">
         <button
           type="button"
