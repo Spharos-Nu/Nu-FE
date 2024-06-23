@@ -5,14 +5,19 @@ import { useSession } from 'next-auth/react'
 import UpdateFavCategory from '@/containers/mypage/update-profile/UpdateFavCategory'
 import UpdateNickname from '@/containers/mypage/update-profile/UpdateNickname'
 import UpdateProfileImage from '@/containers/mypage/update-profile/UpdateProfileImage'
-import { useProfileStore } from '@/containers/mypage/update-profile/store'
-import { updateProfile } from '@/utils/memberApiActions'
+import {
+  useErrorStore,
+  useProfileStore,
+} from '@/containers/mypage/update-profile/store'
+import { updateUserProfile } from '@/utils/memberApiActions'
 import { deleteProfileImage, uploadProfileImage } from '@/utils/uploadImage'
 
 export default function UpdateProfileForm() {
   const router = useRouter()
   const { data: session, update } = useSession()
-  const { profileImage, nickname, favoriteCategory } = useProfileStore()
+  const { profileImage, nickname, favoriteCategory, isValidNick } =
+    useProfileStore()
+  const { setNicknameError } = useErrorStore()
 
   const handleSubmit = async () => {
     let profileImageUrl = ''
@@ -25,11 +30,15 @@ export default function UpdateProfileForm() {
       profileImageUrl = await uploadProfileImage(profileImage)
     }
 
-    const data = await updateProfile(
+    if (!isValidNick) return setNicknameError(3)
+
+    const data = await updateUserProfile(
       profileImageUrl,
       nickname,
       favoriteCategory,
     )
+
+    console.log(data)
 
     if (data.status !== 200) {
       return null

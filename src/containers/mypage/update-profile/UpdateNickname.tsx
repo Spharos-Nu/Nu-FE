@@ -19,19 +19,20 @@ export default function UpdateNickname() {
     setInputState(!inputState)
   }
 
+  // eslint-disable-next-line consistent-return
   const handleNick = async () => {
     const regex = /^[a-zA-Z가-힣0-9]{2,15}$/
     if (!regex.test(nickname)) {
-      setNicknameError(1)
+      return setNicknameError(1)
     }
 
     const data = await duplicationCheckNick(nickname)
 
     if (data.status === 200) {
-      setIsValidNick(true)
+      return setIsValidNick(true)
     }
     if (data.status === 409) {
-      setNicknameError(2)
+      return setNicknameError(2)
     }
   }
 
@@ -68,7 +69,7 @@ export default function UpdateNickname() {
               className="flex text-lg text-white bg-slate-400 rounded-3xl w-20 h-10 justify-center items-center absolute right-3"
               onClick={handleNick}
             >
-              수정완료
+              중복확인
             </button>
           </>
         ) : (
@@ -93,16 +94,17 @@ export default function UpdateNickname() {
       )}
       {nicknameError === 1 && (
         <p className="text-red-500 text-xs mt-1 mx-12">
-          사용 가능한 닉네임입니다.
-          <br />
-          욕설 혹은 비속어를 포함하는 닉네임은 제재 대상이 될 수 있습니다.
+          * 한/영 또는 숫자를 조합한 2~15자의 닉네임을 입력해주세요.
         </p>
       )}
       {nicknameError === 2 && (
         <p className="text-red-500 text-xs mt-1 mx-12">
-          사용 가능한 닉네임입니다.
-          <br />
-          욕설 혹은 비속어를 포함하는 닉네임은 제재 대상이 될 수 있습니다.
+          * 이미 사용 중인 닉네임입니다.
+        </p>
+      )}
+      {nicknameError === 3 && (
+        <p className="text-red-500 text-xs mt-1 ml-3">
+          * 닉네임 중복확인을 진행해주세요.
         </p>
       )}
     </div>

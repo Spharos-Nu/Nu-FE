@@ -89,7 +89,7 @@ export const options: NextAuthOptions = {
         user.uuid = loginRes.uuid
         user.accessToken = loginRes.accessToken
         user.refreshToken = loginRes.refreshToken
-        user.profileImg = userRes.profileImg
+        user.profileImg = userRes.profileImage
         user.nickname = userRes.nickname
         user.favCategory = userRes.favCategory
         return true

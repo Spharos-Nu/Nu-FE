@@ -67,7 +67,7 @@ export const getDuckPoint = async (): Promise<ApiResponse<number>> => {
 }
 
 /** 프로필 수정 */
-export const updateProfile = async (
+export const updateUserProfile = async (
   profileImageUrl: string,
   nickname: string,
   favoriteCategory: string,
