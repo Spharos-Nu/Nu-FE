@@ -1,13 +1,9 @@
 import { useRouter } from 'next/navigation'
 import { PiTrashLight } from 'react-icons/pi'
-import { NotificationType } from '@/types/headerType'
+import { NotiListType } from '@/types/notiApiDataType'
 import { deleteNotification } from '@/utils/notificationApiActions'
 
-export default function NotificationContent({
-  item,
-}: {
-  item: NotificationType
-}) {
+export default function NotificationContent({ item }: { item: NotiListType }) {
   const router = useRouter()
 
   // eslint-disable-next-line consistent-return
@@ -31,7 +27,7 @@ export default function NotificationContent({
       />
       <p className="text-[17px] leading-[20px]">{item.content}</p>
       <div className="flex justify-between">
-        <p className="text-[14px] leading-[40px]">{item.created_at}</p>
+        <p className="text-[14px] leading-[40px]">{item.createdAt}</p>
         <PiTrashLight className="w-5 h-5" onClick={deleteNoti} />
       </div>
     </div>
