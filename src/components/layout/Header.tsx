@@ -25,12 +25,15 @@ export default function Header() {
         </h1>
         <CategorySelection />
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-center items-center mr-3">
         <IoMdNotificationsOutline
           onClick={() => setNoti(true)}
-          className="text-sky-600"
+          className="text-sky-600 text-3xl mx-3"
         />
-        <IoMdSearch onClick={() => setSearch(true)} className="text-sky-600" />
+        <IoMdSearch
+          onClick={() => setSearch(true)}
+          className="text-sky-600 text-3xl mx-3"
+        />
       </div>
       {noti && <NotificationModal />}
       {search && <SearchModal />}
