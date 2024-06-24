@@ -5,13 +5,19 @@ export interface BannerType {
 
 export interface LiveAndHotType {
   goodsCode: string
-  thumbnail: string
   goodsName: string
   minPrice: number
+  openedAt: string
   closedAt: string
-  viewsCount: number
-  wishCount: number
-  biddingCount: number
+  tradingStatus: number
+}
+
+export interface LiveType {
+  goodsCode: string
+  goodsName: string
+  minPrice: number
+  openedAt: string
+  closedAt: string
   tradingStatus: number
 }
 
@@ -25,10 +31,33 @@ export interface SoonAndHitsType {
   wishCount: number
   biddingCount: number
   tradingStatus: number
-  tag: Tag[]
+  tag: TagType[]
 }
 
-export interface Tag {
-  tagId: number
-  tagName: string
+export interface TagType {
+  id: number
+  name: string
+}
+
+export interface HotType {
+  totalCount: number
+  nowPage: number
+  maxPage: number
+  goodsList: LiveAndHotType[]
+  isLast: boolean
+}
+
+export interface HitType {
+  totalCount: number
+  nowPage: number
+  maxPage: number
+  goodsList: SoonAndHitsType[]
+  isLast: boolean
+}
+
+export interface ProfileType {
+  userUuid: string
+  profileImg: string
+  nickname: string
+  favCategory: string
 }

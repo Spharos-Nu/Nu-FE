@@ -13,7 +13,6 @@ import '@/styles/swiper.css'
 
 export default function AdvertisingBanner() {
   SwiperCore.use([Navigation, Autoplay])
-  // const swiperRef = useRef<SwiperCore>()
 
   const banner = [
     {
@@ -31,15 +30,15 @@ export default function AdvertisingBanner() {
   ]
 
   return (
-    <div className="px-[20px] pb-[25px]">
+    <div className="pt-[20px] px-[20px] pb-[25px]">
       <Swiper
         modules={[Navigation]}
         spaceBetween={0}
-        slidesPerView={1} // 보여질 슬라이드 수
-        loop // 슬라이드 루프
+        slidesPerView={1}
+        loop
         autoplay={{
           delay: 3000,
-          disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
+          disableOnInteraction: false,
         }}
         navigation
         className=""
