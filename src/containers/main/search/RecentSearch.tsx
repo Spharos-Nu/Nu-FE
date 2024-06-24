@@ -1,19 +1,31 @@
 'use client'
 
-// eslint-disable-next-line import/no-cycle
-
+import { useEffect, useState } from 'react'
 import Remove from '@/public/svgs/icon/remove.svg'
-import { KeywordType } from '@/types/headerType'
+import { LocalStorageKeywordType } from '@/types/headerType'
 
-export default function RecentSearch({
-  keywords,
-  handleRemoveKeyword,
-  handleClearKeywords,
-}: {
-  keywords: KeywordType[]
-  handleRemoveKeyword: (id: number) => void
-  handleClearKeywords: () => void
-}) {
+export default function RecentSearch() {
+  const [keywords, setKeywords] = useState<LocalStorageKeywordType[]>(
+    JSON.parse(localStorage.getItem('keywords') || '[]'),
+  )
+
+  // 검색어 삭제
+  const handleRemoveKeyword = (id: number) => {
+    const nextKeyword = keywords.filter((thisKeyword: { id: number }) => {
+      return thisKeyword.id !== id
+    })
+    setKeywords(nextKeyword)
+  }
+
+  // 검색어 전체 삭제
+  const handleClearKeywords = () => {
+    setKeywords([])
+  }
+
+  useEffect(() => {
+    localStorage.setItem('keywords', JSON.stringify(keywords))
+  }, [keywords])
+
   return (
     <>
       <div className="px-[20px] flex justify-between">
@@ -27,7 +39,7 @@ export default function RecentSearch({
         </div>
       </div>
       <div className="flex w-full overflow-x-auto whitespace-nowrap">
-        {keywords.map((item: KeywordType) => (
+        {keywords.map((item: LocalStorageKeywordType) => (
           <div
             key={item.id}
             role="none"
