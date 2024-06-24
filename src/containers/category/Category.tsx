@@ -63,46 +63,67 @@ export default function Category({
       </h1>
       <div className="mt-[30px] mx-[20px] relative">
         <div
-          className={`relative w-full aspect-square overflow-hidden transition-all ease-out 0.5s ${itemPosition[0].pos ? 'h-auto' : 'h-[145px]'}`}
-          role="none"
-          onClick={() => handlePosition(1)}
+          className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[0].pos ? 'h-auto' : 'h-[145px]'}`}
         >
-          {itemPosition[0].pos ? <KpopColor /> : <Kpop />}
-          <div
-            className="absolute left-[20px] top-[220px]"
-            role="none"
-            onClick={() => handleCategory('아이돌')}
+          <button
+            className="w-full h-full"
+            type="button"
+            onClick={() => handlePosition(1)}
           >
-            <KpopGo />
-          </div>
+            {itemPosition[0].pos ? <KpopColor /> : <Kpop />}
+          </button>
+          {itemPosition[0].pos && (
+            <button
+              className="absolute left-[20px] bottom-[50px]"
+              type="button"
+              onClick={() => handleCategory('아이돌')}
+            >
+              <span className="sr-only">아이돌</span>
+              <KpopGo />
+            </button>
+          )}
         </div>
         <div
           className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[1].pos ? 'h-auto' : 'h-[145px]'}`}
-          role="none"
-          onClick={() => handlePosition(2)}
         >
-          {itemPosition[1].pos ? <BaseballColor /> : <Baseball />}
-          <div
-            className="absolute left-[20px] top-[220px]"
-            role="none"
-            onClick={() => handleCategory('야구')}
+          <button
+            className="w-full h-full"
+            type="button"
+            onClick={() => handlePosition(2)}
           >
-            <BaseballGo />
-          </div>
+            {itemPosition[1].pos ? <BaseballColor /> : <Baseball />}
+          </button>
+          {itemPosition[1].pos && (
+            <button
+              className="absolute left-[20px] bottom-[50px]"
+              type="button"
+              onClick={() => handleCategory('야구')}
+            >
+              <span className="sr-only">야구</span>
+              <BaseballGo />
+            </button>
+          )}
         </div>
         <div
           className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[2].pos ? 'h-auto' : 'h-[160px]'}`}
-          role="none"
-          onClick={() => handlePosition(3)}
         >
-          {itemPosition[2].pos ? <AnimationColor /> : <Animation />}
-          <div
-            className="absolute left-[20px] top-[220px]"
-            role="none"
-            onClick={() => handleCategory('애니메이션')}
+          <button
+            className="w-full h-full"
+            type="button"
+            onClick={() => handlePosition(3)}
           >
-            <AnimationGo />
-          </div>
+            {itemPosition[2].pos ? <AnimationColor /> : <Animation />}
+          </button>
+          {itemPosition[2].pos && (
+            <button
+              className="absolute left-[20px] bottom-[50px]"
+              type="button"
+              onClick={() => handleCategory('애니메이션')}
+            >
+              <span className="sr-only">애니메이션</span>
+              <AnimationGo />
+            </button>
+          )}
         </div>
       </div>
     </div>
