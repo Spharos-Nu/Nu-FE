@@ -37,6 +37,18 @@ export default function Category({
     setItemPosition(newPosition)
   }
 
+  const handleCategory = (name: string) => {
+    localStorage.setItem('category', name)
+
+    if (localStorage.getItem('category') === '아이돌') router.push('/idol')
+    else if (localStorage.getItem('category') === '야구')
+      router.push('/baseball')
+    else if (localStorage.getItem('category') === '애니메이션')
+      router.push('/animation')
+
+    setVisible(false)
+  }
+
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
       <div
@@ -59,7 +71,7 @@ export default function Category({
           <div
             className="absolute left-[20px] top-[220px]"
             role="none"
-            onClick={() => router.push('/')}
+            onClick={() => handleCategory('아이돌')}
           >
             <KpopGo />
           </div>
@@ -73,7 +85,7 @@ export default function Category({
           <div
             className="absolute left-[20px] top-[220px]"
             role="none"
-            onClick={() => router.push('/')}
+            onClick={() => handleCategory('야구')}
           >
             <BaseballGo />
           </div>
@@ -87,7 +99,7 @@ export default function Category({
           <div
             className="absolute left-[20px] top-[220px]"
             role="none"
-            onClick={() => router.push('/')}
+            onClick={() => handleCategory('애니메이션')}
           >
             <AnimationGo />
           </div>
