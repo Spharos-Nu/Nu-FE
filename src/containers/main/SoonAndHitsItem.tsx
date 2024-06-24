@@ -2,10 +2,19 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { SoonAndHitsType, TagType } from '@/types/mainType'
-import { getGoodsImages, getTags } from '@/utils/mainApiActions'
+import {
+  addLike,
+  deleteLike,
+  getGoodsImages,
+  getLikeWhether,
+  getTags,
+} from '@/utils/mainApiActions'
 import TagItem from './TagItem'
 
 export default function SoonAndHitsItem({
@@ -15,20 +24,38 @@ export default function SoonAndHitsItem({
   item: SoonAndHitsType
   sort?: string
 }) {
+  const { data: session } = useSession()
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [image, setImage] = useState<string>('')
   const [tags, setTags] = useState<TagType[]>([])
+  const { message, setAlert } = useBasicAlertStore()
 
-  const handleLike = () => {
-    setIsLiked(!isLiked)
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
+
+  const handleLike = async () => {
+    if (!session) {
+      showAlert('로그인 후 이용해주세요.')
+    } else if (isLiked) {
+      const data = await deleteLike(item.goodsCode)
+      if (data.status === 200) {
+        setIsLiked(!isLiked)
+      }
+    } else {
+      const data = await addLike(item.goodsCode)
+      if (data.status === 200) {
+        setIsLiked(!isLiked)
+      }
+    }
   }
 
   useEffect(() => {
     const getData = async () => {
-      // if (session) {
-      //   const LikeData = await getLikeWhether(item.goodsCode)
-      //   setIsLiked(LikeData.result)
-      // }
+      if (session) {
+        const LikeData = await getLikeWhether(item.goodsCode)
+        setIsLiked(LikeData.result)
+      }
       const [ImageData, TagData] = await Promise.all([
         getGoodsImages(item.goodsCode),
         getTags(item.goodsCode),
@@ -63,7 +90,7 @@ export default function SoonAndHitsItem({
               width={0}
               height={0}
               sizes="100vw"
-              className="rounded-t-2xl max-h-[200px] w-full h-auto object-cover"
+              className="rounded-t-2xl max-h-[200px] w-full h-auto object-cover aspect-square"
             />
           )}
           {!image && (
@@ -99,6 +126,7 @@ export default function SoonAndHitsItem({
           </p>
         </div>
       </Link>
+      <BasicAlert message={message} />
     </div>
   )
 }

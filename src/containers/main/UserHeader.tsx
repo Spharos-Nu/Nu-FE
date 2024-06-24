@@ -1,30 +1,40 @@
-// import { useSession } from 'next-auth/react'
-// import { useEffect, useState } from 'react'
-// import { ProfileType } from '@/types/mainType'
-// import { getProfile } from '@/utils/mainApiActions'
+'use client'
+
+import { useEffect, useState } from 'react'
+import { ProfileType } from '@/types/mainType'
+import { getDuckPoint, getProfile } from '@/utils/mainApiActions'
 import UserDuckPoint from './UserDuckPoint'
 import UserProfile from './UserProfile'
 
 export default function UserHeader() {
-  // const { data: session } = useSession()
-  // const uuid = session?.user.uuid
-  // const [profile, setProfile] = useState<ProfileType>()
+  const [profile, setProfile] = useState<ProfileType>({
+    favCategory: '',
+    nickname: '',
+    profileImg: '',
+    userUuid: '',
+  })
+  const [duckPoint, setDuckPoint] = useState<number>(0)
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const ProfileData = await getProfile(uuid)
-  //     console.log(ProfileData)
+  useEffect(() => {
+    const getData = async () => {
+      const [ProfileData, DuckPointData] = await Promise.all([
+        getProfile(),
+        getDuckPoint(),
+      ])
 
-  //     setProfile(ProfileData.result)
-  //   }
-  //   getData()
-  // }, [])
+      if (ProfileData.result !== undefined) {
+        setProfile(ProfileData.result)
+      }
+      setDuckPoint(DuckPointData.result)
+    }
+    getData()
+  }, [])
 
   return (
     <div className="flex justify-between pt-[30px] px-[20px]">
-      <UserProfile />
+      <UserProfile profile={profile} />
       <div className="content-center">
-        <UserDuckPoint />
+        <UserDuckPoint duckPoint={duckPoint} />
       </div>
     </div>
   )

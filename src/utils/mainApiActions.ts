@@ -1,11 +1,14 @@
-// import { getServerSession } from 'next-auth'
-// import { options } from '@/app/api/auth/[...nextauth]/options'
+'use server'
+
+import { getServerSession } from 'next-auth'
+import { options } from '@/app/api/auth/[...nextauth]/options'
 import { ApiResponse } from '@/types/apiResponseType'
 import { TagType } from '@/types/goodsType'
 import {
   HitType,
   HotType,
   LiveAndHotType,
+  ProfileType,
   SoonAndHitsType,
 } from '@/types/mainType'
 
@@ -16,6 +19,7 @@ export const getLive = async (
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/read-n/now-trading?categoryId=${categoryId}&page=0&sort=`,
     {
+      method: 'GET',
       cache: 'no-cache',
     },
   )
@@ -31,6 +35,7 @@ export const getHot = async (
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/read-n/all-list?categoryId=${categoryId}&isTradingOnly=false&page=0&size=10&sort=wishCount,DESC`,
     {
+      method: 'GET',
       cache: 'no-cache',
     },
   )
@@ -46,6 +51,7 @@ export const getComingSoon = async (
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/read-n/coming-soon?categoryId=${categoryId}&page=0&size=10&sort=`,
     {
+      method: 'GET',
       cache: 'no-cache',
     },
   )
@@ -61,6 +67,7 @@ export const getHits = async (
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/read-n/all-list?categoryId=${categoryId}&isTradingOnly=false&page=0&size=10&sort=viewsCount,ASC`,
     {
+      method: 'GET',
       cache: 'no-cache',
     },
   )
@@ -76,6 +83,7 @@ export const getTags = async (
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/goods-n/${goodsCode}/tags`,
     {
+      method: 'GET',
       cache: 'no-cache',
     },
   )
@@ -91,6 +99,7 @@ export const getGoodsImages = async (
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/goods-n/${goodsCode}/thumbnail`,
     {
+      method: 'GET',
       cache: 'no-cache',
     },
   )
@@ -99,41 +108,101 @@ export const getGoodsImages = async (
   return data
 }
 
-// // 좋아요 여부 조회 API
-// export const getLikeWhether = async (
-//   goodsCode: string,
-// ): Promise<ApiResponse<boolean>> => {
-//   const session = await getServerSession(options)
-//   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_API}/v1/aggregation/wish/${goodsCode}`,
-//     {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: session?.user.accessToken,
-//       },
-//       cache: 'no-cache',
-//     },
-//   )
+// 좋아요 여부 조회 API
+export const getLikeWhether = async (
+  goodsCode: string,
+): Promise<ApiResponse<boolean>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/aggregation/wish/${goodsCode}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
 
-//   const data: ApiResponse<boolean> = await res.json()
-//   return data
-// }
+  const data: ApiResponse<boolean> = await res.json()
+  return data
+}
 
-// // 프로필 조회 API
-// export const getProfile = async (
-//   uuid: string,
-// ): Promise<ApiResponse<ProfileType>> => {
-//   const session = await getServerSession(options)
-//   console.log(session?.user)
-//   console.log(uuid);
+// 좋아요 추가 API
+export const addLike = async (
+  goodsCode: string,
+): Promise<ApiResponse<boolean>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/aggregation/wish/${goodsCode}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
 
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users-n/${uuid}`, {
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     cache: 'no-cache',
-//   })
+  const data: ApiResponse<boolean> = await res.json()
+  return data
+}
 
-//   const data = await res.json()
-//   return data
-// }
+// 좋아요 삭제 API
+export const deleteLike = async (
+  goodsCode: string,
+): Promise<ApiResponse<boolean>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/aggregation/wish/${goodsCode}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
+
+  const data: ApiResponse<boolean> = await res.json()
+  return data
+}
+
+// 프로필 조회 API
+export const getProfile = async (): Promise<ApiResponse<ProfileType>> => {
+  const session = await getServerSession(options)
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/users-n/${session?.user.uuid}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
+
+// 덕 포인트 조회 API
+export const getDuckPoint = async (): Promise<ApiResponse<number>> => {
+  const session = await getServerSession(options)
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/users/duck-point`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+  return data
+}

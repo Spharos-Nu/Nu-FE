@@ -28,9 +28,7 @@ export default function CategoryPage() {
     if (category === '아이돌') router.push('/idol')
     else if (category === '야구') router.push('/baseball')
     else if (category === '애니메이션') router.push('/animation')
-  }
-
-  if (localStorage.getItem('category') === '아이돌') router.push('/idol')
+  } else if (localStorage.getItem('category') === '아이돌') router.push('/idol')
   else if (localStorage.getItem('category') === '야구') router.push('/baseball')
   else if (localStorage.getItem('category') === '애니메이션')
     router.push('/animation')

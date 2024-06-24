@@ -2,28 +2,30 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
 import { LiveAndHotType } from '@/types/mainType'
-import { getGoodsImages } from '@/utils/mainApiActions'
+import { getGoodsImages, getLikeWhether } from '@/utils/mainApiActions'
 import LiveAndHotTimer from './LiveAndHotTimer'
 
 export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
+  const { data: session } = useSession()
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [image, setImage] = useState<string>('')
 
   useEffect(() => {
     const getData = async () => {
-      // if (session) {
-      //   const LikeData = await getLikeWhether(item.goodsCode)
-      //   setIsLiked(LikeData.result)
-      // }
+      if (session) {
+        const LikeData = await getLikeWhether(item.goodsCode)
+        setIsLiked(LikeData.result)
+      }
       const ImageData = await getGoodsImages(item.goodsCode)
 
       setImage(ImageData.result)
     }
     getData()
-  }, [item.goodsCode])
+  }, [item.goodsCode, session])
 
   const handleLike = () => {
     setIsLiked(!isLiked)
