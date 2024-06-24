@@ -1,7 +1,7 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   useProfileStore,
   useErrorStore,
@@ -35,6 +35,13 @@ export default function UpdateNickname() {
       return setNicknameError(2)
     }
   }
+
+  useEffect(() => {
+    if (inputState) {
+      setIsValidNick(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputState])
 
   return (
     <div
@@ -85,7 +92,8 @@ export default function UpdateNickname() {
           </>
         )}
       </span>
-      {isValidNick && (
+      {/* eslint-disable-next-line prettier/prettier */}
+      {inputState && isValidNick && (
         <p className="text-sky-600 text-xs mt-1 mx-12">
           사용 가능한 닉네임입니다.
           <br />

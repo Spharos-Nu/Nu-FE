@@ -10,7 +10,7 @@ interface AlertProps {
 
 export default function BasicAlert({ message }: AlertProps) {
   const elRef = useRef<HTMLDivElement | null>(null)
-  const { isOpen, setAlert } = useBasicAlertStore()
+  const { isOpen, setAlert, setIsClosed } = useBasicAlertStore()
 
   useEffect(() => {
     elRef.current = document.createElement('div')
@@ -35,6 +35,11 @@ export default function BasicAlert({ message }: AlertProps) {
     }
   }, [isOpen])
 
+  useEffect(() => {
+    setIsClosed(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   if (!isOpen || !elRef.current) return null
 
   return createPortal(
@@ -46,7 +51,10 @@ export default function BasicAlert({ message }: AlertProps) {
         <button
           type="button"
           className="inline-flex justify-center w-full px-3 py-2 bg-sky-600 text-sm text-white rounded-b-2xl z-20"
-          onClick={() => setAlert(false, '')}
+          onClick={() => {
+            setAlert(false, '')
+            setIsClosed(true)
+          }}
         >
           확인
         </button>

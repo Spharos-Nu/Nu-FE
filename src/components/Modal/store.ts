@@ -2,9 +2,11 @@ import { create } from 'zustand'
 
 interface BasicAlertState {
   isOpen: boolean
+  isClosed: boolean
   message: string
 
   setAlert: (isOpen: boolean, message: string) => void
+  setIsClosed: (isClose: boolean) => void
 }
 
 interface SelectAlertState {
@@ -18,9 +20,11 @@ interface SelectAlertState {
 
 export const useBasicAlertStore = create<BasicAlertState>((set) => ({
   isOpen: false,
+  isClosed: false,
   message: '',
 
   setAlert: (isOpen: boolean, message: string) => set({ isOpen, message }),
+  setIsClosed: (isClosed: boolean) => set({ isClosed }),
 }))
 
 export const useSelectAlertStore = create<SelectAlertState>((set) => ({

@@ -1,13 +1,11 @@
 'use client'
 
-import { getToken } from 'firebase/messaging'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
-import { messaging } from '@/app/firebase.config'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { montserrat } from '@/styles/fonts'
@@ -71,23 +69,23 @@ export default function LoginForm() {
       redirect: false,
     })
 
-    if (res?.status === 401) {
-      showAlert('회원정보가 일치하지 않습니다.')
-    } else {
-      Notification.requestPermission().then((permission) => {
-        if (permission === 'granted') {
-          getToken(messaging, {
-            vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
-          }).then((currentToken) => {
-            if (currentToken) {
-              // Send the token to your server and update the UI if necessary
-              // ...
-              console.log(currentToken)
-            }
-          })
-        }
-      })
+    if (res?.status === 200) {
       router.push(params)
+    } else {
+      showAlert('회원정보가 일치하지 않습니다.')
+      // Notification.requestPermission().then((permission) => {
+      //   if (permission === 'granted') {
+      //     getToken(messaging, {
+      //       vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+      //     }).then((currentToken) => {
+      //       if (currentToken) {
+      //         // Send the token to your server and update the UI if necessary
+      //         // ...
+      //         console.log(currentToken)
+      //       }
+      //     })
+      //   }
+      // })
     }
   }
 

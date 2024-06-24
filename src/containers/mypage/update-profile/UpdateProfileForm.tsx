@@ -20,6 +20,8 @@ export default function UpdateProfileForm() {
   const { setNicknameError } = useErrorStore()
 
   const handleSubmit = async () => {
+    if (!isValidNick) return setNicknameError(3)
+
     let profileImageUrl = ''
     if (session?.user.profileImage && profileImage) {
       await deleteProfileImage(session?.user.profileImage)
@@ -30,25 +32,21 @@ export default function UpdateProfileForm() {
       profileImageUrl = await uploadProfileImage(profileImage)
     }
 
-    if (!isValidNick) return setNicknameError(3)
-
-    const data = await updateUserProfile(
+    const res = await updateUserProfile(
       profileImageUrl,
       nickname,
       favoriteCategory,
     )
 
-    console.log(data)
-
-    if (data.status !== 200) {
+    if (res.status !== 200) {
       return null
     }
 
     const updatedUser = {
       ...session?.user,
-      image: profileImageUrl,
-      nickname,
-      favoriteCategory,
+      image: res.result.profileImage,
+      nickname: res.result.nickname,
+      favoriteCategory: res.result.favCategory,
     }
 
     await update(updatedUser)

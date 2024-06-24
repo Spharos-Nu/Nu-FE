@@ -25,7 +25,7 @@ export const useProfileStore = create<ProfileState>((set) => ({
   nickname: '',
   favoriteCategory: '',
 
-  isValidNick: false,
+  isValidNick: true,
 
   setProfileImage: (profileImage) => set({ profileImage }),
   setNickname: (nickname) => set({ nickname }),
