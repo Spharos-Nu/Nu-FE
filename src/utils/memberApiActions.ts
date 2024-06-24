@@ -67,16 +67,19 @@ export const getDuckPoint = async (): Promise<ApiResponse<number>> => {
 }
 
 /** 프로필 수정 */
-export const updateProfile = async (
+export const updateUserProfile = async (
   profileImageUrl: string,
   nickname: string,
   favoriteCategory: string,
-): Promise<ApiResponse<ProfileData>> => {
+): Promise<ApiResponse<null>> => {
   const session = await getServerSession(options)
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
     method: 'PATCH',
-    headers: { Authorization: session?.user.accessToken },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: session?.user.accessToken,
+    },
     body: JSON.stringify({
       profileImageUrl,
       nickname,
@@ -84,7 +87,7 @@ export const updateProfile = async (
     }),
   })
 
-  const data: ApiResponse<ProfileData> = await res.json()
+  const data: ApiResponse<null> = await res.json()
   return data
 }
 
