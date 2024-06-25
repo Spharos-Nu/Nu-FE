@@ -42,7 +42,7 @@ export default function UpdateProfileImage() {
   }
 
   useEffect(() => {
-    setPreviewUrl(session?.user.profileImage)
+    setPreviewUrl(session?.user.image)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
