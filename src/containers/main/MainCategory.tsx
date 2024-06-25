@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Animation from '@/public/svgs/category/animation.svg'
 import AnimationColor from '@/public/svgs/category/animationColor.svg'
 import AnimationGo from '@/public/svgs/category/animationGo.svg'
@@ -23,17 +23,6 @@ export default function MainCategory() {
   ])
   const text = '어떤 굿즈를\n찾아 오셨나요?'
 
-  if (localStorage.getItem('category') === '아이돌') router.push('/idol')
-  else if (localStorage.getItem('category') === '야구') router.push('/baseball')
-  else if (localStorage.getItem('category') === '애니메이션')
-    router.push('/animation')
-  else if (session) {
-    const category = session.user.favoriteCategory
-    if (category === '아이돌') router.push('/idol')
-    else if (category === '야구') router.push('/baseball')
-    else if (category === '애니메이션') router.push('/animation')
-  }
-
   const handlePosition = (id: number) => {
     const newPosition = itemPosition.map((item) => {
       if (item.id === id) {
@@ -53,6 +42,21 @@ export default function MainCategory() {
     else if (localStorage.getItem('category') === '애니메이션')
       router.push('/animation')
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('category') === '아이돌') router.push('/idol')
+    else if (localStorage.getItem('category') === '야구')
+      router.push('/baseball')
+    else if (localStorage.getItem('category') === '애니메이션')
+      router.push('/animation')
+    else if (session) {
+      const category = session.user.favoriteCategory
+      if (category === '아이돌') router.push('/idol')
+      else if (category === '야구') router.push('/baseball')
+      else if (category === '애니메이션') router.push('/animation')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
