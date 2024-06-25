@@ -25,7 +25,8 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
       setImage(ImageData.result)
     }
     getData()
-  }, [item.goodsCode, session])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleLike = () => {
     setIsLiked(!isLiked)
@@ -35,7 +36,7 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
     <div className="relative border rounded-xl inline-block mr-[10px] last:mr-0">
       <button
         type="button"
-        onClick={() => handleLike()}
+        onClick={handleLike}
         className="absolute z-10 top-0 right-0 mt-[10px] mr-[10px] "
       >
         {isLiked ? (
