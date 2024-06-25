@@ -15,7 +15,6 @@ export default function NewPwdInput2() {
           id="비밀번호 확인"
           type="password"
           placeholder="비밀번호 확인"
-          name={newPassword2}
           value={newPassword2}
           autoComplete="off"
           minLength={8}

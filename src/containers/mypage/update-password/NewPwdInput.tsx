@@ -15,7 +15,6 @@ export default function NewPwdInput() {
           id="새 비밀번호"
           type="password"
           placeholder="새 비밀번호"
-          name={newPassword}
           value={newPassword}
           autoComplete="off"
           minLength={8}
