@@ -15,7 +15,7 @@ declare module 'next-auth' {
     uuid: string
     accessToken: string
     refreshToken: string
-    profileImg: string
+    profileImage: string | null
     nickname: string
     favCategory: string
   }

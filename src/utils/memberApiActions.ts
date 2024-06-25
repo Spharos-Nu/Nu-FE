@@ -66,31 +66,6 @@ export const getDuckPoint = async (): Promise<ApiResponse<number>> => {
   return data
 }
 
-/** 프로필 수정 */
-export const updateUserProfile = async (
-  profileImageUrl: string,
-  nickname: string,
-  favoriteCategory: string,
-): Promise<ApiResponse<null>> => {
-  const session = await getServerSession(options)
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: session?.user.accessToken,
-    },
-    body: JSON.stringify({
-      profileImageUrl,
-      nickname,
-      favoriteCategory,
-    }),
-  })
-
-  const data: ApiResponse<null> = await res.json()
-  return data
-}
-
 // Todo: 토큰이 있는 경우에도 비밀번호 재설정 가능
 // export const updatePassword = async (): Promise<ApiResponse<null>> => {}
 
@@ -131,5 +106,40 @@ export const getDuckPointDetail = async (page: number) => {
   )
 
   const data: ApiResponse<DuckPointDetailData> = await res.json()
+  return data
+}
+
+/** 프로필 수정 */
+export const updateUserProfile = async (
+  profileImage: string,
+  nickname: string,
+  favoriteCategory: string,
+): Promise<ApiResponse<ProfileData>> => {
+  const session = await getServerSession(options)
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: session?.user.accessToken,
+    },
+    body: JSON.stringify({
+      profileImage,
+      nickname,
+      favoriteCategory,
+    }),
+  })
+
+  const data: ApiResponse<ProfileData> = await res.json()
+
+  // if (data.status === 200) {
+  //   const res2 = await fetch(
+  //     `${process.env.NEXT_PUBLIC_API}/v1/users-n/${session?.user.uuid}`,
+  //   )
+
+  //   const data2: ApiResponse<ProfileData> = await res2.json()
+  //   return data2
+  // }
+
   return data
 }

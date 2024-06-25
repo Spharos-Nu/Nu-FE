@@ -10,13 +10,13 @@ importScripts(
 // Your web app's Firebase configuration
 // Initialize Firebase
 firebase.initializeApp({
-  apiKey: 'AIzaSyBDT4F5w2l2cOIjSMusDoPYpTPmcii5fNk',
-  authDomain: 'goodsgoodsduck.firebaseapp.com',
-  projectId: 'goodsgoodsduck',
-  storageBucket: 'goodsgoodsduck.appspot.com',
-  messagingSenderId: '749015931101',
-  appId: '1:749015931101:web:44bbf9cb5fc1942f262334',
-  measurementId: 'G-PBZYECTKN4',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 })
 
 // Retrieve Firebase Messaging object

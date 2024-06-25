@@ -89,7 +89,7 @@ export const options: NextAuthOptions = {
         user.uuid = loginRes.uuid
         user.accessToken = loginRes.accessToken
         user.refreshToken = loginRes.refreshToken
-        user.profileImg = userRes.profileImage
+        user.profileImage = userRes.profileImage
         user.nickname = userRes.nickname
         user.favCategory = userRes.favCategory
         return true
@@ -101,7 +101,7 @@ export const options: NextAuthOptions = {
       return { ...token, ...user }
     },
     async session({ session, token }) {
-      session.user.image = token.profileImg
+      session.user.image = token.profileImage
       session.user.uuid = token.uuid
       session.user.accessToken = token.accessToken
       session.user.refreshToken = token.refreshToken
