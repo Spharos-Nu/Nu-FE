@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
@@ -11,11 +12,11 @@ import {
   usePasswordErrorStore,
   usePasswordStore,
 } from '@/containers/mypage/update-password/store'
-import { updatePassword } from '@/utils/authApiActions'
 import { pwdValidCheck } from '@/utils/joinValidateCheck'
 
 export default function ChangePasswordForm() {
   const router = useRouter()
+  const { data: session } = useSession()
   const { currentPassword, newPassword, newPassword2, resetPassword } =
     usePasswordStore()
   const {
@@ -34,7 +35,19 @@ export default function ChangePasswordForm() {
     if (!pwdValidCheck(newPassword)) return setNotValidPassword(true)
     if (newPassword !== newPassword2) return setNotMatchPassword(true)
 
-    const data = await updatePassword(currentPassword, newPassword)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/auth/pwd`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      body: JSON.stringify({
+        currentPassword,
+        newPassword,
+      }),
+    })
+
+    const data = await res.json()
     if (data.status === 409) return setSamePassword(true)
     if (data.status === 200) {
       resetPassword()
@@ -44,7 +57,7 @@ export default function ChangePasswordForm() {
   }
 
   useEffect(() => {
-    if (isClosed) router.refresh()
+    if (isClosed) router.push('/mypage')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClosed])
 

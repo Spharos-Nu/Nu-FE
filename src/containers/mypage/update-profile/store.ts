@@ -12,6 +12,8 @@ interface ProfileState {
   setFavoriteCategory: (favoriteCategory: string) => void
 
   setIsValidNick: (isValidNick: boolean) => void
+
+  resetProfile: () => void
 }
 
 interface ErrorState {
@@ -32,6 +34,15 @@ export const useProfileStore = create<ProfileState>((set) => ({
   setFavoriteCategory: (favoriteCategory) => set({ favoriteCategory }),
 
   setIsValidNick: (isValidNick) => set({ isValidNick }),
+
+  resetProfile: () =>
+    set({
+      profileImage: null,
+      nickname: '',
+      favoriteCategory: '',
+
+      isValidNick: true,
+    }),
 }))
 
 export const useErrorStore = create<ErrorState>((set) => ({

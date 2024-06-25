@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { useEffect } from 'react'
 import UpdateFavCategory from '@/containers/mypage/update-profile/UpdateFavCategory'
 import UpdateNickname from '@/containers/mypage/update-profile/UpdateNickname'
 import UpdateProfileImage from '@/containers/mypage/update-profile/UpdateProfileImage'
@@ -15,13 +14,11 @@ import { deleteProfileImage, uploadProfileImage } from '@/utils/uploadImage'
 export default function UpdateProfileForm() {
   const router = useRouter()
   const { data: session, update } = useSession()
-  const { profileImage, nickname, favoriteCategory, isValidNick } =
+  const { profileImage, nickname, favoriteCategory, resetProfile } =
     useProfileStore()
   const { setNicknameError } = useErrorStore()
 
   const handleSubmit = async () => {
-    if (!isValidNick) return setNicknameError(3)
-
     let profileImageUrl = ''
     if (session?.user.profileImage && profileImage) {
       await deleteProfileImage(session?.user.profileImage)
@@ -57,13 +54,11 @@ export default function UpdateProfileForm() {
       nickname: data.result.nickname,
       favoriteCategory: data.result.favCategory,
     })
-    return router.refresh()
-  }
 
-  useEffect(() => {
-    console.log(session)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update])
+    resetProfile()
+    setNicknameError(0)
+    return router.push('/mypage')
+  }
 
   return (
     <div>
