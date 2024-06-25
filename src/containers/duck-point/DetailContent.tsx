@@ -15,9 +15,7 @@ export default function DetailContent({
 }: DetailProps) {
   return (
     <div className="relative mx-5 my-3 h-20 bg-slate-100 rounded-xl">
-      <div className="absolute top-4 left-5">
-        {createdAt || '2024.05.27. 15:25:00'}
-      </div>
+      <div className="absolute top-4 left-5">{createdAt}</div>
       <div
         className={`absolute top-3 right-5 ${changeStatus ? 'text-blue-600' : 'text-red-500'} font-bold text-xl`}
       >
