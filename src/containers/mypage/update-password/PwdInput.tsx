@@ -15,7 +15,6 @@ export default function PwdInput() {
           id="현재 비밀번호"
           type="password"
           placeholder="현재 비밀번호"
-          name={currentPassword}
           value={currentPassword}
           autoComplete="off"
           minLength={8}

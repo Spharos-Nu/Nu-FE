@@ -9,6 +9,7 @@ import {
   useErrorStore,
   useProfileStore,
 } from '@/containers/mypage/update-profile/store'
+import { updateUserProfile } from '@/utils/memberApiActions'
 import { deleteProfileImage, uploadProfileImage } from '@/utils/uploadImage'
 
 export default function UpdateProfileForm() {
@@ -18,7 +19,9 @@ export default function UpdateProfileForm() {
     useProfileStore()
   const { setNicknameError } = useErrorStore()
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     let profileImageUrl = ''
     if (session?.user.profileImage && profileImage) {
       await deleteProfileImage(session?.user.profileImage)
@@ -29,20 +32,11 @@ export default function UpdateProfileForm() {
       profileImageUrl = await uploadProfileImage(profileImage)
     }
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: session?.user.accessToken,
-      },
-      body: JSON.stringify({
-        profileImage: profileImageUrl,
-        nickname,
-        favoriteCategory,
-      }),
-    })
-
-    const data = await res.json()
+    const data = await updateUserProfile(
+      profileImageUrl,
+      nickname,
+      favoriteCategory,
+    )
 
     if (data.status !== 200) {
       return null
@@ -62,14 +56,13 @@ export default function UpdateProfileForm() {
 
   return (
     <div>
-      <form className="relative">
+      <form className="relative" onSubmit={handleSubmit}>
         <UpdateProfileImage />
         <UpdateNickname />
         <UpdateFavCategory />
         <button
-          type="button"
+          type="submit"
           className="w-[calc(100%-80px)] h-14 rounded-3xl bg-sky-600 text-white bottom-0 mx-10 my-5"
-          onClick={handleSubmit}
         >
           변경 완료
         </button>
