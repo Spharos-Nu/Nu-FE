@@ -5,14 +5,42 @@ import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import { LiveAndHotType } from '@/types/mainType'
-import { getGoodsImages, getLikeWhether } from '@/utils/mainApiActions'
+import {
+  addLike,
+  deleteLike,
+  getGoodsImages,
+  getLikeWhether,
+} from '@/utils/mainApiActions'
 import LiveAndHotTimer from './LiveAndHotTimer'
 
 export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
   const { data: session } = useSession()
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [image, setImage] = useState<string>('')
+  const { message, setAlert } = useBasicAlertStore()
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
+
+  const handleLike = async () => {
+    if (!session) {
+      showAlert('로그인 후 이용해주세요.')
+    } else if (isLiked) {
+      const data = await deleteLike(item.goodsCode)
+      if (data.status === 200) {
+        setIsLiked(!isLiked)
+      }
+    } else {
+      const data = await addLike(item.goodsCode)
+      if (data.status === 200) {
+        setIsLiked(!isLiked)
+      }
+    }
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -27,10 +55,6 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const handleLike = () => {
-    setIsLiked(!isLiked)
-  }
 
   return (
     <div className="relative border rounded-xl inline-block mr-[10px] last:mr-0">
@@ -89,6 +113,7 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
           </div>
         </div>
       </Link>
+      <BasicAlert message={message} />
     </div>
   )
 }
