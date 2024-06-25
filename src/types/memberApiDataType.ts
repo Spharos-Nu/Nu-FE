@@ -24,3 +24,8 @@ export interface DuckPointDetailData {
   isLast: boolean
   historyList: DuckPointHistoryType[]
 }
+
+export interface PointReadyData {
+  tid: string
+  next_redirect_pc_url: string
+}

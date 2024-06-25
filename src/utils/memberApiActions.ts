@@ -133,3 +133,25 @@ export const updateUserProfile = async (
   const data: ApiResponse<ProfileData> = await res.json()
   return data
 }
+
+export const chargeDuckPoint = async (totalAmount: number) => {
+  const session = await getServerSession(options)
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/users-n/pay/ready`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        itemName: '충전',
+        totalAmount,
+        uuid: session?.user.uuid,
+      }),
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
