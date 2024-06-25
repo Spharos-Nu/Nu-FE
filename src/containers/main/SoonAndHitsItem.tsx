@@ -66,14 +66,14 @@ export default function SoonAndHitsItem({
     }
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item.goodsCode])
+  }, [])
 
   return (
     <div className="border rounded-2xl">
       <div className="relative">
         <button
           type="button"
-          onClick={() => handleLike()}
+          onClick={handleLike}
           className="absolute bottom-2 right-2 z-10"
         >
           {isLiked ? (
