@@ -97,7 +97,12 @@ export const options: NextAuthOptions = {
 
       return true
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === 'update' && session !== null) {
+        token.profileImage = session.image
+        token.nickname = session.nickname
+        token.favCategory = session.favoriteCategory
+      }
       return { ...token, ...user }
     },
     async session({ session, token }) {

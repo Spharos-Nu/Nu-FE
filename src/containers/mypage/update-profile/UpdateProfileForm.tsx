@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { useEffect } from 'react'
 import UpdateFavCategory from '@/containers/mypage/update-profile/UpdateFavCategory'
 import UpdateNickname from '@/containers/mypage/update-profile/UpdateNickname'
 import UpdateProfileImage from '@/containers/mypage/update-profile/UpdateProfileImage'
@@ -9,7 +10,6 @@ import {
   useErrorStore,
   useProfileStore,
 } from '@/containers/mypage/update-profile/store'
-import { updateUserProfile } from '@/utils/memberApiActions'
 import { deleteProfileImage, uploadProfileImage } from '@/utils/uploadImage'
 
 export default function UpdateProfileForm() {
@@ -32,26 +32,38 @@ export default function UpdateProfileForm() {
       profileImageUrl = await uploadProfileImage(profileImage)
     }
 
-    const res = await updateUserProfile(
-      profileImageUrl,
-      nickname,
-      favoriteCategory,
-    )
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      body: JSON.stringify({
+        profileImage: profileImageUrl,
+        nickname,
+        favoriteCategory,
+      }),
+    })
 
-    if (res.status !== 200) {
+    const data = await res.json()
+
+    if (data.status !== 200) {
       return null
     }
 
-    const updatedUser = {
+    await update({
       ...session?.user,
-      image: res.result.profileImage,
-      nickname: res.result.nickname,
-      favoriteCategory: res.result.favCategory,
-    }
-
-    await update(updatedUser)
+      image: data.result.profileImage,
+      nickname: data.result.nickname,
+      favoriteCategory: data.result.favCategory,
+    })
     return router.refresh()
   }
+
+  useEffect(() => {
+    console.log(session)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [update])
 
   return (
     <div>

@@ -29,6 +29,7 @@ export default function UpdateNickname() {
     const data = await duplicationCheckNick(nickname)
 
     if (data.status === 200) {
+      setNicknameError(0)
       return setIsValidNick(true)
     }
     if (data.status === 409) {
@@ -111,7 +112,7 @@ export default function UpdateNickname() {
         </p>
       )}
       {nicknameError === 3 && (
-        <p className="text-red-500 text-xs mt-1 ml-3">
+        <p className="text-red-500 text-xs mt-1 mx-12">
           * 닉네임 중복확인을 진행해주세요.
         </p>
       )}

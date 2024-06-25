@@ -131,15 +131,5 @@ export const updateUserProfile = async (
   })
 
   const data: ApiResponse<ProfileData> = await res.json()
-
-  // if (data.status === 200) {
-  //   const res2 = await fetch(
-  //     `${process.env.NEXT_PUBLIC_API}/v1/users-n/${session?.user.uuid}`,
-  //   )
-
-  //   const data2: ApiResponse<ProfileData> = await res2.json()
-  //   return data2
-  // }
-
   return data
 }
