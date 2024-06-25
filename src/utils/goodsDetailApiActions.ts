@@ -5,6 +5,9 @@ import {
   BiddingPreviewType,
   GoodsDetailType,
   ImageUrlType,
+  SellerMannerType,
+  SellerProfileType,
+  SellerReviewListType,
   TagType,
 } from '@/types/goodsType'
 
@@ -158,3 +161,73 @@ export const postIncreaseViews = async (goodsCode: string) => {
 //   const data = await res.json()
 //   return data
 // }
+
+// // 입찰 API
+// export const postBidding = async (
+//   goodsCode: string,
+//   price: number,
+// ): Promise<ApiResponse<string>> => {
+//   const session = await getServerSession(options)
+//   const res = await fetch(
+//     `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}/bids`,
+//     {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: session?.user.accessToken,
+//       },
+//       body: JSON.stringify({
+//         price,
+//       }),
+//       cache: 'no-cache',
+//     },
+//   )
+
+//   const data = await res.json()
+//   return data
+// }
+
+// 판매자 정보 조회 API
+export const getSellerProfile = async (
+  seller: string,
+): Promise<ApiResponse<SellerProfileType>> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/users-n/${seller}`,
+    {
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
+
+// 판매자 리뷰 조회 API
+export const getSellerReview = async (
+  seller: string,
+): Promise<ApiResponse<SellerReviewListType>> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/etc-n/reviews/${seller}?page=0&size=5&sort=""`,
+    {
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
+
+// 판매자 매너덕 조회 API
+export const getSellerMannerDuck = async (
+  seller: string,
+): Promise<ApiResponse<SellerMannerType>> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/users-n/${seller}/manner-duck`,
+    {
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+  return data
+}

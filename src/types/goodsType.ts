@@ -59,3 +59,29 @@ export interface BiddingUserType {
   nickname: string
   favCategory: string
 }
+
+// 판매자 정보 조회
+export interface SellerProfileType {
+  userUuid: string
+  nickname: string
+  profileImage: string
+  favCategory: string
+}
+
+export interface SellerReviewListType {
+  totalCount: number
+  nowPage: number
+  maxPage: number
+  reviewList: SellerReviewType[]
+}
+
+export interface SellerReviewType {
+  reviewId: number
+  goodsCode: string
+  content: string
+}
+
+export interface SellerMannerType {
+  level: number
+  leftPoint: number
+}

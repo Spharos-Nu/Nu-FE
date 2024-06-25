@@ -5,7 +5,13 @@ import { useState } from 'react'
 import { RxDotsVertical } from 'react-icons/rx'
 import BackBtn from '@/components/Btn/BackBtn'
 
-export default function SellerHeader({ goodsCode }: { goodsCode: number }) {
+export default function SellerHeader({
+  goodsCode,
+  seller,
+}: {
+  goodsCode: string
+  seller: string
+}) {
   const [toggle, setToggle] = useState<boolean>(false)
 
   return (
@@ -24,7 +30,7 @@ export default function SellerHeader({ goodsCode }: { goodsCode: number }) {
       </button>
       {toggle && (
         <Link
-          href={`/user-complain?seller=0&goodsCode=${goodsCode}`}
+          href={`/user-complain?seller=${seller}&goodsCode=${goodsCode}`}
           className="absolute top-[50px] right-2 bg-white w-[120px] rounded-lg text-[17px] py-[5px] px-[8px] z-10 shadow-[0px_3px_10px_5px_rgba(0,0,0,0.05)]"
         >
           신고하기
