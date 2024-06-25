@@ -9,19 +9,16 @@ import {
   useErrorStore,
   useProfileStore,
 } from '@/containers/mypage/update-profile/store'
-import { updateUserProfile } from '@/utils/memberApiActions'
 import { deleteProfileImage, uploadProfileImage } from '@/utils/uploadImage'
 
 export default function UpdateProfileForm() {
   const router = useRouter()
   const { data: session, update } = useSession()
-  const { profileImage, nickname, favoriteCategory, isValidNick } =
+  const { profileImage, nickname, favoriteCategory, resetProfile } =
     useProfileStore()
   const { setNicknameError } = useErrorStore()
 
   const handleSubmit = async () => {
-    if (!isValidNick) return setNicknameError(3)
-
     let profileImageUrl = ''
     if (session?.user.profileImage && profileImage) {
       await deleteProfileImage(session?.user.profileImage)
@@ -32,25 +29,35 @@ export default function UpdateProfileForm() {
       profileImageUrl = await uploadProfileImage(profileImage)
     }
 
-    const res = await updateUserProfile(
-      profileImageUrl,
-      nickname,
-      favoriteCategory,
-    )
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/users`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      body: JSON.stringify({
+        profileImage: profileImageUrl,
+        nickname,
+        favoriteCategory,
+      }),
+    })
 
-    if (res.status !== 200) {
+    const data = await res.json()
+
+    if (data.status !== 200) {
       return null
     }
 
-    const updatedUser = {
+    await update({
       ...session?.user,
-      image: res.result.profileImage,
-      nickname: res.result.nickname,
-      favoriteCategory: res.result.favCategory,
-    }
+      image: data.result.profileImage,
+      nickname: data.result.nickname,
+      favoriteCategory: data.result.favCategory,
+    })
 
-    await update(updatedUser)
-    return router.refresh()
+    resetProfile()
+    setNicknameError(0)
+    return router.push('/mypage')
   }
 
   return (

@@ -17,6 +17,7 @@ export default function UpdateNickname() {
 
   const handleInputElement = () => {
     setInputState(!inputState)
+    setIsValidNick(false)
   }
 
   // eslint-disable-next-line consistent-return
@@ -26,9 +27,14 @@ export default function UpdateNickname() {
       return setNicknameError(1)
     }
 
+    if (nicknameError) {
+      return null
+    }
+
     const data = await duplicationCheckNick(nickname)
 
     if (data.status === 200) {
+      setNicknameError(0)
       return setIsValidNick(true)
     }
     if (data.status === 409) {
@@ -42,6 +48,11 @@ export default function UpdateNickname() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputState])
+
+  useEffect(() => {
+    setNickname(session?.user.nickname)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div
@@ -92,7 +103,6 @@ export default function UpdateNickname() {
           </>
         )}
       </span>
-      {/* eslint-disable-next-line prettier/prettier */}
       {inputState && isValidNick && (
         <p className="text-sky-600 text-xs mt-1 mx-12">
           사용 가능한 닉네임입니다.
@@ -111,7 +121,7 @@ export default function UpdateNickname() {
         </p>
       )}
       {nicknameError === 3 && (
-        <p className="text-red-500 text-xs mt-1 ml-3">
+        <p className="text-red-500 text-xs mt-1 mx-12">
           * 닉네임 중복확인을 진행해주세요.
         </p>
       )}

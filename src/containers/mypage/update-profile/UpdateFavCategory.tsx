@@ -6,7 +6,7 @@ import { MdArrowDropDown } from 'react-icons/md'
 import { useProfileStore } from '@/containers/mypage/update-profile/store'
 
 export default function UpdateFavCategory() {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const { favoriteCategory, setFavoriteCategory } = useProfileStore()
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
 
@@ -20,9 +20,7 @@ export default function UpdateFavCategory() {
   }
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      setFavoriteCategory(session?.user.favoriteCategory)
-    }
+    setFavoriteCategory(session?.user.favoriteCategory)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -36,7 +34,7 @@ export default function UpdateFavCategory() {
         >
           <span className="ml-3 flex content-center cursor-pointer text-slate-400">
             {!favoriteCategory
-              ? '관심 카테고리를 선택해주세요.'
+              ? session?.user.favoriteCategory
               : favoriteCategory}
           </span>
           <MdArrowDropDown className="h-5 w-5 mr-3 text-slate-400" />
