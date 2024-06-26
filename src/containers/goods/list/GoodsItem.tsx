@@ -34,12 +34,8 @@ export default function GoodsItem({
           {code}
         </p>
         <p>{goodsItemData.minPrice}</p>
-        {goodsItemData.tradingStatus === 0 && (
-          <p>{goodsItemData.opendAt.split('T')[0]}</p>
-        )}
-        {goodsItemData.tradingStatus === 1 && (
-          <p>{goodsItemData.closedAt.split('T')[0]}</p>
-        )}
+        {goodsItemData.tradingStatus === 0 && <p>{goodsItemData.opendAt}</p>}
+        {goodsItemData.tradingStatus === 1 && <p>{goodsItemData.closedAt}</p>}
         {goodsItemData.tradingStatus >= 2 && <p>입찰종료</p>}
       </div>
     </Link>
