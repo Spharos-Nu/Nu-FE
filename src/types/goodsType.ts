@@ -4,6 +4,7 @@ export interface GoodsAllListType {
   nowPage: number
   maxPage: number
   goodsList: GoodsCardType[]
+  isLast: boolean
 }
 
 export interface GoodsCardType {

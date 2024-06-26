@@ -8,23 +8,42 @@ import Hits from '@/containers/main/Hits'
 import HotInterest from '@/containers/main/HotInterest'
 import LiveBidding from '@/containers/main/LiveBidding'
 import UserHeader from '@/containers/main/UserHeader'
-import { getComingSoon, getHits, getHot, getLive } from '@/utils/mainApiActions'
+import {
+  getComingSoon,
+  getDuckPoint,
+  getHits,
+  getHot,
+  getLive,
+} from '@/utils/mainApiActions'
 
 export default async function AnimationHome() {
   const session = await getServerSession(options)
 
-  const [getLiveData, getHotData, getComingSoonData, getHitsData] =
-    await Promise.all([getLive(1), getHot(1), getComingSoon(1), getHits(1)])
+  const [
+    getLiveData,
+    getHotData,
+    getComingSoonData,
+    getHitsData,
+    getDuckPointData,
+  ] = await Promise.all([
+    getLive(1),
+    getHot(1),
+    getComingSoon(1),
+    getHits(1),
+    getDuckPoint(),
+  ])
 
   const liveData = getLiveData.result
   const hotData = getHotData.result.goodsList
   const comingSoonData = getComingSoonData.result
   const hitsData = getHitsData.result.goodsList
+  const duckPointData =
+    getDuckPointData.status === 200 ? getDuckPointData.result : -1
 
   return (
     <main className="w-full">
       {/* <Intro /> */}
-      {session ? <UserHeader /> : null}
+      {session ? <UserHeader duckPointData={duckPointData} /> : null}
       <AdvertisingBanner />
       <LiveBidding liveData={liveData} />
       <HotInterest hotData={hotData} />
