@@ -65,9 +65,9 @@ export default function GoodsItem({
         className="absolute bottom-2 right-2 z-10"
       >
         {isLiked ? (
-          <LiaHeartSolid className="w-[30px] h-[32px] ml-[13px] text-[#F84545]" />
+          <LiaHeartSolid className="w-[30px] h-[32px] ml-[13px] text-red-500" />
         ) : (
-          <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-[#989898]" />
+          <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-stone-400" />
         )}
       </button>
       <Link href={`/goods/${goodsItemData.goodsCode}`}>
@@ -88,7 +88,7 @@ export default function GoodsItem({
         )}
         {!image && (
           <div className="rounded-t-2xl max-h-[300px] w-full h-[60%] bg-[#F6F6F6] flex items-center justify-center">
-            <p className="text-[#666666] text-[17px] ">
+            <p className="text-stone-500 text-[17px] ">
               이미지를 불러오지 못했어요
             </p>
           </div>
