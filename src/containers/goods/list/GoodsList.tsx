@@ -54,7 +54,7 @@ export default function GoodsList() {
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [isLast, setIsLast] = useState<boolean>(false)
 
-  const fetch = useCallback(
+  const getList = useCallback(
     async (resetPage = false) => {
       if (isFetching || categoryId === null) return
       setIsFetching(true)
@@ -74,7 +74,6 @@ export default function GoodsList() {
         const newItems = goodsListData.result.goodsList
         setIsLast(goodsListData.result.isLast)
         const newMaxPage = goodsListData.result.maxPage
-        console.log(newItems)
 
         // 로딩중을 표시할 div가 보일 시간을 주기 위한 setTimeout
         setTimeout(() => {
@@ -88,6 +87,7 @@ export default function GoodsList() {
           setPage(currentPage + 1)
         }
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error(err)
       } finally {
         setIsLoading(false)
@@ -104,14 +104,16 @@ export default function GoodsList() {
     else if (category === '아이돌') setCategoryId(2)
     else if (category === '야구') setCategoryId(3)
     else setCategoryId(0) // 기본 카테고리 설정
-    if (categoryId) fetch()
+    if (categoryId) getList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, isTrading, filter])
 
   useEffect(() => {
     if (isLast) return
     if (inView && page < maxPage) {
-      fetch()
+      getList()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView])
 
   function handleFiltering(item: FilterType) {
@@ -167,13 +169,9 @@ export default function GoodsList() {
           )}
         </div>
       </div>
-      <div className="mt-[15px] flex flex-wrap gap-[10px] justify-center">
+      <div className="mt-[15px] grid grid-cols-2 gap-2 sm:grid-cols-3 md:w-4grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
         {items.map((item) => (
-          <GoodsItem
-            key={item.goodsCode}
-            code={item.goodsCode}
-            goodsItemData={item}
-          />
+          <GoodsItem key={item.goodsCode} goodsItemData={item} />
         ))}
       </div>
       <div ref={ref} />
