@@ -1,4 +1,11 @@
 // 리스트 조회
+export interface GoodsAllListType {
+  totalCount: number
+  nowPage: number
+  maxPage: number
+  goodsList: GoodsCardType[]
+}
+
 export interface GoodsCardType {
   goodsCode: string
   goodsName: string
@@ -11,6 +18,7 @@ export interface GoodsCardType {
 export interface FilterType {
   id: number
   name: string
+  value: string
 }
 
 export interface WishTradeType {

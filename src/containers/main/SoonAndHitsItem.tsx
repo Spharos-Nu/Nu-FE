@@ -2,11 +2,10 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
-import BasicAlert from '@/components/Modal/BasicAlert'
-import { useBasicAlertStore } from '@/components/Modal/store'
 import { SoonAndHitsType, TagType } from '@/types/mainType'
 import {
   addLike,
@@ -25,18 +24,14 @@ export default function SoonAndHitsItem({
   sort?: string
 }) {
   const { data: session } = useSession()
+  const router = useRouter()
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [image, setImage] = useState<string>('')
   const [tags, setTags] = useState<TagType[]>([])
-  const { message, setAlert } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
 
   const handleLike = async () => {
     if (!session) {
-      showAlert('로그인 후 이용해주세요.')
+      router.push(`/login?callbackUrl=${window.location.href}`)
     } else if (isLiked) {
       const data = await deleteLike(item.goodsCode)
       if (data.status === 200) {
@@ -126,7 +121,6 @@ export default function SoonAndHitsItem({
           </p>
         </div>
       </Link>
-      <BasicAlert message={message} />
     </div>
   )
 }

@@ -2,11 +2,10 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
-import BasicAlert from '@/components/Modal/BasicAlert'
-import { useBasicAlertStore } from '@/components/Modal/store'
 import { LiveAndHotType } from '@/types/mainType'
 import {
   addLike,
@@ -18,17 +17,13 @@ import LiveAndHotTimer from './LiveAndHotTimer'
 
 export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
   const { data: session } = useSession()
+  const router = useRouter()
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [image, setImage] = useState<string>('')
-  const { message, setAlert } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
 
   const handleLike = async () => {
     if (!session) {
-      showAlert('로그인 후 이용해주세요.')
+      router.push(`/login?callbackUrl=${window.location.href}`)
     } else if (isLiked) {
       const data = await deleteLike(item.goodsCode)
       if (data.status === 200) {
@@ -113,7 +108,6 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
           </div>
         </div>
       </Link>
-      <BasicAlert message={message} />
     </div>
   )
 }

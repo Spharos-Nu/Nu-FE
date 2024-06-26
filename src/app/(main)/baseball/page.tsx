@@ -24,7 +24,7 @@ export default async function BaseballHome() {
   return (
     <main className="w-full">
       {/* <Intro /> */}
-      {session && <UserHeader />}
+      {session ? <UserHeader /> : null}
       <AdvertisingBanner />
       <LiveBidding liveData={liveData} />
       <HotInterest hotData={hotData} />
