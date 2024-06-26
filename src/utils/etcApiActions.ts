@@ -30,7 +30,7 @@ export const registerComplainGoods = async (
   return data
 }
 
-export const registerComplainuUsers = async (
+export const registerComplainUsers = async (
   reportedUuid: string,
   complainReason: string,
   complainContent: string,
