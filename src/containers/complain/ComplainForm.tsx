@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-import { Suspense, useEffect } from 'react'
+import { useEffect } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import {
@@ -107,24 +107,22 @@ export default function ComplainForm() {
   }, [isClosed])
 
   return (
-    <Suspense>
-      <div>
-        <form onSubmit={registrationComplain} className="px-[20px]">
-          {pathname === '/user-complain' ? (
-            <CheckList complainList={userComplainList} />
-          ) : (
-            <CheckList complainList={goodsComplainList} />
-          )}
-          <ReasonArea />
-          <button
-            type="submit"
-            className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-sky-600 rounded-full text-white text-[18px]"
-          >
-            신고하기
-          </button>
-        </form>
-        <BasicAlert message={message} />
-      </div>
-    </Suspense>
+    <div>
+      <form onSubmit={registrationComplain} className="px-[20px]">
+        {pathname === '/user-complain' ? (
+          <CheckList complainList={userComplainList} />
+        ) : (
+          <CheckList complainList={goodsComplainList} />
+        )}
+        <ReasonArea />
+        <button
+          type="submit"
+          className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-sky-600 rounded-full text-white text-[18px]"
+        >
+          신고하기
+        </button>
+      </form>
+      <BasicAlert message={message} />
+    </div>
   )
 }
