@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Toast from '@/components/Toast'
 import AuthProvider from '@/components/provider/AuthProvider'
 import '@/styles/globals.css'
 import '@/styles/fonts.css'
@@ -20,7 +21,7 @@ export const viewport: Viewport = {
   themeColor: '#0284c7',
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -28,6 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <body className="font-regular bg-white">
+        <Toast />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
