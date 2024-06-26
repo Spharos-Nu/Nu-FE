@@ -13,9 +13,9 @@ export default function CheckList({
 }: {
   complainList: CheckListType[]
 }) {
-  const { selectedComplaint, setSelectedComplaint } = useComplainStore()
+  const { complainReason, setComplainReason } = useComplainStore()
   const onChangeRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedComplaint(e.target.value)
+    setComplainReason(e.target.value)
   }
 
   return (
@@ -29,12 +29,12 @@ export default function CheckList({
                 name="reason"
                 value={item.description}
                 id={item.description}
-                checked={selectedComplaint === item.description}
+                checked={complainReason === item.description}
                 onChange={onChangeRadio}
                 className="hidden"
               />
               <IoCheckmark
-                className={`absolute inline-block w-[30px] h-[31px] ${selectedComplaint === item.description ? ' text-yellow-400' : ' text-black'}`}
+                className={`absolute inline-block w-[30px] h-[31px] ${complainReason === item.description ? ' text-yellow-400' : ' text-black'}`}
               />
               <p className="pl-[40px] text-[19px] leading-[31px]">
                 {item.description}

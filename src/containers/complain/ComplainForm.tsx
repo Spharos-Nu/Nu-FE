@@ -1,22 +1,25 @@
 'use client'
 
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
+import {
+  registerComplainGoods,
+  registerComplainUsers,
+} from '@/utils/etcApiActions'
 import CheckList from './CheckList'
 import ReasonArea from './ReasonArea'
 import { useComplainStore } from './store'
 
 export default function ComplainForm() {
-  const { selectedComplaint, complainContent, resetComplainState } =
+  const { complainReason, complainContent, resetComplainState } =
     useComplainStore()
-  const { data: session } = useSession()
   const router = useRouter()
   const pathname = usePathname()
   const { isClosed, message, setAlert } = useBasicAlertStore()
   const goodsCode = useSearchParams().get('goodsCode')
+  const seller = useSearchParams().get('seller')
 
   const showAlert = (alertMessage: string) => {
     setAlert(true, alertMessage)
@@ -79,24 +82,16 @@ export default function ComplainForm() {
   async function registrationComplain(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/v1/etc/reports/goods/${goodsCode}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: session?.user.accessToken,
-        },
-        body: JSON.stringify({
-          complainReason: selectedComplaint,
-          complainContent,
-        }),
-      },
-    )
+    const data =
+      pathname === '/user-complain'
+        ? await registerComplainUsers(seller!, complainReason, complainContent)
+        : await registerComplainGoods(
+            goodsCode!,
+            complainReason,
+            complainContent,
+          )
 
-    const data = await res.json()
     if (data.status === 200) {
-      // eslint-disable-next-line no-alert
       resetComplainState()
       showAlert('신고가 완료되었습니다.')
     } else {
