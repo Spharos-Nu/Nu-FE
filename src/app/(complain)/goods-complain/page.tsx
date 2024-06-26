@@ -1,9 +1,13 @@
 import ComplainForm from '@/containers/complain/ComplainForm'
 
-export default function GoodsComplain() {
+export default function GoodsComplain({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined }
+}) {
   return (
     <main>
-      <ComplainForm />
+      <ComplainForm params={searchParams} />
     </main>
   )
 }

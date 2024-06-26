@@ -1,7 +1,7 @@
 'use client'
 
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-import { Suspense, useEffect } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import {
@@ -12,14 +12,17 @@ import CheckList from './CheckList'
 import ReasonArea from './ReasonArea'
 import { useComplainStore } from './store'
 
-export default function ComplainForm() {
+export default function ComplainForm({
+  params,
+}: {
+  params: { [key: string]: string | undefined }
+}) {
   const { complainReason, complainContent, resetComplainState } =
     useComplainStore()
   const router = useRouter()
   const pathname = usePathname()
   const { isClosed, message, setAlert } = useBasicAlertStore()
-  const goodsCode = useSearchParams().get('goodsCode')
-  const seller = useSearchParams().get('seller')
+  const { goodsCode, seller } = params
 
   const showAlert = (alertMessage: string) => {
     setAlert(true, alertMessage)
@@ -107,24 +110,22 @@ export default function ComplainForm() {
   }, [isClosed])
 
   return (
-    <Suspense>
-      <div>
-        <form onSubmit={registrationComplain} className="px-[20px]">
-          {pathname === '/user-complain' ? (
-            <CheckList complainList={userComplainList} />
-          ) : (
-            <CheckList complainList={goodsComplainList} />
-          )}
-          <ReasonArea />
-          <button
-            type="submit"
-            className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-sky-600 rounded-full text-white text-[18px]"
-          >
-            신고하기
-          </button>
-        </form>
-        <BasicAlert message={message} />
-      </div>
-    </Suspense>
+    <div>
+      <form onSubmit={registrationComplain} className="px-[20px]">
+        {pathname === '/user-complain' ? (
+          <CheckList complainList={userComplainList} />
+        ) : (
+          <CheckList complainList={goodsComplainList} />
+        )}
+        <ReasonArea />
+        <button
+          type="submit"
+          className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-sky-600 rounded-full text-white text-[18px]"
+        >
+          신고하기
+        </button>
+      </form>
+      <BasicAlert message={message} />
+    </div>
   )
 }
