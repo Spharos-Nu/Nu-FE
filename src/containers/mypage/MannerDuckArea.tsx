@@ -1,15 +1,14 @@
 import Image from 'next/image'
-import { getServerSession } from 'next-auth'
-import { options } from '@/app/api/auth/[...nextauth]/options'
+import { useSession } from 'next-auth/react'
 import { ApiResponse } from '@/types/apiResponseType'
 import { MannerDuckData } from '@/types/memberApiDataType'
 
-export default async function MannerDuckArea({
+export default function MannerDuckArea({
   mannerDuckData,
 }: {
   mannerDuckData: ApiResponse<MannerDuckData>
 }) {
-  const session = await getServerSession(options)
+  const { data: session } = useSession()
   const mannerDuck = mannerDuckData.result
   const currentDuck = mannerDuck?.level
 
