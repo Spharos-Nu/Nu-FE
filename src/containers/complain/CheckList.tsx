@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import { IoCheckmark } from 'react-icons/io5'
+import { useComplainStore } from './store'
 
 interface CheckListType {
   id: number
@@ -13,9 +13,9 @@ export default function CheckList({
 }: {
   complainList: CheckListType[]
 }) {
-  const [selected, setSelected] = useState<string>(complainList[0].description)
+  const { selectedComplaint, setSelectedComplaint } = useComplainStore()
   const onChangeRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelected(e.target.value)
+    setSelectedComplaint(e.target.value)
   }
 
   return (
@@ -29,12 +29,12 @@ export default function CheckList({
                 name="reason"
                 value={item.description}
                 id={item.description}
-                checked={selected === item.description}
+                checked={selectedComplaint === item.description}
                 onChange={onChangeRadio}
                 className="hidden"
               />
               <IoCheckmark
-                className={`absolute inline-block w-[30px] h-[31px] ${selected === item.description ? ' text-yellow-400' : ' text-black'}`}
+                className={`absolute inline-block w-[30px] h-[31px] ${selectedComplaint === item.description ? ' text-yellow-400' : ' text-black'}`}
               />
               <p className="pl-[40px] text-[19px] leading-[31px]">
                 {item.description}

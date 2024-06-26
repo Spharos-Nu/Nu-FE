@@ -1,15 +1,26 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { useEffect } from 'react'
+import BasicAlert from '@/components/Modal/BasicAlert'
+import { useBasicAlertStore } from '@/components/Modal/store'
 import CheckList from './CheckList'
 import ReasonArea from './ReasonArea'
+import { useComplainStore } from './store'
 
-export default function ComplainForm({
-  complainPost,
-}: {
-  complainPost: (complainData: FormData) => void
-}) {
+export default function ComplainForm() {
+  const { selectedComplaint, complainContent, resetComplainState } =
+    useComplainStore()
+  const { data: session } = useSession()
+  const router = useRouter()
   const pathname = usePathname()
+  const { isClosed, message, setAlert } = useBasicAlertStore()
+  const goodsCode = useSearchParams().get('goodsCode')
+
+  const showAlert = (alertMessage: string) => {
+    setAlert(true, alertMessage)
+  }
 
   const userComplainList = [
     {
@@ -65,20 +76,58 @@ export default function ComplainForm({
     },
   ]
 
+  async function registrationComplain(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API}/v1/etc/reports/goods/${goodsCode}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: session?.user.accessToken,
+        },
+        body: JSON.stringify({
+          complainReason: selectedComplaint,
+          complainContent,
+        }),
+      },
+    )
+
+    const data = await res.json()
+    if (data.status === 200) {
+      // eslint-disable-next-line no-alert
+      resetComplainState()
+      showAlert('신고가 완료되었습니다.')
+    } else {
+      showAlert('신고 등록에 실패했습니다.')
+    }
+  }
+
+  useEffect(() => {
+    if (isClosed) {
+      router.push(`/goods/${goodsCode}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isClosed])
+
   return (
-    <form action={complainPost} className="px-[20px]">
-      {pathname === '/user-complain' ? (
-        <CheckList complainList={userComplainList} />
-      ) : (
-        <CheckList complainList={goodsComplainList} />
-      )}
-      <ReasonArea />
-      <button
-        type="submit"
-        className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-sky-600 rounded-full text-white text-[18px]"
-      >
-        신고하기
-      </button>
-    </form>
+    <div>
+      <form onSubmit={registrationComplain} className="px-[20px]">
+        {pathname === '/user-complain' ? (
+          <CheckList complainList={userComplainList} />
+        ) : (
+          <CheckList complainList={goodsComplainList} />
+        )}
+        <ReasonArea />
+        <button
+          type="submit"
+          className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-sky-600 rounded-full text-white text-[18px]"
+        >
+          신고하기
+        </button>
+      </form>
+      <BasicAlert message={message} />
+    </div>
   )
 }

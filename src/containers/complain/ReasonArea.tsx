@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { useComplainStore } from './store'
 
 export default function ReasonArea() {
   const [inputCount, setInputCount] = useState<number>(0)
+  const { setComplainContent } = useComplainStore()
 
   return (
     <div className="mt-[35px]">
@@ -14,7 +16,10 @@ export default function ReasonArea() {
         className="w-full h-[300px] mt-[10px] px-[15px] py-[13px] rounded-3xl focus:outline-none border
           placeholder:text-[#bcbcbc] placeholder:text-[15px] placeholder:whitespace-pre-line"
         maxLength={500}
-        onChange={(e) => setInputCount(e.target.value.length)}
+        onChange={(e) => {
+          setInputCount(e.target.value.length)
+          setComplainContent(e.target.value)
+        }}
       />
       <div className="flex justify-end mb-[20px] text-[13px] text-[#8f8f8f]">
         <p>{inputCount}</p>
