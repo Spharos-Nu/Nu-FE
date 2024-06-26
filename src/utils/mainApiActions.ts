@@ -191,9 +191,6 @@ export const getProfile = async (): Promise<ApiResponse<ProfileType>> => {
 // 덕 포인트 조회 API
 export const getDuckPoint = async (): Promise<ApiResponse<number>> => {
   const session = await getServerSession(options)
-  if (!session) {
-    return { status: 401, result: -1, message: 'Unauthorized' }
-  }
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/users/duck-point`,

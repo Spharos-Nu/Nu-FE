@@ -37,7 +37,8 @@ export default async function AnimationHome() {
   const hotData = getHotData.result.goodsList
   const comingSoonData = getComingSoonData.result
   const hitsData = getHitsData.result.goodsList
-  const duckPointData = getDuckPointData.result
+  const duckPointData =
+    getDuckPointData.status === 200 ? getDuckPointData.result : -1
 
   return (
     <main className="w-full">
