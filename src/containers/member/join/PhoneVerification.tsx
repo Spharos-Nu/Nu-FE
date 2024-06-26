@@ -43,7 +43,7 @@ export default function PhoneVerification() {
   const [messageMinutes, setMessageMinutes] = useState<number>(0)
   const [messageSeconds, setMessageSeconds] = useState<number>(0)
 
-  const { isOpen, message, setAlert } = useBasicAlertStore()
+  const { isClosed, isOpen, message, setAlert } = useBasicAlertStore()
 
   const phoneInputRef = useRef<HTMLInputElement>(null)
 
@@ -92,7 +92,8 @@ export default function PhoneVerification() {
   const socialMapping = async () => {
     const data = await linkAccount(phoneNumber, id, provider)
     if (data.status === 200) {
-      showAlert(data.message)
+      resetJoinState()
+      router.push('/login')
     }
   }
 
@@ -148,13 +149,12 @@ export default function PhoneVerification() {
   }, [currentFocus])
 
   useEffect(() => {
-    if (!isOpen) {
+    if (isClosed) {
       if (notValidPhone === 4) {
         resetJoinState()
         router.push('/login')
       } else if (isChecked) {
         socialMapping()
-        router.push('/login')
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
