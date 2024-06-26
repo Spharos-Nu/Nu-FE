@@ -52,6 +52,7 @@ export default function GoodsList() {
   })
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isFetching, setIsFetching] = useState<boolean>(false)
+  const [isLast, setIsLast] = useState<boolean>(false)
 
   const fetch = useCallback(
     async (resetPage = false) => {
@@ -71,6 +72,7 @@ export default function GoodsList() {
           'DESC',
         )
         const newItems = goodsListData.result.goodsList
+        setIsLast(goodsListData.result.isLast)
         const newMaxPage = goodsListData.result.maxPage
         console.log(newItems)
 
@@ -102,15 +104,11 @@ export default function GoodsList() {
     else if (category === '아이돌') setCategoryId(2)
     else if (category === '야구') setCategoryId(3)
     else setCategoryId(0) // 기본 카테고리 설정
-  }, [])
-
-  useEffect(() => {
-    if (categoryId !== null) {
-      fetch()
-    }
+    if (categoryId) fetch()
   }, [categoryId, isTrading, filter])
 
   useEffect(() => {
+    if (isLast) return
     if (inView && page < maxPage) {
       fetch()
     }
