@@ -1,19 +1,21 @@
 import { create } from 'zustand'
 
 interface ComplainState {
-  selectedComplaint: string
+  complainReason: string
   complainContent: string
-  setSelectedComplaint: (complaint: string) => void
+
+  setComplainReason: (complaint: string) => void
   setComplainContent: (content: string) => void
 
   resetComplainState: () => void
 }
 
 export const useComplainStore = create<ComplainState>((set) => ({
-  selectedComplaint: '',
+  complainReason: '',
   complainContent: '',
-  setSelectedComplaint: (selectedComplaint) => set({ selectedComplaint }),
+
+  setComplainReason: (complainReason) => set({ complainReason }),
   setComplainContent: (complainContent) => set({ complainContent }),
 
-  resetComplainState: () => set({ selectedComplaint: '', complainContent: '' }),
+  resetComplainState: () => set({ complainReason: '', complainContent: '' }),
 }))
