@@ -363,10 +363,6 @@ define(['./workbox-dae32412'], function (e) {
           revision: '0bd523f6049956faaf43c254a719d06a',
         },
         {
-          url: '/_next/static/media/banner1.db720661.png',
-          revision: '430c09f2dd9ca02e43e816f515d369aa',
-        },
-        {
           url: '/_next/static/media/banner2.3d0a24ea.png',
           revision: '8973b1f7757dc6bb527818175f9c2da4',
         },
