@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { useEffect } from 'react'
 import UpdateFavCategory from '@/containers/mypage/update-profile/UpdateFavCategory'
 import UpdateNickname from '@/containers/mypage/update-profile/UpdateNickname'
 import UpdateProfileImage from '@/containers/mypage/update-profile/UpdateProfileImage'
@@ -23,18 +24,18 @@ export default function UpdateProfileForm() {
     e.preventDefault()
 
     let profileImageUrl = ''
-    if (session?.user.profileImage && profileImage) {
-      await deleteProfileImage(session?.user.profileImage)
+    if (session?.user.image && profileImage) {
+      await deleteProfileImage(session?.user.image)
       profileImageUrl = await uploadProfileImage(profileImage)
-    } else if (session?.user.profileImage) {
-      profileImageUrl = session?.user.profileImage
+    } else if (session?.user.image) {
+      profileImageUrl = session?.user.image
     } else if (profileImage) {
       profileImageUrl = await uploadProfileImage(profileImage)
     }
 
     const data = await updateUserProfile(
       profileImageUrl,
-      nickname,
+      nickname || session?.user.nickname,
       favoriteCategory,
     )
 
@@ -53,6 +54,11 @@ export default function UpdateProfileForm() {
     setNicknameError(0)
     return router.push('/mypage')
   }
+
+  useEffect(() => {
+    setNicknameError(0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div>

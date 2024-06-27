@@ -7,12 +7,13 @@ export default function SearchResult() {
   const { searchResult } = useSearchStore()
   const [page, setPage] = useState<number>(0)
 
-  if (!searchResult)
+  if (!searchResult.goodsList.length) {
     return (
       <div className="text-slate-500 text-center my-2">
         검색결과가 없습니다.
       </div>
     )
+  }
 
   return (
     <>
