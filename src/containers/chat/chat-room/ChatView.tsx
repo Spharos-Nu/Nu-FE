@@ -44,8 +44,8 @@ export default function ChatView({ chatRoomId }: { chatRoomId: string }) {
   const session = useSession()
   const [chatData, setChatData] = useState<ChatDataType[]>([] as ChatDataType[])
 
-  const chatContainerRef = useRef(null)
-  const lastMessageRef = useRef(null)
+  const chatContainerRef = useRef<HTMLDivElement>(null)
+  const lastMessageRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (lastMessageRef.current) {

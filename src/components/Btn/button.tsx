@@ -21,30 +21,18 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: keyof (typeof buttonVariants)['variant']
   size?: keyof (typeof buttonVariants)['size']
-  asChild?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      variant = 'default',
-      size = 'default',
-      className,
-      asChild = false,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ variant = 'default', size = 'default', className, ...props }, ref) => {
     const classes = [
       buttonVariants.variant[variant],
       buttonVariants.size[size],
       className,
     ].join(' ')
 
-    const Comp = asChild ? 'div' : 'button'
-
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Comp className={classes} ref={ref} {...props} />
+    // eslint-disable-next-line react/jsx-props-no-spreading, react/button-has-type
+    return <button className={classes} ref={ref} {...props} />
   },
 )
 
