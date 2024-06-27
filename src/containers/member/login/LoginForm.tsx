@@ -15,13 +15,13 @@ import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 import { saveDeviceToken } from '@/utils/notificationApiActions'
 
 const firebaseApp = initializeApp({
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 })
 
 const messaging = getMessaging(firebaseApp)
@@ -83,24 +83,14 @@ export default function LoginForm() {
     if (res?.status === 200) {
       getToken(messaging, {
         vapidKey: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_VAPID_KEY,
+      }).then(async (currentToken) => {
+        if (currentToken) {
+          console.log(currentToken)
+          await saveDeviceToken(currentToken)
+          console.log('디바이스 토큰 저장 성공')
+          router.push(params)
+        }
       })
-        .then(async (currentToken) => {
-          if (currentToken) {
-            console.log(currentToken)
-            try {
-              await saveDeviceToken(currentToken)
-              console.log('디바이스 토큰 저장 성공')
-              router.push(params)
-            } catch (error) {
-              console.error('디바이스 토큰 저장 에러 :', error)
-            }
-          } else {
-            console.log('토큰이 없음')
-          }
-        })
-        .catch((err) => {
-          console.log('토큰을 가져오는 중 오류가 발생했습니다. ', err)
-        })
     } else {
       showAlert('회원정보가 일치하지 않습니다.')
     }
