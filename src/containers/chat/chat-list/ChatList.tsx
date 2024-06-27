@@ -51,12 +51,12 @@ export default function ChatList() {
     if (token && token !== undefined) {
       fetchChatList()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [action, token])
 
   const transitions = useTransition<ChatRoomItem, ChatRoomItem>(data, {
     from: { opacity: 0, transform: 'translate3d(0,-40px,0)' },
     enter: { opacity: 1, transform: 'translate3d(0,0px,0)' },
-    // leave: { opacity: 0, transform: 'translate3d(0,-40px,0)' },
     // eslint-disable-next-line no-unsafe-optional-chaining
     keys: (item) => item?.chatRoomId + item?.updatedAt, // 고유성을 보장하기 위해 roomId와 updatedAt을 함께 사용
     // config: { tension: animate ? 170 : 0, friction: animate ? 26 : 0 }, // 애니메이션 활성화/비활성화
