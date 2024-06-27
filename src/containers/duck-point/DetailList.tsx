@@ -17,7 +17,7 @@ export default function DetailList() {
         leftPoint: 0,
         changeStatus: false,
         historyDetail: '',
-        createdAt: '',
+        createdAt: '0T0',
       },
     ],
   })
