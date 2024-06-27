@@ -1,17 +1,12 @@
 import Image from 'next/image'
 import { CiCamera } from 'react-icons/ci'
 import { IoIosClose } from 'react-icons/io'
-import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { useImageStore } from './store'
 
 export default function ImageArea() {
   const { imageItems, addImages, removeImages } = useImageStore()
-  const { message, setAlert } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
+  const { showAlert } = useBasicAlertStore()
 
   const handleButtonClick = () => {
     document.getElementById('goodsImage')?.click()
@@ -36,8 +31,6 @@ export default function ImageArea() {
             previewUrl: URL.createObjectURL(selectedFiles),
           })
         }
-
-        console.log(imageItems)
       } else {
         showAlert('이미지는 최대 10개까지 등록할 수 있어요!')
       }
@@ -96,7 +89,6 @@ export default function ImageArea() {
         </li>
         <li>&#183; 이미지는 최대 10개까지 등록할 수 있어요!</li>
       </ul>
-      <BasicAlert message={message} />
     </>
   )
 }

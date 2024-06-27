@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
-import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { useJoinStore } from '@/containers/member/join/store'
 import BasicProfileDuck from '@/public/svgs/duck/basicProfileDuck.svg'
@@ -11,14 +10,10 @@ export default function ProfileImgArea() {
   const imageInputRef = useRef<HTMLInputElement>(null)
   const [previewUrl, setPreviewUrl] = useState<string>('')
   const { setProfileImage } = useJoinStore()
-  const { message, setAlert } = useBasicAlertStore()
+  const { showAlert } = useBasicAlertStore()
 
   const handleButtonClick = () => {
     imageInputRef.current?.click()
-  }
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +77,6 @@ export default function ProfileImgArea() {
           }}
         />
       </div>
-      <BasicAlert message={message} />
     </div>
   )
 }

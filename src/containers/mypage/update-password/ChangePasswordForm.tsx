@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import NewPwdInput from '@/containers/mypage/update-password/NewPwdInput'
 import NewPwdInput2 from '@/containers/mypage/update-password/NewPwdInput2'
@@ -24,11 +23,7 @@ export default function ChangePasswordForm() {
     setNotMatchPassword,
     resetError,
   } = usePasswordErrorStore()
-  const { message, setAlert, isClosed } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
+  const { showAlert, isClosed } = useBasicAlertStore()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -64,7 +59,6 @@ export default function ChangePasswordForm() {
           변경 완료
         </button>
       </form>
-      <BasicAlert message={message} />
     </div>
   )
 }

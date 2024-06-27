@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { useGoodsStore } from '@/containers/goods/registration/store'
 import DurationModal from './DurationModal'
@@ -21,11 +20,7 @@ export default function PeriodArea() {
   const [weekVisible, setWeekVisible] = useState<boolean>(false)
   const [timeVisible, setTimeVisible] = useState<boolean>(false)
   const [durationVisible, setDurationVisible] = useState<boolean>(false)
-  const { message, setAlert } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
+  const { showAlert } = useBasicAlertStore()
 
   const getPickPeriod = useCallback(
     (item: string) => {
@@ -105,7 +100,6 @@ export default function PeriodArea() {
           getPickDuration={getPickDuration}
         />
       )}
-      <BasicAlert message={message} />
     </>
   )
 }

@@ -2,18 +2,13 @@
 
 import { useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
-import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { TagItem, useTagStore } from './store'
 
 export default function TagArea() {
   const [item, setItem] = useState<string>('')
   const { tags, addTags, removeTags } = useTagStore()
-  const { message, setAlert } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
+  const { showAlert } = useBasicAlertStore()
 
   const getTags = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItem(event.target.value)
@@ -81,7 +76,6 @@ export default function TagArea() {
         </p>
         <p>&#183; 태그는 최대 5개까지 입력할 수 있어요!</p>
       </div>
-      <BasicAlert message={message} />
     </>
   )
 }
