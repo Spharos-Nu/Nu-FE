@@ -9,9 +9,9 @@ import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { montserrat } from '@/styles/fonts'
-import { getToken } from '@/utils/firebase'
+// import { getToken } from '@/utils/firebase'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
-import { saveDeviceToken } from '@/utils/notificationApiActions'
+// import { saveDeviceToken } from '@/utils/notificationApiActions'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -68,8 +68,8 @@ export default function LoginForm() {
     })
 
     if (res?.status === 200) {
-      const token = await getToken()
-      await saveDeviceToken(token)
+      // const token = await getToken()
+      // await saveDeviceToken(token)
       router.push(params)
     } else {
       showAlert('회원정보가 일치하지 않습니다.')
