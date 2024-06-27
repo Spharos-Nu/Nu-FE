@@ -1,10 +1,15 @@
 import { create } from 'zustand'
 
 interface BasicAlertState {
-  isOpen: boolean
-  message: string
+  alertMessage: string
+  isVisible: boolean
 
-  setAlert: (isOpen: boolean, message: string) => void
+  isClosed: boolean
+
+  showAlert: (message: string) => void
+  hideAlert: () => void
+
+  setIsClosed: (isClosed: boolean) => void
 }
 
 interface SelectAlertState {
@@ -17,10 +22,15 @@ interface SelectAlertState {
 }
 
 export const useBasicAlertStore = create<BasicAlertState>((set) => ({
-  isOpen: false,
-  message: '',
+  alertMessage: '',
+  isVisible: false,
 
-  setAlert: (isOpen: boolean, message: string) => set({ isOpen, message }),
+  isClosed: false,
+
+  showAlert: (message) => set({ alertMessage: message, isVisible: true }),
+  hideAlert: () => set({ alertMessage: '', isVisible: false, isClosed: true }),
+
+  setIsClosed: (isClosed) => set({ isClosed }),
 }))
 
 export const useSelectAlertStore = create<SelectAlertState>((set) => ({

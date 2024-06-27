@@ -1,11 +1,8 @@
 import Link from 'next/link'
-import Data from '@/dummydata/comingSoon.json'
 import { SoonAndHitsType } from '@/types/mainType'
 import SoonAndHitsItem from './SoonAndHitsItem'
 
-export default function Hits() {
-  const data = Data.goodsList
-
+export default function Hits({ hitsData }: { hitsData: SoonAndHitsType[] }) {
   return (
     <div className="py-[30px] px-[20px]">
       <div className="flex justify-between">
@@ -17,14 +14,23 @@ export default function Hits() {
             가장 많이 조회된 굿즈
           </h1>
         </div>
-        <Link href="/" className="truncate">
-          모두보기
-        </Link>
+        {hitsData.length > 0 && (
+          <Link href="/" className="truncate">
+            모두보기
+          </Link>
+        )}
       </div>
       <div className="pt-[10px] pb-[20px] flex flex-wrap gap-[10px] justify-center">
-        {data.map((item: SoonAndHitsType) => (
-          <SoonAndHitsItem key={item.goodsCode} item={item} />
-        ))}
+        {hitsData.length === 0 && (
+          <div className="my-[60px] text-center text-[#A5A5A5] text-[15px]">
+            <p>등록된 굿즈를 둘러보세요!</p>
+          </div>
+        )}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:w-4grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
+          {hitsData.map((item: SoonAndHitsType) => (
+            <SoonAndHitsItem key={item.goodsCode} item={item} />
+          ))}
+        </div>
       </div>
     </div>
   )

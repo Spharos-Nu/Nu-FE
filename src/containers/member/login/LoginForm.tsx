@@ -1,15 +1,28 @@
 'use client'
 
+import { initializeApp } from 'firebase/app'
+import { getMessaging, getToken } from 'firebase/messaging'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
-import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { montserrat } from '@/styles/fonts'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
+import { saveDeviceToken } from '@/utils/notificationApiActions'
+
+const firebaseApp = initializeApp({
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+})
+const messaging = getMessaging(firebaseApp)
 
 export default function LoginForm() {
   const router = useRouter()
@@ -19,11 +32,7 @@ export default function LoginForm() {
   const [noUserId, setNoUserId] = useState<number>(0)
   const [noPwd, setNoPwd] = useState<number>(0)
   const [isChecked, setIsChecked] = useState<boolean>(false)
-  const { message, setAlert } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
+  const { showAlert } = useBasicAlertStore()
 
   /** Id 입력 있을 때마다 업데이트 */
   const handleIdInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,10 +78,18 @@ export default function LoginForm() {
       redirect: false,
     })
 
-    if (res?.status === 401) {
-      showAlert('회원정보가 일치하지 않습니다.')
-    } else {
+    if (res?.status === 200) {
+      getToken(messaging, {
+        vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+      }).then(async (currentToken) => {
+        if (currentToken) {
+          // console.log(currentToken)
+          await saveDeviceToken(currentToken)
+        }
+      })
       router.push(params)
+    } else {
+      showAlert('회원정보가 일치하지 않습니다.')
     }
   }
 
@@ -183,7 +200,6 @@ export default function LoginForm() {
             Forgot Password
           </Link>
         </span>
-        <BasicAlert message={message} />
       </div>
       <div
         aria-label="로그인 버튼"

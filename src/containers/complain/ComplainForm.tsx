@@ -1,15 +1,27 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
+import { useEffect } from 'react'
+import { useBasicAlertStore } from '@/components/Modal/store'
+import {
+  registerComplainGoods,
+  registerComplainUsers,
+} from '@/utils/etcApiActions'
 import CheckList from './CheckList'
 import ReasonArea from './ReasonArea'
+import { useComplainStore } from './store'
 
 export default function ComplainForm({
-  complainPost,
+  params,
 }: {
-  complainPost: (complainData: FormData) => void
+  params: { [key: string]: string | undefined }
 }) {
+  const { complainReason, complainContent, resetComplainState } =
+    useComplainStore()
+  const router = useRouter()
   const pathname = usePathname()
+  const { isClosed, showAlert } = useBasicAlertStore()
+  const { goodsCode, seller } = params
 
   const userComplainList = [
     {
@@ -65,20 +77,49 @@ export default function ComplainForm({
     },
   ]
 
+  async function registrationComplain(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const data =
+      pathname === '/user-complain'
+        ? await registerComplainUsers(seller!, complainReason, complainContent)
+        : await registerComplainGoods(
+            goodsCode!,
+            complainReason,
+            complainContent,
+          )
+
+    if (data.status === 200) {
+      resetComplainState()
+      showAlert('신고가 완료되었습니다.')
+    } else {
+      showAlert('신고 등록에 실패했습니다.')
+    }
+  }
+
+  useEffect(() => {
+    if (isClosed) {
+      router.push(`/goods/${goodsCode}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isClosed])
+
   return (
-    <form action={complainPost} className="px-[20px]">
-      {pathname === '/user-complain' ? (
-        <CheckList complainList={userComplainList} />
-      ) : (
-        <CheckList complainList={goodsComplainList} />
-      )}
-      <ReasonArea />
-      <button
-        type="submit"
-        className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-sky-600 rounded-full text-white text-[18px]"
-      >
-        신고하기
-      </button>
-    </form>
+    <div>
+      <form onSubmit={registrationComplain} className="px-[20px]">
+        {pathname === '/user-complain' ? (
+          <CheckList complainList={userComplainList} />
+        ) : (
+          <CheckList complainList={goodsComplainList} />
+        )}
+        <ReasonArea />
+        <button
+          type="submit"
+          className="w-full mt-[20px] px-[15px] py-[13px] mb-[40px] bg-sky-600 rounded-full text-white text-[18px]"
+        >
+          신고하기
+        </button>
+      </form>
+    </div>
   )
 }

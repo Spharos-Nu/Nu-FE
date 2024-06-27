@@ -89,7 +89,7 @@ export const options: NextAuthOptions = {
         user.uuid = loginRes.uuid
         user.accessToken = loginRes.accessToken
         user.refreshToken = loginRes.refreshToken
-        user.profileImg = userRes.profileImg
+        user.profileImage = userRes.profileImage
         user.nickname = userRes.nickname
         user.favCategory = userRes.favCategory
         return true
@@ -97,11 +97,16 @@ export const options: NextAuthOptions = {
 
       return true
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === 'update' && session !== null) {
+        token.profileImage = session.image
+        token.nickname = session.nickname
+        token.favCategory = session.favoriteCategory
+      }
       return { ...token, ...user }
     },
     async session({ session, token }) {
-      session.user.image = token.profileImg
+      session.user.image = token.profileImage
       session.user.uuid = token.uuid
       session.user.accessToken = token.accessToken
       session.user.refreshToken = token.refreshToken

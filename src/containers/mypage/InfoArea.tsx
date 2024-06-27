@@ -18,6 +18,7 @@ export default function InfoArea() {
             alt="프로필 이미지"
             width={75}
             height={75}
+            className="rounded-full"
           />
         ) : (
           <NonProfileDuck />

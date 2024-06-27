@@ -1,6 +1,5 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import {
   useErrorStore,
@@ -43,13 +42,9 @@ export default function PhoneVerification() {
   const [messageMinutes, setMessageMinutes] = useState<number>(0)
   const [messageSeconds, setMessageSeconds] = useState<number>(0)
 
-  const { isOpen, message, setAlert } = useBasicAlertStore()
+  const { isClosed, showAlert } = useBasicAlertStore()
 
   const phoneInputRef = useRef<HTMLInputElement>(null)
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
 
   /** 유효성 검사 후 인증번호 발송 */
   const sendMessage = async () => {
@@ -92,7 +87,8 @@ export default function PhoneVerification() {
   const socialMapping = async () => {
     const data = await linkAccount(phoneNumber, id, provider)
     if (data.status === 200) {
-      showAlert(data.message)
+      resetJoinState()
+      router.push('/login')
     }
   }
 
@@ -148,17 +144,16 @@ export default function PhoneVerification() {
   }, [currentFocus])
 
   useEffect(() => {
-    if (!isOpen) {
+    if (isClosed) {
       if (notValidPhone === 4) {
         resetJoinState()
         router.push('/login')
       } else if (isChecked) {
         socialMapping()
-        router.push('/login')
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, notValidPhone, isChecked])
+  }, [isClosed])
 
   return (
     <>
@@ -218,7 +213,6 @@ export default function PhoneVerification() {
             입력해주세요.
           </p>
         )}
-        <BasicAlert message={message} />
       </div>
       {isMessage && (
         <div className="w-full h-14 rounded-3xl my-7">

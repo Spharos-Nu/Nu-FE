@@ -56,9 +56,6 @@ export default async function GoodsDetailPage({
   const biddingCount = getBiddingCountData.result
   const biddingList = getBiddingListData.result
 
-  console.log(goodsDetail)
-  // console.log(images)
-
   const session = await getServerSession(options)
   const uuid = session?.user.uuid
 

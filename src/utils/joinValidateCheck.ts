@@ -39,7 +39,9 @@ export const idValidCheck = (id: string) => {
 }
 
 export const pwdValidCheck = (pwd: string) => {
-  const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,20}$/
+  const regex =
+    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{8,20}$/
+
   if (!regex.test(pwd)) {
     return false
   }

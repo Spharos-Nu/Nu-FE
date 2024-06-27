@@ -3,11 +3,11 @@
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
-import { useUpdateProfileStore } from './store'
+import { useProfileStore } from '@/containers/mypage/update-profile/store'
 
 export default function UpdateFavCategory() {
-  const { data: session, status } = useSession()
-  const { favoriteCategory, setFavoriteCategory } = useUpdateProfileStore()
+  const { data: session } = useSession()
+  const { favoriteCategory, setFavoriteCategory } = useProfileStore()
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
 
   const handleButtonClick = () => {
@@ -20,14 +20,12 @@ export default function UpdateFavCategory() {
   }
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      setFavoriteCategory(session?.user.favoriteCategory)
-    }
+    setFavoriteCategory(session?.user.favoriteCategory)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div className="w-full my-5">
+    <div className="w-full my-7">
       <div className="mx-10 h-14 border-[3px] border-slate-400 rounded-3xl">
         <button
           type="button"
@@ -36,7 +34,7 @@ export default function UpdateFavCategory() {
         >
           <span className="ml-3 flex content-center cursor-pointer text-slate-400">
             {!favoriteCategory
-              ? '관심 카테고리를 선택해주세요.'
+              ? session?.user.favoriteCategory
               : favoriteCategory}
           </span>
           <MdArrowDropDown className="h-5 w-5 mr-3 text-slate-400" />

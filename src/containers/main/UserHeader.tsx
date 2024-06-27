@@ -1,12 +1,18 @@
 import UserDuckPoint from './UserDuckPoint'
 import UserProfile from './UserProfile'
 
-export default function UserHeader() {
+export default function UserHeader({
+  duckPointData,
+}: {
+  duckPointData: number
+}) {
   return (
-    <div className="flex justify-between pt-[30px] pb-[20px] px-[20px]">
+    <div className="flex justify-between pt-[30px] px-[20px]">
       <UserProfile />
       <div className="content-center">
-        <UserDuckPoint />
+        {duckPointData !== -1 && (
+          <UserDuckPoint duckPointData={duckPointData} />
+        )}
       </div>
     </div>
   )

@@ -13,7 +13,7 @@ export default function EtcArea({
   return (
     <div className="mx-[20px] pb-[100px]">
       <Link
-        href={`/seller?goodsCode=${goodsCode}&sellerId=${goodsDetail.sellerUuid}`}
+        href={`/seller?goodsCode=${goodsCode}&seller=${goodsDetail.sellerUuid}`}
         className="flex justify-between relative mt-[50px]"
       >
         <div className="flex">

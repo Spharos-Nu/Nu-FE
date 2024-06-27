@@ -96,7 +96,7 @@ export const updatePassword = async (
   const session = await getServerSession(options)
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/auth/pwd`, {
-    method: 'PUT',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: session?.user.accessToken,

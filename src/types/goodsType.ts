@@ -1,4 +1,12 @@
 // 리스트 조회
+export interface GoodsAllListType {
+  totalCount: number
+  nowPage: number
+  maxPage: number
+  goodsList: GoodsCardType[]
+  isLast: boolean
+}
+
 export interface GoodsCardType {
   goodsCode: string
   goodsName: string
@@ -11,6 +19,7 @@ export interface GoodsCardType {
 export interface FilterType {
   id: number
   name: string
+  value: string
 }
 
 export interface WishTradeType {
@@ -58,4 +67,30 @@ export interface BiddingUserType {
   profileImg: string
   nickname: string
   favCategory: string
+}
+
+// 판매자 정보 조회
+export interface SellerProfileType {
+  userUuid: string
+  nickname: string
+  profileImage: string
+  favCategory: string
+}
+
+export interface SellerReviewListType {
+  totalCount: number
+  nowPage: number
+  maxPage: number
+  reviewList: SellerReviewType[]
+}
+
+export interface SellerReviewType {
+  reviewId: number
+  goodsCode: string
+  content: string
+}
+
+export interface SellerMannerType {
+  level: number
+  leftPoint: number
 }

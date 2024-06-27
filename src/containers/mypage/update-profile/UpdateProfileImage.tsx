@@ -2,19 +2,20 @@
 
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
-import { useUpdateProfileStore } from '@/containers/mypage/store'
+import { useProfileStore } from '@/containers/mypage/update-profile/store'
 import BasicProfileDuck from '@/public/svgs/duck/basicProfileDuck.svg'
 import ProfileImgBtn from '@/public/svgs/icon/profileImgBtn.svg'
 
 export default function UpdateProfileImage() {
   const [previewUrl, setPreviewUrl] = useState<string>('')
   const { data: session } = useSession()
-  const { setProfileImage } = useUpdateProfileStore()
+  const { setProfileImage } = useProfileStore()
+  const imageInputRef = useRef<HTMLInputElement>(null)
 
   const handleButtonClick = () => {
-    document.getElementById('프로필 이미지')?.click()
+    imageInputRef.current?.click()
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +42,7 @@ export default function UpdateProfileImage() {
   }
 
   useEffect(() => {
-    setPreviewUrl(session?.user.profileImage)
+    setPreviewUrl(session?.user.image)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -69,6 +70,7 @@ export default function UpdateProfileImage() {
           type="file"
           accept=".jpg, .jpeg, .png"
           id="프로필 이미지"
+          ref={imageInputRef}
           onChange={handleFileChange}
           className="overflow-hidden absolute w-px h-px text-[0px]"
         />
