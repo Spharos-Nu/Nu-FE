@@ -99,7 +99,7 @@ export const getDuckPointDetail = async (page: number) => {
   const session = await getServerSession(options)
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/users/manner-duck/detail?page=${page}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/users/duck-point/detail?page=${page}`,
     {
       headers: { Authorization: session?.user.accessToken },
     },

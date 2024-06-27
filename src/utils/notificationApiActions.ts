@@ -52,3 +52,27 @@ export const deleteNotification = async (
   const data: ApiResponse<null> = await res.json()
   return data
 }
+
+export const saveDeviceToken = async (
+  token: string,
+): Promise<ApiResponse<null>> => {
+  const session = await getServerSession(options)
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/notification/token`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      body: JSON.stringify({
+        uuid: session?.user.uuid,
+        token,
+      }),
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
