@@ -84,7 +84,7 @@ export default function SoonAndHitsItem({
             />
           )}
           {!item.thumbnail && (
-            <div className="bg-[#F9B23C]">
+            <div className="bg-[#F9B23C] rounded-t-2xl">
               <Image
                 src={BasicImage}
                 alt={item.goodsCode}
