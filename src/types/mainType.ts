@@ -5,15 +5,7 @@ export interface BannerType {
 
 export interface LiveAndHotType {
   goodsCode: string
-  goodsName: string
-  minPrice: number
-  openedAt: string
-  closedAt: string
-  tradingStatus: number
-}
-
-export interface LiveType {
-  goodsCode: string
+  thumbnail: ThumbnailType
   goodsName: string
   minPrice: number
   openedAt: string
@@ -23,7 +15,7 @@ export interface LiveType {
 
 export interface SoonAndHitsType {
   goodsCode: string
-  thumbnail: string
+  thumbnail: ThumbnailType
   goodsName: string
   minPrice: number
   closedAt: string
@@ -60,4 +52,9 @@ export interface ProfileType {
   profileImg: string
   nickname: string
   favCategory: string
+}
+
+export interface ThumbnailType {
+  id: number
+  url: string
 }
