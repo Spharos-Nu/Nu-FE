@@ -25,10 +25,7 @@ export default function BasicAlert() {
         <button
           type="button"
           className="inline-flex justify-center w-full px-3 py-2 bg-sky-600 text-sm text-white rounded-b-2xl z-20"
-          onClick={() => {
-            hideAlert()
-            setIsClosed(true)
-          }}
+          onClick={hideAlert}
         >
           확인
         </button>

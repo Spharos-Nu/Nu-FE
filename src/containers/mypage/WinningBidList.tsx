@@ -28,6 +28,14 @@ export default function WinningBidList() {
     fetchData()
   }, [page, currentStatus])
 
+  if (!data.goodsList.length) {
+    return (
+      <div className="text-slate-500 text-center my-2">
+        낙찰받은 상품 내역이 없습니다.
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="grid grid-cols-4 gap-4 md:grid-cols-2">

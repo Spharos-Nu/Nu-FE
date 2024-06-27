@@ -5,11 +5,11 @@ import { BiddingPreviewType } from '@/types/goodsType'
 import ConfirmModal from './ConfirmModal'
 
 export default function ConfirmationBtn({
-  biddingConfirm,
   biddingList,
+  goodsCode,
 }: {
-  biddingConfirm: (biddingData: FormData) => void
   biddingList: BiddingPreviewType[]
+  goodsCode: string
 }) {
   const [visible, setVisible] = useState<boolean>(false)
 
@@ -23,11 +23,7 @@ export default function ConfirmationBtn({
         {biddingList.length === 0 ? '결과보기' : '낙찰하기'}
       </button>
       {visible && (
-        <ConfirmModal
-          setVisible={setVisible}
-          biddingConfirm={biddingConfirm}
-          biddingList={biddingList}
-        />
+        <ConfirmModal setVisible={setVisible} goodsCode={goodsCode} />
       )}
     </>
   )

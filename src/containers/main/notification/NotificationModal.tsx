@@ -41,19 +41,21 @@ export default function NotificationModal() {
         알림
       </h1>
       <div className="my-[20px] mx-[20px]">
-        {notiList.length > 0 ? (
-          notiList.map((item) => (
-            <NotificationContent key={item.id} item={item} />
-          ))
-        ) : (
+        {!notiList.length ? (
           <div className="text-center">알림이 없습니다.</div>
+        ) : (
+          <>
+            {notiList.map((item) => (
+              <NotificationContent key={item.id} item={item} />
+            ))}
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              maxPage={data.maxPage}
+            />
+          </>
         )}
       </div>
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        maxPage={data.maxPage}
-      />
     </div>
   )
 }

@@ -16,12 +16,18 @@ export default function UpdateNickname() {
   const { nicknameError, setNicknameError } = useErrorStore()
 
   const handleInputElement = () => {
-    setInputState(!inputState)
+    setInputState(true)
+    setNickname('')
     setIsValidNick(false)
   }
 
   // eslint-disable-next-line consistent-return
   const handleNick = async () => {
+    if (!nickname) {
+      setNickname(session?.user.nickname)
+      return setInputState(false)
+    }
+
     const regex = /^[a-zA-Z가-힣0-9]{2,15}$/
     if (!regex.test(nickname)) {
       return setNicknameError(1)
@@ -87,7 +93,7 @@ export default function UpdateNickname() {
               className="flex text-lg text-white bg-slate-400 rounded-3xl w-20 h-10 justify-center items-center absolute right-3"
               onClick={handleNick}
             >
-              중복확인
+              {nickname ? '중복확인' : '취소'}
             </button>
           </>
         ) : (

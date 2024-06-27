@@ -1,8 +1,12 @@
+'use server'
+
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import { ApiResponse } from '@/types/apiResponseType'
 import {
+  BiddingMaxType,
   BiddingPreviewType,
+  BiddingUserType,
   GoodsDetailType,
   ImageUrlType,
   SellerMannerType,
@@ -77,18 +81,85 @@ export const getBiddingPreview = async (
   return data
 }
 
-// // 입찰 유저 조회 API
-// export const getBiddingUser = async (bidderUuid: string) => {
-//   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_API}/v1/users-n/${bidderUuid}`,
-//     {
-//       cache: 'no-cache',
-//     },
-//   )
+// 입찰 유저 조회 API
+export const getBiddingUser = async (
+  bidderUuid: string,
+): Promise<ApiResponse<BiddingUserType>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/users-n/${bidderUuid}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
 
-//   const data = await res.json()
-//   return data
-// }
+  const data = await res.json()
+  return data
+}
+
+// 최고 입찰가 조회 API
+export const getMaxBidding = async (
+  goodsCode: string,
+): Promise<ApiResponse<BiddingMaxType>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}/bids/max`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
+
+// 낙찰 API
+export const postBiddingConfirm = async (
+  goodsCode: string,
+): Promise<ApiResponse<null>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}/bids/confirm`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
+
+// 낙찰 취소 API
+export const postBiddingCancel = async (
+  goodsCode: string,
+): Promise<ApiResponse<null>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}/bids/cancel`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
 
 // 좋아요 수 조회 API
 export const getLikeCount = async (goodsCode: string) => {
@@ -143,49 +214,104 @@ export const postIncreaseViews = async (goodsCode: string) => {
   return data
 }
 
-// // 삭제 API
-// export const hardDeleteGoods = async (goodsCode: string) => {
-//   const session = await getServerSession(options)
-//   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}`,
-//     {
-//       method: 'DELETE',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: session?.user.accessToken,
-//       },
-//       cache: 'no-cache',
-//     },
-//   )
+// 삭제 HARD API
+export const hardDeleteGoods = async (
+  goodsCode: string,
+): Promise<ApiResponse<null>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
 
-//   const data = await res.json()
-//   return data
-// }
+  const data = await res.json()
+  return data
+}
 
-// // 입찰 API
-// export const postBidding = async (
-//   goodsCode: string,
-//   price: number,
-// ): Promise<ApiResponse<string>> => {
-//   const session = await getServerSession(options)
-//   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}/bids`,
-//     {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: session?.user.accessToken,
-//       },
-//       body: JSON.stringify({
-//         price,
-//       }),
-//       cache: 'no-cache',
-//     },
-//   )
+// 삭제 SOFT API
+export const softDeleteGoods = async (
+  goodsCode: string,
+): Promise<ApiResponse<null>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}/disable`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      cache: 'no-cache',
+    },
+  )
 
-//   const data = await res.json()
-//   return data
-// }
+  const data = await res.json()
+  return data
+}
+
+// 입찰 API
+export const postBidding = async (
+  goodsCode: string,
+  price: number,
+): Promise<ApiResponse<string>> => {
+  const session = await getServerSession(options)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/goods/${goodsCode}/bids`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: session?.user.accessToken,
+      },
+      body: JSON.stringify({
+        price,
+      }),
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+
+  if (data.status === 200) {
+    const postCount = await fetch(
+      `${process.env.NEXT_PUBLIC_API}/v1/aggregation-n/bid/${goodsCode}`,
+      {
+        method: 'POST',
+        cache: 'no-cache',
+      },
+    )
+
+    const dataCount = await postCount.json()
+
+    if (dataCount.status === 200) {
+      return dataCount
+    }
+  }
+  return data
+}
+
+// 입찰 수 올리는 API
+export const postIncreaseBiddingCount = async (
+  goodsCode: string,
+): Promise<ApiResponse<null>> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/aggregation-n/bid/${goodsCode}`,
+    {
+      method: 'POST',
+      cache: 'no-cache',
+    },
+  )
+
+  const data = await res.json()
+  return data
+}
 
 // 판매자 정보 조회 API
 export const getSellerProfile = async (
@@ -207,7 +333,7 @@ export const getSellerReview = async (
   seller: string,
 ): Promise<ApiResponse<SellerReviewListType>> => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/etc-n/reviews/${seller}?page=0&size=5&sort=""`,
+    `${process.env.NEXT_PUBLIC_API}/v1/etc-n/reviews/${seller}?page=0&size=5&sort=`,
     {
       cache: 'no-cache',
     },
