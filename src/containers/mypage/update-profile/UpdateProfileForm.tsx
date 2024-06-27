@@ -23,8 +23,6 @@ export default function UpdateProfileForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    console.log(session?.user)
-
     let profileImageUrl = ''
     if (session?.user.image && profileImage) {
       await deleteProfileImage(session?.user.image)
@@ -41,8 +39,6 @@ export default function UpdateProfileForm() {
       favoriteCategory,
     )
 
-    console.log(data)
-
     if (data.status !== 200) {
       return null
     }
@@ -53,8 +49,6 @@ export default function UpdateProfileForm() {
       nickname: data.result.nickname,
       favoriteCategory: data.result.favCategory,
     })
-
-    console.log(session?.user)
 
     resetProfile()
     setNicknameError(0)
