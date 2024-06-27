@@ -22,8 +22,11 @@ export default function Pagination({
   }
 
   return (
-    <div className="bottom-0 flex justify-center content-center items-center">
-      <IoChevronBackOutline onClick={handlePreviousPage} className="text-3xl" />
+    <div className="flex justify-center content-center items-center my-20">
+      <IoChevronBackOutline
+        onClick={handlePreviousPage}
+        className="mx-5 text-3xl"
+      />
       {currentPage > 0 && (
         <div className="w-12 h-12 flex justify-center items-center">
           <button
@@ -60,7 +63,7 @@ export default function Pagination({
           </button>
         </div>
       )}
-      {maxPage > 0 && (
+      {maxPage > 1 && (
         <div className="w-12 h-12 flex justify-center items-center">
           <button
             type="button"
@@ -71,7 +74,10 @@ export default function Pagination({
           </button>
         </div>
       )}
-      <IoChevronForwardOutline onClick={handleNextPage} className="text-3xl" />
+      <IoChevronForwardOutline
+        onClick={handleNextPage}
+        className="mx-5 text-3xl"
+      />
     </div>
   )
 }
