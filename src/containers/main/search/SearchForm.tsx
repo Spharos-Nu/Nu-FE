@@ -13,12 +13,8 @@ export default function SearchForm() {
   )
 
   const { keyword, setKeyword, page, setSearchResult } = useSearchStore()
-  // Todo: 키워드 데이터타입
-  const [relatedKeyword, setRelatedKeyword] = useState<KeywordType[]>([])
 
-  const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value)
-  }
+  const [relatedKeyword, setRelatedKeyword] = useState<KeywordType[]>([])
 
   const handleKeywordInput = async (text: string) => {
     const newKeyword = {
@@ -26,7 +22,14 @@ export default function SearchForm() {
       text,
     }
 
-    setKeywords([newKeyword, ...keywords])
+    const isDuplicate = keywords.some(
+      (element) => element.text === newKeyword.text,
+    )
+
+    if (!text || !isDuplicate) {
+      setKeywords([newKeyword, ...keywords])
+    }
+
     setKeyword('')
 
     const data = await getSearchResult(text, page)
@@ -38,8 +41,6 @@ export default function SearchForm() {
   }, [keywords])
 
   useEffect(() => {
-    setKeyword('')
-
     const getList = async () => {
       if (keyword) {
         const data = await getRelatedKeywordList(keyword)
@@ -59,7 +60,7 @@ export default function SearchForm() {
           className="w-full h-full pl-[20px] pr-[40px] text-[15px] rounded-full flex-10"
           placeholder="카테고리, 키워드를 통해 굿즈를 찾아보세요."
           value={keyword}
-          onChange={handleKeyword}
+          onChange={(e) => setKeyword(e.target.value)}
         />
         {keyword && (
           <IoMdCloseCircle

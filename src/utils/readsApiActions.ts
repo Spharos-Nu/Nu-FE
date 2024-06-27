@@ -6,10 +6,11 @@ export const getSearchResult = async (
   page: number,
 ): Promise<ApiResponse<SearchListType>> => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/read-n?keyword=${keyword}?size=20?page=${page}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/read-n/search?keyword=${keyword}&isTradingOnly=false&page=${page}&size=20`,
   )
 
   const data: ApiResponse<SearchListType> = await res.json()
+  console.log(data)
   return data
 }
 

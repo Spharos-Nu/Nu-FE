@@ -1,13 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Remove from '@/public/svgs/icon/remove.svg'
+import { IoCloseOutline } from 'react-icons/io5'
 import { LocalStorageKeywordType } from '@/types/headerType'
+import { getSearchResult } from '@/utils/readsApiActions'
+import { useSearchStore } from './store'
 
 export default function RecentSearch() {
   const [keywords, setKeywords] = useState<LocalStorageKeywordType[]>(
     JSON.parse(localStorage.getItem('keywords') || '[]'),
   )
+
+  const { setSearchResult } = useSearchStore()
 
   // 검색어 삭제
   const handleRemoveKeyword = (id: number) => {
@@ -15,6 +19,11 @@ export default function RecentSearch() {
       return thisKeyword.id !== id
     })
     setKeywords(nextKeyword)
+  }
+
+  const handleSearch = async (text: string) => {
+    const data = await getSearchResult(text, 0)
+    setSearchResult(data.result)
   }
 
   // 검색어 전체 삭제
@@ -30,30 +39,33 @@ export default function RecentSearch() {
     <>
       <div className="px-[20px] flex justify-between">
         <h2 className="text-[17px]">최근 검색어</h2>
-        <div
+        <button
+          type="button"
           className="text-[15px]"
-          role="none"
           onClick={() => handleClearKeywords()}
         >
           전체삭제
-        </div>
+        </button>
       </div>
       <div className="flex w-full overflow-x-auto whitespace-nowrap">
         {keywords.map((item: LocalStorageKeywordType) => (
           <div
             key={item.id}
-            role="none"
-            className="text-[13px] border border-gray-300 rounded-[20px] px-[8px] ml-[12px] mt-[5px] inline-block cursor-pointer"
+            className="text-[13px] border border-gray-300 rounded-2xl pl-5 pr-2 ml-[12px] mt-[5px] inline-block cursor-pointer"
           >
-            <div className="flex">
-              <div>{item.text}</div>
-              <div
-                className="place-self-center pl-[8px]"
-                role="none"
-                onClick={() => handleRemoveKeyword(item.id)}
+            <div className="flex justify-center items-center relative">
+              <button
+                type="button"
+                onClick={() => handleSearch(item.text)}
+                className="w-full h-full mr-8"
               >
-                <Remove />
-              </div>
+                {item.text}
+              </button>
+              <IoCloseOutline
+                aria-label="최근검색어 삭제"
+                className="text-xl absolute right-1"
+                onClick={() => handleRemoveKeyword(item.id)}
+              />
             </div>
           </div>
         ))}
