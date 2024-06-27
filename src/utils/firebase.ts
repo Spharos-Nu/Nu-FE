@@ -1,7 +1,6 @@
-import { initializeApp } from 'firebase/app'
-import { getMessaging } from 'firebase/messaging'
+import firebase from 'firebase/app'
 
-export const config = {
+const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -11,13 +10,12 @@ export const config = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 }
 
-const app = initializeApp(config)
-export const messaging = getMessaging(app)
+export async function getToken() {
+  firebase.initializeApp(firebaseConfig)
+  const messaging = firebase.messaging()
+  const token = await messaging.getToken({
+    vapidKey: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_VAPID_KEY,
+  })
 
-// 토큰값 얻기
-
-// // 포그라운드 메시지 수신
-// onMessage(messaging, (payload) => {
-//   console.log('Message received. ', payload)
-//   // ...
-// })
+  return token
+}
