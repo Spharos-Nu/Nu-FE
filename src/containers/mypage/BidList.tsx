@@ -28,6 +28,14 @@ export default function BidList() {
     fetchData()
   }, [page, currentStatus])
 
+  if (!data.goodsList.length) {
+    return (
+      <div className="text-slate-500 text-center my-2">
+        입찰내역이 없습니다.
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="grid grid-cols-4 gap-4 md:grid-cols-2 justify-center items-center">
