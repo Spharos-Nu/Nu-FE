@@ -7,10 +7,10 @@ export default function Hits({ hitsData }: { hitsData: SoonAndHitsType[] }) {
     <div className="py-[30px] px-[20px]">
       <div className="flex justify-between">
         <div className="flex">
-          <p className="px-[10px] border-2 text-[#FF9C40] font-bold border-[#FF9C40] rounded-full leading-[17px] items-center content-center truncate">
+          <p className="px-[10px] border-2 text-orange-400 font-bold border-orange-400 rounded-full leading-[17px] items-center content-center truncate">
             HITS
           </p>
-          <h1 className="px-[10px] text-[#2B74B9] text-[17px] font-bold truncate">
+          <h1 className="px-[10px] text-sky-600 text-[17px] font-bold truncate">
             가장 많이 조회된 굿즈
           </h1>
         </div>

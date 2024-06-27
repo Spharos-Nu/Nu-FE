@@ -52,13 +52,14 @@ export default function Category({
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
       <div className="overflow-scroll">
-        <div
+        <button
           onClick={() => setVisible(false)}
-          role="none"
+          type="button"
           className="mt-[20px] pl-[20px]"
         >
+          <span className="hidden">뒤로가기</span>
           <BackBtn />
-        </div>
+        </button>
         <h1 className="whitespace-pre-line mt-[70px] ml-[30px] text-[30px] tracking-[-0.1rem] font-semibold leading-[40px]">
           {text}
         </h1>
