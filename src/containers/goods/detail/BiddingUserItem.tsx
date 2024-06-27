@@ -46,7 +46,7 @@ export default function BiddingUserItem({
         />
       )}
       <div className="pl-[15px] content-center">
-        <p className="text-[14px] text-[#717171]">{bidder?.nickname}</p>
+        <p className="text-[14px] text-zinc-500">{bidder?.nickname}</p>
         <p>
           입찰가 <span className="text-[14px]">{item.price}원</span>
         </p>
