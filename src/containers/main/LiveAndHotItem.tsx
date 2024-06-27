@@ -68,7 +68,7 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
           />
         )}
         {!item.thumbnail && (
-          <div className="h-[200px] bg-yellow-500 items-center pb-[17px]">
+          <div className="h-[200px] bg-[#F9B23C] items-center pb-[17px]">
             <Image
               src={BasicImage}
               alt={item.goodsName}
