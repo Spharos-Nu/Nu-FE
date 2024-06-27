@@ -6,11 +6,11 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
+import BasicImage from '@/public/images/basicImage.png'
 import { SoonAndHitsType, TagType } from '@/types/mainType'
 import {
   addLike,
   deleteLike,
-  getGoodsImages,
   getLikeWhether,
   getTags,
 } from '@/utils/mainApiActions'
@@ -26,7 +26,6 @@ export default function SoonAndHitsItem({
   const { data: session } = useSession()
   const router = useRouter()
   const [isLiked, setIsLiked] = useState<boolean>(false)
-  const [image, setImage] = useState<string>('')
   const [tags, setTags] = useState<TagType[]>([])
 
   const handleLike = async () => {
@@ -51,11 +50,7 @@ export default function SoonAndHitsItem({
         const LikeData = await getLikeWhether(item.goodsCode)
         setIsLiked(LikeData.result)
       }
-      const [ImageData, TagData] = await Promise.all([
-        getGoodsImages(item.goodsCode),
-        getTags(item.goodsCode),
-      ])
-      setImage(ImageData.result)
+      const TagData = await getTags(item.goodsCode)
       const tagList = [...tags, ...TagData.result] as TagType[]
       setTags(tagList)
     }
@@ -78,9 +73,9 @@ export default function SoonAndHitsItem({
           )}
         </button>
         <Link href={`/goods/${item.goodsCode}`} className="relative">
-          {image && (
+          {item.thumbnail && (
             <Image
-              src={image}
+              src={item.thumbnail.url}
               alt={item.goodsCode}
               width={0}
               height={0}
@@ -88,11 +83,16 @@ export default function SoonAndHitsItem({
               className="rounded-t-2xl max-h-[200px] w-full h-auto object-cover aspect-square"
             />
           )}
-          {!image && (
-            <div className="h-[200px] bg-[#F6F6F6] flex items-center justify-center">
-              <p className="text-[#666666] text-[17px]">
-                이미지를 불러오지 못했어요
-              </p>
+          {!item.thumbnail && (
+            <div className="bg-[#F9B23C] rounded-t-2xl">
+              <Image
+                src={BasicImage}
+                alt={item.goodsCode}
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="rounded-t-2xl max-h-[200px] w-full h-auto object-scale-down aspect-square"
+              />
             </div>
           )}
           {sort === 'soon' && (

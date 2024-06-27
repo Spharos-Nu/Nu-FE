@@ -6,20 +6,15 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
+import BasicImage from '@/public/images/basicImage.png'
 import { LiveAndHotType } from '@/types/mainType'
-import {
-  addLike,
-  deleteLike,
-  getGoodsImages,
-  getLikeWhether,
-} from '@/utils/mainApiActions'
+import { addLike, deleteLike, getLikeWhether } from '@/utils/mainApiActions'
 import LiveAndHotTimer from './LiveAndHotTimer'
 
 export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
   const { data: session } = useSession()
   const router = useRouter()
   const [isLiked, setIsLiked] = useState<boolean>(false)
-  const [image, setImage] = useState<string>('')
 
   const handleLike = async () => {
     if (!session) {
@@ -43,9 +38,6 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
         const LikeData = await getLikeWhether(item.goodsCode)
         setIsLiked(LikeData.result)
       }
-      const ImageData = await getGoodsImages(item.goodsCode)
-
-      setImage(ImageData.result)
     }
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,9 +57,9 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
         )}
       </button>
       <Link href={`/goods/${item.goodsCode}`} className=" bg-clip-content">
-        {image && (
+        {item.thumbnail && (
           <Image
-            src={image}
+            src={item.thumbnail.url}
             alt={item.goodsName}
             width={0}
             height={0}
@@ -75,11 +67,16 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
             className="rounded-t-lg h-auto w-full max-h-[200px] object-cover object-center aspect-square"
           />
         )}
-        {!image && (
-          <div className="h-[200px] bg-[#F6F6F6] flex items-center justify-center">
-            <p className="text-[#666666] text-[17px]">
-              이미지를 불러오지 못했어요
-            </p>
+        {!item.thumbnail && (
+          <div className="h-[200px] bg-[#F9B23C] rounded-t-lg items-center pb-[17px]">
+            <Image
+              src={BasicImage}
+              alt={item.goodsName}
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="rounded-t-lg h-auto w-full max-h-[200px] object-scale-down object-center aspect-square"
+            />
           </div>
         )}
         <div className="py-[20px] px-[20px]">

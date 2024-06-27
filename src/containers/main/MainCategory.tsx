@@ -59,7 +59,7 @@ export default function MainCategory() {
   }, [])
 
   return (
-    <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
+    <div className="w-screen h-screen z-30 top-0 left-0 overflow-scroll bg-white">
       <h1 className="whitespace-pre-line mt-[70px] ml-[30px] text-[30px] tracking-[-0.1rem] font-semibold leading-[40px]">
         {text}
       </h1>
