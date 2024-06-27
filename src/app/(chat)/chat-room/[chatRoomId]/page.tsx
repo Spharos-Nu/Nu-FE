@@ -11,7 +11,6 @@ export default async function ChatRoomDetailPage({
   params: { chatRoomId: string }
 }) {
   const session = await getServerSession(options)
-  console.log('token ', session?.user.accessToken)
 
   async function newChat(formData: FormData) {
     'use server'
@@ -42,7 +41,6 @@ export default async function ChatRoomDetailPage({
       // console.log("여기까진 나오고",response.json())
       throw new Error(data.message || '메시지 포스트 API 실패')
     }
-    console.log('메시지 포스트 API 성공')
     revalidatePath(`/chat/${params.chatRoomId}`)
   }
 
