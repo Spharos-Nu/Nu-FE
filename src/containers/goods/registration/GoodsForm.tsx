@@ -1,8 +1,8 @@
 'use client'
 
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import BasicAlert from '@/components/Modal/BasicAlert'
+import { useEffect } from 'react'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { uploadGoodsImage } from '@/utils/uploadImage'
 import CategoryArea from './CategoryArea'
@@ -19,6 +19,7 @@ export interface ImageType {
 }
 
 export default function GoodsForm() {
+  const router = useRouter()
   const { data: session } = useSession()
 
   const {
@@ -36,11 +37,7 @@ export default function GoodsForm() {
   } = useGoodsStore()
   const { imageItems, resetImagesState } = useImageStore()
   const { tags, resetTagsState } = useTagStore()
-  const { message, setAlert } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
+  const { showAlert, isClosed } = useBasicAlertStore()
 
   const validCheck = () => {
     if (imageItems.length === 0) {
@@ -86,7 +83,6 @@ export default function GoodsForm() {
     //   }),
     // )
     // console.log(images)
-    console.log(images)
 
     const openedAt = `${biddingPeriod}T${biddingTime}:00.000Z`
     const date = new Date(`${biddingPeriod} ${biddingTime}`)
@@ -107,7 +103,6 @@ export default function GoodsForm() {
       tags,
       images,
     }
-    console.log(inputData)
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/goods`, {
       method: 'POST',
@@ -120,17 +115,20 @@ export default function GoodsForm() {
 
     const data = await res.json()
     if (data.status === 200) {
-      console.log(inputData)
-      // eslint-disable-next-line no-alert
-      alert('상품이 등록되었습니다.')
       resetGoodsState()
       resetImagesState()
       resetTagsState()
+      showAlert('상품이 등록되었습니다.')
       redirect(`/`)
     }
 
     showAlert('상품 등록에 실패했습니다.')
   }
+
+  useEffect(() => {
+    if (isClosed) router.push('/')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isClosed])
 
   return (
     <main className="px-[20px] pt-[10px]">
@@ -171,7 +169,6 @@ export default function GoodsForm() {
           등록하기
         </button>
       </form>
-      <BasicAlert message={message} />
     </main>
   )
 }

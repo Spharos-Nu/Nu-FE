@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import BasicAlert from '@/components/Modal/BasicAlert'
 import Toast from '@/components/Toast'
 import AuthProvider from '@/components/provider/AuthProvider'
 import '@/styles/globals.css'
@@ -29,8 +30,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="font-regular bg-white">
-        <Toast />
         <AuthProvider>{children}</AuthProvider>
+        <BasicAlert />
+        <Toast />
       </body>
     </html>
   )

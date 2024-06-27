@@ -14,6 +14,7 @@ export default function Toast() {
       }, 2000)
       return () => clearTimeout(timer)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible])
 
   if (!isVisible) return null
@@ -24,7 +25,7 @@ export default function Toast() {
     >
       <div className="bg-gray-800 opacity-80 w-[90%] h-full flex items-center justify-center rounded-[10px] py-3">
         <p
-          className="text-sm font-normal block text-white whitespace-pre-wrap "
+          className="text-sm font-normal block text-white whitespace-pre-wrap"
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: toastMessage }}
         />

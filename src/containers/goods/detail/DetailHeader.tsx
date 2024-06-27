@@ -3,21 +3,16 @@
 import Link from 'next/link'
 import { IoShareSocialOutline } from 'react-icons/io5'
 import BackBtn from '@/components/Btn/BackBtn'
-import BasicAlert from '@/components/Modal/BasicAlert'
-import { useBasicAlertStore } from '@/components/Modal/store'
+import { useToastStore } from '@/components/Toast/store'
 import Home from '@/public/svgs/icon/homeColor.svg'
 
 export default function DetailHeader() {
-  const { message, setAlert } = useBasicAlertStore()
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
+  const { showToast } = useToastStore()
 
   const copyUrl = () => {
     const url = window.location.href
     navigator.clipboard.writeText(url)
-    showAlert('URL이 복사 되었습니다.')
+    showToast('URL이 복사 되었습니다.')
   }
 
   return (
@@ -32,7 +27,6 @@ export default function DetailHeader() {
           onClick={() => copyUrl()}
         />
       </div>
-      <BasicAlert message={message} />
     </header>
   )
 }

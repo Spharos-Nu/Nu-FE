@@ -2,7 +2,6 @@
 
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect } from 'react'
-import BasicAlert from '@/components/Modal/BasicAlert'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import {
   registerComplainGoods,
@@ -21,12 +20,8 @@ export default function ComplainForm({
     useComplainStore()
   const router = useRouter()
   const pathname = usePathname()
-  const { isClosed, message, setAlert } = useBasicAlertStore()
+  const { isClosed, showAlert } = useBasicAlertStore()
   const { goodsCode, seller } = params
-
-  const showAlert = (alertMessage: string) => {
-    setAlert(true, alertMessage)
-  }
 
   const userComplainList = [
     {
@@ -125,7 +120,6 @@ export default function ComplainForm({
           신고하기
         </button>
       </form>
-      <BasicAlert message={message} />
     </div>
   )
 }
