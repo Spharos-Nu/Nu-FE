@@ -51,79 +51,81 @@ export default function Category({
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
-      <div
-        onClick={() => setVisible(false)}
-        role="none"
-        className="mt-[20px] pl-[20px]"
-      >
-        <BackBtn />
-      </div>
-      <h1 className="whitespace-pre-line mt-[70px] ml-[30px] text-[30px] tracking-[-0.1rem] font-semibold leading-[40px]">
-        {text}
-      </h1>
-      <div className="mt-[30px] mx-[20px] relative">
+      <div className="overflow-scroll">
         <div
-          className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[0].pos ? 'h-auto' : 'h-[145px]'}`}
+          onClick={() => setVisible(false)}
+          role="none"
+          className="mt-[20px] pl-[20px]"
         >
-          <button
-            className="w-full h-full"
-            type="button"
-            onClick={() => handlePosition(1)}
-          >
-            {itemPosition[0].pos ? <KpopColor /> : <Kpop />}
-          </button>
-          {itemPosition[0].pos && (
-            <button
-              className="absolute left-[20px] bottom-[50px]"
-              type="button"
-              onClick={() => handleCategory('아이돌')}
-            >
-              <span className="sr-only">아이돌</span>
-              <KpopGo />
-            </button>
-          )}
+          <BackBtn />
         </div>
-        <div
-          className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[1].pos ? 'h-auto' : 'h-[145px]'}`}
-        >
-          <button
-            className="w-full h-full"
-            type="button"
-            onClick={() => handlePosition(2)}
+        <h1 className="whitespace-pre-line mt-[70px] ml-[30px] text-[30px] tracking-[-0.1rem] font-semibold leading-[40px]">
+          {text}
+        </h1>
+        <div className="mt-[30px] mx-[20px] relative">
+          <div
+            className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[0].pos ? 'h-auto' : 'h-[145px]'}`}
           >
-            {itemPosition[1].pos ? <BaseballColor /> : <Baseball />}
-          </button>
-          {itemPosition[1].pos && (
             <button
-              className="absolute left-[20px] bottom-[50px]"
+              className="w-full h-full"
               type="button"
-              onClick={() => handleCategory('야구')}
+              onClick={() => handlePosition(1)}
             >
-              <span className="sr-only">야구</span>
-              <BaseballGo />
+              {itemPosition[0].pos ? <KpopColor /> : <Kpop />}
             </button>
-          )}
-        </div>
-        <div
-          className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[2].pos ? 'h-auto' : 'h-[160px]'}`}
-        >
-          <button
-            className="w-full h-full"
-            type="button"
-            onClick={() => handlePosition(3)}
+            {itemPosition[0].pos && (
+              <button
+                className="absolute left-[20px] bottom-[50px]"
+                type="button"
+                onClick={() => handleCategory('아이돌')}
+              >
+                <span className="sr-only">아이돌</span>
+                <KpopGo />
+              </button>
+            )}
+          </div>
+          <div
+            className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[1].pos ? 'h-auto' : 'h-[145px]'}`}
           >
-            {itemPosition[2].pos ? <AnimationColor /> : <Animation />}
-          </button>
-          {itemPosition[2].pos && (
             <button
-              className="absolute left-[20px] bottom-[50px]"
+              className="w-full h-full"
               type="button"
-              onClick={() => handleCategory('애니메이션')}
+              onClick={() => handlePosition(2)}
             >
-              <span className="sr-only">애니메이션</span>
-              <AnimationGo />
+              {itemPosition[1].pos ? <BaseballColor /> : <Baseball />}
             </button>
-          )}
+            {itemPosition[1].pos && (
+              <button
+                className="absolute left-[20px] bottom-[50px]"
+                type="button"
+                onClick={() => handleCategory('야구')}
+              >
+                <span className="sr-only">야구</span>
+                <BaseballGo />
+              </button>
+            )}
+          </div>
+          <div
+            className={`relative w-full aspect-square transition-all ease-out 0.5s ${itemPosition[2].pos ? 'h-auto' : 'h-[160px]'}`}
+          >
+            <button
+              className="w-full h-full"
+              type="button"
+              onClick={() => handlePosition(3)}
+            >
+              {itemPosition[2].pos ? <AnimationColor /> : <Animation />}
+            </button>
+            {itemPosition[2].pos && (
+              <button
+                className="absolute left-[20px] bottom-[50px]"
+                type="button"
+                onClick={() => handleCategory('애니메이션')}
+              >
+                <span className="sr-only">애니메이션</span>
+                <AnimationGo />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

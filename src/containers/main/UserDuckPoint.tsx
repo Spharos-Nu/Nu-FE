@@ -6,7 +6,7 @@ export default function UserDuckPoint({
   duckPointData: number
 }) {
   return (
-    <div className="flex justify-between h-[48px] px-[10px] bg-[#2B74B9] rounded-full">
+    <div className="flex justify-between h-[48px] px-[10px] bg-[#2B74B9] rounded-full items-center">
       <div className="content-center">
         <DuckPoint />
       </div>

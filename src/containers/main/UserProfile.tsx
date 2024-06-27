@@ -15,7 +15,7 @@ export default function UserProfile() {
         height={55}
         className="rounded-full"
       />
-      <div className="pl-[20px] content-center">
+      <div className="pl-[20px] content-center items-center">
         <p className="text-[#919BB2] text-[15px]">Hello!</p>
         <p className="text-[18px]">{session?.user.nickname}</p>
       </div>
