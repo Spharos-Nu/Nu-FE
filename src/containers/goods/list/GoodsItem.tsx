@@ -4,13 +4,10 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
+import { useToastStore } from '@/components/Toast/store'
+import BasicImage from '@/public/images/basicImage.png'
 import { GoodsCardType } from '@/types/goodsType'
-import {
-  addLike,
-  deleteLike,
-  getGoodsImages,
-  getLikeWhether,
-} from '@/utils/mainApiActions'
+import { addLike, deleteLike, getLikeWhether } from '@/utils/mainApiActions'
 
 export default function GoodsItem({
   goodsItemData,
@@ -20,7 +17,7 @@ export default function GoodsItem({
   const router = useRouter()
   const { data: session } = useSession()
   const [isLiked, setIsLiked] = useState<boolean>(false)
-  const [image, setImage] = useState<string>('')
+  const { showToast } = useToastStore()
   const comment = '입찰이 종료된\n상품입니다.'
 
   const handleLike = async () => {
@@ -31,14 +28,14 @@ export default function GoodsItem({
       if (data.status === 200) {
         setIsLiked(!isLiked)
       } else {
-        console.log(data.message)
+        showToast(data.message)
       }
     } else {
       const data = await addLike(goodsItemData.goodsCode)
       if (data.status === 200) {
         setIsLiked(!isLiked)
       } else {
-        console.log(data.message)
+        showToast(data.message)
       }
     }
   }
@@ -49,9 +46,6 @@ export default function GoodsItem({
         const LikeData = await getLikeWhether(goodsItemData.goodsCode)
         setIsLiked(LikeData.result)
       }
-      const ImageData = await getGoodsImages(goodsItemData.goodsCode)
-
-      setImage(ImageData.result)
     }
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,9 +70,9 @@ export default function GoodsItem({
         >
           {comment}
         </p>
-        {image && (
+        {goodsItemData.thumbnail && (
           <Image
-            src={image}
+            src={goodsItemData.thumbnail.url}
             width={0}
             height={0}
             sizes="100vw"
@@ -86,11 +80,16 @@ export default function GoodsItem({
             alt="굿즈 이미지"
           />
         )}
-        {!image && (
-          <div className="rounded-t-2xl max-h-[300px] w-full h-[60%] bg-[#F6F6F6] flex items-center justify-center">
-            <p className="text-stone-500 text-[17px] ">
-              이미지를 불러오지 못했어요
-            </p>
+        {!goodsItemData.thumbnail && (
+          <div className="rounded-t-2xl max-h-[300px] w-full h-auto bg-[#F9B23C] flex items-center justify-center">
+            <Image
+              src={BasicImage}
+              width={0}
+              height={0}
+              sizes="100vw"
+              className={`rounded-t-2xl max-h-[300px] w-full h-auto object-cover aspect-square ${goodsItemData.tradingStatus === 0 || goodsItemData.tradingStatus === 1 ? '' : 'grayscale'}`}
+              alt="굿즈 이미지"
+            />
           </div>
         )}
         <div className="px-[20px] py-[20px]">
