@@ -64,9 +64,16 @@ export interface BiddingPreviewType {
 
 export interface BiddingUserType {
   userUuid: string
-  profileImg: string
+  profileImage: string
   nickname: string
   favCategory: string
+}
+
+// 최고 입찰가 조회
+export interface BiddingMaxType {
+  bidId: number
+  bidderUuid: string
+  price: number
 }
 
 // 판매자 정보 조회
