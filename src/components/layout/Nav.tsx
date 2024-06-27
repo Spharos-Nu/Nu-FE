@@ -58,14 +58,14 @@ export default function Nav() {
         </Link>
       </div>
       <div className="text-center">
-        <Link href="/">
+        <Link href="/chat-list">
           <div
-            className={`inline-block ${pathname === '/chat' ? ' opacity-100' : 'opacity-50'}`}
+            className={`inline-block ${pathname === '/chat-list' ? ' opacity-100' : 'opacity-50'}`}
           >
             <Chat />
           </div>
           <div
-            className={`text-white ${pathname === '/chat' ? ' opacity-100' : 'opacity-50'}`}
+            className={`text-white ${pathname === '/chat-list' ? ' opacity-100' : 'opacity-50'}`}
           >
             채팅
           </div>
