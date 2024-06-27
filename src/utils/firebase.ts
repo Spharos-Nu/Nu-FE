@@ -1,4 +1,5 @@
 import firebase from 'firebase/app'
+import 'fireabase/messaging'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
