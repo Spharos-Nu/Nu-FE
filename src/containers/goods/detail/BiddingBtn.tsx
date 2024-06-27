@@ -3,11 +3,7 @@
 import { useState } from 'react'
 import BiddingModal from './BiddingModal'
 
-export default function BiddingBtn({
-  bidding,
-}: {
-  bidding: (biddingData: FormData) => void
-}) {
+export default function BiddingBtn({ goodsCode }: { goodsCode: string }) {
   const [visible, setVisible] = useState<boolean>(false)
 
   return (
@@ -19,7 +15,9 @@ export default function BiddingBtn({
       >
         입찰하기
       </button>
-      {visible && <BiddingModal setVisible={setVisible} bidding={bidding} />}
+      {visible && (
+        <BiddingModal setVisible={setVisible} goodsCode={goodsCode} />
+      )}
     </>
   )
 }

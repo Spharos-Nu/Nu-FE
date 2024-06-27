@@ -12,8 +12,6 @@ export default function BiddingPreview({
 }) {
   const [visible, setVisible] = useState<boolean>(false)
 
-  // to do: 입찰자 3순위까지 잘라서 보여주기
-
   const biddingCut = biddingList.slice(0, 3)
 
   const handleClick = () => {
@@ -41,7 +39,7 @@ export default function BiddingPreview({
         </>
       )}
       {visible && (
-        <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
+        <div className="w-screen h-screen z-30 top-0 left-0 overflow-scroll fixed bg-white">
           <div>
             <button
               className="absolute mt-[20px] pl-[20px]"
@@ -55,7 +53,7 @@ export default function BiddingPreview({
               입찰 목록 전체
             </p>
           </div>
-          <div className="mt-[20px] pl-[20px]">
+          <div className="my-[20px] pl-[20px]">
             {biddingList.map((item) => (
               <BiddingUserItem key={item.bidId} item={item} />
             ))}

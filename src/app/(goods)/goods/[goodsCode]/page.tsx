@@ -59,20 +59,6 @@ export default async function GoodsDetailPage({
   const session = await getServerSession(options)
   const uuid = session?.user.uuid
 
-  // to do: 조회수 올리는 api 호출
-
-  const bidding = async (biddingData: FormData) => {
-    'use server'
-
-    biddingData.get('biddingPrice')
-  }
-
-  const biddingConfirm = async (confirmData: FormData) => {
-    'use server'
-
-    confirmData.get('confirmData')
-  }
-
   return (
     <main className="pt-[5px] pb-[30px]">
       <DetailImageArea images={images} />
@@ -89,10 +75,7 @@ export default async function GoodsDetailPage({
             <BiddingPreview biddingList={biddingList} />
           )}
           {goodsDetail.tradingStatus === 2 && (
-            <ConfirmationBtn
-              biddingConfirm={biddingConfirm}
-              biddingList={biddingList}
-            />
+            <ConfirmationBtn biddingList={biddingList} goodsCode={goodsCode} />
           )}
           {goodsDetail.tradingStatus === 0 && (
             <DeleteBtn
@@ -116,7 +99,9 @@ export default async function GoodsDetailPage({
       ) : (
         <>
           <EtcArea goodsCode={goodsCode} goodsDetail={goodsDetail} />
-          {goodsDetail.tradingStatus === 1 && <BiddingBtn bidding={bidding} />}
+          {goodsDetail.tradingStatus === 1 && (
+            <BiddingBtn goodsCode={goodsCode} />
+          )}
         </>
       )}
     </main>
