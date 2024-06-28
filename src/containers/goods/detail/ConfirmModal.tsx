@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { CgClose } from 'react-icons/cg'
 import { useBasicAlertStore } from '@/components/Modal/store'
+import { useToastStore } from '@/components/Toast/store'
 import ConfirmDuck from '@/public/svgs/duck/biddingConfirmDuck.svg'
 import { ApiResponse } from '@/types/apiResponseType'
 import { BiddingMaxType } from '@/types/goodsType'
@@ -29,18 +30,39 @@ export default function ConfirmModal({
   })
   const router = useRouter()
   const { showAlert, isClosed } = useBasicAlertStore()
+  const { showToast } = useToastStore()
 
+  // 입찰자 있을 경우
   const biddingConfirm = async (confirmData: FormData) => {
     if (confirmData.get('confirm') === 'true') {
       const res = await postBiddingConfirm(goodsCode)
       if (res.status === 200) {
         showAlert('낙찰되었습니다.')
-      } else showAlert(res.message)
+        showToast('마이페이지로 이동합니다.')
+      } else showToast(res.message)
     } else if (confirmData.get('cancel') === 'false') {
       const res = await postBiddingCancel(goodsCode)
       if (res.status === 200) {
         showAlert('취소되었습니다.')
-      } else showAlert(res.message)
+        showToast('마이페이지로 이동합니다.')
+      } else showToast(res.message)
+    }
+  }
+
+  // 입찰자 없을 경우
+  const biddingConfirm2 = async (confirmData: FormData) => {
+    if (confirmData.get('again') === 'true') {
+      const res = await postBiddingCancel(goodsCode)
+      if (res.status === 200) {
+        showToast('등록 페이지로 이동합니다.')
+        router.push(`/registration`)
+      } else showToast(res.message)
+    } else if (confirmData.get('cancel') === 'false') {
+      const res = await postBiddingCancel(goodsCode)
+      if (res.status === 200) {
+        showAlert('취소되었습니다.')
+        showToast('마이페이지로 이동합니다.')
+      } else showToast(res.message)
     }
   }
 
@@ -74,19 +96,27 @@ export default function ConfirmModal({
             onClick={() => setVisible(false)}
           />
           {maxPrice.status !== 200 && (
-            <>
+            <form action={biddingConfirm2}>
               <p className="pt-[70px] text-[32px] text-center">
                 <span className="text-[22px]">{maxPrice.message}</span>
               </p>
               <button
-                name="empty"
-                type="button"
-                onClick={() => setVisible(false)}
-                className="w-[calc(100%-50px)] h-[60px] bg-sky-600 text-white text-[17px] rounded-full mt-[50px] mx-[20px]"
+                type="submit"
+                name="cancel"
+                value="false"
+                className="w-[calc(100%-50px)] h-[60px] border border-sky-600 text-sky-600 text-[17px] rounded-full mt-[30px] mx-[20px]"
               >
-                확인
+                취소하기
               </button>
-            </>
+              <button
+                name="again"
+                type="submit"
+                value="true"
+                className="w-[calc(100%-50px)] h-[60px] bg-sky-600 text-white text-[17px] rounded-full mt-[15px] mx-[20px]"
+              >
+                재등록하기
+              </button>
+            </form>
           )}
           {maxPrice.status === 200 && (
             <form action={biddingConfirm}>

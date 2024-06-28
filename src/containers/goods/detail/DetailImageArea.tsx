@@ -7,12 +7,6 @@ import Next from '@/public/svgs/icon/nextBtn.svg'
 import Prev from '@/public/svgs/icon/prevBtn.svg'
 import { ImageUrlType } from '@/types/goodsType'
 
-export interface GoodsImage {
-  id: number
-  url: string
-  index: number
-}
-
 export default function DetailImageArea({
   images,
 }: {
