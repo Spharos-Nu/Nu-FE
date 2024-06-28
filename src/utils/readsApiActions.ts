@@ -1,24 +1,26 @@
 import { ApiResponse } from '@/types/apiResponseType'
-import { KeywordType, SearchListType } from '@/types/readApiDataType'
+import { GoodsAllListType } from '@/types/goodsType'
+import { KeywordType } from '@/types/readApiDataType'
 
 export const getSearchResult = async (
   keyword: string,
+  categoryId: number,
   page: number,
-): Promise<ApiResponse<SearchListType>> => {
+): Promise<ApiResponse<GoodsAllListType>> => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/read-n/search?keyword=${keyword}&isTradingOnly=false&page=${page}&size=20`,
+    `${process.env.NEXT_PUBLIC_API}/v1/read-n/search?keyword=${keyword}&categoryId=${categoryId}&isTradingOnly=false&page=${page}&size=20`,
   )
 
-  const data: ApiResponse<SearchListType> = await res.json()
-  console.log(data)
+  const data: ApiResponse<GoodsAllListType> = await res.json()
   return data
 }
 
 export const getRelatedKeywordList = async (
   keyword: string,
+  categoryId: number,
 ): Promise<ApiResponse<KeywordType[]>> => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/read-n?keyword=${keyword}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/read-n/search-list?keyword=${keyword}&categoryId=${categoryId}`,
   )
 
   const data: ApiResponse<KeywordType[]> = await res.json()
