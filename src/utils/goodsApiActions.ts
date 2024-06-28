@@ -29,7 +29,7 @@ export const getBidGoods = async (
   const session = await getServerSession(options)
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/bids/users?page=${page}${status === null ? '' : `?status=${status}`}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/goods/bids?page=${page}&size=10&sort=&${status === null ? '' : `?status=${status}`}`,
     {
       headers: { Authorization: session?.user.accessToken },
     },

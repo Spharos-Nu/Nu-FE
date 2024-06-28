@@ -3,7 +3,14 @@ export interface GoodsData {
   nowPage: number
   maxPage: number
   isLast: boolean
-  goodsList: { goodsCode: number }[]
+  goodsList: BiddingType[]
+}
+
+export interface BiddingType {
+  goodsCode: number
+  name: string
+  price: number
+  thumbnail: string
 }
 
 export interface SummaryData {
