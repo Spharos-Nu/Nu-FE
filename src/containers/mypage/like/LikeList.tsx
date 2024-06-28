@@ -37,8 +37,8 @@ export default function LikeList() {
   }
 
   return (
-    <>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 justify-center items-center">
+    <div>
+      <div className="mt-5 px-5 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 justify-center items-center">
         {data.goodsList.map((goods) => (
           <LikeItem key={goods.goodsCode} goodsCode={goods.goodsCode} />
         ))}
@@ -48,6 +48,6 @@ export default function LikeList() {
         setCurrentPage={setPage}
         maxPage={data.maxPage}
       />
-    </>
+    </div>
   )
 }

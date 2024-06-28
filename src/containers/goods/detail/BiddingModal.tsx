@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import React from 'react'
 import { CgClose } from 'react-icons/cg'
 import { useBasicAlertStore } from '@/components/Modal/store'
@@ -19,6 +19,7 @@ export default function BiddingModal({
 
   const bidding = async (biddingData: FormData) => {
     if (!session) {
+      signOut()
       router.push(`/login?callbackUrl=${window.location.href}`)
     }
     biddingData.get('biddingPrice')

@@ -23,11 +23,11 @@ export interface ReadsGoodsData {
   totalCount: number
   nowPage: number
   maxPage: number
-  goodsList: SellType[]
+  goodsList: SummaryDataType[]
   isLast: boolean
 }
 
-export interface SellType {
+export interface SummaryDataType {
   goodsCode: string
   thumbnail: ThumbnailType
   goodsName: string

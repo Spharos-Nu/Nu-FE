@@ -3,12 +3,56 @@
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import { ApiResponse } from '@/types/apiResponseType'
-import {
-  DetailDataType,
-  GoodsData,
-  SummaryData,
-} from '@/types/goodsApiDataType'
+import { GoodsData, SummaryData } from '@/types/goodsApiDataType'
 import { GoodsAllListType } from '@/types/goodsType'
+
+interface TagItem {
+  id: number
+  name: string
+}
+
+interface ImageItem {
+  id: number
+  url: string
+}
+
+export const postGoods = async (
+  goodsName: string,
+  categoryId: number,
+  description: string,
+  minPrice: number,
+  openedAt: string,
+  closedAt: string,
+  wishTradeType: string,
+  tags: TagItem[],
+  images: ImageItem[],
+): Promise<ApiResponse<null>> => {
+  const session = await getServerSession(options)
+
+  const inputData = {
+    goodsName,
+    categoryId,
+    description,
+    minPrice,
+    openedAt,
+    closedAt,
+    wishTradeType,
+    tags,
+    images,
+  }
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/goods`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: session?.user.accessToken,
+    },
+    body: JSON.stringify(inputData),
+  })
+
+  const data = await res.json()
+  return data
+}
 
 /**
  * 입찰한 상품 코드 조회
@@ -123,16 +167,5 @@ export const getLike = async (
   )
 
   const data = await res.json()
-  return data
-}
-
-export const getGoodsDetail = async (
-  goodsCode: string,
-): Promise<ApiResponse<DetailDataType>> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/goods-n/${goodsCode}`,
-  )
-
-  const data: ApiResponse<DetailDataType> = await res.json()
   return data
 }

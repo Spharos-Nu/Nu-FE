@@ -2,8 +2,8 @@ export interface GoodsData {
   totalCount: number
   nowPage: number
   maxPage: number
-  isLast: boolean
   goodsList: BidType[]
+  isLast: boolean
 }
 
 export interface BidType {
@@ -20,26 +20,4 @@ export interface SummaryData {
   openedAt: string
   closedAt: string
   tradingStatus: number
-}
-
-export interface DetailDataType {
-  tradingStatus: number
-  goodsName: string
-  description: string
-  minPrice: number
-  openedAt: string
-  closedAt: string
-  wishTradeType: string
-  tags: TagType[]
-  imageUrls: ImageType[]
-}
-
-export interface TagType {
-  id: number
-  name: string
-}
-
-export interface ImageType {
-  id: number
-  url: string
 }
