@@ -20,7 +20,7 @@ export default function LikeItem({ goodsCode }: { goodsCode: string }) {
     closedAt: '',
     tradingStatus: 0,
   })
-  const [isLiked, setIsLiked] = useState<boolean>(false)
+  const [isLiked, setIsLiked] = useState<boolean>(true)
   const { showToast } = useToastStore()
   const ImageUrl = data.thumbnail
     ? data.thumbnail.url
