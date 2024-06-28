@@ -10,7 +10,7 @@ export default function SellContent({ goods }: { goods: SummaryDataType }) {
     : '/images/basicImage.png'
 
   return (
-    <Link href={`/goods/goodsCode=${goods.goodsCode}`} className="relative">
+    <Link href={`/goods/${goods.goodsCode}`} className="relative">
       <Image
         src={ImageUrl}
         alt="썸네일"

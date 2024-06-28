@@ -11,9 +11,9 @@ export default function ToTalArea({
 }) {
   return (
     <div className="pt-[30px] mx-[20px]">
-      {/* <div className="flex justify-center">
+      <div className="flex justify-center">
         <EtcDuck />
-      </div> */}
+      </div>
       <div className="flex justify-between gap-[7px] mt-[10px] text-center">
         <div className="py-[20px] w-full border rounded-2xl bg-gray-100">
           <p className="text-[14px] text-blue-500">조회수</p>
