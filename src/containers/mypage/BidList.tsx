@@ -38,9 +38,9 @@ export default function BidList() {
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-4 md:grid-cols-2 justify-center items-center">
+      <div className="mt-[20px] px-[20px] grid grid-cols-3 gap-4 sm:grid-cols-3 md:w-grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 justify-center items-center">
         {data.goodsList.map((goods) => (
-          <GoodsSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
+          <GoodsSummary key={goods.goodsCode} goodsList={goods} />
         ))}
       </div>
       <Pagination
