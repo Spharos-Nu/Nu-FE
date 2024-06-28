@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import Sending from '@/components/Chat/Sending'
 import Arrow from '@/public/svgs/header/below_arrow.svg'
 import CheckFalse from '@/public/svgs/icon/checkFalse.svg'
 import CheckTrue from '@/public/svgs/icon/checkTrue.svg'
@@ -175,7 +176,11 @@ export default function GoodsList() {
         ))}
       </div>
       <div ref={ref} />
-      {isLoading === true ? <div>로딩중</div> : null}
+      {isLoading === true ? (
+        <div className="flex h-full items-center justify-center">
+          <Sending />
+        </div>
+      ) : null}
     </main>
   )
 }

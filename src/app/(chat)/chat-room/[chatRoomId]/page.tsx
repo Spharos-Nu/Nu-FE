@@ -44,7 +44,7 @@ export default async function ChatRoomDetailPage({
   }
 
   return (
-    <main className="flex flex-col h-[100vh] w-full max-w-4xl mx-auto bg-white dark:bg-gray-950 rounded-2xl shadow-lg overflow-hidden">
+    <main className="flex flex-col h-[100vh] w-full max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
       <ChatView chatRoomId={params.chatRoomId} />
       <div className="border-t border-gray-200 dark:border-gray-800 p-4" />
       <ChatSender newChat={newChat} />
