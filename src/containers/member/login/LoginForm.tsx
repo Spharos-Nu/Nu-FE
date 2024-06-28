@@ -89,7 +89,6 @@ export default function LoginForm() {
           return currentToken
         } catch (error) {
           if (attempts < maxRetries) {
-            console.error('토큰 발급 재시도')
             return await getTokenWithRetry(attempts + 1)
           }
         }
@@ -100,10 +99,8 @@ export default function LoginForm() {
 
     if (res?.status === 200) {
       const currentToken = await getFBToken()
-      console.log('currentToken: ', currentToken)
       if (currentToken) {
         await saveDeviceToken(currentToken)
-        console.log('디바이스 토큰 저장성공')
       }
       router.push(params)
     } else {
