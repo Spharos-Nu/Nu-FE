@@ -10,11 +10,16 @@ export default function PointChargeForm() {
   const [chargeMoney, setChargeMoney] = useState<number>(0)
   const [error, setError] = useState<boolean>(false)
 
+  // const isMobile = () => {
+  //   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+  //     navigator.userAgent,
+  //   )
+  // }
+
   const isMobile = () => {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent,
-    )
+    return window.innerWidth <= 768
   }
+
   const handleSubmit = async () => {
     if (chargeMoney > 2000000) {
       return setError(true)
