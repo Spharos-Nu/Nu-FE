@@ -154,7 +154,7 @@ export default function GoodsList() {
             </div>
           </button>
           {toggle && (
-            <ul className="absolute z-10 w-[120px] top-[32px] -left-5 rounded-lg bg-white py-[5px] px-[8px] shadow-[0px_3px_10px_5px_rgba(0,0,0,0.05)]">
+            <ul className="absolute z-20 w-[120px] top-[32px] -left-5 rounded-lg bg-white py-[5px] px-[8px] shadow-[0px_3px_10px_5px_rgba(0,0,0,0.05)]">
               {filtering.map((item) => (
                 <li
                   key={item.id}
@@ -169,7 +169,7 @@ export default function GoodsList() {
           )}
         </div>
       </div>
-      <div className="mt-[15px] grid grid-cols-2 gap-2 sm:grid-cols-3 md:w-4grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
+      <div className="mt-[15px] mb-[20px] grid grid-cols-2 gap-2 sm:grid-cols-3 md:w-4grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
         {items.map((item) => (
           <GoodsItem key={item.goodsCode} goodsItemData={item} />
         ))}

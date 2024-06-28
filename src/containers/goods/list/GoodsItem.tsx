@@ -18,7 +18,6 @@ export default function GoodsItem({
   const { data: session } = useSession()
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const { showToast } = useToastStore()
-  const comment = '입찰이 종료된\n상품입니다.'
 
   const handleLike = async () => {
     if (!session) {
@@ -68,7 +67,7 @@ export default function GoodsItem({
         <p
           className={`absolute z-10 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-[17px] whitespace-pre-line ${goodsItemData.tradingStatus === 0 || goodsItemData.tradingStatus === 1 ? 'hidden' : ''}`}
         >
-          {comment}
+          입찰이 종료된 상품입니다.
         </p>
         {goodsItemData.thumbnail && (
           <Image
@@ -93,13 +92,19 @@ export default function GoodsItem({
           </div>
         )}
         <div className="px-[20px] py-[20px]">
-          <p className="truncate">{goodsItemData.goodsName}</p>
-          <p>{goodsItemData.minPrice}</p>
-          {goodsItemData.tradingStatus === 0 && <p>입찰 전</p>}
-          {goodsItemData.tradingStatus === 1 && <p>입찰 중</p>}
-          {goodsItemData.tradingStatus >= 2 && <p>입찰종료</p>}
-          {goodsItemData.tradingStatus < 2 && (
-            <p className="h-[24px] visible" />
+          <p className="truncate text-[15px]">{goodsItemData.goodsName}</p>
+          <p className="mt-[5px] text-[19px] font-medium">
+            {goodsItemData.minPrice.toLocaleString()}{' '}
+            <span className="text-[17px]">원</span>
+          </p>
+          {goodsItemData.tradingStatus === 0 && (
+            <p className="text-sm text-stone-500">입찰 전</p>
+          )}
+          {goodsItemData.tradingStatus === 1 && (
+            <p className="text-sm text-stone-500">입찰 중</p>
+          )}
+          {goodsItemData.tradingStatus >= 2 && (
+            <p className="text-sm text-stone-500">입찰종료</p>
           )}
         </div>
       </Link>
