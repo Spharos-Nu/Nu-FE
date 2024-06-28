@@ -49,6 +49,7 @@ export default function SearchForm() {
     const data = await getSearchResult(text, categoryId, page)
     if (!data.result.totalCount) showToast('검색 결과가 없습니다.')
     setSearchResult(data.result)
+    setRelatedKeyword([])
   }
 
   useEffect(() => {
