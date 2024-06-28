@@ -32,23 +32,18 @@ export default function ChatList() {
   const router = useRouter()
 
   const fetchChatList = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/v1/chat/rooms/${uuid}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: token,
-          },
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API}/v1/chat/rooms/${uuid}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
         },
-      )
-      const newData = await response.json()
-      console.log('채팅 목록 받아오기 성공', newData)
-      setData(newData.result)
-      setStatusCode(newData.status)
-    } catch (error) {
-      console.error('Error fetching chat rooms:', error)
-    }
+      },
+    )
+    const newData = await response.json()
+    setData(newData.result)
+    setStatusCode(newData.status)
   }
 
   useEffect(() => {

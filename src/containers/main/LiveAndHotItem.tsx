@@ -57,7 +57,7 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
           <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-[#989898]" />
         )}
       </button>
-      <Link href={`/goods/${item.goodsCode}`} className=" bg-clip-content">
+      <Link href={`/goods/${item.goodsCode}`} className="bg-clip-content">
         {item.thumbnail && (
           <Image
             src={item.thumbnail.url}

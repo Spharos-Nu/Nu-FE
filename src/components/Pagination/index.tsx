@@ -25,7 +25,7 @@ export default function Pagination({
     <div className="flex justify-center content-center items-center my-20">
       <IoChevronBackOutline
         onClick={handlePreviousPage}
-        className="mx-5 text-3xl"
+        className="mx-5 text-xl"
       />
       {currentPage > 0 && (
         <div className="w-12 h-12 flex justify-center items-center">
@@ -49,11 +49,11 @@ export default function Pagination({
           </button>
         </div>
       )}
-      <div className="w-12 h-12 flex justify-center items-center border-black border-[2px] text-2xl">
+      <div className="w-8 h-8 flex justify-center items-center border-black border-[2px] text-2xl">
         {currentPage + 1}
       </div>
       {currentPage < maxPage - 2 && (
-        <div className="w-12 h-12 flex justify-center items-center">
+        <div className="w-8 h-8 flex justify-center items-center">
           <button
             type="button"
             onClick={() => setCurrentPage(currentPage + 1)}
@@ -64,7 +64,7 @@ export default function Pagination({
         </div>
       )}
       {maxPage > 1 && (
-        <div className="w-12 h-12 flex justify-center items-center">
+        <div className="w-8 h-8 flex justify-center items-center">
           <button
             type="button"
             onClick={() => setCurrentPage(maxPage)}
@@ -76,7 +76,7 @@ export default function Pagination({
       )}
       <IoChevronForwardOutline
         onClick={handleNextPage}
-        className="mx-5 text-3xl"
+        className="mx-5 text-xl"
       />
     </div>
   )

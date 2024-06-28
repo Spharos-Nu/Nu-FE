@@ -26,7 +26,7 @@ export default function TradeArea() {
           낙찰된 상품
         </Link>
         <hr className="my-2 border-gray-300" />
-        <Link href="/mypage/reviews" className="mx-4 my-3 flex items-center">
+        <Link href="/mypage/reviews" className="mx-4 my-5 flex items-center">
           <FaPen className="w-4 h-4 mr-3" />
           후기
         </Link>

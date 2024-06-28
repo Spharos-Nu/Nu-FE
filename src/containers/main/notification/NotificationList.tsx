@@ -49,7 +49,7 @@ export default function NotificationModal({
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
-      <div className="w-full h-full overflow-scroll">
+      <div className="w-full h-full">
         <FaArrowLeft
           onClick={() => router.back()}
           className="absolute top-5 left-5 text-xl"
@@ -57,7 +57,7 @@ export default function NotificationModal({
         <h1 className="h-[60px] leading-[60px] text-center text-[23px] tracking-[-0.1rem] font-semibold">
           알림
         </h1>
-        <div className="my-[20px] mx-[20px]">
+        <div className="my-[20px] mx-[20px] overflow-scroll">
           {!notiList.length ? (
             <div className="text-center">알림이 없습니다.</div>
           ) : (
