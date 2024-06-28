@@ -3,11 +3,7 @@
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import { ApiResponse } from '@/types/apiResponseType'
-import {
-  DetailDataType,
-  GoodsData,
-  SummaryData,
-} from '@/types/goodsApiDataType'
+import { GoodsData, SummaryData } from '@/types/goodsApiDataType'
 import { GoodsAllListType } from '@/types/goodsType'
 
 /**
@@ -123,16 +119,5 @@ export const getLike = async (
   )
 
   const data = await res.json()
-  return data
-}
-
-export const getGoodsDetail = async (
-  goodsCode: string,
-): Promise<ApiResponse<DetailDataType>> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/goods-n/${goodsCode}`,
-  )
-
-  const data: ApiResponse<DetailDataType> = await res.json()
   return data
 }

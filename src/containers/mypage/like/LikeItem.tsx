@@ -3,25 +3,28 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
 import { useToastStore } from '@/components/Toast/store'
-import BasicImage from '@/public/images/basicImage.png'
-import { DetailDataType } from '@/types/goodsApiDataType'
-import { getGoodsDetail } from '@/utils/goodsApiActions'
+import { SummaryDataType } from '@/types/readApiDataType'
 import { addLike, deleteLike } from '@/utils/mainApiActions'
+import { getGoodsSummary } from '@/utils/readsApiActions'
 
 export default function LikeItem({ goodsCode }: { goodsCode: string }) {
-  const [data, setData] = useState<DetailDataType>({
-    tradingStatus: 0,
+  const [data, setData] = useState<SummaryDataType>({
+    goodsCode,
+    thumbnail: {
+      id: 0,
+      url: '',
+    },
     goodsName: '',
-    description: '',
     minPrice: 0,
     openedAt: '',
     closedAt: '',
-    wishTradeType: '',
-    tags: [],
-    imageUrls: [],
+    tradingStatus: 0,
   })
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const { showToast } = useToastStore()
+  const ImageUrl = data.thumbnail
+    ? data.thumbnail.url
+    : '/images/basicImage.png'
 
   const handleLike = async () => {
     if (isLiked) {
@@ -43,7 +46,7 @@ export default function LikeItem({ goodsCode }: { goodsCode: string }) {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await getGoodsDetail(goodsCode)
+      const res = await getGoodsSummary(goodsCode)
 
       if (res.status === 200) {
         setData(res.result)
@@ -72,28 +75,14 @@ export default function LikeItem({ goodsCode }: { goodsCode: string }) {
         >
           입찰이 종료된 상품입니다.
         </p>
-        {data.imageUrls[0].url && (
-          <Image
-            src={data.imageUrls[0].url}
-            width={0}
-            height={0}
-            sizes="100vw"
-            className={`rounded-t-2xl max-h-[300px] w-full h-auto object-cover aspect-square ${data.tradingStatus === 0 || data.tradingStatus === 1 ? '' : 'grayscale'}`}
-            alt="굿즈 이미지"
-          />
-        )}
-        {!data.imageUrls[0].url && (
-          <div className="rounded-t-2xl max-h-[300px] w-full h-auto bg-[#F9B23C] flex items-center justify-center">
-            <Image
-              src={BasicImage}
-              width={0}
-              height={0}
-              sizes="100vw"
-              className={`rounded-t-2xl max-h-[300px] w-full h-auto object-cover aspect-square ${data.tradingStatus === 0 || data.tradingStatus === 1 ? '' : 'grayscale'}`}
-              alt="굿즈 이미지"
-            />
-          </div>
-        )}
+        <Image
+          src={ImageUrl}
+          width={0}
+          height={0}
+          sizes="100vw"
+          className={`rounded-t-2xl max-h-[300px] w-full h-auto object-cover aspect-square ${data.tradingStatus === 0 || data.tradingStatus === 1 ? '' : 'grayscale'}`}
+          alt="굿즈 이미지"
+        />
         <div className="px-[20px] py-[20px]">
           <p className="truncate text-[15px]">{data.goodsName}</p>
           <p className="mt-[5px] text-[19px] font-medium">

@@ -4,7 +4,11 @@ import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import { ApiResponse } from '@/types/apiResponseType'
 import { GoodsAllListType } from '@/types/goodsType'
-import { KeywordType, ReadsGoodsData } from '@/types/readApiDataType'
+import {
+  KeywordType,
+  ReadsGoodsData,
+  SummaryDataType,
+} from '@/types/readApiDataType'
 
 export const getSearchResult = async (
   keyword: string,
@@ -63,5 +67,16 @@ export const getSellGoods = async (
   )
 
   const data: ApiResponse<ReadsGoodsData> = await res.json()
+  return data
+}
+
+export const getGoodsSummary = async (
+  goodsCode: string,
+): Promise<ApiResponse<SummaryDataType>> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/read-n/${goodsCode}/summary`,
+  )
+
+  const data: ApiResponse<SummaryDataType> = await res.json()
   return data
 }
