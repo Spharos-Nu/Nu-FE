@@ -36,7 +36,7 @@ export const getNotification = async (
 }
 
 export const deleteNotification = async (
-  id: number,
+  notificationId: object,
 ): Promise<ApiResponse<null>> => {
   const session = await getServerSession(options)
 
@@ -46,7 +46,7 @@ export const deleteNotification = async (
       'Content-Type': 'application/json',
       Authorization: session?.user.accessToken,
     },
-    body: JSON.stringify({ id }),
+    body: JSON.stringify(notificationId),
   })
 
   const data: ApiResponse<null> = await res.json()

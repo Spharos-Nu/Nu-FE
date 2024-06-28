@@ -10,6 +10,16 @@ export default function PointChargeForm() {
   const [chargeMoney, setChargeMoney] = useState<number>(0)
   const [error, setError] = useState<boolean>(false)
 
+  // const isMobile = () => {
+  //   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+  //     navigator.userAgent,
+  //   )
+  // }
+
+  const isMobile = () => {
+    return window.innerWidth <= 768
+  }
+
   const handleSubmit = async () => {
     if (chargeMoney > 2000000) {
       return setError(true)
@@ -18,7 +28,10 @@ export default function PointChargeForm() {
     setError(false)
 
     const data = await chargeDuckPoint(chargeMoney)
-    return router.push(data.next_redirect_pc_url)
+    const redirectUrl = isMobile()
+      ? data.next_redirect_mobile_url
+      : data.next_redirect_pc_url
+    return router.push(redirectUrl)
   }
 
   useEffect(() => {

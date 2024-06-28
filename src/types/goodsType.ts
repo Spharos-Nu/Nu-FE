@@ -9,11 +9,17 @@ export interface GoodsAllListType {
 
 export interface GoodsCardType {
   goodsCode: string
+  thumbnail: ThumbnailType
   goodsName: string
   minPrice: number
   tradingStatus: number
   opendAt: string
   closedAt: string
+}
+
+export interface ThumbnailType {
+  id: number
+  url: string
 }
 
 export interface FilterType {

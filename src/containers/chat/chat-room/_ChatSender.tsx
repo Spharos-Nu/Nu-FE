@@ -1,7 +1,9 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Button } from '@/components/Btn/button'
+import Sending from '@/components/Chat/Sending'
+import { useToastStore } from '@/components/Toast/store'
 
 function SendIcon() {
   return (
@@ -30,6 +32,8 @@ function ChatSender({
   newChat: (formData: FormData) => Promise<void>
 }) {
   const formRef = useRef<HTMLFormElement>(null)
+  const { showToast } = useToastStore()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,8 +50,16 @@ function ChatSender({
       formData.set('isImage', 'false')
     }
 
-    await newChat(formData)
-    form.reset() // 폼 리셋
+    try {
+      setIsLoading(true)
+      await newChat(formData)
+      form.reset() // 폼 리셋
+    } catch (error) {
+      form.reset() // 폼 리셋
+      showToast('서버가 기다리고 있어요. 잠시 후 다시 시도해주세요')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -63,13 +75,19 @@ function ChatSender({
       <input type="hidden" name="isImage" value="" />
       <input type="hidden" name="senderUuid" value="1111" />
       <input type="hidden" name="receiverUuid" value="2222" />
-      <Button
-        type="submit"
-        size="icon"
-        className="absolute top-[2rem] right-[2rem] w-10 h-10 flex items-center j-center"
-      >
-        <SendIcon />
-      </Button>
+      {isLoading ? (
+        <div className="absolute top-[1.5rem] right-[2rem] w-10 h-10 flex items-center justify-center">
+          <Sending />
+        </div>
+      ) : (
+        <Button
+          type="submit"
+          size="icon"
+          className="absolute top-[1.5rem] right-[2rem] w-10 h-10 flex items-center justify-center rounded-md"
+        >
+          <SendIcon />
+        </Button>
+      )}
     </form>
   )
 }

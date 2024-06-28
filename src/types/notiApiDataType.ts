@@ -5,6 +5,7 @@ export interface NotiListType {
   notificationType: number
   createdAt: string
   read: boolean
+  link: string
 }
 
 export interface NotiData {

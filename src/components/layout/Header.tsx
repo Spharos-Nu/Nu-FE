@@ -28,11 +28,11 @@ export default function Header() {
     getCount()
   }, [])
 
-  if (pathname.startsWith(`/goods/`)) return null
+  if (pathname.startsWith(`/goods/`) || pathname === '/') return null
 
   return (
     <header className="static my-[15px] flex justify-between leading-[50px]">
-      <div className="flex h-[50px]">
+      <div className="flex h-[50px] items-center">
         <h1 className="pl-[20px]">
           <Link href="/">
             <Logo />

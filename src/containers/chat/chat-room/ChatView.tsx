@@ -72,7 +72,7 @@ export default function ChatView({ chatRoomId }: { chatRoomId: string }) {
 
         eventSource.onmessage = (event) => {
           const newMessage = JSON.parse(event.data)
-          console.log('새로운 메시지 도착: ', newMessage.message)
+          // console.log('새로운 메시지 도착: ', newMessage.message)
           setChatData((prevData) => [...prevData, newMessage])
         }
 
@@ -101,11 +101,11 @@ export default function ChatView({ chatRoomId }: { chatRoomId: string }) {
 
   return (
     <>
-      <header className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-800">
+      <header className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8">
-            {/* <ChatProfileImage userUuid="1111" /> */}
-            <ChatRoomImage goodsCode="1111" />
+            {/* <ChatProfileImage userUuid="1" /> */}
+            <ChatRoomImage goodsCode="1" />
           </div>
           <div>
             <div className="font-medium">Goods Duck</div>
