@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 import { useEffect } from 'react'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import {
@@ -92,6 +93,9 @@ export default function ComplainForm({
     if (data.status === 200) {
       resetComplainState()
       showAlert('신고가 완료되었습니다.')
+    } else if (data.status === 401) {
+      signOut()
+      router.push(`/login?callbackUrl=${window.location.href}`)
     } else {
       showAlert('신고 등록에 실패했습니다.')
     }

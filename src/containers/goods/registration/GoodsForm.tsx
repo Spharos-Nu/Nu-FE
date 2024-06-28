@@ -1,9 +1,10 @@
 'use client'
 
 import { redirect, useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 import { useBasicAlertStore } from '@/components/Modal/store'
+import { useToastStore } from '@/components/Toast/store'
+import { postGoods } from '@/utils/goodsApiActions'
 import { uploadGoodsImage } from '@/utils/uploadImage'
 import CategoryArea from './CategoryArea'
 import DescriptionArea from './DescriptionArea'
@@ -20,7 +21,6 @@ export interface ImageType {
 
 export default function GoodsForm() {
   const router = useRouter()
-  const { data: session } = useSession()
 
   const {
     goodsName,
@@ -38,35 +38,36 @@ export default function GoodsForm() {
   const { imageItems, resetImagesState } = useImageStore()
   const { tags, resetTagsState } = useTagStore()
   const { showAlert, isClosed } = useBasicAlertStore()
+  const { showToast } = useToastStore()
 
   const validCheck = () => {
     if (imageItems.length === 0) {
-      showAlert('이미지를 등록해주세요.')
+      showToast('이미지를 등록해주세요.')
       return false
     }
     if (!goodsName) {
-      return showAlert('상품명을 입력해주세요.')
+      return showToast('상품명을 입력해주세요.')
     }
     if (categoryId === -1) {
-      return showAlert('카테고리를 선택해주세요.')
+      return showToast('카테고리를 선택해주세요.')
     }
     if (!description) {
-      return showAlert('상품 설명을 입력해주세요.')
+      return showToast('상품 설명을 입력해주세요.')
     }
     if (minPrice === '') {
-      return showAlert('최소 가격을 입력해주세요.')
+      return showToast('최소 가격을 입력해주세요.')
     }
     if (!biddingPeriod) {
-      return showAlert('입찰 시작 날짜를 선택해주세요.')
+      return showToast('입찰 시작 날짜를 선택해주세요.')
     }
     if (!biddingTime) {
-      return showAlert('입찰 시작 시간을 선택해주세요.')
+      return showToast('입찰 시작 시간을 선택해주세요.')
     }
     if (!biddingDuration) {
-      return showAlert('입찰 기간을 선택해주세요.')
+      return showToast('입찰 기간을 선택해주세요.')
     }
     if (wishTradeType === '') {
-      return showAlert('선호 거래 방법을 선택해주세요.')
+      return showToast('선호 거래 방법을 선택해주세요.')
     }
 
     return true
@@ -92,28 +93,18 @@ export default function GoodsForm() {
       date.setHours(date.getHours() + Number(biddingDuration)) - offset,
     ).toISOString()
 
-    const inputData = {
+    const data = await postGoods(
       goodsName,
       categoryId,
       description,
-      minPrice: Number(minPrice),
+      Number(minPrice),
       openedAt,
       closedAt,
       wishTradeType,
       tags,
       images,
-    }
+    )
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/v1/goods`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: session?.user.accessToken,
-      },
-      body: JSON.stringify(inputData),
-    })
-
-    const data = await res.json()
     if (data.status === 200) {
       resetGoodsState()
       resetImagesState()

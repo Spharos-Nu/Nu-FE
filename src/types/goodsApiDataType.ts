@@ -2,8 +2,8 @@ export interface GoodsData {
   totalCount: number
   nowPage: number
   maxPage: number
-  isLast: boolean
   goodsList: BidType[]
+  isLast: boolean
 }
 
 export interface BidType {

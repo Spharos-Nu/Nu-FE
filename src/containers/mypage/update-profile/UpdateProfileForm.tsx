@@ -39,6 +39,11 @@ export default function UpdateProfileForm() {
       favoriteCategory,
     )
 
+    if (data.status === 401) {
+      resetProfile()
+      setNicknameError(0)
+      return router.push(`/login?callbackUrl=${window.location.href}`)
+    }
     if (data.status !== 200) {
       return null
     }
