@@ -92,7 +92,7 @@ export default function SearchForm() {
           className="absolute top-[10px] right-1 text-sky-600 text-3xl mx-3"
         />
       </div>
-      {relatedKeyword && (
+      {keyword && relatedKeyword && (
         <div className="w-[calc(100%-40px)] border border-slate-500 rounded-md shadow-lg max-h-40 overflow-y-auto m-auto">
           {relatedKeyword.map((item) => (
             <button
