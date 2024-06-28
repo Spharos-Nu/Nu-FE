@@ -23,7 +23,7 @@ export interface SummaryData {
 }
 
 export interface DetailDataType {
-  tradingStatus: string
+  tradingStatus: number
   goodsName: string
   description: string
   minPrice: number
