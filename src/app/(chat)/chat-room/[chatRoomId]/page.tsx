@@ -38,7 +38,6 @@ export default async function ChatRoomDetailPage({
     const data = await response.json()
 
     if (!response.ok) {
-      // console.log("여기까진 나오고",response.json())
       throw new Error(data.message || '메시지 포스트 API 실패')
     }
     revalidatePath(`/chat/${params.chatRoomId}`)

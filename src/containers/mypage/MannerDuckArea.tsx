@@ -50,8 +50,8 @@ export default function MannerDuckArea({
 
   return (
     <div className="mx-7 my-7 rounded-3xl bg-slate-100 px-2 py-2">
-      <span className="text-xs pl-4">나의 매너덕</span>
-      <div className="flex flex-col justify-center items-center">
+      <span className="text-xs pl-4 border-b-2">나의 매너덕</span>
+      <div className="flex flex-col justify-center items-center mb-4">
         <Image
           src={mannerDuckImage}
           alt={mannerDuckLabel}
@@ -64,8 +64,16 @@ export default function MannerDuckArea({
             {nextDuckLabel}까지 {mannerDuck?.leftPoint}점 남았어요.
           </p>
         )}
-        <p>
-          현재 {session?.user.nickname}님의 매너덕은 {mannerDuckLabel}입니다
+        <p className="text-center mt-[20px] text-black">
+          <span className="font-semibold text-[#ff7f50]">
+            {session?.user.nickname}
+          </span>
+          님의 매너덕은{' '}
+          <span className="text-[#0000ff]">{mannerDuckLabel}</span>
+          입니다.
+        </p>
+        <p className="text-center mt-[10px] text-[#a9a9a9] text-[12px]">
+          좋은 거래 기록을 쌓으면 매너덕은 업그레이드 되요!
         </p>
       </div>
     </div>

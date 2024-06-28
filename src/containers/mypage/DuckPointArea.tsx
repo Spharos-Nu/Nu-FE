@@ -10,7 +10,7 @@ export default function DuckPointArea({
 
   return (
     <div className="mx-7 my-3 rounded-3xl bg-slate-100 px-2 py-2">
-      <span className="text-xs pl-4">duck point</span>
+      <span className="text-xs pl-4 border-b-2">duck point</span>
       <div className="flex mt-2 mx-4 justify-between items-center">
         <span className="text-xl">
           {(duckPoint ?? 0)
@@ -20,13 +20,14 @@ export default function DuckPointArea({
         </span>
         <Link
           href="/duck-point/charge"
-          className="flex text-xl text-white bg-slate-400 rounded-xl w-14 h-10 justify-center items-center"
+          className="flex text-xl text-white bg-blue-400 rounded-xl w-14 h-10 justify-center items-center"
         >
           <span className="text-xl">충전</span>
         </Link>
       </div>
+      <hr className="mt-4 my-2 border-gray-300" />
       <Link
-        className="mx-4 mt-4 flex items-center justify-center border-t border-gray-500 text-center py-2"
+        className="mx-4 flex items-center justify-center text-center py-2"
         href="/duck-point/details"
       >
         사용 내역

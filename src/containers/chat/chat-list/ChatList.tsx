@@ -1,10 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { signOut, useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import Loading from '@/components/Chat/Loading'
 import NickName from '@/components/Chat/NickName'
+import MannerDuck1 from '@/public/svgs/duck/mannerDuckLevel1.svg'
+import MannerDuck2 from '@/public/svgs/duck/mannerDuckLevel2.svg'
 import { useTransition, animated } from '@react-spring/web'
 import ChatRoomImage from './ChatRoomImage'
 import LastChat from './LastChat'
@@ -26,6 +29,7 @@ export default function ChatList() {
   const session = useSession()
   const token = session.data?.user.accessToken
   const uuid = session.data?.user.uuid
+  const router = useRouter()
 
   const fetchChatList = async () => {
     try {
@@ -65,10 +69,17 @@ export default function ChatList() {
   if (token === undefined) {
     return (
       <div className="flex flex-col justify-center items-center mt-40">
-        <div>어떤 Duck이신가요? 로그인이 필요해요!</div>
-        <Link href="/login">
-          <span className="text-gray-500 underline">로그인 바로가기</span>
-        </Link>
+        <MannerDuck1 />
+        <div>어떤 Duck이신가요?</div>
+        <button
+          type="button"
+          onClick={() => {
+            signOut()
+            router.push('/login')
+          }}
+        >
+          <span className="text-blue-500 underline">로그인이 필요해요!</span>
+        </button>
       </div>
     )
   }
@@ -76,10 +87,17 @@ export default function ChatList() {
   if (statusCode !== 200) {
     return (
       <div className="flex flex-col justify-center items-center mt-40 gap-2">
-        <div>No token. 다시 로그인해주세요</div>
-        <Link href="/login">
-          <span className="text-blue-500 underline">로그인 바로가기</span>
-        </Link>
+        <MannerDuck2 />
+        <div>토큰이 만료되었어요</div>
+        <button
+          type="button"
+          onClick={() => {
+            signOut()
+            router.push('/login')
+          }}
+        >
+          <span className="text-blue-500 underline">로그인이 필요해요!</span>
+        </button>
       </div>
     )
   }
