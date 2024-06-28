@@ -1,5 +1,5 @@
 export interface LocalStorageKeywordType {
-  id: number
+  categoryId: number
   text: string
 }
 

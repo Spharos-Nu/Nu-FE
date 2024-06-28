@@ -18,7 +18,7 @@ export default function DetailDescription({
         <div className="mt-[10px]">
           {tags.map((item) => (
             <span key={item.id} className="mr-[10px] text-[17px] text-zinc-400">
-              {item.name}
+              #{item.name}
             </span>
           ))}
         </div>

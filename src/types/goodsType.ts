@@ -12,9 +12,9 @@ export interface GoodsCardType {
   thumbnail: ThumbnailType
   goodsName: string
   minPrice: number
-  tradingStatus: number
-  opendAt: string
+  openedAt: string
   closedAt: string
+  tradingStatus: number
 }
 
 export interface ThumbnailType {

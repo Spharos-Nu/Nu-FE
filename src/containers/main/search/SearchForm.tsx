@@ -1,35 +1,53 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { IoMdSearch, IoMdCloseCircle } from 'react-icons/io'
+import { useToastStore } from '@/components/Toast/store'
 import { useSearchStore } from '@/containers/main/search/store'
 import { LocalStorageKeywordType } from '@/types/headerType'
 import { KeywordType } from '@/types/readApiDataType'
 import { getRelatedKeywordList, getSearchResult } from '@/utils/readsApiActions'
 
 export default function SearchForm() {
+  const { showToast } = useToastStore()
+  const pathname = usePathname()
+
+  // eslint-disable-next-line consistent-return
+  const getPathIndex = (path: string) => {
+    if (path.startsWith('/animation')) return 1
+    if (path.startsWith('/idol')) return 2
+    if (path.startsWith('/baseball')) return 3
+
+    return 0
+  }
+
   const [keywords, setKeywords] = useState<LocalStorageKeywordType[]>(
     JSON.parse(localStorage.getItem('keywords') || '[]'),
   )
 
   const { keyword, setKeyword, page, setSearchResult } = useSearchStore()
-  // Todo: 키워드 데이터타입
+
   const [relatedKeyword, setRelatedKeyword] = useState<KeywordType[]>([])
 
-  const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value)
-  }
-
-  const handleKeywordInput = async (text: string) => {
+  const handleKeywordInput = async (text: string, categoryId: number) => {
     const newKeyword = {
-      id: Date.now(),
       text,
+      categoryId,
     }
 
-    setKeywords([newKeyword, ...keywords])
+    const isDuplicate = keywords.some(
+      (element) => element.text === newKeyword.text,
+    )
+
+    if (!text || !isDuplicate) {
+      setKeywords([newKeyword, ...keywords])
+    }
+
     setKeyword('')
 
-    const data = await getSearchResult(text, page)
+    const data = await getSearchResult(text, categoryId, page)
+    if (!data.result.totalCount) showToast('검색 결과가 없습니다.')
     setSearchResult(data.result)
   }
 
@@ -38,11 +56,12 @@ export default function SearchForm() {
   }, [keywords])
 
   useEffect(() => {
-    setKeyword('')
-
     const getList = async () => {
       if (keyword) {
-        const data = await getRelatedKeywordList(keyword)
+        const data = await getRelatedKeywordList(
+          keyword,
+          getPathIndex(pathname),
+        )
         setRelatedKeyword(data.result)
       }
     }
@@ -59,7 +78,7 @@ export default function SearchForm() {
           className="w-full h-full pl-[20px] pr-[40px] text-[15px] rounded-full flex-10"
           placeholder="카테고리, 키워드를 통해 굿즈를 찾아보세요."
           value={keyword}
-          onChange={handleKeyword}
+          onChange={(e) => setKeyword(e.target.value)}
         />
         {keyword && (
           <IoMdCloseCircle
@@ -68,17 +87,19 @@ export default function SearchForm() {
           />
         )}
         <IoMdSearch
-          onClick={() => handleKeywordInput(keyword)}
+          onClick={() => handleKeywordInput(keyword, getPathIndex(pathname))}
           className="absolute top-[10px] right-1 text-sky-600 text-3xl mx-3"
         />
       </div>
       {relatedKeyword && (
-        <div className="w-[calc(100%-40px)] rounded-md shadow-lg max-h-40 overflow-y-auto">
+        <div className="w-[calc(100%-40px)] border border-slate-500 rounded-md shadow-lg max-h-40 overflow-y-auto m-auto">
           {relatedKeyword.map((item) => (
             <button
               key={item.keyword}
               type="button"
-              onClick={() => handleKeywordInput(item.keyword)}
+              onClick={() =>
+                handleKeywordInput(item.keyword, getPathIndex(pathname))
+              }
               className={`w-full h-full ${relatedKeyword.length > 1 ? 'border border-b-slate-500' : ''}`}
             >
               {item.keyword}
