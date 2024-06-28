@@ -20,7 +20,7 @@ export default function TagArea() {
       showAlert('태그를 입력해주세요!')
     } else if (tags.length < 5) {
       const formattedItem = item.replace('#', '')
-      addTags({ id: Date.now(), name: `#${formattedItem}` })
+      addTags({ id: Date.now(), name: `${formattedItem}` })
     } else {
       showAlert('태그는 최대 5개까지 입력할 수 있어요!')
     }
@@ -56,7 +56,7 @@ export default function TagArea() {
             key={tag.id}
             className="flex mr-[7px] border border-[#FFD26F] rounded-full px-[10px] py-[10px] text-center"
           >
-            <p className="content-center pl-[5px]">{tag.name}</p>
+            <p className="content-center pl-[5px]">#{tag.name}</p>
             <p
               className="content-center"
               onClick={() => removeTags(tag)}
