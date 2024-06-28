@@ -80,15 +80,33 @@ export default function LoginForm() {
       redirect: false,
     })
 
-    if (res?.status === 200) {
-      getToken(messaging, {
-        vapidKey: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_VAPID_KEY,
-      }).then(async (currentToken) => {
-        if (currentToken) {
-          await saveDeviceToken(currentToken)
-          router.push(params)
+    const getFBToken = async (maxRetries: number = 3): Promise<string> => {
+      let attempts = 0
+      const getTokenWithRetry = async (): Promise<string> => {
+        try {
+          const currentToken = await getToken(messaging, {
+            vapidKey: process.env.VAPID_KEY,
+          })
+          return currentToken
+        } catch (DOMException) {
+          if (attempts < maxRetries) {
+            attempts += 1
+            return await getTokenWithRetry()
+          }
         }
-      })
+        return ''
+      }
+      return getTokenWithRetry()
+    }
+
+    if (res?.status === 200) {
+      const currentToken = await getFBToken()
+      console.log('currentToken: ', currentToken)
+      if (currentToken) {
+        await saveDeviceToken(currentToken)
+        console.log('디바이스 토큰 저장성공')
+      }
+      router.push(params)
     } else {
       showAlert('회원정보가 일치하지 않습니다.')
     }
