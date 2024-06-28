@@ -15,6 +15,27 @@ export default function AnnouncementArea() {
         <span className="text-xs pl-4">그 외 설정</span>
       </div>
       <hr className="my-2 border-gray-300" />
+      <a
+        href="/mypage/notice"
+        className="flex my-3 ml-3 text-black-500 hover:underline"
+      >
+        공지사항
+      </a>
+      <hr className="my-2 border-gray-300" />
+      <a
+        href="https://sites.google.com/view/goodsgoodsduck-service-term/홈"
+        className="flex my-3 ml-3 text-black-500 hover:underline"
+      >
+        이용약관
+      </a>
+      <hr className="my-2 border-gray-300" />
+      <a
+        href="https://sites.google.com/view/goodsgoodsduck-privacy-policy/홈"
+        className="flex my-3 ml-3 text-black-500 hover:underline"
+      >
+        개인정보처리방침
+      </a>
+      <hr className="my-2 border-gray-300" />
       <div
         className="flex my-3 ml-3 text-black-500 hover:underline"
         role="button"
@@ -26,29 +47,8 @@ export default function AnnouncementArea() {
           }
         }}
       >
-        알림
+        Version 정보
       </div>
-      <hr className="my-2 border-gray-300" />
-      <a
-        href="/mypage/notice"
-        className="flex my-3 ml-3 text-black-500 hover:underline"
-      >
-        공지사항
-      </a>
-      <hr className="my-2 border-gray-300" />
-      <a
-        href="/mypage/terms"
-        className="flex my-3 ml-3 text-black-500 hover:underline"
-      >
-        이용약관
-      </a>
-      <hr className="my-2 border-gray-300" />
-      <a
-        href="/mypage/privacy"
-        className="flex my-3 ml-3 text-black-500 hover:underline"
-      >
-        개인정보처리방침
-      </a>
     </div>
   )
 }
