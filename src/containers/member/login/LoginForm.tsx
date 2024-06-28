@@ -10,7 +10,6 @@ import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { montserrat } from '@/styles/fonts'
-// import { getToken } from '@/utils/firebase'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 import { saveDeviceToken } from '@/utils/notificationApiActions'
 
