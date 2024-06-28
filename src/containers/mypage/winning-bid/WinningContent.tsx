@@ -6,7 +6,7 @@ import { BidType } from '@/types/goodsApiDataType'
 
 export default function WinningContent({ goods }: { goods: BidType }) {
   return (
-    <Link href={`/goods/goodsCode=${goods.goodsCode}`} className="relative">
+    <Link href={`/goods/${goods.goodsCode}`} className="relative">
       <Image
         src={goods.thumbnail}
         alt="썸네일"

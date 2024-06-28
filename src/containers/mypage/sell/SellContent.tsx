@@ -8,7 +8,7 @@ export default function SellContent({ goods }: { goods: SellType }) {
   return (
     <Link href={`/goods/goodsCode=${goods.goodsCode}`} className="relative">
       <Image
-        src={goods.thumbnail.url}
+        src={goods.thumbnail.url || '/images/basicImage.png'}
         alt="썸네일"
         className="rounded-t-xl w-full h-full aspect-square object-cover"
         width={0}
