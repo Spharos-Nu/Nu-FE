@@ -1,16 +1,16 @@
-import { SearchListType } from '@/types/readApiDataType'
+import { GoodsAllListType } from '@/types/goodsType'
 import { create } from 'zustand'
 
 interface SearchState {
   keyword: string
   page: number
   status: number | null
-  searchResult: SearchListType
+  searchResult: GoodsAllListType
 
   setKeyword: (keyword: string) => void
   setPage: (page: number) => void
   setStatus: (status: number | null) => void
-  setSearchResult: (searchResult: SearchListType) => void
+  setSearchResult: (searchResult: GoodsAllListType) => void
 
   resetSearchState: () => void
 }

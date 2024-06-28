@@ -1,5 +1,6 @@
 export interface GoodsListType {
-  goodsCode: number
+  goodsCode: string
+  thumbnail: string
   goodsName: string
   minPrice: number
   openedAt: string

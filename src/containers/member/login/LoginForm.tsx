@@ -85,9 +85,7 @@ export default function LoginForm() {
         vapidKey: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_VAPID_KEY,
       }).then(async (currentToken) => {
         if (currentToken) {
-          console.log(currentToken)
           await saveDeviceToken(currentToken)
-          console.log('디바이스 토큰 저장 성공')
           router.push(params)
         }
       })
