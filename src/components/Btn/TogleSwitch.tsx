@@ -4,7 +4,6 @@ interface ToggleSwitchProps {
 }
 
 function ToggleSwitch({ isOn, handleToggle }: ToggleSwitchProps) {
-  // PropTypes를 사용하지 않으므로, 기본적인 타입 검사를 수동으로 추가합니다.
   if (typeof isOn !== 'boolean') {
     throw new Error(
       `Invalid prop 'isOn': expected a boolean, but got ${typeof isOn}`,

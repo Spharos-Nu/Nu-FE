@@ -10,8 +10,8 @@ export default function InfoArea() {
 
   return (
     <div className="mx-7 my-3 rounded-3xl bg-slate-100 px-2 py-2">
-      <span className="text-xs pl-4">나의 정보</span>
-      <div className="flex mt-2 ml-3">
+      <span className="text-xs pl-4 border-b-2">나의 정보</span>
+      <div className="flex mt-4 ml-3">
         {session?.user.image ? (
           <Image
             src={session.user.image}
@@ -26,11 +26,16 @@ export default function InfoArea() {
         <div className="text-sm ml-10">
           <p className="font-bold md-3">{session?.user.nickname}</p>
           <p className="my-3">
-            카테고리 기본 설정: {session?.user.favoriteCategory}
+            기본 Category는{' '}
+            <span className="text-blue-600">
+              {session?.user.favoriteCategory}
+            </span>
+            이에요
           </p>
         </div>
       </div>
-      <div className="flex border-t border-gray-500 text-center pt-2 mx-4 my-3">
+      <hr className="mt-4 my-2 border-gray-300" />
+      <div className="flex text-center pt-2 mx-4 my-3">
         <Link
           className="flex items-center justify-center w-1/2"
           href="/mypage/update-profile"
@@ -38,7 +43,7 @@ export default function InfoArea() {
           정보 수정
         </Link>
         <Link
-          className="flex items-center justify-center w-1/2 border-l border-gray-500"
+          className="flex items-center justify-center w-1/2 border-l border-gray-300"
           href="/mypage/update-password"
         >
           비밀번호 재설정

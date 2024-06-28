@@ -50,8 +50,8 @@ export default function MannerDuckArea({
 
   return (
     <div className="mx-7 my-7 rounded-3xl bg-slate-100 px-2 py-2">
-      <span className="text-xs pl-4">나의 매너덕</span>
-      <div className="flex flex-col justify-center items-center">
+      <span className="text-xs pl-4 border-b-2">나의 매너덕</span>
+      <div className="flex flex-col justify-center items-center mb-4">
         <Image
           src={mannerDuckImage}
           alt={mannerDuckLabel}
