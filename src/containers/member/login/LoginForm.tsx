@@ -81,22 +81,21 @@ export default function LoginForm() {
     })
 
     const getFBToken = async (maxRetries: number = 3): Promise<string> => {
-      let attempts = 0
-      const getTokenWithRetry = async (): Promise<string> => {
+      const getTokenWithRetry = async (attempts: number): Promise<string> => {
         try {
           const currentToken = await getToken(messaging, {
-            vapidKey: process.env.VAPID_KEY,
+            vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY!,
           })
           return currentToken
-        } catch (DOMException) {
+        } catch (error) {
           if (attempts < maxRetries) {
-            attempts += 1
-            return await getTokenWithRetry()
+            console.error('토큰 발급 재시도')
+            return await getTokenWithRetry(attempts + 1)
           }
         }
         return ''
       }
-      return getTokenWithRetry()
+      return getTokenWithRetry(0)
     }
 
     if (res?.status === 200) {
