@@ -1,14 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
+import { useWinningStore } from '@/containers/mypage/store'
+import WinningContent from '@/containers/mypage/winning-bid/WinningContent'
 import { GoodsData } from '@/types/goodsApiDataType'
-import { getLikeGoods } from '@/utils/goodsApiActions'
-import { useLikeStore } from './store'
+import { getWinningGoods } from '@/utils/goodsApiActions'
 
-export default function LikeList() {
-  const { page, setPage } = useLikeStore()
+export default function WinningBidList() {
+  const { currentStatus, page, setPage } = useWinningStore()
   const [data, setData] = useState<GoodsData>({
     totalCount: 0,
     nowPage: 0,
@@ -19,28 +19,28 @@ export default function LikeList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getLikeGoods(page)
+      const res = await getWinningGoods(page, currentStatus)
       if (res.status === 200) {
         setData(res.result)
       }
     }
 
     fetchData()
-  }, [page])
+  }, [page, currentStatus])
 
   if (!data.goodsList.length) {
     return (
       <div className="text-slate-500 text-center my-2">
-        좋아요 한 상품이 없습ㄴ니다.
+        낙찰받은 상품 내역이 없습니다.
       </div>
     )
   }
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-4 md:grid-cols-2 justify-center items-center">
+      <div className="mt-5 px-5 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 justify-center items-center">
         {data.goodsList.map((goods) => (
-          <GoodsSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
+          <WinningContent key={goods.goodsCode} goods={goods} />
         ))}
       </div>
       <Pagination

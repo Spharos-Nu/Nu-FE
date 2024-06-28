@@ -1,14 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
+import BidContent from '@/containers/mypage/bid/BidContent'
+import { useBidStore } from '@/containers/mypage/store'
 import { GoodsData } from '@/types/goodsApiDataType'
-import { getWinningGoods } from '@/utils/goodsApiActions'
-import { useWinningStore } from './store'
+import { getBidGoods } from '@/utils/goodsApiActions'
 
-export default function WinningBidList() {
-  const { currentStatus, page, setPage } = useWinningStore()
+export default function BidList() {
+  const { currentStatus, page, setPage } = useBidStore()
   const [data, setData] = useState<GoodsData>({
     totalCount: 0,
     nowPage: 0,
@@ -19,7 +19,7 @@ export default function WinningBidList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getWinningGoods(page, currentStatus)
+      const res = await getBidGoods(page, currentStatus)
       if (res.status === 200) {
         setData(res.result)
       }
@@ -31,16 +31,16 @@ export default function WinningBidList() {
   if (!data.goodsList.length) {
     return (
       <div className="text-slate-500 text-center my-2">
-        낙찰받은 상품 내역이 없습니다.
+        입찰내역이 없습니다.
       </div>
     )
   }
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-4 md:grid-cols-2">
+      <div className="mt-5 px-5 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 justify-center items-center">
         {data.goodsList.map((goods) => (
-          <GoodsSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
+          <BidContent key={goods.goodsCode} goods={goods} />
         ))}
       </div>
       <Pagination

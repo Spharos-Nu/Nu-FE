@@ -3,7 +3,12 @@
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import { ApiResponse } from '@/types/apiResponseType'
-import { GoodsData, SummaryData } from '@/types/goodsApiDataType'
+import {
+  DetailDataType,
+  GoodsData,
+  SummaryData,
+} from '@/types/goodsApiDataType'
+import { GoodsAllListType } from '@/types/goodsType'
 
 /**
  * 입찰한 상품 코드 조회
@@ -29,41 +34,7 @@ export const getBidGoods = async (
   const session = await getServerSession(options)
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/goods/bids?page=${page}&size=10&sort=&${status === null ? '' : `?status=${status}`}`,
-    {
-      headers: { Authorization: session?.user.accessToken },
-    },
-  )
-
-  const data: ApiResponse<GoodsData> = await res.json()
-  return data
-}
-
-/**
- * 내가 등록한 상품 내역 조회
- * @param page 현재 페이지
- * @param status 0: 경매전 / 1: 경매중 / 2: 경매종료 / 3: 거래완료 / 4: 거래취소
- * @returns
- * "result": {
-    "totalCount": "총 개수",
-    "nowPage": "현재 페이지",
-    "maxPage": "최대 페이지",
-    "isLast": "마지막 페이지 여부"
-    "goodsList":[
-      {
-        "goodsCode": "상품코드"
-        },
-    ],
-  }
-  */
-export const getSellGoods = async (
-  page: number,
-  status: number | null,
-): Promise<ApiResponse<GoodsData>> => {
-  const session = await getServerSession(options)
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/goods/users/sell?page=${page}${status === null ? '' : `?status=${status}`}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/goods/bids?page=${page}&size=20&sort=&${status === null ? '' : `status=${status}`}`,
     {
       headers: { Authorization: session?.user.accessToken },
     },
@@ -97,7 +68,7 @@ export const getWinningGoods = async (
   const session = await getServerSession(options)
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/v1/bids/users?page=${page}${status === null ? '' : `?status=${status}`}`,
+    `${process.env.NEXT_PUBLIC_API}/v1/goods/winning-bid?page=${page}&size=20&sort=&${status === null ? '' : `status=${status}`}`,
     {
       headers: { Authorization: session?.user.accessToken },
     },
@@ -109,7 +80,7 @@ export const getWinningGoods = async (
 
 export const getLikeGoods = async (
   page: number,
-): Promise<ApiResponse<GoodsData>> => {
+): Promise<ApiResponse<GoodsAllListType>> => {
   const session = await getServerSession(options)
 
   const res = await fetch(
@@ -124,7 +95,7 @@ export const getLikeGoods = async (
 }
 
 export const getGoodsSummary = async (
-  goodsCode: number,
+  goodsCode: string,
 ): Promise<ApiResponse<SummaryData>> => {
   const session = await getServerSession(options)
 
@@ -140,7 +111,7 @@ export const getGoodsSummary = async (
 }
 
 export const getLike = async (
-  goodsCode: number,
+  goodsCode: string,
 ): Promise<ApiResponse<boolean>> => {
   const session = await getServerSession(options)
 
@@ -152,5 +123,16 @@ export const getLike = async (
   )
 
   const data = await res.json()
+  return data
+}
+
+export const getGoodsDetail = async (
+  goodsCode: string,
+): Promise<ApiResponse<DetailDataType>> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/v1/goods-n/${goodsCode}`,
+  )
+
+  const data: ApiResponse<DetailDataType> = await res.json()
   return data
 }

@@ -1,15 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
-import { GoodsData } from '@/types/goodsApiDataType'
-import { getBidGoods } from '@/utils/goodsApiActions'
-import { useBidStore } from './store'
+import SellContent from '@/containers/mypage/sell/SellContent'
+import { useSellStore } from '@/containers/mypage/store'
+import { ReadsGoodsData } from '@/types/readApiDataType'
+import { getSellGoods } from '@/utils/readsApiActions'
 
-export default function BidList() {
-  const { currentStatus, page, setPage } = useBidStore()
-  const [data, setData] = useState<GoodsData>({
+export default function SellList() {
+  const { currentStatus, page, setPage } = useSellStore()
+  const [data, setData] = useState<ReadsGoodsData>({
     totalCount: 0,
     nowPage: 0,
     maxPage: 0,
@@ -19,7 +19,7 @@ export default function BidList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getBidGoods(page, currentStatus)
+      const res = await getSellGoods(page, currentStatus)
       if (res.status === 200) {
         setData(res.result)
       }
@@ -31,16 +31,16 @@ export default function BidList() {
   if (!data.goodsList.length) {
     return (
       <div className="text-slate-500 text-center my-2">
-        입찰내역이 없습니다.
+        판매한 상품 내역이 없습니다.
       </div>
     )
   }
 
   return (
     <>
-      <div className="mt-[20px] px-[20px] grid grid-cols-3 gap-4 sm:grid-cols-3 md:w-grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 justify-center items-center">
+      <div className="mt-5 px-5 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 justify-center items-center">
         {data.goodsList.map((goods) => (
-          <GoodsSummary key={goods.goodsCode} goodsList={goods} />
+          <SellContent key={goods.goodsCode} goods={goods} />
         ))}
       </div>
       <Pagination

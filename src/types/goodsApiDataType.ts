@@ -3,10 +3,10 @@ export interface GoodsData {
   nowPage: number
   maxPage: number
   isLast: boolean
-  goodsList: BiddingType[]
+  goodsList: BidType[]
 }
 
-export interface BiddingType {
+export interface BidType {
   goodsCode: number
   name: string
   price: number
@@ -20,4 +20,26 @@ export interface SummaryData {
   openedAt: string
   closedAt: string
   tradingStatus: number
+}
+
+export interface DetailDataType {
+  tradingStatus: number
+  goodsName: string
+  description: string
+  minPrice: number
+  openedAt: string
+  closedAt: string
+  wishTradeType: string
+  tags: TagType[]
+  imageUrls: ImageType[]
+}
+
+export interface TagType {
+  id: number
+  name: string
+}
+
+export interface ImageType {
+  id: number
+  url: string
 }
