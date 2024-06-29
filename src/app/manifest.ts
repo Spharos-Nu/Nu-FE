@@ -1,6 +1,10 @@
 import { MetadataRoute } from 'next'
 
-export default function mainfest(): MetadataRoute.Manifest {
+interface CustomManifest extends MetadataRoute.Manifest {
+  version: string
+}
+
+export default function mainfest(): CustomManifest {
   return {
     name: '굿즈굿즈덕',
     short_name: '굿즈굿즈덕',
@@ -9,6 +13,7 @@ export default function mainfest(): MetadataRoute.Manifest {
     display: 'standalone',
     background_color: '#ffffff',
     theme_color: '#0284c7',
+    version: '1.0.1',
     icons: [
       {
         src: '/icons/icon-192x192.png',

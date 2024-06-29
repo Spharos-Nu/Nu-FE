@@ -23,7 +23,7 @@ function ChatViewReceiverCard({ chatData }: { chatData: ChatDataProps }) {
         {/* <div className="text-xs">{chatData.senderUuid}</div> */}
         {/* <NickName userUuid={chatData.senderUuid} /> */}
         <div className="flex items-end gap-2">
-          <div className="bg-gray-100 dark:bg-gray-800 px-4 py-3 rounded-tr-lg rounded-bl-lg rounded-br-lg break-words w-fit">
+          <div className="bg-gray-100 px-4 py-3 rounded-tr-lg rounded-bl-lg rounded-br-lg break-words w-fit">
             {chatData.message}
           </div>
           <div className="text-xs mb-3 text-gray-400">{`${hours}:${minutes}`}</div>
