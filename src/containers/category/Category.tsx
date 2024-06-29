@@ -1,7 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { redirect, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useLocalCategoryStore } from '@/containers/main/store'
 import Animation from '@/public/svgs/category/animation.svg'
 import AnimationColor from '@/public/svgs/category/animationColor.svg'
 import AnimationGo from '@/public/svgs/category/animationGo.svg'
@@ -19,6 +20,7 @@ export default function Category({
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const router = useRouter()
+  const { categoryName, setCategory } = useLocalCategoryStore()
   const [itemPosition, setItemPosition] = useState([
     { id: 1, pos: false },
     { id: 2, pos: false },
@@ -37,17 +39,28 @@ export default function Category({
     setItemPosition(newPosition)
   }
 
-  const handleCategory = (name: string) => {
-    localStorage.setItem('category', name)
+  const handleCategory = (item: string) => {
+    localStorage.setItem('category', item)
+    setCategory(item)
+    console.log('categoryName', categoryName)
+    redirect(`/${categoryName}`)
 
-    if (localStorage.getItem('category') === '아이돌') router.push('/idol')
-    else if (localStorage.getItem('category') === '야구')
-      router.push('/baseball')
-    else if (localStorage.getItem('category') === '애니메이션')
-      router.push('/animation')
+    // if (categoryName === 'idol') router.push('/idol')
+    // else if (categoryName === 'baseball') router.push('/baseball')
+    // else if (categoryName === 'animation') router.push('/animation')
 
     setVisible(false)
   }
+
+  useEffect(() => {
+    const categoryFromStorage = localStorage.getItem('category')
+    if (categoryFromStorage !== null) {
+      setCategory(categoryFromStorage)
+
+      router.push(`/${categoryName}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryName])
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
@@ -78,7 +91,7 @@ export default function Category({
               <button
                 className="absolute left-[20px] bottom-[50px]"
                 type="button"
-                onClick={() => handleCategory('아이돌')}
+                onClick={() => handleCategory('idol')}
               >
                 <span className="sr-only">아이돌</span>
                 <KpopGo />
@@ -99,7 +112,7 @@ export default function Category({
               <button
                 className="absolute left-[20px] bottom-[50px]"
                 type="button"
-                onClick={() => handleCategory('야구')}
+                onClick={() => handleCategory('baseball')}
               >
                 <span className="sr-only">야구</span>
                 <BaseballGo />
@@ -120,7 +133,7 @@ export default function Category({
               <button
                 className="absolute left-[20px] bottom-[50px]"
                 type="button"
-                onClick={() => handleCategory('애니메이션')}
+                onClick={() => handleCategory('animation')}
               >
                 <span className="sr-only">애니메이션</span>
                 <AnimationGo />

@@ -4,14 +4,16 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { IoMdNotificationsOutline, IoMdSearch } from 'react-icons/io'
+import { SlArrowDown } from 'react-icons/sl'
 import { useHeaderModalState } from '@/components/layout/store'
-import CategorySelection from '@/containers/category/CategorySelection'
+import Category from '@/containers/category/Category'
 import SearchModal from '@/containers/main/search/SearchModal'
 import Logo from '@/public/svgs/header/logo.svg'
 import { getNotiCount } from '@/utils/notificationApiActions'
 
 export default function Header() {
   const [num, setNum] = useState<number>(0)
+  const [visible, setVisible] = useState<boolean>(false)
   const pathname = usePathname()
   const { search, setSearch } = useHeaderModalState()
 
@@ -31,14 +33,18 @@ export default function Header() {
 
   return (
     <header className="static my-[15px] flex justify-between leading-[50px]">
-      <div className="flex justify-center items-center">
+      <button
+        type="button"
+        className="flex justify-center items-center"
+        onClick={() => setVisible(true)}
+      >
         <h1 className="pl-[20px]">
-          <Link href="/">
-            <Logo />
-          </Link>
+          <Logo />
         </h1>
-        <CategorySelection />
-      </div>
+        <span className="hidden">굿즈굿즈덕 로고</span>
+        <SlArrowDown className="w-[25px] h-[25px] pl-[10px] content-center items-center text-sky-600" />
+      </button>
+      {visible && <Category setVisible={setVisible} />}
       <div className="flex justify-center items-center mr-3">
         <Link
           href="/notification"
