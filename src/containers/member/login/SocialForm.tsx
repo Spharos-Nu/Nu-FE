@@ -36,7 +36,7 @@ export default function SocialForm() {
       <div className="mt-5 w-full flex justify-center items-center">
         <button type="button" onClick={kakaoLogin}>
           <Image
-            src="/images/kakaoLoginBtn.png"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/kakaoLoginBtn.png`}
             alt="카카오 로그인"
             width={55}
             height={55}
@@ -51,7 +51,7 @@ export default function SocialForm() {
           onClick={() => showToast('준비 중입니다.')}
         >
           <Image
-            src="/images/naverLoginBtn.png"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/naverLoginBtn.png`}
             alt="네이버 로그인"
             width={55}
             height={55}
@@ -62,11 +62,11 @@ export default function SocialForm() {
         </button>
         <button
           type="button"
-          className="mx-7"
+          className="mr-7"
           onClick={() => showToast('준비 중입니다.')}
         >
           <Image
-            src="/images/googleLoginBtn.png"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/googleLoginBtn.png`}
             alt="구글 로그인"
             width={55}
             height={55}
@@ -77,7 +77,7 @@ export default function SocialForm() {
         </button>
         <button type="button" onClick={() => showToast('준비 중입니다.')}>
           <Image
-            src="/images/appleLoginBtn.png"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/appleLoginBtn.png`}
             alt="애플 로그인"
             width={55}
             height={55}
