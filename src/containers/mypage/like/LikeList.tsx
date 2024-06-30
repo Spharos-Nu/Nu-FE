@@ -43,11 +43,13 @@ export default function LikeList() {
           <LikeItem key={goods.goodsCode} goodsCode={goods.goodsCode} />
         ))}
       </div>
-      <Pagination
-        currentPage={data.nowPage}
-        setCurrentPage={setPage}
-        maxPage={data.maxPage}
-      />
+      {data.maxPage > 1 && (
+        <Pagination
+          currentPage={data.nowPage}
+          setCurrentPage={setPage}
+          maxPage={data.maxPage}
+        />
+      )}
     </div>
   )
 }

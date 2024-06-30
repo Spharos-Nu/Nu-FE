@@ -69,11 +69,13 @@ export default function NotificationModal({
                   deleteNoti={deleteNoti}
                 />
               ))}
-              <Pagination
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                maxPage={data.result.maxPage}
-              />
+              {data.result.totalCount > 10 && (
+                <Pagination
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  maxPage={data.result.maxPage}
+                />
+              )}
             </>
           )}
         </div>

@@ -43,11 +43,13 @@ export default function WinningBidList() {
           <WinningContent key={goods.goodsCode} goods={goods} />
         ))}
       </div>
-      <Pagination
-        currentPage={data.nowPage}
-        setCurrentPage={setPage}
-        maxPage={data.maxPage}
-      />
+      {data.maxPage > 1 && (
+        <Pagination
+          currentPage={data.nowPage}
+          setCurrentPage={setPage}
+          maxPage={data.maxPage}
+        />
+      )}
     </>
   )
 }
