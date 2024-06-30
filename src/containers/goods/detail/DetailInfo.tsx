@@ -37,9 +37,9 @@ export default function DetailInfo({
         <p className="text-[20px]">{goodsDetail.name}</p>
         <button type="button" onClick={() => handleLike()}>
           {isLiked ? (
-            <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-[#989898]" />
+            <LiaHeartSolid className="w-[30px] h-[32px] ml-[13px] text-red-500" />
           ) : (
-            <LiaHeartSolid className="w-[30px] h-[32px] ml-[13px] text-[#F84545]" />
+            <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-slate-400" />
           )}
         </button>
       </div>
