@@ -33,7 +33,7 @@ export default function SocialForm() {
           <LoginContour />
         </span>
       </div>
-      <div className="mt-5 w-full flex justify-center items-center">
+      <div className="mt-5 w-full flex justify-center items-center space-x-7">
         <button type="button" onClick={kakaoLogin}>
           <Image
             src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/kakaoLoginBtn.png`}
@@ -45,11 +45,7 @@ export default function SocialForm() {
             카카오
           </span>
         </button>
-        <button
-          type="button"
-          className="mx-7"
-          onClick={() => showToast('준비 중입니다.')}
-        >
+        <button type="button" onClick={() => showToast('준비 중입니다.')}>
           <Image
             src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/naverLoginBtn.png`}
             alt="네이버 로그인"
@@ -60,11 +56,7 @@ export default function SocialForm() {
             네이버
           </span>
         </button>
-        <button
-          type="button"
-          className="mr-7"
-          onClick={() => showToast('준비 중입니다.')}
-        >
+        <button type="button" onClick={() => showToast('준비 중입니다.')}>
           <Image
             src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/googleLoginBtn.png`}
             alt="구글 로그인"

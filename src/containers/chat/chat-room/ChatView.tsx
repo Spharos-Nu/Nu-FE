@@ -76,8 +76,7 @@ export default function ChatView({ chatRoomId }: { chatRoomId: string }) {
           setChatData((prevData) => [...prevData, newMessage])
         }
 
-        eventSource.onerror = (err) => {
-          console.error('이벤트소스 onError ', err)
+        eventSource.onerror = () => {
           eventSource.close()
 
           // Reconnect after a delay

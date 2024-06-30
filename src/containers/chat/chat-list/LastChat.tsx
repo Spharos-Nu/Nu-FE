@@ -56,7 +56,6 @@ function LastChat({
     )
 
     eventSource.onmessage = (event) => {
-      console.log('채팅방목록 GET New 메시지 성공', event.data)
       const data = JSON.parse(event.data)
       setNewChat(data.result)
       setAction(!action)
@@ -64,6 +63,7 @@ function LastChat({
     return () => {
       eventSource.close()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomId, action, setAction])
 
   return (
