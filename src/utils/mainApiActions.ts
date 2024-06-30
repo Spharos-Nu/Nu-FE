@@ -18,10 +18,6 @@ export const getLive = async (
 ): Promise<ApiResponse<LiveAndHotType[]>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/read-n/now-trading?categoryId=${categoryId}&page=0&sort=`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
-    },
   )
 
   const data = await res.json()
