@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation'
 import { signOut, useSession } from 'next-auth/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CgClose } from 'react-icons/cg'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import BiddingDuck from '@/public/svgs/duck/biddingDuck.svg'
@@ -20,7 +20,6 @@ export default function BiddingModal({
   const bidding = async (biddingData: FormData) => {
     if (!session) {
       signOut()
-      router.push(`/login?callbackUrl=${window.location.href}`)
     }
     biddingData.get('biddingPrice')
     const res = await postBidding(
@@ -32,6 +31,13 @@ export default function BiddingModal({
       setVisible(false)
     } else showAlert(res.message)
   }
+
+  useEffect(() => {
+    if (!session) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
 
   return (
     <div className="fixed z-40 w-screen h-screen top-0 left-0 bg-black bg-opacity-50">

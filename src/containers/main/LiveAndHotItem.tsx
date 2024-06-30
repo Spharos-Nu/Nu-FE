@@ -19,7 +19,6 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
   const handleLike = async () => {
     if (!session) {
       signOut()
-      router.push(`/login?callbackUrl=${window.location.href}`)
     } else if (isLiked) {
       const data = await deleteLike(item.goodsCode)
       if (data.status === 200) {
@@ -43,6 +42,13 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (!session) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
 
   return (
     <div className="relative border rounded-xl inline-block mr-[10px] last:mr-0">

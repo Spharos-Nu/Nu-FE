@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import {
@@ -23,7 +23,7 @@ export default function ComplainForm({
   const pathname = usePathname()
   const { isClosed, showAlert } = useBasicAlertStore()
   const { goodsCode, seller } = params
-
+  const { data: session } = useSession()
   const userComplainList = [
     {
       id: 0,
@@ -95,7 +95,6 @@ export default function ComplainForm({
       showAlert('신고가 완료되었습니다.')
     } else if (data.status === 401) {
       signOut()
-      router.push(`/login?callbackUrl=${window.location.href}`)
     } else {
       showAlert('신고 등록에 실패했습니다.')
     }
@@ -107,6 +106,13 @@ export default function ComplainForm({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClosed])
+
+  useEffect(() => {
+    if (!session) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
 
   return (
     <div>

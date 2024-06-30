@@ -22,7 +22,6 @@ export default function GoodsItem({
   const handleLike = async () => {
     if (!session) {
       signOut()
-      router.push(`/login?callbackUrl=${window.location.href}`)
     } else if (isLiked) {
       const data = await deleteLike(goodsItemData.goodsCode)
       if (data.status === 200) {
@@ -50,6 +49,13 @@ export default function GoodsItem({
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (!session) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
 
   return (
     <div className="relative border rounded-2xl">

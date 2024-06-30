@@ -69,7 +69,7 @@ export default function ChatList() {
         <button
           type="button"
           onClick={() => {
-            router.push('/login')
+            router.push(`/login?callbackUrl=${window.location.href}`)
           }}
         >
           <span className="text-blue-500 underline">로그인이 필요해요!</span>

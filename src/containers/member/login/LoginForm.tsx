@@ -1,7 +1,7 @@
 'use client'
 
-// import { initializeApp } from 'firebase/app'
-// import { getMessaging, getToken } from 'firebase/messaging'
+import { initializeApp } from 'firebase/app'
+import { getMessaging, getToken } from 'firebase/messaging'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
@@ -11,19 +11,19 @@ import { TiDelete } from 'react-icons/ti'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { montserrat } from '@/styles/fonts'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
-// import { saveDeviceToken } from '@/utils/notificationApiActions'
+import { saveDeviceToken } from '@/utils/notificationApiActions'
 
-// const firebaseApp = initializeApp({
-//   apiKey: process.env.FIREBASE_API_KEY,
-//   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-//   projectId: process.env.FIREBASE_PROJECT_ID,
-//   storageBucket: process.env.NIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-//   appId: process.env.FIREBASE_APP_ID,
-//   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
-// })
+const firebaseApp = initializeApp({
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+})
 
-// const messaging = getMessaging(firebaseApp)
+const messaging = getMessaging(firebaseApp)
 
 export default function LoginForm() {
   const router = useRouter()
@@ -79,28 +79,28 @@ export default function LoginForm() {
       redirect: false,
     })
 
-    // const getFBToken = async (maxRetries: number = 3): Promise<string> => {
-    //   const getTokenWithRetry = async (attempts: number): Promise<string> => {
-    //     try {
-    //       const currentToken = await getToken(messaging, {
-    //         vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY!,
-    //       })
-    //       return currentToken
-    //     } catch (error) {
-    //       if (attempts < maxRetries) {
-    //         return await getTokenWithRetry(attempts + 1)
-    //       }
-    //     }
-    //     return ''
-    //   }
-    //   return getTokenWithRetry(0)
-    // }
+    const getFBToken = async (maxRetries: number = 3): Promise<string> => {
+      const getTokenWithRetry = async (attempts: number): Promise<string> => {
+        try {
+          const currentToken = await getToken(messaging, {
+            vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY!,
+          })
+          return currentToken
+        } catch (error) {
+          if (attempts < maxRetries) {
+            return await getTokenWithRetry(attempts + 1)
+          }
+        }
+        return ''
+      }
+      return getTokenWithRetry(0)
+    }
 
     if (res?.status === 200) {
-      // const currentToken = await getFBToken()
-      // if (currentToken) {
-      //   await saveDeviceToken(currentToken)
-      // }
+      const currentToken = await getFBToken()
+      if (currentToken) {
+        await saveDeviceToken(currentToken)
+      }
       router.push(params)
     } else {
       showAlert('회원정보가 일치하지 않습니다.')
