@@ -1,4 +1,4 @@
-import NotificationList from '@/containers/main/notification/NotificationList'
+import NotificationList from '@/containers/notification/NotificationList'
 import { getNotification } from '@/utils/notificationApiActions'
 
 export default async function Notification() {

@@ -2,32 +2,32 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { IoMdNotificationsOutline, IoMdSearch } from 'react-icons/io'
 import { SlArrowDown } from 'react-icons/sl'
 import { useHeaderModalState } from '@/components/layout/store'
 import Category from '@/containers/category/Category'
 import SearchModal from '@/containers/main/search/SearchModal'
 import Logo from '@/public/svgs/header/logo.svg'
-import { getNotiCount } from '@/utils/notificationApiActions'
+// import { getNotiCount } from '@/utils/notificationApiActions'
 
 export default function Header() {
-  const [num, setNum] = useState<number>(0)
+  // const [num, setNum] = useState<number>(0)
   const [visible, setVisible] = useState<boolean>(false)
   const pathname = usePathname()
   const { search, setSearch } = useHeaderModalState()
 
-  useEffect(() => {
-    const getCount = async () => {
-      const data = await getNotiCount()
+  // useEffect(() => {
+  //   const getCount = async () => {
+  //     const data = await getNotiCount()
 
-      if (data.status === 200) {
-        setNum(data.result)
-      }
-    }
+  //     if (data.status === 200) {
+  //       setNum(data.result)
+  //     }
+  //   }
 
-    getCount()
-  }, [])
+  //   getCount()
+  // }, [])
 
   if (pathname.startsWith(`/goods/`) || pathname === '/') return null
 
@@ -51,11 +51,11 @@ export default function Header() {
           className="hover:bg-gray-200 relative w-full h-full flex justify-center items-center"
         >
           <IoMdNotificationsOutline className="text-sky-600 text-4xl mx-3" />
-          {num > 0 && (
+          {/* {num > 0 && (
             <span className="flex justify-center items-center rounded-full absolute top-3 right-[10px] w-[18px] h-[18px] z-10 bg-red-500 text-center text-white text-xs">
               {num}
             </span>
-          )}
+          )} */}
         </Link>
         <IoMdSearch
           onClick={() => setSearch(true)}

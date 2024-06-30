@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import Pagination from '@/components/Pagination'
 import { useToastStore } from '@/components/Toast/store'
-import NotificationContent from '@/containers/main/notification/NotificationContent'
+import NotificationContent from '@/containers/notification/NotificationContent'
 import { ApiResponse } from '@/types/apiResponseType'
 import { NotiData, NotiListType } from '@/types/notiApiDataType'
 import {
@@ -48,7 +48,7 @@ export default function NotificationModal({
   }, [currentPage, notiList.length])
 
   return (
-    <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
+    <div className="w-screen h-screen relative">
       <div className="w-full h-full">
         <FaArrowLeft
           onClick={() => router.back()}
@@ -57,28 +57,26 @@ export default function NotificationModal({
         <h1 className="h-[60px] leading-[60px] text-center text-[23px] tracking-[-0.1rem] font-semibold">
           알림
         </h1>
-        <div className="my-[20px] mx-[20px] overflow-scroll">
-          {!notiList.length ? (
-            <div className="text-center">알림이 없습니다.</div>
-          ) : (
-            <>
-              {notiList.map((item) => (
-                <NotificationContent
-                  key={item.id}
-                  item={item}
-                  deleteNoti={deleteNoti}
-                />
-              ))}
-              {data.result.totalCount > 10 && (
-                <Pagination
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                  maxPage={data.result.maxPage}
-                />
-              )}
-            </>
-          )}
-        </div>
+        {!notiList.length ? (
+          <div className="text-center">알림이 없습니다.</div>
+        ) : (
+          <div className="my-[20px] mx-[20px] overflow-scroll">
+            {notiList.map((item) => (
+              <NotificationContent
+                key={item.id}
+                item={item}
+                deleteNoti={deleteNoti}
+              />
+            ))}
+            {data.result.totalCount > 10 && (
+              <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                maxPage={data.result.maxPage}
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
