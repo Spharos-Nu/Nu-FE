@@ -27,7 +27,7 @@ export default function NotificationContent({
         onClick={handleButtonClick}
         aria-label="페이지 이동 버튼"
       >
-        <p className="text-[17px] leading-[20px]">{item.title}</p>
+        <p className="text-[17px] leading-[20px] mr-5">{item.title}</p>
         <p className="text-[14px] leading-[20px] mt-[10px]">{item.content}</p>
         <p className="text-[14px] leading-[10px] mt-[10px]">{item.createdAt}</p>
       </button>

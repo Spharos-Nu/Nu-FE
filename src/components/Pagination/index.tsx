@@ -63,11 +63,11 @@ export default function Pagination({
           </button>
         </div>
       )}
-      {maxPage > 1 && (
+      {maxPage > 1 && maxPage - 1 !== currentPage && (
         <div className="w-8 h-8 flex justify-center items-center">
           <button
             type="button"
-            onClick={() => setCurrentPage(maxPage)}
+            onClick={() => setCurrentPage(maxPage - 1)}
             className="w-full h-full text-gray-300"
           >
             {maxPage}
