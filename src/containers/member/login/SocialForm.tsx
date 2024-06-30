@@ -33,7 +33,7 @@ export default function SocialForm() {
           <LoginContour />
         </span>
       </div>
-      <div className="mt-5 w-full flex justify-center items-center">
+      <div className="mt-5 w-full flex justify-center items-center space-x-7">
         <button type="button" onClick={kakaoLogin}>
           <Image
             src="/images/kakaoLoginBtn.png"
@@ -47,7 +47,7 @@ export default function SocialForm() {
         </button>
         <button
           type="button"
-          className="mx-7"
+          // className="mx-7"
           onClick={() => showToast('준비 중입니다.')}
         >
           <Image
@@ -62,7 +62,7 @@ export default function SocialForm() {
         </button>
         <button
           type="button"
-          className="mx-7"
+          // className="mx-7"
           onClick={() => showToast('준비 중입니다.')}
         >
           <Image

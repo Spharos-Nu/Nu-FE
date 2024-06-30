@@ -48,7 +48,7 @@ export default function Header() {
       <div className="flex justify-center items-center mr-3">
         <Link
           href="/notification"
-          className="relative w-full h-full flex justify-center items-center"
+          className="hover:bg-gray-200 relative w-full h-full flex justify-center items-center"
         >
           <IoMdNotificationsOutline className="text-sky-600 text-4xl mx-3" />
           {num > 0 && (
@@ -59,7 +59,7 @@ export default function Header() {
         </Link>
         <IoMdSearch
           onClick={() => setSearch(true)}
-          className="w-full h-full text-sky-600 text-4xl mx-3"
+          className="hover:bg-gray-200 w-full h-full text-sky-600 text-4xl mx-3"
         />
       </div>
       {search && <SearchModal />}

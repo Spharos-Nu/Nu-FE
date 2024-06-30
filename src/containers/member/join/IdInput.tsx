@@ -66,7 +66,7 @@ export default function IdInput() {
           id="아이디"
           ref={idInputRef}
           type="text"
-          placeholder="영문과 숫자를 조합한 6~15자의 아이디"
+          placeholder="아이디: 영문과 숫자를 조합한 6~15자"
           autoComplete="off"
           minLength={6}
           maxLength={15}

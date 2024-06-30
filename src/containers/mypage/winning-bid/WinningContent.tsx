@@ -15,12 +15,14 @@ export default function WinningContent({ goods }: { goods: BidType }) {
         height={0}
         sizes="100vw"
       />
-      <div className="rounded-b-xl border border-t-0 border-slate-500 flex justify-between relative">
+      <div className="rounded-b-xl border border-t-0 border-gray-300 flex justify-between relative">
         <div className="py-4 px-3 w-full">
           <p className="truncate w-full mb-3">{goods.name}</p>
-          <div className="bg-sky-600 text-white flex justify-center items-center rounded-full px-[10px] py-3 text-sm">
-            낙찰가:{' '}
-            {goods.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+          <div className="bg-yellow-400 text-white flex justify-center items-center rounded-full px-[10px] py-3 text-sm">
+            <span className="text-gray-600">
+              {goods.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+            </span>{' '}
+            에 낙찰되었어요
           </div>
         </div>
       </div>

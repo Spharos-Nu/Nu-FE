@@ -11,7 +11,7 @@ interface ChatDataProps {
 function ChatViewReceiverCard({ chatData }: { chatData: ChatDataProps }) {
   const date = new Date(chatData.createdAt)
   const hours = date.getHours()
-  const minutes = date.getMinutes()
+  const minutes = date.getMinutes().toString().padStart(2, '0')
   // const seconds = date.getSeconds()
 
   return (

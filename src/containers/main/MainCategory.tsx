@@ -43,6 +43,7 @@ export default function MainCategory() {
 
   useEffect(() => {
     const categoryFromStorage = localStorage.getItem('category')
+    console.log('categoryFromStorage', categoryFromStorage)
     if (categoryFromStorage !== null) {
       setCategory(categoryFromStorage)
 
