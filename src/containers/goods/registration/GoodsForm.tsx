@@ -4,6 +4,7 @@ import { redirect, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { useToastStore } from '@/components/Toast/store'
+import { useLocalCategoryStore } from '@/containers/main/store'
 import { postGoods } from '@/utils/goodsApiActions'
 import { uploadGoodsImage } from '@/utils/uploadImage'
 import CategoryArea from './CategoryArea'
@@ -39,6 +40,7 @@ export default function GoodsForm() {
   const { tags, resetTagsState } = useTagStore()
   const { showAlert, isClosed } = useBasicAlertStore()
   const { showToast } = useToastStore()
+  const { categoryName } = useLocalCategoryStore()
 
   const validCheck = () => {
     if (imageItems.length === 0) {
@@ -110,7 +112,7 @@ export default function GoodsForm() {
       resetImagesState()
       resetTagsState()
       showAlert('상품이 등록되었습니다.')
-      redirect(`/`)
+      redirect(`/${categoryName}`)
     }
 
     showAlert('상품 등록에 실패했습니다.')

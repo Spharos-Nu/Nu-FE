@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { redirect, useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import AnimationGo from '@/public/svgs/category/animationGo.svg'
@@ -38,15 +39,16 @@ export default function MainCategory() {
 
   useEffect(() => {
     const categoryFromStorage = localStorage.getItem('category')
+    console.log('categoryFromStorage', categoryFromStorage)
     if (categoryFromStorage !== null) {
       setCategory(categoryFromStorage)
 
       router.push(`/${categoryName}`)
     } else if (session) {
       const category = session.user.favoriteCategory
-      if (category === '아이돌') router.push('/idol')
-      else if (category === '야구') router.push('/baseball')
-      else if (category === '애니메이션') router.push('/animation')
+      if (category === '아이돌') redirect('/idol')
+      else if (category === '야구') redirect('/baseball')
+      else if (category === '애니메이션') redirect('/animation')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryName])
@@ -86,14 +88,15 @@ export default function MainCategory() {
             )}
           </button>
           {itemPosition[0].pos && (
-            <button
+            <Link
+              href="/idol"
               className="absolute left-[20px] bottom-[50px]"
               type="button"
               onClick={() => handleCategory('idol')}
             >
               <span className="sr-only">아이돌</span>
               <KpopGo />
-            </button>
+            </Link>
           )}
         </div>
         <div
@@ -125,14 +128,15 @@ export default function MainCategory() {
             )}
           </button>
           {itemPosition[1].pos && (
-            <button
+            <Link
+              href="/baseball"
               className="absolute left-[20px] bottom-[50px]"
               type="button"
               onClick={() => handleCategory('baseball')}
             >
               <span className="sr-only">야구</span>
               <BaseballGo />
-            </button>
+            </Link>
           )}
         </div>
         <div
@@ -164,14 +168,15 @@ export default function MainCategory() {
             )}
           </button>
           {itemPosition[2].pos && (
-            <button
+            <Link
+              href="/animation"
               className="absolute left-[20px] bottom-[50px]"
               type="button"
               onClick={() => handleCategory('animation')}
             >
               <span className="sr-only">애니메이션</span>
               <AnimationGo />
-            </button>
+            </Link>
           )}
         </div>
       </div>

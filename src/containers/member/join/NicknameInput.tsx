@@ -73,7 +73,7 @@ export default function NicknameInput() {
           id="닉네임"
           ref={nicknameInputRef}
           type="text"
-          placeholder="한/영, 숫자를 조합한 2~15자의 닉네임"
+          placeholder="닉네임: 2~15자"
           autoComplete="off"
           minLength={2}
           maxLength={15}

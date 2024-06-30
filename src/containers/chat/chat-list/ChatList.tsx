@@ -69,7 +69,6 @@ export default function ChatList() {
         <button
           type="button"
           onClick={() => {
-            signOut()
             router.push('/login')
           }}
         >
@@ -88,10 +87,11 @@ export default function ChatList() {
           type="button"
           onClick={() => {
             signOut()
-            router.push('/login')
           }}
         >
-          <span className="text-blue-500 underline">로그인이 필요해요!</span>
+          <span className="hover:bg-gray-200 text-blue-500 underline">
+            로그인이 필요해요!
+          </span>
         </button>
       </div>
     )
@@ -138,7 +138,9 @@ export default function ChatList() {
                   />
                 </div>
                 <div className="text-xs mb-3 mt-2">
-                  {new Date(item.updatedAt).toLocaleString()}
+                  {item.updatedAt
+                    ? new Date(item.updatedAt).toLocaleString()
+                    : ''}
                 </div>
               </div>
             </Link>

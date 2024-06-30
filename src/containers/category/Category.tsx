@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useLocalCategoryStore } from '@/containers/main/store'
@@ -42,7 +43,6 @@ export default function Category({
     // if (categoryName === 'idol') router.push('/idol')
     // else if (categoryName === 'baseball') router.push('/baseball')
     // else if (categoryName === 'animation') router.push('/animation')
-
     setVisible(false)
   }
 
@@ -100,14 +100,15 @@ export default function Category({
               )}
             </button>
             {itemPosition[0].pos && (
-              <button
+              <Link
+                href="/idol"
                 className="absolute left-[20px] bottom-[50px]"
                 type="button"
                 onClick={() => handleCategory('idol')}
               >
                 <span className="sr-only">아이돌</span>
                 <KpopGo />
-              </button>
+              </Link>
             )}
           </div>
           <div
@@ -139,14 +140,15 @@ export default function Category({
               )}
             </button>
             {itemPosition[1].pos && (
-              <button
+              <Link
+                href="/baseball"
                 className="absolute left-[20px] bottom-[50px]"
                 type="button"
                 onClick={() => handleCategory('baseball')}
               >
                 <span className="sr-only">야구</span>
                 <BaseballGo />
-              </button>
+              </Link>
             )}
           </div>
           <div
@@ -178,14 +180,15 @@ export default function Category({
               )}
             </button>
             {itemPosition[2].pos && (
-              <button
+              <Link
+                href="/animation"
                 className="absolute left-[20px] bottom-[50px]"
                 type="button"
                 onClick={() => handleCategory('animation')}
               >
                 <span className="sr-only">애니메이션</span>
                 <AnimationGo />
-              </button>
+              </Link>
             )}
           </div>
         </div>

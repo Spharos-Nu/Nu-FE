@@ -127,19 +127,19 @@ export default function ConfirmModal({
               </p>
               <button
                 type="submit"
-                name="cancel"
-                value="false"
-                className="w-[calc(100%-50px)] h-[60px] border border-sky-600 text-sky-600 text-[17px] rounded-full mt-[40px] mx-[20px]"
-              >
-                취소하기
-              </button>
-              <button
-                type="submit"
                 name="confirm"
                 value="true"
                 className="w-[calc(100%-50px)] h-[60px] bg-sky-600 text-white text-[17px] rounded-full mt-[15px] mx-[20px]"
               >
                 낙찰하기
+              </button>
+              <button
+                type="submit"
+                name="cancel"
+                value="false"
+                className="w-[calc(100%-50px)] h-[60px] border border-sky-600 text-sky-600 text-[17px] rounded-full mt-[40px] mx-[20px]"
+              >
+                취소하기
               </button>
             </form>
           )}

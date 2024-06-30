@@ -20,14 +20,14 @@ export default function DuckPointArea({
         </span>
         <Link
           href="/duck-point/charge"
-          className="flex text-xl text-white bg-blue-400 rounded-xl w-14 h-10 justify-center items-center"
+          className="hover:bg-blue-500 flex text-xl text-white bg-blue-400 rounded-xl w-14 h-10 justify-center items-center"
         >
           <span className="text-xl">충전</span>
         </Link>
       </div>
       <hr className="mt-4 my-2 border-gray-300" />
       <Link
-        className="mx-4 flex items-center justify-center text-center py-2"
+        className="hover:bg-gray-200 mx-4 flex items-center justify-center text-center py-2"
         href="/duck-point/details"
       >
         사용 내역

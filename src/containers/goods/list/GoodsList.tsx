@@ -101,9 +101,9 @@ export default function GoodsList() {
 
   useEffect(() => {
     const category = localStorage.getItem('category')
-    if (category === '애니메이션') setCategoryId(1)
-    else if (category === '아이돌') setCategoryId(2)
-    else if (category === '야구') setCategoryId(3)
+    if (category === 'animation') setCategoryId(1)
+    else if (category === 'idol') setCategoryId(2)
+    else if (category === 'baseball') setCategoryId(3)
     else setCategoryId(0) // 기본 카테고리 설정
     if (categoryId) getList()
     // eslint-disable-next-line react-hooks/exhaustive-deps

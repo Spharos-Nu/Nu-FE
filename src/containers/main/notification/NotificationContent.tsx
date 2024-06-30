@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation'
-import { PiTrashLight } from 'react-icons/pi'
+import { MdClose } from 'react-icons/md'
 import { NotiListType } from '@/types/notiApiDataType'
 
 export default function NotificationContent({
@@ -17,8 +17,8 @@ export default function NotificationContent({
 
   return (
     <div className="relative bg-slate-100 my-[20px] px-[20px] py-[15px] rounded-3xl">
-      <PiTrashLight
-        className="absolute w-5 h-5 right-4 bottom-4"
+      <MdClose
+        className="hover:bg-gray-200 absolute w-5 h-5 right-4 top-4"
         onClick={() => deleteNoti(item.id)}
       />
       <button

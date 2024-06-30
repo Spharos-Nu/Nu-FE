@@ -97,7 +97,7 @@ export default function MyPageHeader() {
         aria-label="뒤로가기"
       >
         <FaArrowLeft
-          className="w-5 h-5"
+          className="hover:bg-gray-200 w-5 h-5"
           id="뒤로가기"
           onClick={() => router.back()}
         />
@@ -110,7 +110,7 @@ export default function MyPageHeader() {
         aria-label="홈"
       >
         <IoHome
-          className="w-5 h-5"
+          className="hover:bg-gray-200 w-5 h-5"
           id="홈"
           onClick={() => router.push(`/${categoryName}`)}
         />
