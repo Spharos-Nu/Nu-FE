@@ -22,7 +22,6 @@ function LastChat({
   const { data: session } = useSession()
 
   useEffect(() => {
-    // console.log('getLastChat api 요청')
     async function getLastChat() {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API}/v1/chat/${roomId}/last`,
@@ -42,7 +41,6 @@ function LastChat({
   }, [roomId])
 
   useEffect(() => {
-    // console.log('getNewChat api 요청')
     const EventSource = EventSourcePolyfill || NativeEventSource
     const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_API}/v1/chat/${roomId}/new`,

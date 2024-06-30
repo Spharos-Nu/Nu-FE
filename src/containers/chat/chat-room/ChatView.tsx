@@ -72,7 +72,6 @@ export default function ChatView({ chatRoomId }: { chatRoomId: string }) {
 
         eventSource.onmessage = (event) => {
           const newMessage = JSON.parse(event.data)
-          // console.log('새로운 메시지 도착: ', newMessage.message)
           setChatData((prevData) => [...prevData, newMessage])
         }
 

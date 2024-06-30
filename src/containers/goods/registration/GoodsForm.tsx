@@ -79,13 +79,6 @@ export default function GoodsForm() {
     if (!validCheck()) return
 
     const images = await uploadGoodsImage(imageItems)
-    // const images: ImageType[] = imageItems.map(async (item, index) =>
-    //   images.push({
-    //     id: index + 1,
-    //     url: await uploadGoodsImage(item.url),
-    //   }),
-    // )
-    // console.log(images)
 
     const openedAt = `${biddingPeriod}T${biddingTime}:00.000Z`
     const date = new Date(`${biddingPeriod} ${biddingTime}`)

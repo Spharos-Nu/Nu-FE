@@ -5,7 +5,6 @@ export default async function Notice() {
     `${process.env.NEXT_PUBLIC_API}/v1/etc-n/notice?page=0&size=40&sort=`,
   )
   const data = await res.json()
-  // console.log(data.result)
   return (
     <div>
       <div className="flex flex-col mt-4 mb-4 ml-4 mr-4">
