@@ -20,7 +20,6 @@ export default function Nav() {
       <div className="text-center">
         <Link href={`/${categoryName}`}>
           <div
-            // eslint-disable-next-line no-constant-condition
             className={`inline-block ${pathname === '/animation' || pathname === '/idol' || pathname === '/baseball' ? 'opacity-100' : 'opacity-50'}`}
           >
             <Home />

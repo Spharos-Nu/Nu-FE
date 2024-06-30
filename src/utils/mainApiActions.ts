@@ -34,10 +34,6 @@ export const getHot = async (
 ): Promise<ApiResponse<HotType>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/read-n/all-list?categoryId=${categoryId}&isTradingOnly=false&page=0&size=10&sort=wishCount,DESC`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
-    },
   )
 
   const data = await res.json()
@@ -50,10 +46,6 @@ export const getComingSoon = async (
 ): Promise<ApiResponse<SoonAndHitsType[]>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/read-n/coming-soon?categoryId=${categoryId}&page=0&size=10&sort=`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
-    },
   )
 
   const data = await res.json()
@@ -66,10 +58,6 @@ export const getHits = async (
 ): Promise<ApiResponse<HitType>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/read-n/all-list?categoryId=${categoryId}&isTradingOnly=false&page=0&size=10&sort=viewsCount,ASC`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
-    },
   )
 
   const data = await res.json()
@@ -82,10 +70,6 @@ export const getTags = async (
 ): Promise<ApiResponse<TagType[]>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/goods-n/${goodsCode}/tags`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
-    },
   )
 
   const data = await res.json()
@@ -98,10 +82,6 @@ export const getGoodsImages = async (
 ): Promise<ApiResponse<string>> => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/goods-n/${goodsCode}/thumbnail`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
-    },
   )
 
   const data = await res.json()
@@ -120,7 +100,6 @@ export const getLikeWhether = async (
         'Content-Type': 'application/json',
         Authorization: session?.user.accessToken,
       },
-      cache: 'no-cache',
     },
   )
 
@@ -141,7 +120,6 @@ export const addLike = async (
         'Content-Type': 'application/json',
         Authorization: session?.user.accessToken,
       },
-      cache: 'no-cache',
     },
   )
 
@@ -162,7 +140,6 @@ export const deleteLike = async (
         'Content-Type': 'application/json',
         Authorization: session?.user.accessToken,
       },
-      cache: 'no-cache',
     },
   )
 
@@ -180,7 +157,6 @@ export const getProfile = async (): Promise<ApiResponse<ProfileType>> => {
       headers: {
         'Content-Type': 'application/json',
       },
-      cache: 'no-cache',
     },
   )
 
@@ -199,7 +175,6 @@ export const getDuckPoint = async (): Promise<ApiResponse<number>> => {
         'Content-Type': 'application/json',
         Authorization: session?.user.accessToken,
       },
-      cache: 'no-cache',
     },
   )
 
