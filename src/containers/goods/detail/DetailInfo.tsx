@@ -1,8 +1,12 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
+import { useToastStore } from '@/components/Toast/store'
 import { GoodsDetailType } from '@/types/goodsType'
+import { addLike, deleteLike, getLikeWhether } from '@/utils/mainApiActions'
 import Timer from './Timer'
 
 export default function DetailInfo({
@@ -10,7 +14,10 @@ export default function DetailInfo({
 }: {
   goodsDetail: GoodsDetailType
 }) {
+  const { data: session } = useSession()
+  const router = useRouter()
   const [isLiked, setIsLiked] = useState<boolean>(false)
+  const { showToast } = useToastStore()
 
   const wishTrade = [
     {
@@ -27,8 +34,30 @@ export default function DetailInfo({
     },
   ]
 
-  const handleLike = () => {
-    setIsLiked(!isLiked)
+  const handleLike = async () => {
+    if (!session) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
+    } else {
+      const whether = await getLikeWhether(goodsDetail.goodsCode)
+
+      if (whether.status === 200) {
+        if (isLiked) {
+          const data = await deleteLike(goodsDetail.goodsCode)
+          if (data.status === 200) {
+            setIsLiked(!isLiked)
+          }
+        } else {
+          const data = await addLike(goodsDetail.goodsCode)
+          if (data.status === 200) {
+            setIsLiked(!isLiked)
+          }
+        }
+      } else if (whether.status === 401) {
+        showToast('로그인이 필요한 서비스입니다.')
+      } else {
+        showToast(whether.message)
+      }
+    }
   }
 
   return (

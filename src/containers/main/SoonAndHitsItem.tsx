@@ -6,14 +6,10 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
+import { useToastStore } from '@/components/Toast/store'
 import BasicImage from '@/public/images/basicImage.png'
 import { SoonAndHitsType, TagType } from '@/types/mainType'
-import {
-  addLike,
-  deleteLike,
-  getLikeWhether,
-  getTags,
-} from '@/utils/mainApiActions'
+import { addLike, deleteLike, getLikeWhether } from '@/utils/mainApiActions'
 import TagItem from './TagItem'
 
 export default function SoonAndHitsItem({
@@ -26,20 +22,30 @@ export default function SoonAndHitsItem({
   const { data: session } = useSession()
   const router = useRouter()
   const [isLiked, setIsLiked] = useState<boolean>(false)
-  const [tags, setTags] = useState<TagType[]>([])
+  const { showToast } = useToastStore()
 
   const handleLike = async () => {
     if (!session) {
       router.push(`/login?callbackUrl=${window.location.href}`)
-    } else if (isLiked) {
-      const data = await deleteLike(item.goodsCode)
-      if (data.status === 200) {
-        setIsLiked(!isLiked)
-      }
     } else {
-      const data = await addLike(item.goodsCode)
-      if (data.status === 200) {
-        setIsLiked(!isLiked)
+      const whether = await getLikeWhether(item.goodsCode)
+
+      if (whether.status === 200) {
+        if (isLiked) {
+          const data = await deleteLike(item.goodsCode)
+          if (data.status === 200) {
+            setIsLiked(!isLiked)
+          }
+        } else {
+          const data = await addLike(item.goodsCode)
+          if (data.status === 200) {
+            setIsLiked(!isLiked)
+          }
+        }
+      } else if (whether.status === 401) {
+        showToast('로그인이 필요한 서비스입니다.')
+      } else {
+        showToast(whether.message)
       }
     }
   }
@@ -50,9 +56,6 @@ export default function SoonAndHitsItem({
         const LikeData = await getLikeWhether(item.goodsCode)
         setIsLiked(LikeData.result)
       }
-      const TagData = await getTags(item.goodsCode)
-      const tagList = [...tags, ...TagData.result] as TagType[]
-      setTags(tagList)
     }
     getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,8 +114,8 @@ export default function SoonAndHitsItem({
         <div className="px-[20px] py-[20px]">
           <p className="text-[21px] truncate">{item.goodsName}</p>
           <div className="whitespace-nowrap overflow-x-auto flex">
-            {tags.length === 0 && <p className="h-[21px] visible" />}
-            {tags.map((list: TagType) => (
+            {item.tagList.length === 0 && <p className="h-[21px] visible" />}
+            {item.tagList.map((list: TagType) => (
               <TagItem key={list.id} tag={list} />
             ))}
           </div>

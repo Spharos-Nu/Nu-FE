@@ -3,9 +3,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
+import { useToastStore } from '@/components/Toast/store'
 import BasicImage from '@/public/images/basicImage.png'
 import { LiveAndHotType } from '@/types/mainType'
 import { addLike, deleteLike, getLikeWhether } from '@/utils/mainApiActions'
@@ -15,19 +16,30 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
   const { data: session } = useSession()
   const router = useRouter()
   const [isLiked, setIsLiked] = useState<boolean>(false)
+  const { showToast } = useToastStore()
 
   const handleLike = async () => {
     if (!session) {
-      signOut()
-    } else if (isLiked) {
-      const data = await deleteLike(item.goodsCode)
-      if (data.status === 200) {
-        setIsLiked(!isLiked)
-      }
+      router.push(`/login?callbackUrl=${window.location.href}`)
     } else {
-      const data = await addLike(item.goodsCode)
-      if (data.status === 200) {
-        setIsLiked(!isLiked)
+      const whether = await getLikeWhether(item.goodsCode)
+
+      if (whether.status === 200) {
+        if (isLiked) {
+          const data = await deleteLike(item.goodsCode)
+          if (data.status === 200) {
+            setIsLiked(!isLiked)
+          }
+        } else {
+          const data = await addLike(item.goodsCode)
+          if (data.status === 200) {
+            setIsLiked(!isLiked)
+          }
+        }
+      } else if (whether.status === 401) {
+        showToast('로그인이 필요한 서비스입니다.')
+      } else {
+        showToast(whether.message)
       }
     }
   }
@@ -43,12 +55,13 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if (!session) {
-      router.push(`/login?callbackUrl=${window.location.href}`)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
+  // useEffect(() => {
+  //   if (!session) {
+  //     showToast('로그인이 필요한 서비스입니다.')
+  //     router.push(`/login?callbackUrl=${window.location.href}`)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [session])
 
   return (
     <div className="relative border rounded-xl inline-block mr-[10px] last:mr-0">

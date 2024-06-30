@@ -54,7 +54,7 @@ export default function MainCategory() {
   }, [categoryName])
 
   return (
-    <div className="w-screen h-screen z-30 top-0 left-0 overflow-scroll bg-white">
+    <div className="w-screen h-screen z-30 top-0 left-0 mb-[100px] overflow-scroll bg-white">
       <h1 className="whitespace-pre-line mt-[70px] ml-[30px] text-[30px] tracking-[-0.1rem] font-semibold leading-[40px]">
         {text}
       </h1>
@@ -90,7 +90,7 @@ export default function MainCategory() {
           {itemPosition[0].pos && (
             <Link
               href="/idol"
-              className="absolute left-[20px] bottom-[50px]"
+              className="absolute w-full h-auto left-[20px] bottom-[50px]"
               type="button"
               onClick={() => handleCategory('idol')}
             >
@@ -130,7 +130,7 @@ export default function MainCategory() {
           {itemPosition[1].pos && (
             <Link
               href="/baseball"
-              className="absolute left-[20px] bottom-[50px]"
+              className="absolute w-full h-auto left-[20px] bottom-[50px]"
               type="button"
               onClick={() => handleCategory('baseball')}
             >
@@ -170,7 +170,7 @@ export default function MainCategory() {
           {itemPosition[2].pos && (
             <Link
               href="/animation"
-              className="absolute left-[20px] bottom-[50px]"
+              className="absolute w-full h-auto left-[20px] bottom-[50px]"
               type="button"
               onClick={() => handleCategory('animation')}
             >
