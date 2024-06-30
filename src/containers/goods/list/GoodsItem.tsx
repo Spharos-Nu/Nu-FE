@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
 import { useToastStore } from '@/components/Toast/store'
@@ -21,20 +21,26 @@ export default function GoodsItem({
 
   const handleLike = async () => {
     if (!session) {
-      signOut()
-    } else if (isLiked) {
-      const data = await deleteLike(goodsItemData.goodsCode)
-      if (data.status === 200) {
-        setIsLiked(!isLiked)
-      } else {
-        showToast(data.message)
-      }
+      router.push(`/login?callbackUrl=${window.location.href}`)
     } else {
-      const data = await addLike(goodsItemData.goodsCode)
-      if (data.status === 200) {
-        setIsLiked(!isLiked)
+      const whether = await getLikeWhether(goodsItemData.goodsCode)
+
+      if (whether.status === 200) {
+        if (isLiked) {
+          const data = await deleteLike(goodsItemData.goodsCode)
+          if (data.status === 200) {
+            setIsLiked(!isLiked)
+          }
+        } else {
+          const data = await addLike(goodsItemData.goodsCode)
+          if (data.status === 200) {
+            setIsLiked(!isLiked)
+          }
+        }
+      } else if (whether.status === 401) {
+        showToast('로그인이 필요한 서비스입니다.')
       } else {
-        showToast(data.message)
+        showToast(whether.message)
       }
     }
   }
@@ -50,12 +56,12 @@ export default function GoodsItem({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if (!session) {
-      router.push(`/login?callbackUrl=${window.location.href}`)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
+  // useEffect(() => {
+  //   if (!session) {
+  //     router.push(`/login?callbackUrl=${window.location.href}`)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [session])
 
   return (
     <div className="relative border rounded-2xl">
