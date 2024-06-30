@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
 import { useToastStore } from '@/components/Toast/store'
@@ -20,8 +20,8 @@ export default function GoodsItem({
   const { showToast } = useToastStore()
 
   const handleLike = async () => {
-    if (!session) {
-      signOut()
+    if (session?.user.accessToken === undefined) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
     } else if (isLiked) {
       const data = await deleteLike(goodsItemData.goodsCode)
       if (data.status === 200) {

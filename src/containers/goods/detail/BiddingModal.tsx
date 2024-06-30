@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import React, { useEffect } from 'react'
 import { CgClose } from 'react-icons/cg'
 import { useBasicAlertStore } from '@/components/Modal/store'
@@ -18,8 +18,8 @@ export default function BiddingModal({
   const { showAlert } = useBasicAlertStore()
 
   const bidding = async (biddingData: FormData) => {
-    if (!session) {
-      signOut()
+    if (session?.user.accessToken === undefined) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
     }
     biddingData.get('biddingPrice')
     const res = await postBidding(
@@ -33,7 +33,7 @@ export default function BiddingModal({
   }
 
   useEffect(() => {
-    if (!session) {
+    if (session?.user.accessToken === undefined) {
       router.push(`/login?callbackUrl=${window.location.href}`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
