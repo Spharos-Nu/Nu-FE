@@ -45,7 +45,7 @@ export default function ReviewForm({
         session?.user?.uuid,
         receiverUuid,
         goodsCode,
-        rating,
+        rating * 20,
         formData.get('content') as string,
       )
 
@@ -59,7 +59,7 @@ export default function ReviewForm({
         receiverUuid,
         session?.user?.uuid,
         goodsCode,
-        rating,
+        rating * 20,
         formData.get('content') as string,
       )
 

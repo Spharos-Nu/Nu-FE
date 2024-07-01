@@ -27,7 +27,7 @@ export default function ReviewItem({
   const [visible, setVisible] = useState<boolean>(false)
   const ImageUrl = data.thumbnail
     ? data.thumbnail.url
-    : '/images/basicImage.png'
+    : `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/basicImage.png`
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +52,7 @@ export default function ReviewItem({
         />
         <div className="pl-[20px] w-[70%] place-self-center overflow-hidden">
           <p className="flex text-left font-semibold">{data.goodsName}</p>
-          <p className="pt-[10px] whitespace-nowrap truncate overflow-hidden">
+          <p className="pt-[10px] text-left whitespace-nowrap truncate overflow-hidden">
             {review.content}
           </p>
         </div>

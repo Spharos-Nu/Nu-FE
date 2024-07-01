@@ -2,14 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
-import { LiaHeart, LiaHeartSolid } from 'react-icons/lia'
-import { useToastStore } from '@/components/Toast/store'
-import BasicImage from '@/public/images/basicImage.png'
+import LikeBtn from '@/components/Btn/LikeBtn'
 import { SoonAndHitsType, TagType } from '@/types/mainType'
-import { addLike, deleteLike, getLikeWhether } from '@/utils/mainApiActions'
 import TagItem from './TagItem'
 
 export default function SoonAndHitsItem({
@@ -19,62 +13,10 @@ export default function SoonAndHitsItem({
   item: SoonAndHitsType
   sort?: string
 }) {
-  const { data: session } = useSession()
-  const router = useRouter()
-  const [isLiked, setIsLiked] = useState<boolean>(false)
-  const { showToast } = useToastStore()
-
-  const handleLike = async () => {
-    if (!session) {
-      router.push(`/login?callbackUrl=${window.location.href}`)
-    } else {
-      const whether = await getLikeWhether(item.goodsCode)
-
-      if (whether.status === 200) {
-        if (isLiked) {
-          const data = await deleteLike(item.goodsCode)
-          if (data.status === 200) {
-            setIsLiked(!isLiked)
-          }
-        } else {
-          const data = await addLike(item.goodsCode)
-          if (data.status === 200) {
-            setIsLiked(!isLiked)
-          }
-        }
-      } else if (whether.status === 401) {
-        showToast('로그인이 필요한 서비스입니다.')
-      } else {
-        showToast(whether.message)
-      }
-    }
-  }
-
-  useEffect(() => {
-    const getData = async () => {
-      if (session) {
-        const LikeData = await getLikeWhether(item.goodsCode)
-        setIsLiked(LikeData.result)
-      }
-    }
-    getData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <div className="border rounded-2xl">
       <div className="relative">
-        <button
-          type="button"
-          onClick={handleLike}
-          className="absolute bottom-2 right-2 z-10"
-        >
-          {isLiked ? (
-            <LiaHeartSolid className="w-[30px] h-[32px] ml-[13px] text-[#F84545]" />
-          ) : (
-            <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-[#989898]" />
-          )}
-        </button>
+        <LikeBtn goodsCode={item.goodsCode} />
         <Link href={`/goods/${item.goodsCode}`} className="relative">
           {item.thumbnail && (
             <Image
@@ -89,7 +31,7 @@ export default function SoonAndHitsItem({
           {!item.thumbnail && (
             <div className="bg-[#F9B23C] rounded-t-2xl">
               <Image
-                src={BasicImage}
+                src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/basicImage.png`}
                 alt={item.goodsCode}
                 width={0}
                 height={0}
