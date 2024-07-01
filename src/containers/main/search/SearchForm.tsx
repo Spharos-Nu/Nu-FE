@@ -2,8 +2,8 @@
 
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { IoMdCloseCircle } from 'react-icons/io'
 import { FiSearch } from 'react-icons/fi'
+import { IoMdCloseCircle } from 'react-icons/io'
 import { useToastStore } from '@/components/Toast/store'
 import { useSearchStore } from '@/containers/main/search/store'
 import { LocalStorageKeywordType } from '@/types/headerType'
