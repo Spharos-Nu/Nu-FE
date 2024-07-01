@@ -1,12 +1,12 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { signOut, useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import Loading from '@/components/Chat/Loading'
 import NickName from '@/components/Chat/NickName'
-import MannerDuck2 from '@/public/svgs/duck/mannerDuckLevel2.svg'
 import { useTransition, animated } from '@react-spring/web'
 import ChatRoomImage from './ChatRoomImage'
 import LastChat from './LastChat'
@@ -67,7 +67,14 @@ export default function ChatList() {
     signOut()
     return (
       <div className="flex flex-col justify-center items-center mt-40 gap-2">
-        <MannerDuck2 />
+        <Image
+          src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/mannerDuckLevel2.png`}
+          alt="매너덕2"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: '50%', height: 'auto' }}
+        />
         <div>토큰이 만료되었어요</div>
         <button
           type="button"

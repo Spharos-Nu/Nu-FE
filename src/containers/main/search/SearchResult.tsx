@@ -12,7 +12,7 @@ export default function SearchResult() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!searchResult.goodsList.length) return null
+  if (!searchResult.goodsList.length) return <>검색 결과가 없습니다.</>
 
   return (
     <>

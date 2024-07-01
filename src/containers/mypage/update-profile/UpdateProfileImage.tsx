@@ -5,7 +5,6 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
 import { useProfileStore } from '@/containers/mypage/update-profile/store'
-import BasicProfileDuck from '@/public/svgs/duck/basicProfileDuck.svg'
 import ProfileImgBtn from '@/public/svgs/icon/profileImgBtn.svg'
 
 export default function UpdateProfileImage() {
@@ -61,9 +60,13 @@ export default function UpdateProfileImage() {
             height={128}
           />
         ) : (
-          <BasicProfileDuck
-            className="w-full max-w-32 rounded-full"
+          <Image
+            className="rounded-full"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/basicProfileDuck.png`}
+            alt="기본프로필"
             onClick={handleButtonClick}
+            width={128}
+            height={128}
           />
         )}
         <input

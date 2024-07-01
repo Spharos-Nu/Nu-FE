@@ -21,31 +21,31 @@ export default function MannerDuckArea({
     case 1:
       mannerDuckLabel = '해골 오리'
       nextDuckLabel = '우는 오리'
-      mannerDuckImage = '/svgs/duck/mannerDuckLevel1.svg'
+      mannerDuckImage = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/mannerDuckLevel1.png`
       break
     case 2:
       mannerDuckLabel = '우는 오리'
       nextDuckLabel = '그냥 오리'
-      mannerDuckImage = '/svgs/duck/mannerDuckLevel2.svg'
+      mannerDuckImage = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/mannerDuckLevel2.png`
       break
     case 3:
       mannerDuckLabel = '그냥 오리'
       nextDuckLabel = '선글라스 오리'
-      mannerDuckImage = '/svgs/duck/mannerDuckLevel3.svg'
+      mannerDuckImage = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/mannerDuckLevel3.png`
       break
     case 4:
       mannerDuckLabel = '선글라스 오리'
       nextDuckLabel = '빛나는 오리'
-      mannerDuckImage = '/svgs/duck/mannerDuckLevel4.svg'
+      mannerDuckImage = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/mannerDuckLevel4.png`
       break
     case 5:
       mannerDuckLabel = '빛나는 오리'
-      mannerDuckImage = '/svgs/duck/mannerDuckLevel5.svg'
+      mannerDuckImage = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/mannerDuckLevel5.png`
       break
     default:
       mannerDuckLabel = '그냥 오리'
       nextDuckLabel = '선글라스 오리'
-      mannerDuckImage = '/svgs/duck/mannerDuckLevel3.svg'
+      mannerDuckImage = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/mannerDuckLevel3.png`
   }
 
   return (
@@ -56,8 +56,8 @@ export default function MannerDuckArea({
           src={mannerDuckImage}
           alt={mannerDuckLabel}
           width={114}
-          height={114}
-          className="rounded-full"
+          height={0}
+          sizes="100vw"
         />
         {currentDuck !== 5 && (
           <p className="mt-3 text-xs text-red-500">

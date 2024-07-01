@@ -3,7 +3,6 @@ import { useRef, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { useJoinStore } from '@/containers/member/join/store'
-import BasicProfileDuck from '@/public/svgs/duck/basicProfileDuck.svg'
 import ProfileImgBtn from '@/public/svgs/icon/profileImgBtn.svg'
 
 export default function ProfileImgArea() {
@@ -53,9 +52,13 @@ export default function ProfileImgArea() {
             height={128}
           />
         ) : (
-          <BasicProfileDuck
-            className="w-full max-w-32 rounded-full"
+          <Image
+            className="rounded-full"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/basicProfileDuck.png`}
+            alt="사진 프리뷰"
             onClick={handleButtonClick}
+            width={128}
+            height={128}
           />
         )}
         <input

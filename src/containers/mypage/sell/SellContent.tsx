@@ -7,7 +7,7 @@ import { SummaryDataType } from '@/types/readApiDataType'
 export default function SellContent({ goods }: { goods: SummaryDataType }) {
   const ImageUrl = goods.thumbnail
     ? goods.thumbnail.url
-    : '/images/basicImage.png'
+    : `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/basicImage.png`
 
   return (
     <Link
