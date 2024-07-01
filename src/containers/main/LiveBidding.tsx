@@ -11,10 +11,10 @@ export default function LiveBidding({
     <div className="px-[20px]">
       <div className="flex justify-between">
         <div className="flex">
-          <p className="px-[10px] border-2 text-red-500 font-bold border-red-500 items-center rounded-full leading-[17px] content-center text-center truncate">
+          <p className="flex justify-center px-[10px] border-2 text-red-500 font-bold border-red-500 items-center rounded-full content-center text-center truncate">
             LIVE
           </p>
-          <h1 className="px-[10px] text-sky-600 text-[17px] font-bold truncate">
+          <h1 className="flex justify-center items-center px-[10px] text-sky-600 text-[17px] font-bold truncate">
             현재 입찰 진행 중인 굿즈
           </h1>
         </div>

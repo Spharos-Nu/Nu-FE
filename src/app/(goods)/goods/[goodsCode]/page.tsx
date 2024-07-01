@@ -71,9 +71,10 @@ export default async function GoodsDetailPage({
       />
       {uuid === goodsDetail.sellerUuid ? (
         <>
-          {goodsDetail.tradingStatus >= 1 && (
-            <BiddingPreview biddingList={biddingList} />
-          )}
+          {goodsDetail.tradingStatus >= 1 &&
+            getBiddingListData.status === 200 && (
+              <BiddingPreview biddingList={biddingList} />
+            )}
           {goodsDetail.tradingStatus === 2 && (
             <ConfirmationBtn biddingList={biddingList} goodsCode={goodsCode} />
           )}

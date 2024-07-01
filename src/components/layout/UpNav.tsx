@@ -33,7 +33,7 @@ export default function UpNav() {
   return (
     <div className="hover:bg-gray-100 bg-white fixed z-20 right-[20px] bottom-[170px] rounded-full w-[50px] h-[50px] items-center content-center shadow-[0px_5px_5px_2px_rgba(0,0,0,0.07)]">
       <SlArrowUp
-        className="w-[20px] h-[20px] m-auto text-sky-600"
+        className="w-[20px] h-[20px] m-auto flex justify-center items-center text-sky-600"
         onClick={scrollToTop}
       />
     </div>
