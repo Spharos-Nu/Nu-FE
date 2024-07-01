@@ -6,7 +6,6 @@ import { signOut, useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import Loading from '@/components/Chat/Loading'
 import NickName from '@/components/Chat/NickName'
-import MannerDuck1 from '@/public/svgs/duck/mannerDuckLevel1.svg'
 import MannerDuck2 from '@/public/svgs/duck/mannerDuckLevel2.svg'
 import { useTransition, animated } from '@react-spring/web'
 import ChatRoomImage from './ChatRoomImage'
@@ -62,23 +61,11 @@ export default function ChatList() {
   })
 
   if (token === undefined) {
-    return (
-      <div className="flex flex-col justify-center items-center mt-40">
-        <MannerDuck1 />
-        <div>어떤 Duck이신가요?</div>
-        <button
-          type="button"
-          onClick={() => {
-            router.push(`/login?callbackUrl=${window.location.href}`)
-          }}
-        >
-          <span className="text-blue-500 underline">로그인이 필요해요!</span>
-        </button>
-      </div>
-    )
+    router.push(`/login?callbackUrl=${window.location.href}`)
   }
 
   if (statusCode !== 200) {
+    signOut()
     return (
       <div className="flex flex-col justify-center items-center mt-40 gap-2">
         <MannerDuck2 />
@@ -86,7 +73,7 @@ export default function ChatList() {
         <button
           type="button"
           onClick={() => {
-            signOut()
+            router.push(`/login?callbackUrl=${window.location.href}`)
           }}
         >
           <span className="hover:bg-gray-200 text-blue-500 underline">
@@ -114,8 +101,12 @@ export default function ChatList() {
             className={`${style} flex flex-row justify-between relative`}
           >
             <Link
-              href={`/chat-room/${item.chatRoomId}`}
-              className="flex justify-start gap-4"
+              href={`/chat-room/${item.chatRoomId}?goodsCode=${item?.goodsCode}&receiverUuid=${
+                item?.members[0]?.userUuid === uuid
+                  ? item?.members[1]?.userUuid
+                  : item?.members[0]?.userUuid
+              }`}
+              className="flex justify-center items-start gap-4"
             >
               <div className="w-12 h-12">
                 <ChatRoomImage goodsCode={item?.goodsCode} />
@@ -137,14 +128,14 @@ export default function ChatList() {
                     setAction={setAction}
                   />
                 </div>
-                <div className="text-xs mb-3 mt-2">
+                <div className="text-[11px] text-gray-400">
                   {item.updatedAt
                     ? new Date(item.updatedAt).toLocaleString()
-                    : ''}
+                    : '거래를 시작해보세요'}
                 </div>
               </div>
             </Link>
-            <div className=" absolute right-0 top-0 bg-red-500 rounded-full text-white text-xs px-3 py-2">
+            <div className=" absolute right-0 top-3 bg-red-500 rounded-full text-white text-xs px-3 py-2">
               <p className="text-center">
                 {item?.members[0]?.userUuid === uuid
                   ? item?.members[0]?.unreadCount

@@ -27,8 +27,10 @@ function SendIcon() {
 
 function ChatSender({
   newChat,
+  receiverUuid,
 }: {
   newChat: (formData: FormData) => Promise<void>
+  receiverUuid: string
 }) {
   const formRef = useRef<HTMLFormElement>(null)
   const { showToast } = useToastStore()
@@ -62,18 +64,19 @@ function ChatSender({
   }
 
   return (
-    <form ref={formRef} className="relative pb-5 px-5" onSubmit={handleSubmit}>
+    <form ref={formRef} className="relative p-1" onSubmit={handleSubmit}>
       <textarea
         name="message"
         className={`
-          flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50
-          rounded-2xl resize-none p-4 border border-gray-200 border-neutral-400 shadow-sm dark:border-gray-800
+          flex min-h-[80px] w-full border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50
+          rounded-2xl resize-none p-4 border-neutral-200 shadow-sm
         `}
       />
       <input type="hidden" name="image" value="" className="mt-4" />
       <input type="hidden" name="isImage" value="" />
-      <input type="hidden" name="senderUuid" value="1111" />
-      <input type="hidden" name="receiverUuid" value="2222" />
+      <input type="hidden" name="inOut" value="" />
+      {/* <input type="hidden" name="senderUuid" value="1111" /> */}
+      <input type="hidden" name="receiverUuid" value={receiverUuid} />
       {isLoading ? (
         <div className="absolute top-[1.5rem] right-[2rem] w-10 h-10 flex items-center justify-center">
           <Sending />
@@ -82,7 +85,7 @@ function ChatSender({
         <Button
           type="submit"
           size="icon"
-          className="absolute top-[1.5rem] right-[2rem] w-10 h-10 flex items-center justify-center rounded-md"
+          className="absolute top-[1rem] right-[1rem] w-12 h-12 flex items-center justify-center rounded-md"
         >
           <SendIcon />
         </Button>

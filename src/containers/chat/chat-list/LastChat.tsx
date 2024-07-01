@@ -68,7 +68,7 @@ function LastChat({
 
   return (
     <p
-      className="text-sm text-blue-600"
+      className="text-[14px] text-blue-600"
       style={{
         width: '80%',
         overflow: 'hidden',
@@ -76,7 +76,7 @@ function LastChat({
         whiteSpace: 'nowrap',
       }}
     >
-      {newChat?.message || lastChat?.message || '대화 하러가기'}
+      {newChat?.message || lastChat?.message || '-'}
     </p>
   )
 }
