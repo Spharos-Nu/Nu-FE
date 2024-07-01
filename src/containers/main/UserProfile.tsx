@@ -13,7 +13,7 @@ export default function UserProfile() {
         alt="profile"
         width={55}
         height={55}
-        className="rounded-full"
+        className="rounded-full aspect-square"
       />
       <div className="pl-[20px] content-center items-center">
         <p className="text-[#919BB2] text-[15px]">Hello!</p>

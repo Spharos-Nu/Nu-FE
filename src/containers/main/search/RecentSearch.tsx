@@ -53,16 +53,16 @@ export default function RecentSearch() {
   return (
     <>
       <div className="px-[20px] flex justify-between">
-        <h2 className="text-[17px]">최근 검색어</h2>
+        <h2 className="text-sm pl-2">최근 검색어</h2>
         <button
           type="button"
-          className="text-[15px]"
+          className="text-sm pr-2 text-gray-400"
           onClick={() => handleClearKeywords()}
         >
           전체삭제
         </button>
       </div>
-      <div className="flex w-full overflow-x-auto whitespace-nowrap">
+      <div className="flex w-full overflow-x-auto whitespace-nowrap ml-2 mt-2">
         {keywords.map((item: LocalStorageKeywordType) => (
           <div
             key={item.text}
@@ -72,13 +72,13 @@ export default function RecentSearch() {
               <button
                 type="button"
                 onClick={() => handleSearch(item.text)}
-                className="w-full h-full mr-8"
+                className="mr-8"
               >
                 {item.text}
               </button>
               <IoCloseOutline
                 aria-label="최근검색어 삭제"
-                className="text-xl absolute right-1"
+                className="text-lg absolute right-1"
                 onClick={() => handleRemoveKeyword(item.text)}
               />
             </div>
