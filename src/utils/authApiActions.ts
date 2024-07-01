@@ -29,7 +29,7 @@ export const join = async (
   return data
 }
 
-export const linkAccount = async (
+export const socialMapping = async (
   phoneNumber: string,
   memberCode: string,
   provider: string,
@@ -38,6 +38,7 @@ export const linkAccount = async (
     `${process.env.NEXT_PUBLIC_API}/v1/auth-n/social-mapping`,
     {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         phoneNumber,
         memberCode,

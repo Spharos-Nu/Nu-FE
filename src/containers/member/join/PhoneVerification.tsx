@@ -9,7 +9,7 @@ import {
 } from '@/containers/member/join/store'
 import VerificationTime from '@/public/svgs/icon/verificationTime.svg'
 import {
-  linkAccount,
+  socialMapping,
   verification,
   verificationConfirm,
 } from '@/utils/authApiActions'
@@ -84,8 +84,8 @@ export default function PhoneVerification() {
     return null
   }
 
-  const socialMapping = async () => {
-    const data = await linkAccount(phoneNumber, id, provider)
+  const sendSocialData = async () => {
+    const data = await socialMapping(phoneNumber, id, provider)
     if (data.status === 200) {
       resetJoinState()
       router.push('/login')
@@ -148,9 +148,10 @@ export default function PhoneVerification() {
       if (notValidPhone === 4) {
         resetJoinState()
         router.push('/login')
-      } else if (isChecked) {
-        socialMapping()
       }
+    }
+    if (isClosed && isChecked) {
+      sendSocialData()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClosed])
