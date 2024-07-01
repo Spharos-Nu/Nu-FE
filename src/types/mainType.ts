@@ -23,7 +23,7 @@ export interface SoonAndHitsType {
   wishCount: number
   biddingCount: number
   tradingStatus: number
-  tag: TagType[]
+  tagList: TagType[]
 }
 
 export interface TagType {
