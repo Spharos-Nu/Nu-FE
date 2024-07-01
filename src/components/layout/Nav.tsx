@@ -12,6 +12,7 @@ import Mypage from '@/public/svgs/nav/mypage.svg'
 export default function Nav() {
   const pathname = usePathname()
   const { categoryName } = useLocalCategoryStore()
+  const isActive = pathname.startsWith('/mypage') && pathname !== '/mypage/like'
 
   if (pathname.startsWith(`/goods/`) || pathname === '/') return null
 
@@ -76,12 +77,12 @@ export default function Nav() {
       <div className="text-center">
         <Link href="/mypage">
           <div
-            className={`inline-block ${pathname === '/mypage' ? ' opacity-100' : 'opacity-50'}`}
+            className={`inline-block ${isActive ? ' opacity-100' : 'opacity-50'}`}
           >
             <Mypage />
           </div>
           <div
-            className={`text-white ${pathname === '/mypage' ? ' opacity-100' : 'opacity-50'}`}
+            className={`text-white ${isActive ? ' opacity-100' : 'opacity-50'}`}
           >
             내정보
           </div>
