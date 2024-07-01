@@ -36,16 +36,11 @@ export default function AdvertisingBanner() {
     },
     {
       id: 4,
-      image: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/banner-notice1.png`,
-      url: `${rootUrl}/mypage/notice`,
-    },
-    {
-      id: 5,
       image: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/banner-notice2.png`,
       url: `${rootUrl}/mypage/notice`,
     },
     {
-      id: 6,
+      id: 5,
       image: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/banner-baseball3.png`,
       url: `${rootUrl}/mypage/notice`,
     },
@@ -69,11 +64,6 @@ export default function AdvertisingBanner() {
     },
     {
       id: 4,
-      image: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/banner-notice1.png`,
-      url: `${rootUrl}/mypage/notice`,
-    },
-    {
-      id: 5,
       image: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/banner-notice2.png`,
       url: `${rootUrl}/mypage/notice`,
     },
@@ -92,11 +82,6 @@ export default function AdvertisingBanner() {
     },
     {
       id: 3,
-      image: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/banner-notice1.png`,
-      url: `${rootUrl}/mypage/notice`,
-    },
-    {
-      id: 4,
       image: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/banner-notice2.png`,
       url: `${rootUrl}/mypage/notice`,
     },
