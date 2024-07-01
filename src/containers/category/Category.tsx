@@ -2,8 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useLocalCategoryStore } from '@/containers/main/store'
 import AnimationGo from '@/public/svgs/category/animationGo.svg'
 import BaseballGo from '@/public/svgs/category/baseballGo.svg'
@@ -15,8 +14,7 @@ export default function Category({
 }: {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-  const router = useRouter()
-  const { categoryName, setCategory } = useLocalCategoryStore()
+  const { setCategory } = useLocalCategoryStore()
   const [itemPosition, setItemPosition] = useState([
     { id: 1, pos: false },
     { id: 2, pos: false },
@@ -38,23 +36,8 @@ export default function Category({
   const handleCategory = (item: string) => {
     localStorage.setItem('category', item)
     setCategory(item)
-    redirect(`/${categoryName}`)
-
-    // if (categoryName === 'idol') router.push('/idol')
-    // else if (categoryName === 'baseball') router.push('/baseball')
-    // else if (categoryName === 'animation') router.push('/animation')
     setVisible(false)
   }
-
-  useEffect(() => {
-    const categoryFromStorage = localStorage.getItem('category')
-    if (categoryFromStorage !== null) {
-      setCategory(categoryFromStorage)
-
-      router.push(`/${categoryName}`)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName])
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 mb-[100px] fixed bg-white">
