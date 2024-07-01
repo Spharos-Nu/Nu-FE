@@ -1,6 +1,7 @@
 export interface BannerType {
   id: number
   url: string
+  image: string
 }
 
 export interface LiveAndHotType {
