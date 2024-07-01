@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 import UpdateFavCategory from '@/containers/mypage/update-profile/UpdateFavCategory'
 import UpdateNickname from '@/containers/mypage/update-profile/UpdateNickname'
@@ -39,10 +39,10 @@ export default function UpdateProfileForm() {
       favoriteCategory,
     )
 
-    if (data.status === 401) {
+    if (session?.user.accessToken === undefined) {
       resetProfile()
       setNicknameError(0)
-      signOut()
+      router.push(`/login?callbackUrl=${window.location.href}`)
     }
     if (data.status !== 200) {
       return null

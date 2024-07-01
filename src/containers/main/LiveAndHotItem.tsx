@@ -19,7 +19,7 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
   const { showToast } = useToastStore()
 
   const handleLike = async () => {
-    if (!session) {
+    if (session?.user.accessToken === undefined) {
       router.push(`/login?callbackUrl=${window.location.href}`)
     } else {
       const whether = await getLikeWhether(item.goodsCode)
