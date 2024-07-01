@@ -2,13 +2,13 @@
 
 import { useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
-import { useBasicAlertStore } from '@/components/Modal/store'
+import { useToastStore } from '@/components/Toast/store'
 import { TagItem, useTagStore } from './store'
 
 export default function TagArea() {
   const [item, setItem] = useState<string>('')
   const { tags, addTags, removeTags } = useTagStore()
-  const { showAlert } = useBasicAlertStore()
+  const { showToast } = useToastStore()
 
   const getTags = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItem(event.target.value)
@@ -17,12 +17,12 @@ export default function TagArea() {
   const pushTag = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
     if (item.trim() === '') {
-      showAlert('태그를 입력해주세요!')
+      showToast('태그를 입력해주세요!')
     } else if (tags.length < 5) {
       const formattedItem = item.replace('#', '')
       addTags({ id: Date.now(), name: `${formattedItem}` })
     } else {
-      showAlert('태그는 최대 5개까지 입력할 수 있어요!')
+      showToast('태그는 최대 5개까지 입력할 수 있어요!')
     }
     setItem('')
   }
@@ -43,7 +43,7 @@ export default function TagArea() {
           autoComplete="off"
         />
         <button
-          type="button"
+          type="submit"
           className="rounded-full border border-[#FFD26F] text-center content-center text-[#FFD26F]"
           onClick={pushTag}
         >

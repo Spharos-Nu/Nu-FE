@@ -57,7 +57,7 @@ export default function Category({
   }, [categoryName])
 
   return (
-    <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white">
+    <div className="w-screen h-screen z-30 top-0 left-0 mb-[100px] fixed bg-white">
       <div className="w-full h-full overflow-scroll">
         <button
           onClick={() => setVisible(false)}

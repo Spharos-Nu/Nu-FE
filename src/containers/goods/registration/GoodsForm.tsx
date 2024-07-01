@@ -1,8 +1,6 @@
 'use client'
 
-import { redirect, useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import { useBasicAlertStore } from '@/components/Modal/store'
+import { redirect } from 'next/navigation'
 import { useToastStore } from '@/components/Toast/store'
 import { useLocalCategoryStore } from '@/containers/main/store'
 import { postGoods } from '@/utils/goodsApiActions'
@@ -21,8 +19,6 @@ export interface ImageType {
 }
 
 export default function GoodsForm() {
-  const router = useRouter()
-
   const {
     goodsName,
     categoryId,
@@ -38,7 +34,6 @@ export default function GoodsForm() {
   } = useGoodsStore()
   const { imageItems, resetImagesState } = useImageStore()
   const { tags, resetTagsState } = useTagStore()
-  const { showAlert, isClosed } = useBasicAlertStore()
   const { showToast } = useToastStore()
   const { categoryName } = useLocalCategoryStore()
 
@@ -79,13 +74,6 @@ export default function GoodsForm() {
     if (!validCheck()) return
 
     const images = await uploadGoodsImage(imageItems)
-    // const images: ImageType[] = imageItems.map(async (item, index) =>
-    //   images.push({
-    //     id: index + 1,
-    //     url: await uploadGoodsImage(item.url),
-    //   }),
-    // )
-    // console.log(images)
 
     const openedAt = `${biddingPeriod}T${biddingTime}:00.000Z`
     const date = new Date(`${biddingPeriod} ${biddingTime}`)
@@ -111,17 +99,36 @@ export default function GoodsForm() {
       resetGoodsState()
       resetImagesState()
       resetTagsState()
-      showAlert('상품이 등록되었습니다.')
+      showToast('상품이 등록되었습니다.')
       redirect(`/${categoryName}`)
     }
 
-    showAlert('상품 등록에 실패했습니다.')
+    resetGoodsState()
+    resetImagesState()
+    resetTagsState()
+    showToast(data.message)
+    redirect(`/${categoryName}`)
   }
 
-  useEffect(() => {
-    if (isClosed) router.push('/')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClosed])
+  function handleKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault() // 엔터 키 입력을 막음
+    }
+  }
+
+  function handleWheel(event: React.WheelEvent) {
+    ;(event.target as HTMLElement).blur() // 스크롤할 때 input 요소의 포커스를 제거하여 기본 동작을 막음
+  }
+
+  function handleMinPriceChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target
+    // 입력값이 0으로 시작하지 않도록 수정
+    if (value.startsWith('0')) {
+      setMinPrice(value.replace(/^0+/, ''))
+    } else {
+      setMinPrice(value)
+    }
+  }
 
   return (
     <main className="px-[20px] pt-[10px]">
@@ -137,6 +144,7 @@ export default function GoodsForm() {
           onChange={(e) => setGoodsName(e.target.value)}
           className="w-full mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc]"
           autoComplete="off"
+          onKeyDown={handleKeyDown}
         />
         <CategoryArea />
         <DescriptionArea />
@@ -147,10 +155,13 @@ export default function GoodsForm() {
           type="number"
           placeholder="최소가격"
           value={minPrice}
-          onChange={(e) => setMinPrice(e.target.value)}
+          // onChange={(e) => setMinPrice(e.target.value)}
           className="w-full mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc]"
           autoComplete="off"
           min="0"
+          onKeyDown={handleKeyDown}
+          onWheel={handleWheel}
+          onChange={handleMinPriceChange}
         />
         <PeriodArea />
         <TradeTypeArea />
