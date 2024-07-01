@@ -49,6 +49,9 @@ export default function ChatList() {
     if (token && token !== undefined) {
       fetchChatList()
     }
+    if (token === undefined) {
+      router.push(`/login?callbackUrl=${window?.location.href}`)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [action, token])
 
@@ -59,10 +62,6 @@ export default function ChatList() {
     keys: (item) => item?.chatRoomId + item?.updatedAt, // 고유성을 보장하기 위해 roomId와 updatedAt을 함께 사용
     // config: { tension: animate ? 170 : 0, friction: animate ? 26 : 0 }, // 애니메이션 활성화/비활성화
   })
-
-  if (token === undefined) {
-    router.push(`/login?callbackUrl=${window.location.href}`)
-  }
 
   if (statusCode !== 200) {
     signOut()
