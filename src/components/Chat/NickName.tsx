@@ -34,8 +34,8 @@ export default function NickName({ userUuid }: NickNameProps) {
   }, [userUuid])
 
   return (
-    <div>
-      <span className="text-orange-500">{data?.nickname}</span>Duck
+    <div className="text-[14px]">
+      <span className="text-orange-500 text-[14px]">{data?.nickname}</span>Duck
     </div>
   )
 }

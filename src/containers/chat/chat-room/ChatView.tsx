@@ -1,11 +1,14 @@
 'use client'
 
 import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/Btn/button'
-import ChatRoomImage from '../chat-list/ChatRoomImage'
+// import NickName from '@/components/Chat/NickName'
+import { SummaryDataType } from '@/types/readApiDataType'
+import { getGoodsSummary } from '@/utils/readsApiActions'
 import ChatViewReceiverCard from './ChatViewReceiverCard'
 import ChatViewSenderCard from './ChatViewSenderCard'
 
@@ -13,8 +16,8 @@ function CloseIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -39,10 +42,43 @@ export interface ChatDataType {
   createdAt: string
 }
 
-export default function ChatView({ chatRoomId }: { chatRoomId: string }) {
+export default function ChatView({
+  chatRoomId,
+  goodsCode,
+}: {
+  chatRoomId: string
+  goodsCode: string
+}) {
   const router = useRouter()
   const session = useSession()
   const [chatData, setChatData] = useState<ChatDataType[]>([] as ChatDataType[])
+  const [data, setData] = useState<SummaryDataType>({
+    goodsCode,
+    thumbnail: {
+      id: 0,
+      url: '',
+    },
+    goodsName: '',
+    minPrice: 0,
+    openedAt: '',
+    closedAt: '',
+    tradingStatus: 0,
+  })
+
+  const ImageUrl = data.thumbnail
+    ? data.thumbnail.url
+    : '/icons/tempProfile.png'
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await getGoodsSummary(goodsCode)
+      if (res.status === 200) {
+        setData(res.result)
+      }
+    }
+    getData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const lastMessageRef = useRef<HTMLDivElement>(null)
@@ -102,13 +138,17 @@ export default function ChatView({ chatRoomId }: { chatRoomId: string }) {
     <>
       <header className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8">
-            {/* <ChatProfileImage userUuid="1" /> */}
-            <ChatRoomImage goodsCode="1" />
+          <div className="w-12 h-12">
+            <Image
+              src={ImageUrl || '/icons/tempProfile.png'}
+              alt={goodsCode}
+              width={90}
+              height={90}
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
           <div>
-            <div className="font-medium">Goods Duck</div>
-            {/* <NickName userUuid={chatterUuid} /> */}
+            <div className="font-medium">{data.goodsName}</div>
             <div className="text-sm text-gray-500 dark:text-gray-400">
               Online
             </div>

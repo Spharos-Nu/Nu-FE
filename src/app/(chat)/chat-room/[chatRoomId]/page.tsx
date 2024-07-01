@@ -3,26 +3,35 @@ import { revalidatePath } from 'next/cache'
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 import ChatView from '@/containers/chat/chat-room/ChatView'
+import GoToReviewBtn from '@/containers/chat/chat-room/GoToReviewBtn'
 import ChatSender from '@/containers/chat/chat-room/_ChatSender'
 
 export default async function ChatRoomDetailPage({
   params,
+  searchParams,
 }: {
   params: { chatRoomId: string }
+  searchParams: { [key: string]: string }
 }) {
   const session = await getServerSession(options)
+  const { chatRoomId } = params
+  const goodsCode = searchParams.goodsCode ? String(searchParams.goodsCode) : ''
+  const receiverUuid = searchParams.receiverUuid
+    ? String(searchParams.receiverUuid)
+    : ''
 
   async function newChat(formData: FormData) {
     'use server'
 
     const rawFormData = {
+      chatRoomId,
+      receiverUuid,
       message: formData.get('message') as string,
-      chatRoomId: params.chatRoomId,
-      receiverUuid: formData.get('receiverUuid'),
       isImage: formData.get('isImage'),
       imageUrl: formData.get('image'),
+      inOut: formData.get('inOut'),
     }
-    if (!rawFormData.message) {
+    if (!rawFormData.message && rawFormData.inOut === '') {
       return
     }
 
@@ -45,9 +54,10 @@ export default async function ChatRoomDetailPage({
 
   return (
     <main className="flex flex-col h-[100vh] w-full max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
-      <ChatView chatRoomId={params.chatRoomId} />
-      <div className="border-t border-gray-200 dark:border-gray-800 p-4" />
-      <ChatSender newChat={newChat} />
+      <ChatView chatRoomId={params.chatRoomId} goodsCode={goodsCode} />
+      <div className="border-t border-gray-100" />
+      <GoToReviewBtn goodsCode={goodsCode} receiverUuid={receiverUuid} />
+      <ChatSender newChat={newChat} receiverUuid={receiverUuid} />
     </main>
   )
 }
