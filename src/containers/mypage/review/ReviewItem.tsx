@@ -25,6 +25,9 @@ export default function ReviewItem({
     tradingStatus: 0,
   })
   const [visible, setVisible] = useState<boolean>(false)
+  const ImageUrl = data.thumbnail
+    ? data.thumbnail.url
+    : '/images/basicImage.png'
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +44,7 @@ export default function ReviewItem({
     <div className="relative mx-5 my-5 px-[20px] py-[20px] bg-slate-100 rounded-xl">
       <button type="button" className="flex" onClick={() => setVisible(true)}>
         <Image
-          src={data.thumbnail.url}
+          src={ImageUrl}
           alt="굿즈 이미지"
           width={70}
           height={70}
