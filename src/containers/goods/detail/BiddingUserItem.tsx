@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import BasicImage from '@/public/icons/icon-192x192.png'
 import { BiddingPreviewType, BiddingUserType } from '@/types/goodsType'
 import { getBiddingUser } from '@/utils/goodsDetailApiActions'
 
@@ -29,7 +28,7 @@ export default function BiddingUserItem({
     <div className="flex mt-[20px]">
       {bidder.profileImage === '' && (
         <Image
-          src={BasicImage}
+          src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/basicImage.png`}
           alt="profile"
           width={50}
           height={50}
