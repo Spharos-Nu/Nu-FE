@@ -49,9 +49,8 @@ export default function ReviewItem({
         />
         <div className="pl-[20px] w-[70%] place-self-center overflow-hidden">
           <p className="flex text-left font-semibold">{data.goodsName}</p>
-          {/* <p>{review.content}</p> */}
           <p className="pt-[10px] whitespace-nowrap truncate overflow-hidden">
-            리뷰 내ddddddddddddddddddddddddddd용
+            {review.content}
           </p>
         </div>
       </button>
