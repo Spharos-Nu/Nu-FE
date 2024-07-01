@@ -5,7 +5,7 @@ export default function mainfest(): MetadataRoute.Manifest {
     name: '굿즈굿즈덕',
     short_name: '굿즈굿즈덕',
     description: '굿즈는 덕들과 함께, 굿즈굿즈덕',
-    start_url: '/',
+    start_url: 'https://goodsgoodsduck.shop',
     display: 'standalone',
     background_color: '#ffffff',
     theme_color: '#0284c7',
