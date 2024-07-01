@@ -1,7 +1,7 @@
 import WinningBidList from '@/containers/mypage/winning-bid/WinningBidList'
 import WinningTab from '@/containers/mypage/winning-bid/WinningTab'
 
-export default function WinningBid() {
+export default async function WinningBid() {
   return (
     <>
       <WinningTab />
