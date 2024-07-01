@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function UserProfile() {
+export default function NonUserHeader() {
   return (
     <Link href="/login" className="flex">
       <Image
@@ -12,7 +12,7 @@ export default function UserProfile() {
         className="rounded-full aspect-square"
       />
       <div className="pl-[20px] content-center items-center">
-        <p className="text-[18px]">로그인 하러가기!</p>
+        <p className="text-[18px]">로그인 하러 가기!</p>
       </div>
     </Link>
   )

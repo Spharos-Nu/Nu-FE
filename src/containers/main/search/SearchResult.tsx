@@ -12,7 +12,8 @@ export default function SearchResult() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!searchResult.goodsList.length) return <>검색 결과가 없습니다.</>
+  if (!searchResult.goodsList.length)
+    return <p className="my-5 mx-5">검색어를 입력해주세요.</p>
 
   return (
     <>

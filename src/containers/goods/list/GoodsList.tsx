@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import Sending from '@/components/Chat/Sending'
 import Arrow from '@/public/svgs/header/below_arrow.svg'
@@ -11,6 +12,8 @@ import { useInView } from 'react-intersection-observer'
 import GoodsItem from './GoodsItem'
 
 export default function GoodsList() {
+  const pathname = usePathname()
+
   const filtering = [
     {
       id: 0,
@@ -100,7 +103,7 @@ export default function GoodsList() {
   )
 
   useEffect(() => {
-    const category = localStorage.getItem('category')
+    const category = pathname.split('/')[1]
     if (category === 'animation') setCategoryId(1)
     else if (category === 'idol') setCategoryId(2)
     else if (category === 'baseball') setCategoryId(3)

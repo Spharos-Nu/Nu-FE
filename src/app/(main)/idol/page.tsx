@@ -7,7 +7,9 @@ import ComingSoon from '@/containers/main/ComingSoon'
 import Hits from '@/containers/main/Hits'
 import HotInterest from '@/containers/main/HotInterest'
 import LiveBidding from '@/containers/main/LiveBidding'
-import UserHeader from '@/containers/main/UserHeader'
+import NonUserHeader from '@/containers/main/NonUserHeader'
+import UserDuckPoint from '@/containers/main/UserDuckPoint'
+import UserProfile from '@/containers/main/UserProfile'
 import {
   getComingSoon,
   getDuckPoint,
@@ -42,8 +44,15 @@ export default async function IdolHome() {
 
   return (
     <main className="w-full">
-      {/* <Intro /> */}
-      {session ? <UserHeader duckPointData={duckPointData} /> : null}
+      <div className="flex justify-between pt-4 pl-6 pr-6">
+        {/* <Intro /> */}
+        {session && duckPointData !== -1 ? <UserProfile /> : <NonUserHeader />}
+        <div className="content-center">
+          {duckPointData !== -1 && (
+            <UserDuckPoint duckPointData={duckPointData} />
+          )}
+        </div>
+      </div>
       <AdvertisingBanner />
       <LiveBidding liveData={liveData} />
       <HotInterest hotData={hotData} />
