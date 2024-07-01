@@ -1,5 +1,5 @@
-import ReviewTab from '@/components/Tab/ReviewTab'
+import ReviewList from '@/containers/mypage/review/ReviewList'
 
-export default function Bid() {
-  return <ReviewTab />
+export default function Review() {
+  return <ReviewList />
 }
