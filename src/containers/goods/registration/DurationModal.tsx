@@ -16,7 +16,7 @@ export default function DurationModal({
           onClick={() => setDurationVisible(false)}
           className="w-[20px] h-[20px] text-sky-600 absolute right-0 mr-[20px]"
         />
-        <p className="text-center text-[18px] text-sky-600">지속 시간</p>
+        <p className="text-center text-[18px] text-sky-600">경매 진행 시간</p>
         <ul className="flex flex-col overflow-y-auto h-[280px] mt-[20px]">
           {durations.map((duration) => (
             <li

@@ -15,7 +15,7 @@ export default function LiveBidding({
             LIVE
           </p>
           <h1 className="flex justify-center items-center px-[10px] text-sky-600 text-[17px] font-bold truncate">
-            현재 입찰 진행 중인 굿즈
+            현재 경매 진행 중인 굿즈
           </h1>
         </div>
         {/* {liveData.length > 0 && (
@@ -26,7 +26,7 @@ export default function LiveBidding({
       </div>
       {liveData.length === 0 && (
         <div className="my-[60px] text-center text-[#A5A5A5] text-[15px]">
-          <p>현재 입찰 진행 중인 굿즈가 없습니다.</p>
+          <p>현재 경매 진행 중인 굿즈가 없습니다.</p>
           <p>굿즈를 등록해보세요!</p>
         </div>
       )}

@@ -74,7 +74,7 @@ export default function DetailInfo({
       </div>
       <div className="flex justify-between items-end">
         <div className="mt-[15px] leading-[30px]">
-          <p className="text-[16px] text-[#989898]">입찰 시작가</p>
+          <p className="text-[16px] text-[#989898]">경매 시작가</p>
           <p className="pt-[2px] text-[34px] font-semibold">
             {goodsDetail.minPrice.toLocaleString()}{' '}
             <span className="text-[20px] font-normal">원</span>
@@ -108,7 +108,7 @@ export default function DetailInfo({
           />
         )}
         {goodsDetail.tradingStatus >= 2 && (
-          <p className="text-[21px]">입찰 종료</p>
+          <p className="text-[21px]">경매 종료</p>
         )}
       </div>
     </div>

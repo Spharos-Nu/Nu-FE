@@ -53,8 +53,8 @@ export default function PeriodArea() {
 
   return (
     <>
-      <label htmlFor="입찰기간" className="text-sky-600 text-[17px]">
-        얼마동안 입찰 받을까요?
+      <label htmlFor="경매기간" className="text-sky-600 text-[17px]">
+        얼마 동안 입찰 받을까요?
       </label>
       <div className="grid grid-cols-3 gap-[10px]">
         <input
@@ -78,7 +78,7 @@ export default function PeriodArea() {
         <input
           type="text"
           value={`${biddingDuration === '' ? biddingDuration : `${biddingDuration}시간`}`}
-          placeholder="지속 시간"
+          placeholder="경매 진행 시간"
           name="biddingDuration"
           className="mt-[5px] mb-[20px] px-[15px] py-[13px] bg-[#F7F7F7] rounded-full placeholder:text-[#bcbcbc] text-center"
           onClick={() => setDurationVisible(true)}

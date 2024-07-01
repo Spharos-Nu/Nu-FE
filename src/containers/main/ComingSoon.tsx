@@ -14,8 +14,8 @@ export default function ComingSoon({
       <ComingSoonTitle />
       <div className="pt-[10px] pb-[20px] px-[20px] flex flex-wrap gap-[10px] justify-center">
         {comingSoonData.length === 0 && (
-          <div className="my-[60px] text-center text-[#A5A5A5] text-[15px]">
-            <p>입찰 예정인 굿즈가 없습니다.</p>
+          <div className="my-[60px] text-center text-slate-300 text-[15px]">
+            <p>경매 예정인 굿즈가 없습니다.</p>
             <p>굿즈를 등록해보세요!</p>
           </div>
         )}

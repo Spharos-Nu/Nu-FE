@@ -55,13 +55,13 @@ export default function GoodsForm() {
       return showToast('최소 가격을 입력해주세요.')
     }
     if (!biddingPeriod) {
-      return showToast('입찰 시작 날짜를 선택해주세요.')
+      return showToast('경매 시작 날짜를 선택해주세요.')
     }
     if (!biddingTime) {
-      return showToast('입찰 시작 시간을 선택해주세요.')
+      return showToast('경매 시작 시간을 선택해주세요.')
     }
     if (!biddingDuration) {
-      return showToast('입찰 기간을 선택해주세요.')
+      return showToast('경매 기간을 선택해주세요.')
     }
     if (wishTradeType === '') {
       return showToast('선호 거래 방법을 선택해주세요.')

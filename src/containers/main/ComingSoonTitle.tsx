@@ -7,7 +7,7 @@ export default function ComingSoonTitle() {
         COMING SOON
       </p>
       <p className="text-[#F9B23C] text-[15px] text-center">
-        내일 입찰이 열리는 굿즈
+        내일 경매가 시작되는 굿즈
       </p>
       <div className="py-[20px] text-center">
         <div className="inline-block">

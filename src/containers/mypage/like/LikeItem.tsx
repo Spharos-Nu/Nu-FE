@@ -73,7 +73,7 @@ export default function LikeItem({ goodsCode }: { goodsCode: string }) {
         <p
           className={`absolute z-10 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-[17px] whitespace-pre-line ${data.tradingStatus === 0 || data.tradingStatus === 1 ? 'hidden' : ''}`}
         >
-          입찰이 종료된 상품입니다.
+          경매가 종료된 상품입니다.
         </p>
         <Image
           src={ImageUrl}
@@ -90,13 +90,13 @@ export default function LikeItem({ goodsCode }: { goodsCode: string }) {
             <span className="text-[17px]">원</span>
           </p>
           {data.tradingStatus === 0 && (
-            <p className="text-sm text-stone-500">입찰 전</p>
+            <p className="text-sm text-stone-500">경매 전</p>
           )}
           {data.tradingStatus === 1 && (
-            <p className="text-sm text-stone-500">입찰 중</p>
+            <p className="text-sm text-stone-500">경매 중</p>
           )}
           {data.tradingStatus >= 2 && (
-            <p className="text-sm text-stone-500">입찰종료</p>
+            <p className="text-sm text-stone-500">경매종료</p>
           )}
         </div>
       </Link>

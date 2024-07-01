@@ -116,7 +116,7 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
             )}
             {item.tradingStatus >= 2 && (
               <p className="w-[185px] bg-[#5D5FEF] bg-opacity-15 px-[22px] py-[8px] text-[#5D5FEF] text-center rounded-full text-[17px] font-bold">
-                입찰 마감
+                경매 마감
               </p>
             )}
             <div className="bg-[#2B74B9] text-white rounded-full px-[20px] py-[8px]">

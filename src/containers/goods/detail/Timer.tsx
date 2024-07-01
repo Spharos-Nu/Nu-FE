@@ -16,9 +16,9 @@ export default function Timer({
 
   useEffect(() => {
     if (status === 0) {
-      setTitle('입찰 시작')
+      setTitle('경매 시작')
     } else {
-      setTitle('입찰 마감')
+      setTitle('경매 마감')
     }
 
     const timer = setInterval(() => {
