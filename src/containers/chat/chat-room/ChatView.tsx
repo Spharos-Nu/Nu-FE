@@ -5,8 +5,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import React, { useEffect, useRef, useState } from 'react'
-import { Button } from '@/components/Btn/button'
-// import NickName from '@/components/Chat/NickName'
 import { SummaryDataType } from '@/types/readApiDataType'
 import { getGoodsSummary } from '@/utils/readsApiActions'
 import ChatViewReceiverCard from './ChatViewReceiverCard'
@@ -137,7 +135,7 @@ export default function ChatView({
   return (
     <>
       <header className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center mt-2 gap-4">
           <div className="w-12 h-12">
             <Image
               src={ImageUrl || '/icons/tempProfile.png'}
@@ -154,18 +152,15 @@ export default function ChatView({
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          {/* <Button variant="ghost" size="icon" className="rounded-full">
-            <SearchIcon className="w-5 h-5" />
-        </Button> */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full"
+        <div className="">
+          <button
+            type="submit"
+            aria-label="close-button"
+            className=""
             onClick={() => router.back()}
           >
             <CloseIcon />
-          </Button>
+          </button>
         </div>
       </header>
       <div

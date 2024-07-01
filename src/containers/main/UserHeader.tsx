@@ -7,7 +7,7 @@ export default function UserHeader({
   duckPointData: number
 }) {
   return (
-    <div className="flex justify-between pt-[30px] px-[20px]">
+    <div className="flex justify-between pt-4 pl-6 pr-6">
       <UserProfile />
       <div className="content-center">
         {duckPointData !== -1 && (

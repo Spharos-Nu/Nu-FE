@@ -2,7 +2,8 @@
 
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { IoMdSearch, IoMdCloseCircle } from 'react-icons/io'
+import { IoMdCloseCircle } from 'react-icons/io'
+import { FiSearch } from 'react-icons/fi'
 import { useToastStore } from '@/components/Toast/store'
 import { useSearchStore } from '@/containers/main/search/store'
 import { LocalStorageKeywordType } from '@/types/headerType'
@@ -87,13 +88,13 @@ export default function SearchForm() {
             className="absolute top-4 right-16 text-slate-500"
           />
         )}
-        <IoMdSearch
+        <FiSearch
           onClick={() => handleKeywordInput(keyword, getPathIndex(pathname))}
           className="absolute top-[10px] right-1 text-sky-600 text-3xl mx-3"
         />
       </div>
       {keyword && relatedKeyword && (
-        <div className="w-[calc(100%-40px)] border border-slate-500 rounded-md shadow-lg max-h-40 overflow-y-auto m-auto">
+        <div className="w-[calc(100%-40px)] border border-slate-200 rounded-md shadow-lg max-h-40 overflow-y-auto m-auto">
           {relatedKeyword.map((item) => (
             <button
               key={item.keyword}
@@ -101,7 +102,7 @@ export default function SearchForm() {
               onClick={() =>
                 handleKeywordInput(item.keyword, getPathIndex(pathname))
               }
-              className={`w-full h-full ${relatedKeyword.length > 1 ? 'border border-b-slate-500' : ''}`}
+              className={`w-full h-full hover:bg-slate-100 text-left pl-4 ${relatedKeyword.length > 1 ? 'border border-b-slate-200' : ''}`}
             >
               {item.keyword}
             </button>
