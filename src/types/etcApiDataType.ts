@@ -2,11 +2,11 @@ export interface ReviewListType {
   totalCount: number
   nowPage: number
   maxPage: number
-  reviewList: ReviewList[]
+  reviewList: ReviewType[]
   isLast: boolean
 }
 
-export interface ReviewList {
+export interface ReviewType {
   reviewId: number
   goodsCode: string
   content: string
