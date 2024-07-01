@@ -42,12 +42,12 @@ export default function MyPageHeader() {
     {
       id: 5,
       title: '후기',
-      url: '/mypage/review',
+      url: '/mypage/reviews',
     },
     {
       id: 6,
       title: '후기 작성',
-      url: '/review/[tradeId]',
+      url: '/review',
     },
     {
       id: 7,
