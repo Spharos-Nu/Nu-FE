@@ -1,17 +1,27 @@
 'use client'
 
-// import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useToastStore } from '@/components/Toast/store'
 import FalseReviewDuck from '@/public/svgs/duck/falseReviewDuck.svg'
 import ReviewDuck from '@/public/svgs/duck/reviewDuck.svg'
-// import { useLocalCategoryStore } from '../main/store'
+import { postReview } from '@/utils/etcApiActions'
+import { getGoodsDetail } from '@/utils/goodsDetailApiActions'
+import { useLocalCategoryStore } from '../main/store'
 
-export default function ReviewForm() {
+export default function ReviewForm({
+  goodsCode,
+  receiverUuid,
+}: {
+  goodsCode: string
+  receiverUuid: string
+}) {
   const [inputCount, setInputCount] = useState(0)
   const [rating, setRating] = useState(0)
   const { showToast } = useToastStore()
-  // const { categoryName } = useLocalCategoryStore()
+  const { categoryName } = useLocalCategoryStore()
+  const { data: session } = useSession()
 
   async function registrationReview(formData: FormData) {
     if (rating === 0) {
@@ -23,17 +33,44 @@ export default function ReviewForm() {
       return
     }
 
-    console.log(formData.get('content'))
+    const sellerUuidData = await getGoodsDetail(goodsCode)
+    if (sellerUuidData.status !== 200) {
+      showToast('정보를 불러오는데 실패했습니다.')
+      return
+    }
 
-    // const data = await postReview()
+    if (sellerUuidData.result.sellerUuid === receiverUuid) {
+      // 판매자에게 리뷰를 남기는 경우
+      const data = await postReview(
+        session?.user?.uuid,
+        receiverUuid,
+        goodsCode,
+        rating,
+        formData.get('content') as string,
+      )
 
-    // if (data.status === 200) {
-    //   showToast('상품이 등록되었습니다.')
-    //   redirect(`/${categoryName}`)
-    // }
+      if (data.status === 200) {
+        showToast('상품이 등록되었습니다.')
+        redirect(`/${categoryName}`)
+      }
+    } else {
+      // 구매자에게 리뷰를 남기는 경우
+      const data = await postReview(
+        receiverUuid,
+        session?.user?.uuid,
+        goodsCode,
+        rating,
+        formData.get('content') as string,
+      )
 
-    // showToast('리뷰 등록에 실패했습니다.')
-    // redirect(`/${categoryName}`)
+      if (data.status === 200) {
+        showToast('상품이 등록되었습니다.')
+        redirect(`/${categoryName}`)
+      }
+    }
+
+    showToast('리뷰 등록에 실패했습니다.')
+    redirect(`/mypage`)
   }
 
   return (

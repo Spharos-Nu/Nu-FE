@@ -24,14 +24,17 @@ export default function ReviewList() {
   }, [currentPage])
 
   return !reviewData?.length ? (
-    // <div className="flex justify-center items-center text-xl">
-    //   내역이 없습니다.
-    // </div>
-    <ReviewItem />
+    <div className="flex justify-center items-center text-xl">
+      내역이 없습니다.
+    </div>
   ) : (
     <>
       {reviewData.map((review) => (
-        <ReviewItem key={review.reviewId} />
+        <ReviewItem
+          key={review.reviewId}
+          review={review}
+          goodsCode={review.goodsCode}
+        />
       ))}
       {data!.maxPage > 1 && (
         <Pagination
