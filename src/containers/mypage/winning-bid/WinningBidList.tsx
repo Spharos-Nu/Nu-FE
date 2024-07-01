@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
+import { useWinningStore } from '@/containers/mypage/store'
+import WinningContent from '@/containers/mypage/winning-bid/WinningContent'
 import { GoodsData } from '@/types/goodsApiDataType'
 import { getWinningGoods } from '@/utils/goodsApiActions'
-import { useWinningStore } from './store'
 
 export default function WinningBidList() {
   const { currentStatus, page, setPage } = useWinningStore()
@@ -38,16 +38,18 @@ export default function WinningBidList() {
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-4 md:grid-cols-2">
+      <div className="mt-5 px-5 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 justify-center items-center">
         {data.goodsList.map((goods) => (
-          <GoodsSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
+          <WinningContent key={goods.goodsCode} goods={goods} />
         ))}
       </div>
-      <Pagination
-        currentPage={data.nowPage}
-        setCurrentPage={setPage}
-        maxPage={data.maxPage}
-      />
+      {data.maxPage > 1 && (
+        <Pagination
+          currentPage={data.nowPage}
+          setCurrentPage={setPage}
+          maxPage={data.maxPage}
+        />
+      )}
     </>
   )
 }

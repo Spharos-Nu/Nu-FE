@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
+import BidContent from '@/containers/mypage/bid/BidContent'
+import { useBidStore } from '@/containers/mypage/store'
 import { GoodsData } from '@/types/goodsApiDataType'
 import { getBidGoods } from '@/utils/goodsApiActions'
-import { useBidStore } from './store'
 
 export default function BidList() {
   const { currentStatus, page, setPage } = useBidStore()
@@ -38,16 +38,18 @@ export default function BidList() {
 
   return (
     <>
-      <div className="mt-[20px] px-[20px] grid grid-cols-3 gap-4 sm:grid-cols-3 md:w-grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 justify-center items-center">
+      <div className="mt-5 px-5 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 justify-center items-center">
         {data.goodsList.map((goods) => (
-          <GoodsSummary key={goods.goodsCode} goodsList={goods} />
+          <BidContent key={goods.goodsCode} goods={goods} />
         ))}
       </div>
-      <Pagination
-        currentPage={data.nowPage}
-        setCurrentPage={setPage}
-        maxPage={data.maxPage}
-      />
+      {data.maxPage > 1 && (
+        <Pagination
+          currentPage={data.nowPage}
+          setCurrentPage={setPage}
+          maxPage={data.maxPage}
+        />
+      )}
     </>
   )
 }

@@ -10,7 +10,6 @@ import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import { montserrat } from '@/styles/fonts'
-// import { getToken } from '@/utils/firebase'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 import { saveDeviceToken } from '@/utils/notificationApiActions'
 
@@ -80,15 +79,29 @@ export default function LoginForm() {
       redirect: false,
     })
 
-    if (res?.status === 200) {
-      getToken(messaging, {
-        vapidKey: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_VAPID_KEY,
-      }).then(async (currentToken) => {
-        if (currentToken) {
-          await saveDeviceToken(currentToken)
-          router.push(params)
+    const getFBToken = async (maxRetries: number = 3): Promise<string> => {
+      const getTokenWithRetry = async (attempts: number): Promise<string> => {
+        try {
+          const currentToken = await getToken(messaging, {
+            vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY!,
+          })
+          return currentToken
+        } catch (error) {
+          if (attempts < maxRetries) {
+            return await getTokenWithRetry(attempts + 1)
+          }
         }
-      })
+        return ''
+      }
+      return getTokenWithRetry(0)
+    }
+
+    if (res?.status === 200) {
+      const currentToken = await getFBToken()
+      if (currentToken) {
+        await saveDeviceToken(currentToken)
+      }
+      router.push(params)
     } else {
       showAlert('회원정보가 일치하지 않습니다.')
     }

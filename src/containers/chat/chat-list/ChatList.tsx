@@ -32,23 +32,18 @@ export default function ChatList() {
   const router = useRouter()
 
   const fetchChatList = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/v1/chat/rooms/${uuid}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: token,
-          },
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API}/v1/chat/rooms/${uuid}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
         },
-      )
-      const newData = await response.json()
-      console.log('채팅 목록 받아오기 성공', newData)
-      setData(newData.result)
-      setStatusCode(newData.status)
-    } catch (error) {
-      console.error('Error fetching chat rooms:', error)
-    }
+      },
+    )
+    const newData = await response.json()
+    setData(newData.result)
+    setStatusCode(newData.status)
   }
 
   useEffect(() => {
@@ -74,8 +69,7 @@ export default function ChatList() {
         <button
           type="button"
           onClick={() => {
-            signOut()
-            router.push('/login')
+            router.push(`/login?callbackUrl=${window.location.href}`)
           }}
         >
           <span className="text-blue-500 underline">로그인이 필요해요!</span>
@@ -93,10 +87,11 @@ export default function ChatList() {
           type="button"
           onClick={() => {
             signOut()
-            router.push('/login')
           }}
         >
-          <span className="text-blue-500 underline">로그인이 필요해요!</span>
+          <span className="hover:bg-gray-200 text-blue-500 underline">
+            로그인이 필요해요!
+          </span>
         </button>
       </div>
     )
@@ -143,7 +138,9 @@ export default function ChatList() {
                   />
                 </div>
                 <div className="text-xs mb-3 mt-2">
-                  {new Date(item.updatedAt).toLocaleString()}
+                  {item.updatedAt
+                    ? new Date(item.updatedAt).toLocaleString()
+                    : ''}
                 </div>
               </div>
             </Link>

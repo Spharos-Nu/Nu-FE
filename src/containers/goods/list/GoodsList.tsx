@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import Sending from '@/components/Chat/Sending'
 import Arrow from '@/public/svgs/header/below_arrow.svg'
 import CheckFalse from '@/public/svgs/icon/checkFalse.svg'
 import CheckTrue from '@/public/svgs/icon/checkTrue.svg'
@@ -100,9 +101,9 @@ export default function GoodsList() {
 
   useEffect(() => {
     const category = localStorage.getItem('category')
-    if (category === '애니메이션') setCategoryId(1)
-    else if (category === '아이돌') setCategoryId(2)
-    else if (category === '야구') setCategoryId(3)
+    if (category === 'animation') setCategoryId(1)
+    else if (category === 'idol') setCategoryId(2)
+    else if (category === 'baseball') setCategoryId(3)
     else setCategoryId(0) // 기본 카테고리 설정
     if (categoryId) getList()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -154,7 +155,7 @@ export default function GoodsList() {
             </div>
           </button>
           {toggle && (
-            <ul className="absolute z-10 w-[120px] top-[32px] -left-5 rounded-lg bg-white py-[5px] px-[8px] shadow-[0px_3px_10px_5px_rgba(0,0,0,0.05)]">
+            <ul className="absolute z-20 w-[120px] top-[32px] -left-5 rounded-lg bg-white py-[5px] px-[8px] shadow-[0px_3px_10px_5px_rgba(0,0,0,0.05)]">
               {filtering.map((item) => (
                 <li
                   key={item.id}
@@ -169,13 +170,17 @@ export default function GoodsList() {
           )}
         </div>
       </div>
-      <div className="mt-[15px] grid grid-cols-2 gap-2 sm:grid-cols-3 md:w-4grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
+      <div className="mt-[15px] mb-[20px] grid grid-cols-2 gap-2 sm:grid-cols-3 md:w-4grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
         {items.map((item) => (
           <GoodsItem key={item.goodsCode} goodsItemData={item} />
         ))}
       </div>
       <div ref={ref} />
-      {isLoading === true ? <div>로딩중</div> : null}
+      {isLoading === true ? (
+        <div className="flex h-full items-center justify-center">
+          <Sending />
+        </div>
+      ) : null}
     </main>
   )
 }

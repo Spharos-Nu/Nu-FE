@@ -11,8 +11,6 @@ export const getGoodsList = async (
   sort: string,
   sequence: string,
 ): Promise<ApiResponse<GoodsAllListType>> => {
-  console.log(categoryId, isTradingOnly, page, size, sort, sequence)
-
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API}/v1/read-n/all-list?categoryId=${categoryId}&isTradingOnly=${isTradingOnly}&page=${page}&size=${size}&sort=${sort},${sequence}`,
     {
@@ -21,7 +19,5 @@ export const getGoodsList = async (
   )
 
   const data = await res.json()
-  console.log(data)
-
   return data
 }

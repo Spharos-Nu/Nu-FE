@@ -21,11 +21,13 @@ export default function SearchResult() {
           <GoodsItem key={goods.goodsCode} goodsItemData={goods} />
         ))}
       </div>
-      <Pagination
-        currentPage={page}
-        setCurrentPage={setPage}
-        maxPage={searchResult.maxPage}
-      />
+      {searchResult.maxPage > 1 && (
+        <Pagination
+          currentPage={page}
+          setCurrentPage={setPage}
+          maxPage={searchResult.maxPage}
+        />
+      )}
     </>
   )
 }

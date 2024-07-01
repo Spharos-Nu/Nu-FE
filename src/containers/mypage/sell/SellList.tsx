@@ -1,15 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
-import { GoodsData } from '@/types/goodsApiDataType'
-import { getSellGoods } from '@/utils/goodsApiActions'
-import { useSellStore } from './store'
+import SellContent from '@/containers/mypage/sell/SellContent'
+import { useSellStore } from '@/containers/mypage/store'
+import { ReadsGoodsData } from '@/types/readApiDataType'
+import { getSellGoods } from '@/utils/readsApiActions'
 
 export default function SellList() {
   const { currentStatus, page, setPage } = useSellStore()
-  const [data, setData] = useState<GoodsData>({
+  const [data, setData] = useState<ReadsGoodsData>({
     totalCount: 0,
     nowPage: 0,
     maxPage: 0,
@@ -38,16 +38,18 @@ export default function SellList() {
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-4 md:grid-cols-2">
+      <div className="mt-5 px-5 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 justify-center items-center">
         {data.goodsList.map((goods) => (
-          <GoodsSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
+          <SellContent key={goods.goodsCode} goods={goods} />
         ))}
       </div>
-      <Pagination
-        currentPage={data.nowPage}
-        setCurrentPage={setPage}
-        maxPage={data.maxPage}
-      />
+      {data.maxPage > 1 && (
+        <Pagination
+          currentPage={data.nowPage}
+          setCurrentPage={setPage}
+          maxPage={data.maxPage}
+        />
+      )}
     </>
   )
 }

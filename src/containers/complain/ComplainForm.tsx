@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 import { useBasicAlertStore } from '@/components/Modal/store'
 import {
@@ -22,7 +23,7 @@ export default function ComplainForm({
   const pathname = usePathname()
   const { isClosed, showAlert } = useBasicAlertStore()
   const { goodsCode, seller } = params
-
+  const { data: session } = useSession()
   const userComplainList = [
     {
       id: 0,
@@ -79,6 +80,10 @@ export default function ComplainForm({
 
   async function registrationComplain(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
+    if (session?.user.accessToken === undefined) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
+    }
 
     const data =
       pathname === '/user-complain'

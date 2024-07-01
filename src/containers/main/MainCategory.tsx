@@ -1,20 +1,18 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import Link from 'next/link'
+import { redirect, useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import Animation from '@/public/svgs/category/animation.svg'
-import AnimationColor from '@/public/svgs/category/animationColor.svg'
 import AnimationGo from '@/public/svgs/category/animationGo.svg'
-import Baseball from '@/public/svgs/category/baseball.svg'
-import BaseballColor from '@/public/svgs/category/baseballColor.svg'
 import BaseballGo from '@/public/svgs/category/baseballGo.svg'
-import Kpop from '@/public/svgs/category/kpop.svg'
-import KpopColor from '@/public/svgs/category/kpopColor.svg'
 import KpopGo from '@/public/svgs/category/kpopGo.svg'
+import { useLocalCategoryStore } from './store'
 
 export default function MainCategory() {
   const { data: session } = useSession()
+  const { categoryName, setCategory } = useLocalCategoryStore()
   const router = useRouter()
   const [itemPosition, setItemPosition] = useState([
     { id: 1, pos: false },
@@ -34,29 +32,26 @@ export default function MainCategory() {
     setItemPosition(newPosition)
   }
 
-  const handleCategory = (name: string) => {
-    localStorage.setItem('category', name)
-    if (localStorage.getItem('category') === '아이돌') router.push('/idol')
-    else if (localStorage.getItem('category') === '야구')
-      router.push('/baseball')
-    else if (localStorage.getItem('category') === '애니메이션')
-      router.push('/animation')
+  const handleCategory = (item: string) => {
+    localStorage.setItem('category', item)
+    setCategory(item)
   }
 
   useEffect(() => {
-    if (localStorage.getItem('category') === '아이돌') router.push('/idol')
-    else if (localStorage.getItem('category') === '야구')
-      router.push('/baseball')
-    else if (localStorage.getItem('category') === '애니메이션')
-      router.push('/animation')
-    else if (session) {
+    const categoryFromStorage = localStorage.getItem('category')
+    console.log('categoryFromStorage', categoryFromStorage)
+    if (categoryFromStorage !== null) {
+      setCategory(categoryFromStorage)
+
+      router.push(`/${categoryName}`)
+    } else if (session) {
       const category = session.user.favoriteCategory
-      if (category === '아이돌') router.push('/idol')
-      else if (category === '야구') router.push('/baseball')
-      else if (category === '애니메이션') router.push('/animation')
+      if (category === '아이돌') redirect('/idol')
+      else if (category === '야구') redirect('/baseball')
+      else if (category === '애니메이션') redirect('/animation')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [categoryName])
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 overflow-scroll bg-white">
@@ -72,17 +67,36 @@ export default function MainCategory() {
             type="button"
             onClick={() => handlePosition(1)}
           >
-            {itemPosition[0].pos ? <KpopColor /> : <Kpop />}
+            {itemPosition[0].pos ? (
+              <Image
+                src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/idolColor.png`}
+                alt="idol-color"
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            ) : (
+              <Image
+                src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/idol.png`}
+                alt="idol"
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            )}
           </button>
           {itemPosition[0].pos && (
-            <button
+            <Link
+              href="/idol"
               className="absolute left-[20px] bottom-[50px]"
               type="button"
-              onClick={() => handleCategory('아이돌')}
+              onClick={() => handleCategory('idol')}
             >
               <span className="sr-only">아이돌</span>
               <KpopGo />
-            </button>
+            </Link>
           )}
         </div>
         <div
@@ -93,17 +107,36 @@ export default function MainCategory() {
             type="button"
             onClick={() => handlePosition(2)}
           >
-            {itemPosition[1].pos ? <BaseballColor /> : <Baseball />}
+            {itemPosition[1].pos ? (
+              <Image
+                src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/baseballColor.png`}
+                alt="baseball-color"
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            ) : (
+              <Image
+                src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/baseball.png`}
+                alt="baseball"
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            )}
           </button>
           {itemPosition[1].pos && (
-            <button
+            <Link
+              href="/baseball"
               className="absolute left-[20px] bottom-[50px]"
               type="button"
-              onClick={() => handleCategory('야구')}
+              onClick={() => handleCategory('baseball')}
             >
               <span className="sr-only">야구</span>
               <BaseballGo />
-            </button>
+            </Link>
           )}
         </div>
         <div
@@ -114,17 +147,36 @@ export default function MainCategory() {
             type="button"
             onClick={() => handlePosition(3)}
           >
-            {itemPosition[2].pos ? <AnimationColor /> : <Animation />}
+            {itemPosition[2].pos ? (
+              <Image
+                src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/animationColor.png`}
+                alt="animation-color"
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            ) : (
+              <Image
+                src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/animation.png`}
+                alt="animation"
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', height: 'auto' }}
+              />
+            )}
           </button>
           {itemPosition[2].pos && (
-            <button
+            <Link
+              href="/animation"
               className="absolute left-[20px] bottom-[50px]"
               type="button"
-              onClick={() => handleCategory('애니메이션')}
+              onClick={() => handleCategory('animation')}
             >
               <span className="sr-only">애니메이션</span>
               <AnimationGo />
-            </button>
+            </Link>
           )}
         </div>
       </div>

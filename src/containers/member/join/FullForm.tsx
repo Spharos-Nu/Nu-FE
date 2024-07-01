@@ -109,8 +109,8 @@ export default function FullForm() {
         <>
           <ProfileImgArea />
           <SelectCategory />
-          <NicknameInput />
           <IdInput />
+          <NicknameInput />
           <FirstBtnArea />
         </>
       ) : (

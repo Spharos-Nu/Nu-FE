@@ -19,13 +19,11 @@ export default function DeleteBtn({
 
   async function handleDelete() {
     if (tradingStatus === 0) {
-      console.log('hard delete')
       const res = await hardDeleteGoods(goodsCode)
       if (res.status === 200) {
         showAlert('상품이 삭제되었습니다.')
       }
     } else {
-      console.log('soft delete')
       const res = await softDeleteGoods(goodsCode)
       if (res.status === 200) {
         showAlert('상품이 삭제되었습니다.')

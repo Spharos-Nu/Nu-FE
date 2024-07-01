@@ -17,7 +17,7 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
   const [isLiked, setIsLiked] = useState<boolean>(false)
 
   const handleLike = async () => {
-    if (!session) {
+    if (session?.user.accessToken === undefined) {
       router.push(`/login?callbackUrl=${window.location.href}`)
     } else if (isLiked) {
       const data = await deleteLike(item.goodsCode)
@@ -43,6 +43,13 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (!session) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
+
   return (
     <div className="relative border rounded-xl inline-block mr-[10px] last:mr-0">
       <button
@@ -56,7 +63,7 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
           <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-[#989898]" />
         )}
       </button>
-      <Link href={`/goods/${item.goodsCode}`} className=" bg-clip-content">
+      <Link href={`/goods/${item.goodsCode}`} className="bg-clip-content">
         {item.thumbnail && (
           <Image
             src={item.thumbnail.url}

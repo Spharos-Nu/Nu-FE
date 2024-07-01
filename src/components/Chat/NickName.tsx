@@ -30,6 +30,7 @@ export default function NickName({ userUuid }: NickNameProps) {
     if (userUuid && userUuid !== undefined) {
       fetchNickname()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userUuid])
 
   return (

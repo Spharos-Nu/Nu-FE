@@ -2,11 +2,11 @@ export interface GoodsData {
   totalCount: number
   nowPage: number
   maxPage: number
+  goodsList: BidType[]
   isLast: boolean
-  goodsList: BiddingType[]
 }
 
-export interface BiddingType {
+export interface BidType {
   goodsCode: number
   name: string
   price: number

@@ -39,6 +39,11 @@ export default function UpdateProfileForm() {
       favoriteCategory,
     )
 
+    if (session?.user.accessToken === undefined) {
+      resetProfile()
+      setNicknameError(0)
+      router.push(`/login?callbackUrl=${window.location.href}`)
+    }
     if (data.status !== 200) {
       return null
     }
@@ -59,6 +64,13 @@ export default function UpdateProfileForm() {
     setNicknameError(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (!session) {
+      router.push(`/login?callbackUrl=${window.location.href}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
 
   return (
     <div>

@@ -39,11 +39,13 @@ export default function DetailList() {
           createdAt={history.createdAt}
         />
       ))}
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        maxPage={data!.maxPage}
-      />
+      {data!.maxPage > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          maxPage={data!.maxPage}
+        />
+      )}
     </>
   )
 }

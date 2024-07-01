@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import { useBasicAlertStore } from '@/components/Modal/store'
+import { useToastStore } from '@/components/Toast/store'
 import { useGoodsStore } from '@/containers/goods/registration/store'
 import DurationModal from './DurationModal'
 import TimeModal from './TimeModal'
@@ -20,7 +20,7 @@ export default function PeriodArea() {
   const [weekVisible, setWeekVisible] = useState<boolean>(false)
   const [timeVisible, setTimeVisible] = useState<boolean>(false)
   const [durationVisible, setDurationVisible] = useState<boolean>(false)
-  const { showAlert } = useBasicAlertStore()
+  const { showToast } = useToastStore()
 
   const getPickPeriod = useCallback(
     (item: string) => {
@@ -43,10 +43,10 @@ export default function PeriodArea() {
     [setBiddingDuration],
   )
 
+  // eslint-disable-next-line consistent-return
   const openTimeModal = () => {
     if (biddingPeriod === '') {
-      showAlert('날짜를 먼저 선택해주세요.')
-      return
+      return showToast('날짜를 먼저 선택해주세요.')
     }
     setTimeVisible(true)
   }

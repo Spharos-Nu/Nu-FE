@@ -37,20 +37,35 @@ export default function DetailInfo({
         <p className="text-[20px]">{goodsDetail.name}</p>
         <button type="button" onClick={() => handleLike()}>
           {isLiked ? (
-            <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-[#989898]" />
+            <LiaHeartSolid className="w-[30px] h-[32px] ml-[13px] text-red-500" />
           ) : (
-            <LiaHeartSolid className="w-[30px] h-[32px] ml-[13px] text-[#F84545]" />
+            <LiaHeart className="w-[30px] h-[32px] ml-[13px] text-slate-400" />
           )}
         </button>
       </div>
-      <div className="mt-[15px] leading-[30px]">
-        <p className="text-[16px] text-[#989898]">입찰 시작가</p>
-        <p className="pt-[2px] text-[34px] font-semibold">
-          {goodsDetail.minPrice.toLocaleString()}{' '}
-          <span className="text-[20px] font-normal">원</span>
-        </p>
+      <div className="flex justify-between items-end">
+        <div className="mt-[15px] leading-[30px]">
+          <p className="text-[16px] text-[#989898]">입찰 시작가</p>
+          <p className="pt-[2px] text-[34px] font-semibold">
+            {goodsDetail.minPrice.toLocaleString()}{' '}
+            <span className="text-[20px] font-normal">원</span>
+          </p>
+        </div>
+
+        <div className="flex flex-col mb-2">
+          <p className="pr-[15px] text-[#989898]">거래는</p>
+          {goodsDetail.wishTradeType === 0 && (
+            <p className="text-[17px]">{wishTrade[0].name}</p>
+          )}
+          {goodsDetail.wishTradeType === 1 && (
+            <p className="text-[17px]">{wishTrade[1].name}</p>
+          )}
+          {goodsDetail.wishTradeType === 2 && (
+            <p className="text-[17px]">{wishTrade[2].name}</p>
+          )}
+        </div>
       </div>
-      <div className="mt-[15px] px-[10px] py-[10px] rounded-2xl bg-[#f8f7f7] ">
+      <div className="mt-[15px] px-[10px] py-[10px] rounded-2xl bg-yellow-100 ">
         {goodsDetail.tradingStatus === 0 && (
           <Timer
             time={goodsDetail.openedAt}
@@ -65,18 +80,6 @@ export default function DetailInfo({
         )}
         {goodsDetail.tradingStatus >= 2 && (
           <p className="text-[21px]">입찰 종료</p>
-        )}
-      </div>
-      <div className="flex mt-[18px]">
-        <p className="pr-[15px] text-[#989898]">거래 방법</p>
-        {goodsDetail.wishTradeType === 0 && (
-          <p className="text-[17px]">{wishTrade[0].name}</p>
-        )}
-        {goodsDetail.wishTradeType === 1 && (
-          <p className="text-[17px]">{wishTrade[1].name}</p>
-        )}
-        {goodsDetail.wishTradeType === 2 && (
-          <p className="text-[17px]">{wishTrade[2].name}</p>
         )}
       </div>
     </div>

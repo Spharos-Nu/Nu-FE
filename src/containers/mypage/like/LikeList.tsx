@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import GoodsSummary from '@/components/GoodsSummary'
 import Pagination from '@/components/Pagination'
-import { GoodsData } from '@/types/goodsApiDataType'
+import LikeItem from '@/containers/mypage/like/LikeItem'
+import { useLikeStore } from '@/containers/mypage/store'
+import { GoodsData } from '@/types/aggregationApiDataType'
 import { getLikeGoods } from '@/utils/goodsApiActions'
-import { useLikeStore } from './store'
 
 export default function LikeList() {
   const { page, setPage } = useLikeStore()
@@ -28,26 +28,28 @@ export default function LikeList() {
     fetchData()
   }, [page])
 
-  if (!data.goodsList.length) {
+  if (!data.goodsList) {
     return (
       <div className="text-slate-500 text-center my-2">
-        좋아요 한 상품이 없습ㄴ니다.
+        좋아요 한 상품이 없습니다.
       </div>
     )
   }
 
   return (
-    <>
-      <div className="grid grid-cols-4 gap-4 md:grid-cols-2 justify-center items-center">
+    <div>
+      <div className="mt-5 px-5 grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 justify-center items-center">
         {data.goodsList.map((goods) => (
-          <GoodsSummary key={goods.goodsCode} goodsCode={goods.goodsCode} />
+          <LikeItem key={goods.goodsCode} goodsCode={goods.goodsCode} />
         ))}
       </div>
-      <Pagination
-        currentPage={data.nowPage}
-        setCurrentPage={setPage}
-        maxPage={data.maxPage}
-      />
-    </>
+      {data.maxPage > 1 && (
+        <Pagination
+          currentPage={data.nowPage}
+          setCurrentPage={setPage}
+          maxPage={data.maxPage}
+        />
+      )}
+    </div>
   )
 }

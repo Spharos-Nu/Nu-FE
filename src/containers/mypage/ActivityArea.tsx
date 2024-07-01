@@ -14,12 +14,15 @@ export default function ActivityArea() {
     <div className="mx-7 mt-7 mb-[100px] rounded-3xl bg-slate-100 px-2 py-2">
       <span className="text-xs pl-4 border-b-2">나의 활동</span>
       <div className="mt-1">
-        <Link href="/mypage/like" className="mx-4 my-5 flex items-center">
+        <Link
+          href="/mypage/like"
+          className="hover:bg-gray-200 mx-4 my-5 flex items-center"
+        >
           <FaHeart className="w-4 h-4 mr-3" />
           좋아요
         </Link>
         <hr className="my-2 border-gray-300" />
-        <div className="mx-4 my-5" aria-label="로그아웃">
+        <div className="hover:bg-gray-200 mx-4 my-5" aria-label="로그아웃">
           <button
             id="로그아웃"
             type="button"
@@ -31,7 +34,10 @@ export default function ActivityArea() {
           </button>
         </div>
         <hr className="my-2 border-gray-300" />
-        <Link href="/mypage/settings" className="mx-4 my-5 flex items-center">
+        <Link
+          href="/mypage/settings"
+          className="hover:bg-gray-200 mx-4 my-5 flex items-center"
+        >
           <FaGear className="w-4 h-4 mr-3" />
           설정
         </Link>

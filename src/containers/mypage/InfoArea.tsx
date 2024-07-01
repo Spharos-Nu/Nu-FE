@@ -18,7 +18,7 @@ export default function InfoArea() {
             alt="프로필 이미지"
             width={75}
             height={75}
-            className="rounded-full"
+            className="rounded-full aspect-square"
           />
         ) : (
           <NonProfileDuck />
@@ -37,13 +37,13 @@ export default function InfoArea() {
       <hr className="mt-4 my-2 border-gray-300" />
       <div className="flex text-center pt-2 mx-4 my-3">
         <Link
-          className="flex items-center justify-center w-1/2"
+          className="hover:bg-gray-200 flex items-center justify-center w-1/2"
           href="/mypage/update-profile"
         >
           정보 수정
         </Link>
         <Link
-          className="flex items-center justify-center w-1/2 border-l border-gray-300"
+          className="hover:bg-gray-200 flex items-center justify-center w-1/2 border-l border-gray-300"
           href="/mypage/update-password"
         >
           비밀번호 재설정

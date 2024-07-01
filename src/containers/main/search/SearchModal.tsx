@@ -11,16 +11,18 @@ export default function SearchModal() {
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 fixed bg-white fix justify-center">
-      <FaArrowLeft
-        onClick={() => setSearch(false)}
-        className="absolute top-5 left-5 text-xl"
-      />
-      <h1 className="h-[60px] leading-[60px] text-center text-[25px] tracking-[-0.1rem] font-semibold">
-        검색
-      </h1>
-      <SearchForm />
-      <RecentSearch />
-      <SearchResult />
+      <div className="w-full h-full overflow-scroll">
+        <FaArrowLeft
+          onClick={() => setSearch(false)}
+          className="absolute top-5 left-5 text-xl"
+        />
+        <h1 className="h-[60px] leading-[60px] text-center text-[25px] tracking-[-0.1rem] font-semibold">
+          검색
+        </h1>
+        <SearchForm />
+        <RecentSearch />
+        <SearchResult />
+      </div>
     </div>
   )
 }

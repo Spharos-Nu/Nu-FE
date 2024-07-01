@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { useToastStore } from '@/components/Toast/store'
 import LoginContour from '@/public/svgs/loginContour.svg'
 import { poppins } from '@/styles/fonts'
 
@@ -14,6 +15,8 @@ export default function SocialForm() {
       callbackUrl: params,
     })
   }
+
+  const { showToast } = useToastStore()
 
   return (
     <div
@@ -30,22 +33,21 @@ export default function SocialForm() {
           <LoginContour />
         </span>
       </div>
-      <div className="mt-5 w-full flex justify-center items-center">
-        <button type="button">
+      <div className="mt-5 w-full flex justify-center items-center space-x-7">
+        <button type="button" onClick={kakaoLogin}>
           <Image
-            src="/images/kakaoLoginBtn.png"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/kakaoLoginBtn.png`}
             alt="카카오 로그인"
             width={55}
             height={55}
-            onClick={kakaoLogin}
           />
           <span className="overflow-hidden absolute w-px h-px text-[0px]">
             카카오
           </span>
         </button>
-        <button type="button" className="mx-7">
+        <button type="button" onClick={() => showToast('준비 중입니다.')}>
           <Image
-            src="/images/naverLoginBtn.png"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/naverLoginBtn.png`}
             alt="네이버 로그인"
             width={55}
             height={55}
@@ -54,9 +56,9 @@ export default function SocialForm() {
             네이버
           </span>
         </button>
-        <button type="button" className="mr-7">
+        <button type="button" onClick={() => showToast('준비 중입니다.')}>
           <Image
-            src="/images/googleLoginBtn.png"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/googleLoginBtn.png`}
             alt="구글 로그인"
             width={55}
             height={55}
@@ -65,9 +67,9 @@ export default function SocialForm() {
             구글
           </span>
         </button>
-        <button type="button">
+        <button type="button" onClick={() => showToast('준비 중입니다.')}>
           <Image
-            src="/images/appleLoginBtn.png"
+            src={`https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/appleLoginBtn.png`}
             alt="애플 로그인"
             width={55}
             height={55}

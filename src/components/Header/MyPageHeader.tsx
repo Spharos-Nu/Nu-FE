@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import { IoHome } from 'react-icons/io5'
+import { useLocalCategoryStore } from '@/containers/main/store'
 
 interface NameType {
   id: number
@@ -15,6 +16,7 @@ export default function MyPageHeader() {
   const router = useRouter()
   const pathname = usePathname()
   const [title, setTitle] = useState<string>('마이페이지')
+  const { categoryName } = useLocalCategoryStore()
 
   const headerName: NameType[] = [
     {
@@ -95,7 +97,7 @@ export default function MyPageHeader() {
         aria-label="뒤로가기"
       >
         <FaArrowLeft
-          className="w-5 h-5"
+          className="hover:bg-gray-200 w-5 h-5"
           id="뒤로가기"
           onClick={() => router.back()}
         />
@@ -107,7 +109,11 @@ export default function MyPageHeader() {
         className="flex-[2] flex items-center justify-center"
         aria-label="홈"
       >
-        <IoHome className="w-5 h-5" id="홈" onClick={() => router.push('/')} />
+        <IoHome
+          className="hover:bg-gray-200 w-5 h-5"
+          id="홈"
+          onClick={() => router.push(`/${categoryName}`)}
+        />
       </span>
     </div>
   )
