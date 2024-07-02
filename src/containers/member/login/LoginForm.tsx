@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { FaCheckSquare } from 'react-icons/fa'
 import { TiDelete } from 'react-icons/ti'
 import { useBasicAlertStore } from '@/components/Modal/store'
+import { useNavStore } from '@/components/layout/store'
 import { montserrat } from '@/styles/fonts'
 import { saveId, getId, saveCheckbox, getCheckbox } from '@/utils/localStorage'
 import { saveDeviceToken } from '@/utils/notificationApiActions'
@@ -34,6 +35,7 @@ export default function LoginForm() {
   const [noPwd, setNoPwd] = useState<number>(0)
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const { showAlert } = useBasicAlertStore()
+  const { currentPage } = useNavStore()
 
   /** Id 입력 있을 때마다 업데이트 */
   const handleIdInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -210,8 +212,8 @@ export default function LoginForm() {
           </label>
         </span>
         <span>
-          <Link href="/find-info" aria-label="찾기" className="text-xs">
-            Forgot Password
+          <Link href={`/${currentPage}`} aria-label="찾기" className="text-xs">
+            홈으로
           </Link>
         </span>
       </div>

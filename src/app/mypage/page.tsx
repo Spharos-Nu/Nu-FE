@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { getServerSession } from 'next-auth'
-import { options } from '@/app/api/auth/[...nextauth]/options'
+import { signOut } from 'next-auth/react'
 import ActivityArea from '@/containers/mypage/ActivityArea'
 import DuckPointArea from '@/containers/mypage/DuckPointArea'
 import InfoArea from '@/containers/mypage/InfoArea'
@@ -9,14 +8,13 @@ import TradeArea from '@/containers/mypage/TradeArea'
 import { getMannerDuck, getDuckPoint } from '@/utils/memberApiActions'
 
 export default async function MyPage() {
-  const session = await getServerSession(options)
-
   const [mannerDuckData, duckPointData] = await Promise.all([
     getMannerDuck(),
     getDuckPoint(),
   ])
 
-  if (session?.user.accessToken === undefined)
+  if (!duckPointData.result) {
+    signOut()
     return (
       <>
         세션이 만료되었습니다.{' '}
@@ -28,6 +26,7 @@ export default async function MyPage() {
         </Link>
       </>
     )
+  }
 
   return (
     <>

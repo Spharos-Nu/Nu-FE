@@ -10,7 +10,7 @@ import { poppins } from '@/styles/fonts'
 export default async function Login() {
   const session = await getServerSession(options)
 
-  if (session && session.user.accessToken !== undefined) {
+  if (session) {
     return redirect('/')
   }
 
