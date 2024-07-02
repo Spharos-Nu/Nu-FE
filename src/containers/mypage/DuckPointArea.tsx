@@ -1,4 +1,8 @@
+'use client'
+
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
+import { useEffect } from 'react'
 import { ApiResponse } from '@/types/apiResponseType'
 
 export default function DuckPointArea({
@@ -7,6 +11,13 @@ export default function DuckPointArea({
   duckPointData: ApiResponse<number>
 }) {
   const duckPoint = duckPointData.result
+
+  useEffect(() => {
+    if (!duckPointData.result) {
+      signOut()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="mx-7 my-3 rounded-3xl bg-slate-100 px-2 py-2">
