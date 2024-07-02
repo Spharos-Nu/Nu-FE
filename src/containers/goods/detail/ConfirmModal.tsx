@@ -29,7 +29,7 @@ export default function ConfirmModal({
     },
   })
   const router = useRouter()
-  const { showAlert, isClosed } = useBasicAlertStore()
+  const { showAlert } = useBasicAlertStore()
   const { showToast } = useToastStore()
 
   // 입찰자 있을 경우
@@ -39,12 +39,14 @@ export default function ConfirmModal({
       if (res.status === 200) {
         showAlert('낙찰되었습니다.')
         showToast('마이페이지로 이동합니다.')
+        router.push(`/mypage/sell`)
       } else showToast(res.message)
     } else if (confirmData.get('cancel') === 'false') {
       const res = await postBiddingCancel(goodsCode)
       if (res.status === 200) {
         showAlert('취소되었습니다.')
         showToast('마이페이지로 이동합니다.')
+        router.push(`/mypage/sell`)
       } else showToast(res.message)
     }
   }
@@ -62,6 +64,7 @@ export default function ConfirmModal({
       if (res.status === 200) {
         showAlert('취소되었습니다.')
         showToast('마이페이지로 이동합니다.')
+        router.push(`/mypage/sell`)
       } else showToast(res.message)
     }
   }
@@ -76,13 +79,6 @@ export default function ConfirmModal({
     maxBidder()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  useEffect(() => {
-    if (isClosed) {
-      router.push(`/mypage/sell`)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClosed])
 
   return (
     <div className="fixed z-40 w-screen h-screen top-0 left-0 bg-black bg-opacity-50">
@@ -129,7 +125,7 @@ export default function ConfirmModal({
                 type="submit"
                 name="confirm"
                 value="true"
-                className="w-[calc(100%-50px)] h-[60px] bg-sky-600 text-white text-[17px] rounded-full mt-[15px] mx-[20px]"
+                className="w-[calc(100%-50px)] h-[60px] bg-sky-600 text-white text-[17px] rounded-full mt-[40px] mx-[20px]"
               >
                 낙찰하기
               </button>
@@ -137,7 +133,7 @@ export default function ConfirmModal({
                 type="submit"
                 name="cancel"
                 value="false"
-                className="w-[calc(100%-50px)] h-[60px] border border-sky-600 text-sky-600 text-[17px] rounded-full mt-[40px] mx-[20px]"
+                className="w-[calc(100%-50px)] h-[60px] border border-sky-600 text-sky-600 text-[17px] rounded-full mt-[15px] mx-[20px]"
               >
                 취소하기
               </button>

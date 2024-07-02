@@ -61,7 +61,7 @@ export default function SoonAndHitsItem({
               <TagItem key={list.id} tag={list} />
             ))}
           </div>
-          <p className="mt-[10px] text-[22px]">
+          <p className="mt-[10px] text-[22px] truncate">
             {item.minPrice.toLocaleString()}원
           </p>
         </div>

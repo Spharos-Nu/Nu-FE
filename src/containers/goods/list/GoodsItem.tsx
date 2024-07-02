@@ -10,9 +10,9 @@ export default function GoodsItem({
 }) {
   return (
     <div className="relative border rounded-2xl">
-      <Link href={`/goods/${goodsItemData.goodsCode}`}>
-        <div className="relative">
-          <LikeBtn goodsCode={goodsItemData.goodsCode} />
+      <div className="relative">
+        <LikeBtn goodsCode={goodsItemData.goodsCode} />
+        <Link href={`/goods/${goodsItemData.goodsCode}`}>
           <p
             className={`absolute z-10 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-[17px] whitespace-pre-line ${goodsItemData.tradingStatus === 0 || goodsItemData.tradingStatus === 1 ? 'hidden' : ''}`}
           >
@@ -40,10 +40,12 @@ export default function GoodsItem({
               />
             </div>
           )}
-        </div>
+        </Link>
+      </div>
+      <Link href={`/goods/${goodsItemData.goodsCode}`}>
         <div className="px-[20px] py-[20px]">
           <p className="truncate text-[15px]">{goodsItemData.goodsName}</p>
-          <p className="mt-[5px] text-[19px] font-medium">
+          <p className="mt-[5px] text-[19px] font-medium truncate">
             {goodsItemData.minPrice.toLocaleString()}{' '}
             <span className="text-[17px]">원</span>
           </p>
