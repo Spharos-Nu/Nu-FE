@@ -1,5 +1,6 @@
 'use client'
 
+import { signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import Pagination from '@/components/Pagination'
 import LikeItem from '@/containers/mypage/like/LikeItem'
@@ -22,6 +23,9 @@ export default function LikeList() {
       const res = await getLikeGoods(page)
       if (res.status === 200) {
         setData(res.result)
+      }
+      if (res.status === 401) {
+        signOut()
       }
     }
 
