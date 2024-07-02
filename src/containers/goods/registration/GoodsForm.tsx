@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { useToastStore } from '@/components/Toast/store'
-import { useLocalCategoryStore } from '@/containers/main/store'
+import { useNavStore } from '@/components/layout/store'
 import { postGoods } from '@/utils/goodsApiActions'
 import { uploadGoodsImage } from '@/utils/uploadImage'
 import CategoryArea from './CategoryArea'
@@ -35,7 +35,7 @@ export default function GoodsForm() {
   const { imageItems, resetImagesState } = useImageStore()
   const { tags, resetTagsState } = useTagStore()
   const { showToast } = useToastStore()
-  const { categoryName } = useLocalCategoryStore()
+  const { currentPage } = useNavStore()
 
   const validCheck = () => {
     if (imageItems.length === 0) {
@@ -100,7 +100,7 @@ export default function GoodsForm() {
       resetImagesState()
       resetTagsState()
       showToast('상품이 등록되었습니다.')
-      redirect(`/${categoryName}`)
+      redirect(`/${currentPage}`)
     }
 
     console.log(data.status)
@@ -108,7 +108,7 @@ export default function GoodsForm() {
     resetImagesState()
     resetTagsState()
     showToast(data.message)
-    redirect(`/${categoryName}`)
+    redirect(`/${currentPage}`)
   }
 
   function handleKeyDown(event: React.KeyboardEvent) {

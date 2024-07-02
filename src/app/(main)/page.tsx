@@ -1,5 +1,5 @@
 import MainCategory from '@/containers/main/MainCategory'
 
-export default async function CategoryPage() {
+export default function CategoryPage() {
   return <MainCategory />
 }

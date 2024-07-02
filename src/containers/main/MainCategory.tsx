@@ -2,18 +2,15 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect, useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import AnimationGo from '@/public/svgs/category/animationGo.svg'
 import BaseballGo from '@/public/svgs/category/baseballGo.svg'
 import KpopGo from '@/public/svgs/category/kpopGo.svg'
-import { useLocalCategoryStore } from './store'
 
 export default function MainCategory() {
   const { data: session } = useSession()
-  const { categoryName, setCategory } = useLocalCategoryStore()
-  const router = useRouter()
   const [itemPosition, setItemPosition] = useState([
     { id: 1, pos: false },
     { id: 2, pos: false },
@@ -32,26 +29,15 @@ export default function MainCategory() {
     setItemPosition(newPosition)
   }
 
-  const handleCategory = (item: string) => {
-    localStorage.setItem('category', item)
-    setCategory(item)
-  }
-
   useEffect(() => {
-    const categoryFromStorage = localStorage.getItem('category')
-    console.log('categoryFromStorage', categoryFromStorage)
-    if (categoryFromStorage !== null) {
-      setCategory(categoryFromStorage)
-
-      router.push(`/${categoryName}`)
-    } else if (session) {
+    if (session) {
       const category = session.user.favoriteCategory
       if (category === '아이돌') redirect('/idol')
       else if (category === '야구') redirect('/baseball')
       else if (category === '애니메이션') redirect('/animation')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName])
+  }, [])
 
   return (
     <div className="w-screen h-screen z-30 top-0 left-0 mb-[100px] overflow-scroll bg-white">
@@ -92,7 +78,6 @@ export default function MainCategory() {
               href="/idol"
               className="absolute w-full h-auto left-[20px] bottom-[50px]"
               type="button"
-              onClick={() => handleCategory('idol')}
             >
               <span className="sr-only">아이돌</span>
               <KpopGo />
@@ -132,7 +117,6 @@ export default function MainCategory() {
               href="/baseball"
               className="absolute w-full h-auto left-[20px] bottom-[50px]"
               type="button"
-              onClick={() => handleCategory('baseball')}
             >
               <span className="sr-only">야구</span>
               <BaseballGo />
@@ -172,7 +156,6 @@ export default function MainCategory() {
               href="/animation"
               className="absolute w-full h-auto left-[20px] bottom-[50px]"
               type="button"
-              onClick={() => handleCategory('animation')}
             >
               <span className="sr-only">애니메이션</span>
               <AnimationGo />

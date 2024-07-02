@@ -4,11 +4,11 @@ import { redirect } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { useToastStore } from '@/components/Toast/store'
+import { useNavStore } from '@/components/layout/store'
 import FalseReviewDuck from '@/public/svgs/duck/falseReviewDuck.svg'
 import ReviewDuck from '@/public/svgs/duck/reviewDuck.svg'
 import { postReview } from '@/utils/etcApiActions'
 import { getGoodsDetail } from '@/utils/goodsDetailApiActions'
-import { useLocalCategoryStore } from '../main/store'
 
 export default function ReviewForm({
   goodsCode,
@@ -20,7 +20,7 @@ export default function ReviewForm({
   const [inputCount, setInputCount] = useState(0)
   const [rating, setRating] = useState(0)
   const { showToast } = useToastStore()
-  const { categoryName } = useLocalCategoryStore()
+  const { currentPage } = useNavStore()
   const { data: session } = useSession()
 
   async function registrationReview(formData: FormData) {
@@ -51,7 +51,7 @@ export default function ReviewForm({
 
       if (data.status === 200) {
         showToast('리뷰가 등록되었습니다.')
-        redirect(`/${categoryName}`)
+        redirect(`/${currentPage}`)
       }
     } else {
       // 구매자에게 리뷰를 남기는 경우
@@ -65,7 +65,7 @@ export default function ReviewForm({
 
       if (data.status === 200) {
         showToast('리뷰가 등록되었습니다.')
-        redirect(`/${categoryName}`)
+        redirect(`/${currentPage}`)
       }
     }
 
