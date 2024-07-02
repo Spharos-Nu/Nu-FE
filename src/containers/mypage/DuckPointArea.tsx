@@ -13,7 +13,7 @@ export default function DuckPointArea({
   const duckPoint = duckPointData.result
 
   useEffect(() => {
-    if (!duckPointData.result) {
+    if (duckPointData.result === null) {
       signOut()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
