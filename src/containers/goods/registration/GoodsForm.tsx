@@ -103,6 +103,7 @@ export default function GoodsForm() {
       redirect(`/${categoryName}`)
     }
 
+    console.log(data.status)
     resetGoodsState()
     resetImagesState()
     resetTagsState()
