@@ -1,7 +1,20 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
+import { useEffect } from 'react'
 
-export default function NonUserHeader() {
+export default function NonUserHeader({
+  duckPointData,
+}: {
+  duckPointData: number
+}) {
+  useEffect(() => {
+    if (duckPointData === -1) {
+      signOut()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <Link href="/login" className="flex">
       <Image

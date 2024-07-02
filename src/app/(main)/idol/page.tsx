@@ -46,7 +46,11 @@ export default async function IdolHome() {
     <main className="w-full">
       <div className="flex justify-between pt-4 pl-6 pr-6">
         {/* <Intro /> */}
-        {session && duckPointData !== -1 ? <UserProfile /> : <NonUserHeader />}
+        {session && duckPointData !== -1 ? (
+          <UserProfile />
+        ) : (
+          <NonUserHeader duckPointData={duckPointData} />
+        )}
         <div className="content-center">
           {duckPointData !== -1 && (
             <UserDuckPoint duckPointData={duckPointData} />
