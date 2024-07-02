@@ -38,7 +38,9 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
       </div>
       <Link href={`/goods/${item.goodsCode}`} className="bg-clip-content">
         <div className="py-[20px] px-[20px]">
-          <p className="text-[#666666] text-[17px]">{item.goodsName}</p>
+          <p className="text-[#666666] text-[17px] truncate">
+            {item.goodsName}
+          </p>
           <div className="flex justify-between gap-[10px] pt-[20px]">
             {item.tradingStatus === 0 && (
               <LiveAndHotTimer
@@ -57,7 +59,7 @@ export default function LiveAndHotItem({ item }: { item: LiveAndHotType }) {
                 경매 마감
               </p>
             )}
-            <div className="bg-[#2B74B9] text-white rounded-full px-[20px] py-[8px]">
+            <div className="bg-[#2B74B9] text-white rounded-full px-[20px] py-[8px] truncate">
               {item.minPrice.toLocaleString()}원
             </div>
           </div>

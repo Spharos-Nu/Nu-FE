@@ -45,7 +45,7 @@ export default function GoodsItem({
       <Link href={`/goods/${goodsItemData.goodsCode}`}>
         <div className="px-[20px] py-[20px]">
           <p className="truncate text-[15px]">{goodsItemData.goodsName}</p>
-          <p className="mt-[5px] text-[19px] font-medium">
+          <p className="mt-[5px] text-[19px] font-medium truncate">
             {goodsItemData.minPrice.toLocaleString()}{' '}
             <span className="text-[17px]">원</span>
           </p>

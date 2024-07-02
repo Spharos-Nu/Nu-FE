@@ -1,7 +1,6 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { PiTrashSimpleLight } from 'react-icons/pi'
 import { SlArrowRight } from 'react-icons/sl'
 import { useBasicAlertStore } from '@/components/Modal/store'
@@ -15,28 +14,23 @@ export default function DeleteBtn({
   tradingStatus: number
 }) {
   const router = useRouter()
-  const { showAlert, isClosed } = useBasicAlertStore()
+  const { showAlert } = useBasicAlertStore()
 
   async function handleDelete() {
     if (tradingStatus === 0) {
       const res = await hardDeleteGoods(goodsCode)
       if (res.status === 200) {
         showAlert('상품이 삭제되었습니다.')
+        router.push(`/mypage/sell`)
       }
     } else {
       const res = await softDeleteGoods(goodsCode)
       if (res.status === 200) {
         showAlert('상품이 삭제되었습니다.')
+        router.push(`/mypage/sell`)
       }
     }
   }
-
-  useEffect(() => {
-    if (isClosed) {
-      router.push(`/mypage/sell`)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClosed])
 
   return (
     <div className="mt-[50px] mb-[30px] px-[20px] flex justify-center">

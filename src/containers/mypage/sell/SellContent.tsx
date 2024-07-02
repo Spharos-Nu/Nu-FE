@@ -25,7 +25,7 @@ export default function SellContent({ goods }: { goods: SummaryDataType }) {
       <div className="rounded-b-xl border border-t-0 border-gray-300 flex justify-between relative">
         <div className="py-4 px-3 w-full">
           <p className="truncate w-full mb-3">{goods.goodsName}</p>
-          <div className="bg-yellow-400 text-white flex justify-center items-center rounded-full px-[10px] py-3 text-sm">
+          <div className="bg-yellow-400 text-white flex justify-center items-center rounded-full px-[10px] py-3 text-sm truncate">
             최저입찰가:{' '}
             {goods.minPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
           </div>

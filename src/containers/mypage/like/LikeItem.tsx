@@ -85,7 +85,7 @@ export default function LikeItem({ goodsCode }: { goodsCode: string }) {
         />
         <div className="px-[20px] py-[20px]">
           <p className="truncate text-[15px]">{data.goodsName}</p>
-          <p className="mt-[5px] text-[19px] font-medium">
+          <p className="mt-[5px] text-[19px] font-medium truncate">
             {data.minPrice.toLocaleString()}{' '}
             <span className="text-[17px]">원</span>
           </p>
