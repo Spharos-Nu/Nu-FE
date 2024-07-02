@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import { IoHome } from 'react-icons/io5'
-import { useLocalCategoryStore } from '@/containers/main/store'
+import { useNavStore } from '@/components/layout/store'
 
 interface NameType {
   id: number
@@ -16,7 +16,7 @@ export default function MyPageHeader() {
   const router = useRouter()
   const pathname = usePathname()
   const [title, setTitle] = useState<string>('마이페이지')
-  const { categoryName } = useLocalCategoryStore()
+  const { currentPage } = useNavStore()
 
   const headerName: NameType[] = [
     {
@@ -112,7 +112,7 @@ export default function MyPageHeader() {
         <IoHome
           className="hover:bg-gray-200 w-5 h-5"
           id="홈"
-          onClick={() => router.push(`/${categoryName}`)}
+          onClick={() => router.push(`/${currentPage}`)}
         />
       </span>
     </div>
